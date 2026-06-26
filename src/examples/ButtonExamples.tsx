@@ -3,7 +3,7 @@ import { Button } from '../components/Button';
 export function ButtonExamples() {
   return (
     <section className="stack">
-      <h2>Button</h2>
+      <h2>Buttons</h2>
 
       <div className="row">
         <Button>Primary Button</Button>
