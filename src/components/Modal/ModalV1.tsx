@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import styles from './Modal.module.css';
+import { Button } from '../Button';
 
 type ModalProps = {
   isOpen: boolean;
@@ -34,7 +35,7 @@ export function ModalV1({ isOpen, onClose, title, children }: ModalProps) {
 
         <div>{children}</div>
 
-        <button onClick={onClose}>Close</button>
+        <Button onClick={onClose}>Close</Button>
       </div>
     </div>
   );

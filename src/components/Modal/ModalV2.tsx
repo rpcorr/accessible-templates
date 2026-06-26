@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import styles from './Modal.module.css';
+import { Button } from '../Button';
 
 type ModalProps = {
   isOpen: boolean;
@@ -73,7 +74,7 @@ export function ModalV2({ isOpen, onClose, title, children }: ModalProps) {
         <div>{children}</div>
 
         <div className="row" style={{ justifyContent: 'flex-end' }}>
-          <button onClick={onClose}>Close</button>
+          <Button onClick={onClose}>Close</Button>
         </div>
       </div>
     </div>
