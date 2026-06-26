@@ -7,10 +7,12 @@ export function ModalExamples() {
   const [accessibleModalOpen, setaccessibleModalOpen] = useState(false);
   const [largeModalOpen, setLargeModalOpen] = useState(false);
   const [smallModalOpen, setSmallModalOpen] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
   const triggerRef = useRef<HTMLButtonElement>(null);
   const largeTriggerRef = useRef<HTMLButtonElement>(null);
   const smallTriggerRef = useRef<HTMLButtonElement>(null);
+  const confirmTriggerRef = useRef<HTMLButtonElement>(null);
 
   return (
     <section className="stack">
@@ -95,6 +97,38 @@ export function ModalExamples() {
           <div className="row" style={{ justifyContent: 'flex-end' }}>
             <Button onClick={() => setSmallModalOpen(false)}>Cancel</Button>
             <Button variant="secondary">Confirm</Button>
+          </div>
+        </AccessibleModal>
+
+        {/* Confirmation Dialog */}
+        <Button ref={confirmTriggerRef} onClick={() => setConfirmOpen(true)}>
+          Open Confirmation Dialog
+        </Button>
+
+        <AccessibleModal
+          isOpen={confirmOpen}
+          onClose={() => setConfirmOpen(false)}
+          title="Delete Item?"
+          triggerRef={confirmTriggerRef}
+          size="small"
+        >
+          <p>
+            Are you sure you want to delete this item? This action cannot be
+            undone.
+          </p>
+
+          <div className="row" style={{ justifyContent: 'flex-end' }}>
+            <Button onClick={() => setConfirmOpen(false)}>Cancel</Button>
+
+            <Button
+              variant="secondary"
+              onClick={() => {
+                console.log('Item deleted');
+                setConfirmOpen(false);
+              }}
+            >
+              Confirm
+            </Button>
           </div>
         </AccessibleModal>
       </article>
