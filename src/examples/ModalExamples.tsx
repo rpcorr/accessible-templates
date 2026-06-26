@@ -8,11 +8,13 @@ export function ModalExamples() {
   const [largeModalOpen, setLargeModalOpen] = useState(false);
   const [smallModalOpen, setSmallModalOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const [formOpen, setFormOpen] = useState(false);
 
   const triggerRef = useRef<HTMLButtonElement>(null);
   const largeTriggerRef = useRef<HTMLButtonElement>(null);
   const smallTriggerRef = useRef<HTMLButtonElement>(null);
   const confirmTriggerRef = useRef<HTMLButtonElement>(null);
+  const formTriggerRef = useRef<HTMLButtonElement>(null);
 
   return (
     <section className="stack">
@@ -130,6 +132,48 @@ export function ModalExamples() {
               Confirm
             </Button>
           </div>
+        </AccessibleModal>
+
+        {/* Form Dialog */}
+        <Button ref={formTriggerRef} onClick={() => setFormOpen(true)}>
+          Open Form Dialog
+        </Button>
+
+        <AccessibleModal
+          isOpen={formOpen}
+          onClose={() => setFormOpen(false)}
+          title="Create User"
+          triggerRef={formTriggerRef}
+          size="medium"
+        >
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              console.log('Form submitted');
+              setFormOpen(false);
+            }}
+            className="stack"
+          >
+            <label>
+              Name
+              <input type="text" placeholder="Enter name" required />
+            </label>
+
+            <label>
+              Email
+              <input type="email" placeholder="Enter email" required />
+            </label>
+
+            <div className="row" style={{ justifyContent: 'flex-end' }}>
+              <Button type="button" onClick={() => setFormOpen(false)}>
+                Cancel
+              </Button>
+
+              <Button type="submit" variant="secondary">
+                Save
+              </Button>
+            </div>
+          </form>
         </AccessibleModal>
       </article>
     </section>
