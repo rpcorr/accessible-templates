@@ -7,6 +7,7 @@ type ModalProps = {
   onClose: () => void;
   title: string;
   children: React.ReactNode;
+  triggerRef?: React.MutableRefObject<HTMLButtonElement | null>;
 };
 
 export function AccessibleModal({
@@ -14,6 +15,7 @@ export function AccessibleModal({
   onClose,
   title,
   children,
+  triggerRef,
 }: ModalProps) {
   const modalRef = useRef<HTMLDivElement | null>(null);
 
@@ -61,6 +63,20 @@ export function AccessibleModal({
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen, onClose]);
+
+  const wasOpenRef = useRef(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      wasOpenRef.current = true;
+      return;
+    }
+
+    if (wasOpenRef.current && triggerRef?.current) {
+      triggerRef.current.focus();
+      wasOpenRef.current = false;
+    }
+  }, [isOpen, triggerRef]);
 
   if (!isOpen) return null;
 

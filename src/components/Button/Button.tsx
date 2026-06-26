@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import styles from './Button.module.css';
 
 type ButtonVariant = 'primary' | 'secondary';
@@ -11,23 +12,31 @@ type ButtonProps = {
   ariaLabel?: string;
 };
 
-export function Button({
-  children,
-  onClick,
-  disabled = false,
-  variant = 'primary',
-  type = 'button',
-  ariaLabel,
-}: ButtonProps) {
-  return (
-    <button
-      type={type}
-      onClick={onClick}
-      disabled={disabled}
-      aria-label={ariaLabel}
-      className={`${styles.button} ${styles[variant]}`}
-    >
-      {children}
-    </button>
-  );
-}
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      children,
+      onClick,
+      disabled = false,
+      variant = 'primary',
+      type = 'button',
+      ariaLabel,
+    },
+    ref,
+  ) => {
+    return (
+      <button
+        ref={ref}
+        type={type}
+        onClick={onClick}
+        disabled={disabled}
+        aria-label={ariaLabel}
+        className={`${styles.button} ${styles[variant]}`}
+      >
+        {children}
+      </button>
+    );
+  },
+);
+
+Button.displayName = 'Button';
