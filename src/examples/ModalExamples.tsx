@@ -6,9 +6,11 @@ export function ModalExamples() {
   const [basicModalOpen, setBasicModalOpen] = useState(false);
   const [accessibleModalOpen, setaccessibleModalOpen] = useState(false);
   const [largeModalOpen, setLargeModalOpen] = useState(false);
+  const [smallModalOpen, setSmallModalOpen] = useState(false);
 
   const triggerRef = useRef<HTMLButtonElement>(null);
   const largeTriggerRef = useRef<HTMLButtonElement>(null);
+  const smallTriggerRef = useRef<HTMLButtonElement>(null);
 
   return (
     <section className="stack">
@@ -71,6 +73,29 @@ export function ModalExamples() {
           </p>
 
           <Button>Primary Action</Button>
+        </AccessibleModal>
+
+        {/* Small Modal */}
+        <Button ref={smallTriggerRef} onClick={() => setSmallModalOpen(true)}>
+          Open Small Modal
+        </Button>
+
+        <AccessibleModal
+          isOpen={smallModalOpen}
+          onClose={() => setSmallModalOpen(false)}
+          title="Small Modal Example"
+          triggerRef={smallTriggerRef}
+          size="small"
+        >
+          <p>
+            This is a compact modal designed for quick actions like
+            confirmations, alerts, or simple decisions.
+          </p>
+
+          <div className="row" style={{ justifyContent: 'flex-end' }}>
+            <Button onClick={() => setSmallModalOpen(false)}>Cancel</Button>
+            <Button variant="secondary">Confirm</Button>
+          </div>
         </AccessibleModal>
       </article>
     </section>
