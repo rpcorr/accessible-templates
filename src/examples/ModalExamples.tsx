@@ -12,9 +12,8 @@ export function ModalExamples() {
     <section className="stack">
       <h2>Modals</h2>
 
-      <article className="stack">
-        <h3>Basic Modal</h3>
-
+      <article className="row">
+        {/* Basic Modal */}
         <Button onClick={() => setBasicModalOpen(true)}>
           Open Basic Modal
         </Button>
@@ -26,11 +25,8 @@ export function ModalExamples() {
         >
           <p>A simple modal with overlay click and Escape key support.</p>
         </BasicModal>
-      </article>
 
-      <article className="stack">
-        <h3>Accessible Modal</h3>
-
+        {/* Accessible Modal */}
         <Button ref={triggerRef} onClick={() => setaccessibleModalOpen(true)}>
           Open Accessible Modal
         </Button>
