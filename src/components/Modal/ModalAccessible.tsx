@@ -90,13 +90,13 @@ export function AccessibleModal({
         aria-labelledby="modal-title"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 id="modal-title">{title}</h2>
-
-        <div>{children}</div>
-
         <div className="row" style={{ justifyContent: 'flex-end' }}>
           <Button onClick={onClose}>Close</Button>
         </div>
+
+        <h2 id="modal-title">{title}</h2>
+
+        <div>{children}</div>
       </div>
     </div>
   );
