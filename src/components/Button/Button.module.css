@@ -1,0 +1,42 @@
+.button {
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.05s ease;
+}
+
+/* PRIMARY */
+.primary {
+  background-color: #2563eb;
+  color: white;
+}
+
+.primary:hover {
+  background-color: #1d4ed8;
+}
+
+/* SECONDARY */
+.secondary {
+  background-color: #e5e7eb;
+  color: #111827;
+}
+
+.secondary:hover {
+  background-color: #d1d5db;
+}
+
+/* ACCESSIBILITY CRITICAL: FOCUS STATE */
+.button:focus-visible {
+  outline: 3px solid #f59e0b;
+  outline-offset: 3px;
+}
+
+/* DISABLED STATE */
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
