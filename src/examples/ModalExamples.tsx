@@ -29,7 +29,11 @@ export function ModalExamples() {
         </BasicModal>
 
         {/* Accessible Modal */}
-        <Button ref={triggerRef} onClick={() => setaccessibleModalOpen(true)}>
+        <Button
+          ref={triggerRef}
+          variant="secondary"
+          onClick={() => setaccessibleModalOpen(true)}
+        >
           Open Accessible Modal
         </Button>
 
