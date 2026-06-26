@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { Button } from './components/Button';
-import { Modal } from './components/Modal/Modal';
+import { ModalV1, ModalV2 } from './components/Modal';
 
 function App() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [v1Open, setV1Open] = useState(false);
+  const [v2Open, setV2Open] = useState(false);
 
   return (
     <main className="container stack">
@@ -22,21 +23,36 @@ function App() {
         </div>
       </section>
 
-      {/* ======================
-          MODAL SECTION
-      ====================== */}
+      {/* ================= V1 ================= */}
       <section className="stack">
-        <h2>Modal</h2>
+        <h2>Modal V1 (Basic)</h2>
 
-        <Button onClick={() => setIsOpen(true)}>Open Modal</Button>
+        <Button onClick={() => setV1Open(true)}>Open Modal V1</Button>
 
-        <Modal
-          isOpen={isOpen}
-          onClose={() => setIsOpen(false)}
-          title="Example Modal"
+        <ModalV1
+          isOpen={v1Open}
+          onClose={() => setV1Open(false)}
+          title="Modal V1"
         >
-          <p>This is Modal v1</p>
-        </Modal>
+          <p>Basic modal without accessibility enhancements.</p>
+        </ModalV1>
+      </section>
+
+      {/* ================= V2 ================= */}
+      <section className="stack">
+        <h2>Modal V2 (Accessible)</h2>
+
+        <Button onClick={() => setV2Open(true)}>Open Modal V2</Button>
+
+        <ModalV2
+          isOpen={v2Open}
+          onClose={() => setV2Open(false)}
+          title="Modal V2"
+        >
+          <p>This modal includes focus trap + ARIA support.</p>
+
+          <Button>Focusable Button</Button>
+        </ModalV2>
       </section>
     </main>
   );
