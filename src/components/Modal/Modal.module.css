@@ -13,4 +13,6 @@
   border-radius: var(--radius-lg);
   min-width: 320px;
   max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
 }

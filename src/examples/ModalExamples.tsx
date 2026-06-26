@@ -9,12 +9,14 @@ export function ModalExamples() {
   const [smallModalOpen, setSmallModalOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
+  const [longContentOpen, setLongContentOpen] = useState(false);
 
   const triggerRef = useRef<HTMLButtonElement>(null);
   const largeTriggerRef = useRef<HTMLButtonElement>(null);
   const smallTriggerRef = useRef<HTMLButtonElement>(null);
   const confirmTriggerRef = useRef<HTMLButtonElement>(null);
   const formTriggerRef = useRef<HTMLButtonElement>(null);
+  const longContentTriggerRef = useRef<HTMLButtonElement>(null);
 
   return (
     <section className="stack">
@@ -174,6 +176,46 @@ export function ModalExamples() {
               </Button>
             </div>
           </form>
+        </AccessibleModal>
+
+        {/* Long Content Modal */}
+        <Button
+          ref={longContentTriggerRef}
+          onClick={() => setLongContentOpen(true)}
+        >
+          Open Long Content Modal
+        </Button>
+
+        <AccessibleModal
+          isOpen={longContentOpen}
+          onClose={() => setLongContentOpen(false)}
+          title="Long Content Modal"
+          triggerRef={longContentTriggerRef}
+          size="medium"
+        >
+          <div className="stack">
+            <p>
+              This modal demonstrates how long content behaves inside a
+              constrained dialog window.
+            </p>
+
+            {Array.from({ length: 20 }).map((_, i) => (
+              <p key={i}>
+                Paragraph {i + 1}: Lorem ipsum dolor sit amet, consectetur
+                adipiscing elit. This is placeholder content to simulate a long
+                scrollable modal body.
+              </p>
+            ))}
+
+            <p>
+              End of content. Even with long content, keyboard navigation and
+              focus trapping should still work correctly.
+            </p>
+
+            <div className="row" style={{ justifyContent: 'flex-end' }}>
+              <Button onClick={() => setLongContentOpen(false)}>Close</Button>
+            </div>
+          </div>
         </AccessibleModal>
       </article>
     </section>
