@@ -9,7 +9,12 @@ type ModalProps = {
   children: React.ReactNode;
 };
 
-export function ModalV2({ isOpen, onClose, title, children }: ModalProps) {
+export function AccessibleModal({
+  isOpen,
+  onClose,
+  title,
+  children,
+}: ModalProps) {
   const modalRef = useRef<HTMLDivElement | null>(null);
 
   // ESC + focus trap setup

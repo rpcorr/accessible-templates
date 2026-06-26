@@ -9,7 +9,7 @@ type ModalProps = {
   children: React.ReactNode;
 };
 
-export function ModalV1({ isOpen, onClose, title, children }: ModalProps) {
+export function BasicModal({ isOpen, onClose, title, children }: ModalProps) {
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === 'Escape') {

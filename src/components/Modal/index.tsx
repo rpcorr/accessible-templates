@@ -1,2 +1,2 @@
-export { ModalV1 } from './ModalV1';
-export { ModalV2 } from './ModalV2';
+export { BasicModal } from './ModalBasic';
+export { AccessibleModal } from './ModalAccessible';
