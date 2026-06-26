@@ -7,6 +7,7 @@ type ModalProps = {
   onClose: () => void;
   title: string;
   children: React.ReactNode;
+  size?: 'medium' | 'large';
   triggerRef?: React.MutableRefObject<HTMLButtonElement | null>;
 };
 
