@@ -1,0 +1,27 @@
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+}
+
+/* Vertical spacing layout */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Horizontal layout */
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+/* Centering utility */
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
