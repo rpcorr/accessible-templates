@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { DropdownMenu } from './DropdownMenu';
+import styles from './Dropdown.module.css';
 
 type DropdownProps = {
   trigger: React.ReactElement<{ onClick?: React.MouseEventHandler }>;
@@ -40,7 +42,7 @@ export function Dropdown({ trigger, children }: DropdownProps) {
   }, []);
 
   return (
-    <div ref={ref} style={{ position: 'relative', display: 'inline-block' }}>
+    <div ref={ref} className={styles.dropdown}>
       {React.cloneElement(trigger, {
         onClick: (e: React.MouseEvent) => {
           trigger.props.onClick?.(e);
@@ -48,19 +50,7 @@ export function Dropdown({ trigger, children }: DropdownProps) {
         },
       })}
 
-      {open && (
-        <div
-          style={{
-            position: 'absolute',
-            top: '100%',
-            left: 0,
-            marginTop: '8px',
-            zIndex: 1000,
-          }}
-        >
-          <div className="dropdownMenu">{children}</div>
-        </div>
-      )}
+      {open && <DropdownMenu>{children}</DropdownMenu>}
     </div>
   );
 }
