@@ -32,7 +32,7 @@ export function BasicModal({ isOpen, onClose, title, children }: ModalProps) {
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className="row" style={{ justifyContent: 'flex-end' }}>
-          <Button onClick={onClose}>Close</Button>
+          <Button onClick={onClose}>X</Button>
         </div>
         <h2>{title}</h2>
 

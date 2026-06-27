@@ -100,7 +100,7 @@ export function AccessibleModal({
       >
         {!disableClose && (
           <div className="row" style={{ justifyContent: 'flex-end' }}>
-            <Button onClick={onClose}>Close</Button>
+            <Button onClick={onClose}>X</Button>
           </div>
         )}
 
