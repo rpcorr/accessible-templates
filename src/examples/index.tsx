@@ -1,2 +1,2 @@
-export { ButtonExamples } from './ButtonExamples';
-export { ModalExamples } from './ModalExamples';
+export { ButtonExamples } from './Buttons/ButtonExamples';
+export { ModalExamples } from './Modals/ModalExamples';

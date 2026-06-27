@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
-import { Button } from '../components/Button';
-import { BasicModal, AccessibleModal } from '../components/Modal';
+import { Button } from '../../components/Button';
+import { BasicModal, AccessibleModal } from '../../components/Modal';
 import { createModalExamples } from './ModalExamplesData';
 
 export function ModalExamples() {
