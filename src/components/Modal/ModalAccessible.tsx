@@ -9,6 +9,7 @@ type ModalProps = {
   children: React.ReactNode;
   size?: 'small' | 'medium' | 'large';
   triggerRef?: React.MutableRefObject<HTMLButtonElement | null>;
+  disableClose?: boolean;
 };
 
 export function AccessibleModal({
@@ -17,6 +18,7 @@ export function AccessibleModal({
   title,
   children,
   triggerRef,
+  disableClose = false,
 }: ModalProps) {
   const modalRef = useRef<HTMLDivElement | null>(null);
 
@@ -36,7 +38,7 @@ export function AccessibleModal({
 
     function handleKeyDown(e: KeyboardEvent) {
       // ESC closes modal
-      if (e.key === 'Escape') {
+      if (e.key === 'Escape' && !disableClose) {
         onClose();
       }
 
@@ -63,7 +65,7 @@ export function AccessibleModal({
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, onClose, disableClose]);
 
   const wasOpenRef = useRef(false);
 
@@ -82,7 +84,12 @@ export function AccessibleModal({
   if (!isOpen) return null;
 
   return (
-    <div className={styles.overlay} onClick={onClose}>
+    <div
+      className={styles.overlay}
+      onClick={() => {
+        if (!disableClose) onClose();
+      }}
+    >
       <div
         ref={modalRef}
         className={styles.modal}
@@ -91,9 +98,11 @@ export function AccessibleModal({
         aria-labelledby="modal-title"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="row" style={{ justifyContent: 'flex-end' }}>
-          <Button onClick={onClose}>Close</Button>
-        </div>
+        {!disableClose && (
+          <div className="row" style={{ justifyContent: 'flex-end' }}>
+            <Button onClick={onClose}>Close</Button>
+          </div>
+        )}
 
         <h2 id="modal-title">{title}</h2>
 

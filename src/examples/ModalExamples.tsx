@@ -10,6 +10,7 @@ export function ModalExamples() {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
   const [longContentOpen, setLongContentOpen] = useState(false);
+  const [nonDismissibleOpen, setNonDismissibleOpen] = useState(false);
 
   const triggerRef = useRef<HTMLButtonElement>(null);
   const largeTriggerRef = useRef<HTMLButtonElement>(null);
@@ -17,6 +18,7 @@ export function ModalExamples() {
   const confirmTriggerRef = useRef<HTMLButtonElement>(null);
   const formTriggerRef = useRef<HTMLButtonElement>(null);
   const longContentTriggerRef = useRef<HTMLButtonElement>(null);
+  const nonDismissibleTriggerRef = useRef<HTMLButtonElement>(null);
 
   return (
     <section className="stack">
@@ -215,6 +217,37 @@ export function ModalExamples() {
             <div className="row" style={{ justifyContent: 'flex-end' }}>
               <Button onClick={() => setLongContentOpen(false)}>Close</Button>
             </div>
+          </div>
+        </AccessibleModal>
+
+        {/* Non-dismissible Modal */}
+        <Button
+          ref={nonDismissibleTriggerRef}
+          onClick={() => setNonDismissibleOpen(true)}
+        >
+          Open Non-dismissible Modal
+        </Button>
+
+        <AccessibleModal
+          isOpen={nonDismissibleOpen}
+          onClose={() => setNonDismissibleOpen(false)}
+          title="Important Action Required"
+          triggerRef={nonDismissibleTriggerRef}
+          size="small"
+          disableClose
+        >
+          <p>
+            You must complete this action before continuing. This modal cannot
+            be closed by clicking outside or pressing Escape.
+          </p>
+
+          <div className="row" style={{ justifyContent: 'flex-end' }}>
+            <Button
+              variant="secondary"
+              onClick={() => setNonDismissibleOpen(false)}
+            >
+              I Understand
+            </Button>
           </div>
         </AccessibleModal>
       </article>
