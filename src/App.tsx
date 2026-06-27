@@ -1,4 +1,5 @@
 import { ButtonExamples, ModalExamples } from './examples';
+import { DropdownExamples } from './examples/Dropdown/DropdownExamples';
 
 function App() {
   return (
@@ -8,6 +9,8 @@ function App() {
       <ButtonExamples />
 
       <ModalExamples />
+
+      <DropdownExamples />
     </main>
   );
 }
