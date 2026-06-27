@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 type DropdownProps = {
-  trigger: React.ReactElement<React.ButtonHTMLAttributes<HTMLButtonElement>>;
+  trigger: React.ReactElement<{ onClick?: React.MouseEventHandler }>;
   children: React.ReactNode;
 };
 
@@ -42,10 +42,25 @@ export function Dropdown({ trigger, children }: DropdownProps) {
   return (
     <div ref={ref} style={{ position: 'relative', display: 'inline-block' }}>
       {React.cloneElement(trigger, {
-        onClick: toggle,
+        onClick: (e: React.MouseEvent) => {
+          trigger.props.onClick?.(e);
+          toggle();
+        },
       })}
 
-      {open && <div>{children}</div>}
+      {open && (
+        <div
+          style={{
+            position: 'absolute',
+            top: '100%',
+            left: 0,
+            marginTop: '8px',
+            zIndex: 1000,
+          }}
+        >
+          <div className="dropdownMenu">{children}</div>
+        </div>
+      )}
     </div>
   );
 }
