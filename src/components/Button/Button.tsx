@@ -5,7 +5,7 @@ type ButtonVariant = 'primary' | 'secondary';
 
 type ButtonProps = {
   children: React.ReactNode;
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
   variant?: ButtonVariant;
   type?: 'button' | 'submit' | 'reset';
