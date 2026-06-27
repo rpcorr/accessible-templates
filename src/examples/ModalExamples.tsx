@@ -22,7 +22,7 @@ export function ModalExamples() {
       id: 'basic',
       title: 'Basic Modal',
       type: 'basic',
-      triggerLabel: 'Open Basic Modal',
+      triggerLabel: 'Open Basic Modal (not accessible)',
       content: <p>A simple modal with overlay click and Escape key support.</p>,
     },
     {
