@@ -8,7 +8,6 @@ export function DropdownMenu({ children }: DropdownMenuProps) {
       style={{
         position: 'absolute',
         top: '100%',
-        right: 0,
         background: 'white',
         border: '1px solid #ccc',
         padding: '8px',
