@@ -9,6 +9,7 @@ type ModalExample = {
   triggerLabel: string;
   type: 'basic' | 'accessible';
   content: React.ReactNode;
+  disableClose?: boolean;
 };
 
 export function ModalExamples() {
@@ -140,6 +141,29 @@ export function ModalExamples() {
         </div>
       ),
     },
+
+    {
+      id: 'blocking',
+      title: 'Important Action Required',
+      type: 'accessible',
+      size: 'small',
+      triggerLabel: 'Open Non-dismissible Modal',
+      disableClose: true,
+      content: (
+        <>
+          <p>
+            You must complete this action before continuing. This modal cannot
+            be closed by clicking outside or pressing <kbd>Escape</kbd>.
+          </p>
+
+          <div className="row" style={{ justifyContent: 'flex-end' }}>
+            <Button variant="secondary" onClick={() => setOpenModal(null)}>
+              I Understand
+            </Button>
+          </div>
+        </>
+      ),
+    },
   ];
 
   return (
@@ -177,6 +201,7 @@ export function ModalExamples() {
                   title={modal.title}
                   triggerRef={activeTriggerRef}
                   size={modal.size}
+                  disableClose={modal.disableClose}
                 >
                   {modal.content}
                 </AccessibleModal>
