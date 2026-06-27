@@ -24,7 +24,7 @@ export function ModalExamples() {
           return (
             <div key={modal.id} className="row">
               <Button
-                variant={modal.type === 'accessible' ? 'secondary' : 'primary'}
+                variant={modal.variant ?? 'primary'}
                 onClick={(e) => {
                   activeTriggerRef.current = e.currentTarget;
                   setOpenModal(modal.id);

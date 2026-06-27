@@ -6,4 +6,5 @@ export type ModalExample = {
   type: 'basic' | 'accessible';
   content: React.ReactNode;
   disableClose?: boolean;
+  variant?: 'primary' | 'secondary';
 };

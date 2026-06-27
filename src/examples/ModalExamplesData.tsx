@@ -34,6 +34,7 @@ export function createModalExamples({
       type: 'accessible',
       size: 'large',
       triggerLabel: 'Open Large Modal',
+      variant: 'secondary',
       content: (
         <>
           <p>This is a larger modal used for complex layouts.</p>
@@ -65,6 +66,7 @@ export function createModalExamples({
       type: 'accessible',
       size: 'small',
       triggerLabel: 'Open Confirmation Dialog',
+      variant: 'secondary',
       content: (
         <>
           <p>Are you sure you want to delete this item?</p>
@@ -90,6 +92,7 @@ export function createModalExamples({
       type: 'accessible',
       size: 'medium',
       triggerLabel: 'Open Form Dialog',
+      variant: 'secondary',
       content: (
         <form
           onSubmit={(e) => {
