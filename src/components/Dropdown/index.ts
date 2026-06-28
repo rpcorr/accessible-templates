@@ -1,1 +1,2 @@
-export { Dropdown } from './Dropdown';
+export { DropdownBasic } from './DropdownBasic';
+export { DropdownAccessible } from './DropdownAccessible';

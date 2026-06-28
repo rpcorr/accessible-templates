@@ -6,7 +6,7 @@ type DropdownProps = {
   children: React.ReactNode;
 };
 
-export function Dropdown({ trigger, children }: DropdownProps) {
+export function DropdownAccessible({ trigger, children }: DropdownProps) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
 
