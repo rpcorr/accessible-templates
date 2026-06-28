@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { DropdownMenu } from './DropdownMenu';
 import styles from './Dropdown.module.css';
 
 type DropdownProps = {
@@ -50,7 +49,7 @@ export function Dropdown({ trigger, children }: DropdownProps) {
         },
       })}
 
-      {open && <DropdownMenu>{children}</DropdownMenu>}
+      {open && <div className={styles.dropdownMenu}>{children}</div>}
     </div>
   );
 }

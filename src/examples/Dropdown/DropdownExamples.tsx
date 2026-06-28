@@ -1,4 +1,4 @@
-import { Dropdown, DropdownMenu } from '../../components/Dropdown';
+import { Dropdown } from '../../components/Dropdown';
 import { Button } from '../../components/Button';
 
 export function DropdownExamples() {
@@ -7,11 +7,9 @@ export function DropdownExamples() {
       <h2>Dropdowns</h2>
 
       <Dropdown trigger={<Button>Open Menu</Button>}>
-        <DropdownMenu>
-          <button>Profile</button>
-          <button>Settings</button>
-          <button>Logout</button>
-        </DropdownMenu>
+        <button>Profile</button>
+        <button>Settings</button>
+        <button>Logout</button>
       </Dropdown>
     </div>
   );
