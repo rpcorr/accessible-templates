@@ -26,8 +26,6 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
   const menuRef = useRef<HTMLDivElement | null>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
 
-  const activeIndexRef = useRef(activeIndex);
-
   const menuId = useId();
   const buttonId = useId();
 
@@ -51,10 +49,6 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
   const items = React.Children.toArray(children).filter(React.isValidElement);
 
   useEffect(() => {
-    activeIndexRef.current = activeIndex;
-  }, [activeIndex]);
-
-  useEffect(() => {
     if (!open) return;
     if (!items.length) return;
 
@@ -74,18 +68,15 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
 
-        const el =
-          menuRef.current?.querySelectorAll<HTMLElement>('[role="menuitem"]')[
-            activeIndexRef.current
-          ];
+        const item = items[activeIndex] as React.ReactElement<MenuItemProps>;
 
-        el?.click();
+        item.props.onClick?.({} as React.MouseEvent<HTMLButtonElement>);
 
         close();
         return;
       }
 
-      if (['Escape', 'Tab'].includes(e.key)) {
+      if (e.key === 'Escape' || e.key === 'Tab') {
         close();
         return;
       }
@@ -96,20 +87,15 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [open, items.length, items]);
+  }, [open, items.length, activeIndex]);
 
   useEffect(() => {
     if (!open) return;
 
-    requestAnimationFrame(() => {
-      const items =
-        menuRef.current?.querySelectorAll<HTMLElement>('[role="menuitem"]');
-
-      if (!items?.length) return;
-
-      const el = items[activeIndexRef.current];
-      el?.focus();
-    });
+    const el = menuRef.current?.children[activeIndex] as
+      | HTMLElement
+      | undefined;
+    el?.focus();
   }, [activeIndex, open]);
 
   useEffect(() => {
