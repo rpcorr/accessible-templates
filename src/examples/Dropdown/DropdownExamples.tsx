@@ -15,9 +15,15 @@ export function DropdownExamples() {
         </DropdownBasic>
 
         <DropdownAccessible trigger={<Button>Open Accessible Menu</Button>}>
-          <button>Item 1</button>
-          <button>Item 2</button>
-          <button>Item 3</button>
+          <button role="menuitem" tabIndex={-1}>
+            Profile
+          </button>
+          <button role="menuitem" tabIndex={-1}>
+            Settings
+          </button>
+          <button role="menuitem" tabIndex={-1}>
+            Logout
+          </button>
         </DropdownAccessible>
       </div>
     </div>
