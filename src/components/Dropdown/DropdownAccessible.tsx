@@ -6,17 +6,37 @@ type TriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   ref?: React.Ref<HTMLButtonElement>;
 };
 
-type MenuItemProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+type DropdownProps = {
+  trigger: React.ReactElement<TriggerProps>;
+  children:
+    | React.ReactElement<DropdownItemProps>
+    | React.ReactElement<DropdownItemProps>[];
+};
+
+type DropdownItemProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  children: React.ReactNode;
   role?: string;
   tabIndex?: number;
 };
 
-type DropdownProps = {
-  trigger: React.ReactElement<TriggerProps>;
-  children:
-    | React.ReactElement<MenuItemProps>
-    | React.ReactElement<MenuItemProps>[];
-};
+export const DropdownItem = React.forwardRef<
+  HTMLButtonElement,
+  DropdownItemProps
+>(({ children, onClick, ...props }, ref) => {
+  return (
+    <button
+      {...props}
+      ref={ref}
+      role="menuitem"
+      tabIndex={-1}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+});
+
+DropdownItem.displayName = 'DropdownItem';
 
 export function DropdownAccessible({ trigger, children }: DropdownProps) {
   const [open, setOpen] = useState(false);
@@ -46,16 +66,15 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
     triggerRef.current?.focus();
   }
 
-  const items = React.Children.toArray(children).filter(React.isValidElement);
+  const itemRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
   useEffect(() => {
     if (!open) return;
-    if (!items.length) return;
 
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === 'ArrowDown') {
         e.preventDefault();
-        setActiveIndex((i) => Math.min(i + 1, items.length - 1));
+        setActiveIndex((i) => Math.min(i + 1, itemRefs.current.length - 1));
         return;
       }
 
@@ -68,11 +87,9 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
 
-        const item = items[activeIndex] as React.ReactElement<MenuItemProps>;
-
-        item.props.onClick?.({} as React.MouseEvent<HTMLButtonElement>);
-
+        itemRefs.current[activeIndex]?.click();
         close();
+
         return;
       }
 
@@ -87,15 +104,10 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [open, items.length, activeIndex]);
+  }, [open, activeIndex]);
 
   useEffect(() => {
     if (!open) return;
-
-    const el = menuRef.current?.children[activeIndex] as
-      | HTMLElement
-      | undefined;
-    el?.focus();
   }, [activeIndex, open]);
 
   useEffect(() => {
@@ -111,6 +123,12 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    if (!open) return;
+
+    itemRefs.current[activeIndex]?.focus();
+  }, [activeIndex, open]);
 
   return (
     <div ref={ref} className={styles.dropdown}>
@@ -134,15 +152,12 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
           className={styles.dropdownMenu}
           aria-labelledby={buttonId}
         >
-          {React.Children.map(children, (child) => {
-            if (!React.isValidElement<MenuItemProps>(child)) return child;
+          {React.Children.map(children, (child, index) => {
+            if (!React.isValidElement(child)) return child;
 
             return React.cloneElement(child, {
-              role: 'menuitem',
-              tabIndex: -1,
-              onClick: (e) => {
-                child.props.onClick?.(e);
-                close();
+              ref: (el: HTMLButtonElement | null) => {
+                itemRefs.current[index] = el;
               },
             });
           })}

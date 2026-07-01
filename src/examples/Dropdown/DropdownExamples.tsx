@@ -1,5 +1,8 @@
 import { Button } from '../../components/Button';
-import { DropdownAccessible } from '../../components/Dropdown/DropdownAccessible';
+import {
+  DropdownAccessible,
+  DropdownItem,
+} from '../../components/Dropdown/DropdownAccessible';
 import { DropdownBasic } from '../../components/Dropdown/DropdownBasic';
 
 export function DropdownExamples() {
@@ -15,15 +18,9 @@ export function DropdownExamples() {
         </DropdownBasic>
 
         <DropdownAccessible trigger={<Button>Open Accessible Menu</Button>}>
-          <button role="menuitem" tabIndex={-1}>
-            Profile
-          </button>
-          <button role="menuitem" tabIndex={-1}>
-            Settings
-          </button>
-          <button role="menuitem" tabIndex={-1}>
-            Logout
-          </button>
+          <DropdownItem>Profile</DropdownItem>
+          <DropdownItem>Settings</DropdownItem>
+          <DropdownItem>Logout</DropdownItem>
         </DropdownAccessible>
       </div>
     </div>
