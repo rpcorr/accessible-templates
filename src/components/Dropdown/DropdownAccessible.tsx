@@ -74,13 +74,23 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === 'ArrowDown') {
         e.preventDefault();
-        setActiveIndex((i) => Math.min(i + 1, itemRefs.current.length - 1));
+        // doesn't loop through the items, just stops at the last one
+        //setActiveIndex((i) => Math.min(i + 1, itemRefs.current.length - 1));
+
+        // loops through the items
+        setActiveIndex((i) => (i + 1) % itemRefs.current.length);
         return;
       }
 
       if (e.key === 'ArrowUp') {
         e.preventDefault();
-        setActiveIndex((i) => Math.max(i - 1, 0));
+        // doesn't loop through the items, just stops at the first one
+        //setActiveIndex((i) => Math.max(i - 1, 0));
+
+        // loops through the items
+        setActiveIndex(
+          (i) => (i - 1 + itemRefs.current.length) % itemRefs.current.length,
+        );
         return;
       }
 
