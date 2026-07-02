@@ -3,7 +3,6 @@ import styles from './Dropdown.module.css';
 
 type TriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  ref?: React.Ref<HTMLButtonElement>;
 };
 
 type DropdownProps = {
@@ -145,14 +144,14 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
       {React.cloneElement(trigger, {
         ref: triggerRef,
         id: buttonId,
-        onClick: (e) => {
+        onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
           trigger.props.onClick?.(e);
           toggle();
         },
         'aria-haspopup': 'menu',
         'aria-expanded': open,
         'aria-controls': menuId,
-      })}
+      } as TriggerProps)}
 
       {open && (
         <div
@@ -163,13 +162,18 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
           aria-labelledby={buttonId}
         >
           {React.Children.map(children, (child, index) => {
-            if (!React.isValidElement(child)) return child;
+            if (!React.isValidElement<DropdownItemProps>(child)) return child;
 
-            return React.cloneElement(child, {
-              ref: (el: HTMLButtonElement | null) => {
-                itemRefs.current[index] = el;
+            return React.cloneElement(
+              child as React.ReactElement<
+                DropdownItemProps & React.RefAttributes<HTMLButtonElement>
+              >,
+              {
+                ref: (el: HTMLButtonElement | null) => {
+                  itemRefs.current[index] = el;
+                },
               },
-            });
+            );
           })}
         </div>
       )}
