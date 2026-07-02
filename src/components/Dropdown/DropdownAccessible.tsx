@@ -28,6 +28,7 @@ export const DropdownItem = React.forwardRef<
       ref={ref}
       role="menuitem"
       tabIndex={-1}
+      aria-selected={false}
       onClick={onClick}
     >
       {children}
@@ -39,7 +40,6 @@ DropdownItem.displayName = 'DropdownItem';
 
 export function DropdownAccessible({ trigger, children }: DropdownProps) {
   const [open, setOpen] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
 
   const ref = useRef<HTMLDivElement | null>(null);
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -48,16 +48,11 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
   const menuId = useId();
   const buttonId = useId();
 
+  const typeaheadRef = useRef('');
+  const typeaheadTimeout = useRef<number | null>(null);
+
   function toggle() {
-    setOpen((o) => {
-      const next = !o;
-
-      if (next) {
-        setActiveIndex(0);
-      }
-
-      return next;
-    });
+    setOpen((o) => !o);
   }
 
   function close() {
@@ -71,40 +66,112 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
     if (!open) return;
 
     function handleKeyDown(e: KeyboardEvent) {
+      const active = document.activeElement;
+
+      // ✅ HARD GUARD: only respond if focus is inside menu
+      if (!menuRef.current?.contains(active)) return;
+
+      const items = itemRefs.current.filter(
+        (el): el is HTMLButtonElement => el instanceof HTMLButtonElement,
+      );
+
+      // Guard: no items = nothing to navigate
+      if (items.length === 0) return;
+
+      const currentIndex = items.indexOf(active as HTMLButtonElement);
+
+      // fallback if nothing is focused yet
+      const safeIndex = currentIndex >= 0 ? currentIndex : 0;
+
+      // -------------------------
+      // TYPEAHEAD
+      // -------------------------
+      if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        typeaheadRef.current += e.key.toLowerCase();
+
+        if (typeaheadTimeout.current) {
+          window.clearTimeout(typeaheadTimeout.current);
+        }
+
+        typeaheadTimeout.current = window.setTimeout(() => {
+          typeaheadRef.current = '';
+        }, 500);
+
+        const matchIndex = items.findIndex((item) =>
+          item.textContent?.toLowerCase().startsWith(typeaheadRef.current),
+        );
+
+        if (matchIndex !== -1) {
+          items[matchIndex]?.focus();
+        }
+
+        return;
+      }
+
+      // -------------------------
+      // ARROW DOWN
+      // -------------------------
       if (e.key === 'ArrowDown') {
         e.preventDefault();
-        // doesn't loop through the items, just stops at the last one
-        //setActiveIndex((i) => Math.min(i + 1, itemRefs.current.length - 1));
 
-        // loops through the items
-        setActiveIndex((i) => (i + 1) % itemRefs.current.length);
+        const next = (safeIndex + 1) % items.length;
+        items[next]?.focus();
+
         return;
       }
 
+      // -------------------------
+      // ARROW UP
+      // -------------------------
       if (e.key === 'ArrowUp') {
         e.preventDefault();
-        // doesn't loop through the items, just stops at the first one
-        //setActiveIndex((i) => Math.max(i - 1, 0));
 
-        // loops through the items
-        setActiveIndex(
-          (i) => (i - 1 + itemRefs.current.length) % itemRefs.current.length,
-        );
+        const prev = (safeIndex - 1 + items.length) % items.length;
+        items[prev]?.focus();
+
         return;
       }
 
+      // -------------------------
+      // HOME
+      // -------------------------
+      if (e.key === 'Home') {
+        e.preventDefault();
+        items[0]?.focus();
+        return;
+      }
+
+      // -------------------------
+      // END
+      // -------------------------
+      if (e.key === 'End') {
+        e.preventDefault();
+        items[items.length - 1]?.focus();
+        return;
+      }
+
+      // -------------------------
+      // ENTER / SPACE
+      // -------------------------
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
 
-        itemRefs.current[activeIndex]?.click();
-        close();
+        const current = document.activeElement;
+
+        if (current instanceof HTMLButtonElement) {
+          current.click();
+          close();
+        }
 
         return;
       }
 
-      if (e.key === 'Escape' || e.key === 'Tab') {
+      // -------------------------
+      // ESC
+      // -------------------------
+      if (e.key === 'Escape') {
+        e.preventDefault();
         close();
-        return;
       }
     }
 
@@ -113,11 +180,7 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [open, activeIndex]);
-
-  useEffect(() => {
-    if (!open) return;
-  }, [activeIndex, open]);
+  }, [open]);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -136,8 +199,28 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
   useEffect(() => {
     if (!open) return;
 
-    itemRefs.current[activeIndex]?.focus();
-  }, [activeIndex, open]);
+    const items = itemRefs.current.filter(
+      (el): el is HTMLButtonElement => el instanceof HTMLButtonElement,
+    );
+
+    if (items.length === 0) return;
+
+    const lastFocusedIndex = items.indexOf(
+      document.activeElement as HTMLButtonElement,
+    );
+
+    if (lastFocusedIndex !== -1) {
+      items[lastFocusedIndex]?.focus();
+    } else {
+      items[0]?.focus();
+    }
+  }, [open]);
+
+  useEffect(() => {
+    if (open) {
+      typeaheadRef.current = '';
+    }
+  }, [open]);
 
   return (
     <div ref={ref} className={styles.dropdown}>
@@ -169,8 +252,12 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
                 DropdownItemProps & React.RefAttributes<HTMLButtonElement>
               >,
               {
-                ref: (el: HTMLButtonElement | null) => {
+                ref: (el) => {
                   itemRefs.current[index] = el;
+                },
+
+                onMouseEnter: () => {
+                  itemRefs.current[index]?.focus();
                 },
               },
             );
