@@ -29,6 +29,9 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
   const typeaheadRef = useRef('');
   const typeaheadTimeout = useRef<number | null>(null);
 
+  const getItems = () =>
+    itemRefs.current.filter((el): el is HTMLButtonElement => el !== null);
+
   function openMenu() {
     setActiveIndex(0);
     setOpen(true);
@@ -74,21 +77,9 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
     if (!open) return;
 
     function handleKeyDown(e: KeyboardEvent) {
-      const active = document.activeElement;
+      if (!open) return;
 
-      if (!menuRef.current?.contains(active)) return;
-
-      // If focus is inside a nested menu (not root items), ignore root navigation
-      const isInsideRootItems =
-        active instanceof HTMLButtonElement &&
-        itemRefs.current.includes(active);
-
-      if (!isInsideRootItems) return;
-
-      const items = itemRefs.current.filter(
-        (el): el is HTMLButtonElement =>
-          el instanceof HTMLButtonElement && el.dataset?.menuitem === 'true',
-      );
+      const items = getItems();
 
       if (items.length === 0) return;
 
@@ -105,12 +96,13 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
         }, 500);
 
         const matchIndex = items.findIndex((item) =>
-          item.textContent?.toLowerCase().startsWith(typeaheadRef.current),
+          (item.textContent ?? '')
+            .toLowerCase()
+            .startsWith(typeaheadRef.current),
         );
 
         if (matchIndex !== -1) {
           setActiveIndex(matchIndex);
-          items[matchIndex]?.focus();
         }
 
         return;
@@ -119,18 +111,29 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
       // Arrow Down
       if (e.key === 'ArrowDown') {
         e.preventDefault();
-        const next = (activeIndex + 1) % items.length;
-        setActiveIndex(next);
-        items[next]?.focus();
+
+        if (!items.length) return;
+
+        setActiveIndex((i) => {
+          const next = (i + 1) % items.length;
+
+          return next;
+        });
+
         return;
       }
 
       // Arrow Up
       if (e.key === 'ArrowUp') {
         e.preventDefault();
-        const prev = (activeIndex - 1 + items.length) % items.length;
-        setActiveIndex(prev);
-        items[prev]?.focus();
+
+        if (!items.length) return;
+
+        setActiveIndex((i) => {
+          const prev = (i - 1 + items.length) % items.length;
+          return prev;
+        });
+
         return;
       }
 
@@ -138,7 +141,6 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
       if (e.key === 'Home') {
         e.preventDefault();
         setActiveIndex(0);
-        items[0]?.focus();
         return;
       }
 
@@ -147,17 +149,16 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
         e.preventDefault();
         const last = items.length - 1;
         setActiveIndex(last);
-        items[last]?.focus();
         return;
       }
 
       // Enter / Space
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        if (active instanceof HTMLButtonElement) {
-          active.click();
-          close();
-        }
+
+        items[activeIndex]?.click();
+        close();
+
         return;
       }
 
@@ -195,10 +196,20 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
   // -------------------------
   // FOCUS ON OPEN
   // -------------------------
+
   useEffect(() => {
     if (!open) return;
 
-    itemRefs.current[activeIndex]?.focus();
+    const items = itemRefs.current.filter(
+      (el): el is HTMLButtonElement => el !== null,
+    );
+
+    const el = items[activeIndex];
+    if (!el) return;
+
+    requestAnimationFrame(() => {
+      el.focus();
+    });
   }, [open, activeIndex]);
 
   // reset typeahead
@@ -225,6 +236,7 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
           <div
             id={menuId}
             role="menu"
+            aria-orientation="vertical"
             ref={menuRef}
             className={styles.dropdownMenu}
             aria-labelledby={buttonId}
@@ -242,10 +254,8 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
                     itemRefs.current[index] = el;
                   },
                   tabIndex: index === activeIndex ? 0 : -1,
-                  onMouseEnter: () => {
-                    setActiveIndex(index);
-                    itemRefs.current[index]?.focus();
-                  },
+                  'aria-selected': index === activeIndex,
+                  role: 'menuitem',
                 });
               }
 
