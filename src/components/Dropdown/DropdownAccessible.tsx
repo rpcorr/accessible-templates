@@ -15,6 +15,7 @@ type DropdownProps = {
 
 export function DropdownAccessible({ trigger, children }: DropdownProps) {
   const [open, setOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const rootRef = useRef<HTMLDivElement | null>(null);
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -28,8 +29,9 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
   const typeaheadRef = useRef('');
   const typeaheadTimeout = useRef<number | null>(null);
 
-  function toggle() {
-    setOpen((v) => !v);
+  function openMenu() {
+    setActiveIndex(0);
+    setOpen(true);
   }
 
   function close() {
@@ -37,6 +39,13 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
     triggerRef.current?.focus();
   }
 
+  function toggle() {
+    if (open) {
+      close();
+    } else {
+      openMenu();
+    }
+  }
   // -------------------------
   // CONTEXT VALUE
   // -------------------------
@@ -83,9 +92,6 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
 
       if (items.length === 0) return;
 
-      const currentIndex = items.indexOf(active as HTMLButtonElement);
-      const safeIndex = currentIndex >= 0 ? currentIndex : 0;
-
       // TYPEAHEAD
       if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
         typeaheadRef.current += e.key.toLowerCase();
@@ -103,6 +109,7 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
         );
 
         if (matchIndex !== -1) {
+          setActiveIndex(matchIndex);
           items[matchIndex]?.focus();
         }
 
@@ -112,20 +119,25 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
       // Arrow Down
       if (e.key === 'ArrowDown') {
         e.preventDefault();
-        items[(safeIndex + 1) % items.length]?.focus();
+        const next = (activeIndex + 1) % items.length;
+        setActiveIndex(next);
+        items[next]?.focus();
         return;
       }
 
       // Arrow Up
       if (e.key === 'ArrowUp') {
         e.preventDefault();
-        items[(safeIndex - 1 + items.length) % items.length]?.focus();
+        const prev = (activeIndex - 1 + items.length) % items.length;
+        setActiveIndex(prev);
+        items[prev]?.focus();
         return;
       }
 
       // Home
       if (e.key === 'Home') {
         e.preventDefault();
+        setActiveIndex(0);
         items[0]?.focus();
         return;
       }
@@ -133,7 +145,9 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
       // End
       if (e.key === 'End') {
         e.preventDefault();
-        items[items.length - 1]?.focus();
+        const last = items.length - 1;
+        setActiveIndex(last);
+        items[last]?.focus();
         return;
       }
 
@@ -159,7 +173,7 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [open]);
+  }, [open, activeIndex]);
 
   // -------------------------
   // OUTSIDE CLICK
@@ -184,20 +198,8 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
   useEffect(() => {
     if (!open) return;
 
-    const items = itemRefs.current.filter(
-      (el): el is HTMLButtonElement => el instanceof HTMLButtonElement,
-    );
-
-    if (items.length === 0) return;
-
-    const last = items.indexOf(document.activeElement as HTMLButtonElement);
-
-    if (last !== -1) {
-      items[last]?.focus();
-    } else {
-      items[0]?.focus();
-    }
-  }, [open]);
+    itemRefs.current[activeIndex]?.focus();
+  }, [open, activeIndex]);
 
   // reset typeahead
   useEffect(() => {
@@ -239,7 +241,9 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
                   ref: (el: HTMLButtonElement | null) => {
                     itemRefs.current[index] = el;
                   },
+                  tabIndex: index === activeIndex ? 0 : -1,
                   onMouseEnter: () => {
+                    setActiveIndex(index);
                     itemRefs.current[index]?.focus();
                   },
                 });
