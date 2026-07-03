@@ -1,5 +1,8 @@
 import React, { useState, useRef, useEffect, useId } from 'react';
 import styles from './Dropdown.module.css';
+import { DropdownItem } from './DropdownItem';
+import { DropdownMenuProvider } from './DropdownMenuProvider';
+import type { DropdownMenuContextValue } from './DropdownMenuContext';
 
 type TriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
@@ -7,52 +10,26 @@ type TriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 type DropdownProps = {
   trigger: React.ReactElement<TriggerProps>;
-  children:
-    | React.ReactElement<DropdownItemProps>
-    | React.ReactElement<DropdownItemProps>[];
-};
-
-type DropdownItemProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   children: React.ReactNode;
-  role?: string;
-  tabIndex?: number;
 };
-
-export const DropdownItem = React.forwardRef<
-  HTMLButtonElement,
-  DropdownItemProps
->(({ children, onClick, ...props }, ref) => {
-  return (
-    <button
-      {...props}
-      ref={ref}
-      role="menuitem"
-      tabIndex={-1}
-      aria-selected={false}
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  );
-});
-
-DropdownItem.displayName = 'DropdownItem';
 
 export function DropdownAccessible({ trigger, children }: DropdownProps) {
   const [open, setOpen] = useState(false);
 
-  const ref = useRef<HTMLDivElement | null>(null);
+  const rootRef = useRef<HTMLDivElement | null>(null);
   const menuRef = useRef<HTMLDivElement | null>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
 
   const menuId = useId();
   const buttonId = useId();
 
+  const itemRefs = useRef<Array<HTMLButtonElement | null>>([]);
+
   const typeaheadRef = useRef('');
   const typeaheadTimeout = useRef<number | null>(null);
 
   function toggle() {
-    setOpen((o) => !o);
+    setOpen((v) => !v);
   }
 
   function close() {
@@ -60,32 +37,56 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
     triggerRef.current?.focus();
   }
 
-  const itemRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  // -------------------------
+  // CONTEXT VALUE
+  // -------------------------
 
+  const closeFnsRef = useRef<Set<() => void>>(new Set());
+
+  const menuContextValue: DropdownMenuContextValue = {
+    registerClose: (fn: () => void) => {
+      closeFnsRef.current.add(fn);
+
+      return () => {
+        closeFnsRef.current.delete(fn);
+      };
+    },
+
+    requestCloseAll: () => {
+      closeFnsRef.current.forEach((fn) => fn());
+      close();
+    },
+  };
+
+  // -------------------------
+  // KEYBOARD NAVIGATION (FLAT LIST ONLY)
+  // -------------------------
   useEffect(() => {
     if (!open) return;
 
     function handleKeyDown(e: KeyboardEvent) {
       const active = document.activeElement;
 
-      // ✅ HARD GUARD: only respond if focus is inside menu
       if (!menuRef.current?.contains(active)) return;
 
+      // If focus is inside a nested menu (not root items), ignore root navigation
+      const isInsideRootItems =
+        active instanceof HTMLButtonElement &&
+        itemRefs.current.includes(active);
+
+      if (!isInsideRootItems) return;
+
       const items = itemRefs.current.filter(
-        (el): el is HTMLButtonElement => el instanceof HTMLButtonElement,
+        (el): el is HTMLButtonElement =>
+          el instanceof HTMLButtonElement && el.dataset?.menuitem === 'true',
       );
 
-      // Guard: no items = nothing to navigate
       if (items.length === 0) return;
 
       const currentIndex = items.indexOf(active as HTMLButtonElement);
-
-      // fallback if nothing is focused yet
       const safeIndex = currentIndex >= 0 ? currentIndex : 0;
 
-      // -------------------------
       // TYPEAHEAD
-      // -------------------------
       if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
         typeaheadRef.current += e.key.toLowerCase();
 
@@ -108,67 +109,45 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
         return;
       }
 
-      // -------------------------
-      // ARROW DOWN
-      // -------------------------
+      // Arrow Down
       if (e.key === 'ArrowDown') {
         e.preventDefault();
-
-        const next = (safeIndex + 1) % items.length;
-        items[next]?.focus();
-
+        items[(safeIndex + 1) % items.length]?.focus();
         return;
       }
 
-      // -------------------------
-      // ARROW UP
-      // -------------------------
+      // Arrow Up
       if (e.key === 'ArrowUp') {
         e.preventDefault();
-
-        const prev = (safeIndex - 1 + items.length) % items.length;
-        items[prev]?.focus();
-
+        items[(safeIndex - 1 + items.length) % items.length]?.focus();
         return;
       }
 
-      // -------------------------
-      // HOME
-      // -------------------------
+      // Home
       if (e.key === 'Home') {
         e.preventDefault();
         items[0]?.focus();
         return;
       }
 
-      // -------------------------
-      // END
-      // -------------------------
+      // End
       if (e.key === 'End') {
         e.preventDefault();
         items[items.length - 1]?.focus();
         return;
       }
 
-      // -------------------------
-      // ENTER / SPACE
-      // -------------------------
+      // Enter / Space
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-
-        const current = document.activeElement;
-
-        if (current instanceof HTMLButtonElement) {
-          current.click();
+        if (active instanceof HTMLButtonElement) {
+          active.click();
           close();
         }
-
         return;
       }
 
-      // -------------------------
-      // ESC
-      // -------------------------
+      // Escape
       if (e.key === 'Escape') {
         e.preventDefault();
         close();
@@ -182,9 +161,12 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
     };
   }, [open]);
 
+  // -------------------------
+  // OUTSIDE CLICK
+  // -------------------------
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
+      if (rootRef.current && !rootRef.current.contains(e.target as Node)) {
         close();
       }
     }
@@ -196,6 +178,9 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
     };
   }, []);
 
+  // -------------------------
+  // FOCUS ON OPEN
+  // -------------------------
   useEffect(() => {
     if (!open) return;
 
@@ -205,25 +190,22 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
 
     if (items.length === 0) return;
 
-    const lastFocusedIndex = items.indexOf(
-      document.activeElement as HTMLButtonElement,
-    );
+    const last = items.indexOf(document.activeElement as HTMLButtonElement);
 
-    if (lastFocusedIndex !== -1) {
-      items[lastFocusedIndex]?.focus();
+    if (last !== -1) {
+      items[last]?.focus();
     } else {
       items[0]?.focus();
     }
   }, [open]);
 
+  // reset typeahead
   useEffect(() => {
-    if (open) {
-      typeaheadRef.current = '';
-    }
+    if (open) typeaheadRef.current = '';
   }, [open]);
 
   return (
-    <div ref={ref} className={styles.dropdown}>
+    <div ref={rootRef} className={styles.dropdown}>
       {React.cloneElement(trigger, {
         ref: triggerRef,
         id: buttonId,
@@ -237,32 +219,36 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
       } as TriggerProps)}
 
       {open && (
-        <div
-          id={menuId}
-          role="menu"
-          ref={menuRef}
-          className={styles.dropdownMenu}
-          aria-labelledby={buttonId}
-        >
-          {React.Children.map(children, (child, index) => {
-            if (!React.isValidElement<DropdownItemProps>(child)) return child;
+        <DropdownMenuProvider value={menuContextValue}>
+          <div
+            id={menuId}
+            role="menu"
+            ref={menuRef}
+            className={styles.dropdownMenu}
+            aria-labelledby={buttonId}
+          >
+            {React.Children.map(children, (child, index) => {
+              if (!React.isValidElement(child)) return child;
 
-            return React.cloneElement(
-              child as React.ReactElement<
-                DropdownItemProps & React.RefAttributes<HTMLButtonElement>
-              >,
-              {
-                ref: (el) => {
-                  itemRefs.current[index] = el;
-                },
+              const element = child as React.ReactElement<
+                React.ComponentProps<typeof DropdownItem>
+              >;
 
-                onMouseEnter: () => {
-                  itemRefs.current[index]?.focus();
-                },
-              },
-            );
-          })}
-        </div>
+              if (element.type === DropdownItem) {
+                return React.cloneElement(element, {
+                  ref: (el: HTMLButtonElement | null) => {
+                    itemRefs.current[index] = el;
+                  },
+                  onMouseEnter: () => {
+                    itemRefs.current[index]?.focus();
+                  },
+                });
+              }
+
+              return element;
+            })}
+          </div>
+        </DropdownMenuProvider>
       )}
     </div>
   );
