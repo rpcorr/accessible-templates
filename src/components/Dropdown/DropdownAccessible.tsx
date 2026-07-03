@@ -25,7 +25,6 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
   const buttonId = useId();
 
   const itemRefs = useRef<Array<HTMLButtonElement | null>>([]);
-
   const typeaheadRef = useRef('');
   const typeaheadTimeout = useRef<number | null>(null);
 
@@ -156,6 +155,7 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
 
+        const items = getItems();
         items[activeIndex]?.click();
         close();
 
@@ -200,9 +200,7 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
   useEffect(() => {
     if (!open) return;
 
-    const items = itemRefs.current.filter(
-      (el): el is HTMLButtonElement => el !== null,
-    );
+    const items = getItems();
 
     const el = items[activeIndex];
     if (!el) return;
@@ -244,12 +242,13 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
             {React.Children.map(children, (child, index) => {
               if (!React.isValidElement(child)) return child;
 
-              const element = child as React.ReactElement<
-                React.ComponentProps<typeof DropdownItem>
-              >;
+              const element = child as React.ReactElement<any>;
 
               if (element.type === DropdownItem) {
-                return React.cloneElement(element, {
+                const id = element.props.id ?? `dropdown-item-${index}`;
+
+                return React.cloneElement(element as any, {
+                  id,
                   ref: (el: HTMLButtonElement | null) => {
                     itemRefs.current[index] = el;
                   },
