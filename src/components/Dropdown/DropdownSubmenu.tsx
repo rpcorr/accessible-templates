@@ -33,16 +33,17 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
     setOpen(true);
   }
 
-  function openMenuWithKeyboard() {
-    lastParentFocusRef.current = buttonRef.current;
-    setOpen(true);
-  }
-
   function closeMenu() {
     setOpen(false);
 
     requestAnimationFrame(() => {
       lastParentFocusRef.current?.focus();
+    });
+  }
+
+  function focusFirstItem() {
+    requestAnimationFrame(() => {
+      itemRefs.current.find(Boolean)?.focus();
     });
   }
 
@@ -52,16 +53,22 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
   function handleKeyDown(e: React.KeyboardEvent) {
     const active = document.activeElement;
 
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+
+      openMenu();
+      focusFirstItem();
+
+      return;
+    }
+
     // ArrowRight → open submenu
     if (e.key === 'ArrowRight') {
       e.preventDefault();
-      openMenuWithKeyboard();
+      openMenu();
 
       // focus first item after opening
-      requestAnimationFrame(() => {
-        const first = itemRefs.current.find(Boolean);
-        first?.focus();
-      });
+      focusFirstItem();
 
       return;
     }
