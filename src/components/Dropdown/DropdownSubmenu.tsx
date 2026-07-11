@@ -11,6 +11,10 @@ type ItemElement = React.ReactElement<
   React.ComponentProps<typeof DropdownItem>
 >;
 
+type MenuChild =
+  | React.ReactElement<React.ComponentProps<typeof DropdownItem>>
+  | React.ReactElement;
+
 export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
   const [open, setOpen] = useState(false);
   const submenuId = useId();
@@ -155,18 +159,22 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
           }}
         >
           {React.Children.map(children, (child, index) => {
-            if (!React.isValidElement(child) || child.type !== DropdownItem) {
+            if (!React.isValidElement(child)) {
               return child;
             }
 
-            return React.cloneElement(child as ItemElement, {
-              ref: (el: HTMLButtonElement | null) => {
-                itemRefs.current[index] = el;
-              },
-              onMouseEnter: () => {
-                itemRefs.current[index]?.focus();
-              },
-            });
+            if (child.type === DropdownItem) {
+              return React.cloneElement(child as ItemElement, {
+                ref: (el: HTMLButtonElement | null) => {
+                  itemRefs.current[index] = el;
+                },
+                onMouseEnter: () => {
+                  itemRefs.current[index]?.focus();
+                },
+              });
+            }
+
+            return child;
           })}
         </div>
       )}
