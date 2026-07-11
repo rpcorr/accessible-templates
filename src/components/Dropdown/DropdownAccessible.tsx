@@ -6,6 +6,7 @@ import type { DropdownMenuContextValue } from './DropdownMenuContext';
 
 type TriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  onKeyDown?: React.KeyboardEventHandler<HTMLButtonElement>;
 };
 
 type DropdownProps = {
@@ -31,8 +32,8 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
   const getItems = () =>
     itemRefs.current.filter((el): el is HTMLButtonElement => el !== null);
 
-  function openMenu() {
-    setActiveIndex(0);
+  function openMenu(index = 0) {
+    setActiveIndex(index);
     setOpen(true);
   }
 
@@ -155,8 +156,7 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
 
-        const items = getItems();
-        items[activeIndex]?.click();
+        getItems()[activeIndex]?.click();
         close();
 
         return;
@@ -220,10 +220,38 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
       {React.cloneElement(trigger, {
         ref: triggerRef,
         id: buttonId,
+
         onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
           trigger.props.onClick?.(e);
           toggle();
         },
+
+        onKeyDown: (e: React.KeyboardEvent<HTMLButtonElement>) => {
+          trigger.props.onKeyDown?.(e);
+
+          if (e.defaultPrevented) return;
+
+          switch (e.key) {
+            case 'ArrowDown':
+              e.preventDefault();
+              openMenu(0);
+              break;
+
+            case 'ArrowUp': {
+              e.preventDefault();
+              const items = getItems();
+              openMenu(Math.max(items.length - 1, 0));
+              break;
+            }
+
+            case 'Enter':
+            case ' ':
+              e.preventDefault();
+              openMenu();
+              break;
+          }
+        },
+
         'aria-haspopup': 'menu',
         'aria-expanded': open,
         'aria-controls': menuId,
