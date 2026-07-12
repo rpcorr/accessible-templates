@@ -25,12 +25,20 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
   const menuId = useId();
   const buttonId = useId();
 
-  const itemRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const typeaheadRef = useRef('');
   const typeaheadTimeout = useRef<number | null>(null);
 
-  const getItems = () =>
-    itemRefs.current.filter((el): el is HTMLButtonElement => el !== null);
+  const getItems = () => {
+    if (!menuRef.current) {
+      return [];
+    }
+
+    return Array.from(
+      menuRef.current.querySelectorAll<HTMLButtonElement>(
+        '[role="menuitem"]',
+      ),
+    );
+  };
 
   function openMenu(index = 0) {
     setActiveIndex(index);
@@ -68,6 +76,7 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
       closeFnsRef.current.forEach((fn) => fn());
       close();
     },
+    
   };
 
   // -------------------------
@@ -277,9 +286,6 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
 
                 return React.cloneElement(element as any, {
                   id,
-                  ref: (el: HTMLButtonElement | null) => {
-                    itemRefs.current[index] = el;
-                  },
                   tabIndex: index === activeIndex ? 0 : -1,
                   'aria-selected': index === activeIndex,
                   role: 'menuitem',

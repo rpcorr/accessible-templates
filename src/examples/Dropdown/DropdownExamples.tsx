@@ -23,15 +23,7 @@ export function DropdownExamples() {
         </DropdownAccessible>
 
         <DropdownAccessible trigger={<Button>File</Button>}>
-          <DropdownItem onClick={() => alert('New')}>New</DropdownItem>
-
-          <DropdownSubmenu label="Open">
-            <DropdownItem onClick={() => alert('Project')}>
-              Project
-            </DropdownItem>
-
-            <DropdownItem onClick={() => alert('Folder')}>Folder</DropdownItem>
-          </DropdownSubmenu>
+          <DropdownItem>New</DropdownItem>
 
           <DropdownSubmenu label="Open">
             <DropdownItem>Project</DropdownItem>
@@ -42,7 +34,7 @@ export function DropdownExamples() {
             </DropdownSubmenu>
           </DropdownSubmenu>
 
-          <DropdownItem onClick={() => alert('Save')}>Save</DropdownItem>
+          <DropdownItem>Save</DropdownItem>
         </DropdownAccessible>
       </div>
     </div>

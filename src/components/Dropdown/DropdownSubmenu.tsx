@@ -11,10 +11,6 @@ type ItemElement = React.ReactElement<
   React.ComponentProps<typeof DropdownItem>
 >;
 
-type MenuChild =
-  | React.ReactElement<React.ComponentProps<typeof DropdownItem>>
-  | React.ReactElement;
-
 export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
   const [open, setOpen] = useState(false);
   const submenuId = useId();
