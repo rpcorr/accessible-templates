@@ -16,9 +16,9 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
   const submenuId = useId();
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const parentMenuItemRef = useRef<HTMLButtonElement | null>(null);
   const menuRef = useRef<HTMLDivElement | null>(null);
   const itemRefs = useRef<Array<HTMLButtonElement | null>>([]);
-  const lastParentFocusRef = useRef<HTMLButtonElement | null>(null);
 
   const { registerClose, requestCloseAll } = useDropdownMenu();
 
@@ -29,7 +29,8 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
   }, [registerClose]);
 
   function openMenu() {
-    lastParentFocusRef.current = buttonRef.current;
+    parentMenuItemRef.current = document.activeElement as HTMLButtonElement;
+
     setOpen(true);
   }
 
@@ -37,13 +38,16 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
     setOpen(false);
 
     requestAnimationFrame(() => {
-      lastParentFocusRef.current?.focus();
+      parentMenuItemRef.current?.focus();
     });
   }
 
   function focusFirstItem() {
     requestAnimationFrame(() => {
-      itemRefs.current.find(Boolean)?.focus();
+      const firstItem =
+        menuRef.current?.querySelector<HTMLButtonElement>('[role="menuitem"]');
+
+      firstItem?.focus();
     });
   }
 
@@ -55,6 +59,7 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
 
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
+      e.stopPropagation();
 
       openMenu();
       focusFirstItem();
@@ -65,6 +70,8 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
     // ArrowRight → open submenu
     if (e.key === 'ArrowRight') {
       e.preventDefault();
+      e.stopPropagation();
+
       openMenu();
 
       // focus first item after opening
@@ -76,14 +83,17 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
     // ArrowLeft → close submenu + return focus
     if (e.key === 'ArrowLeft') {
       e.preventDefault();
+      e.stopPropagation();
+
       closeMenu();
-      buttonRef.current?.focus();
+
       return;
     }
 
     // Escape → close submenu only
     if (e.key === 'Escape') {
       e.preventDefault();
+      e.stopPropagation();
 
       if (open) {
         closeMenu();
