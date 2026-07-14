@@ -2,7 +2,10 @@ import React, { useState, useRef, useEffect, useId } from 'react';
 import styles from './Dropdown.module.css';
 import { DropdownItem } from './DropdownItem';
 import { DropdownMenuProvider } from './DropdownMenuProvider';
-import type { DropdownMenuContextValue } from './DropdownMenuContext';
+import type {
+  DropdownMenuContextValue,
+  MenuItemRegistration,
+} from './DropdownMenuContext';
 
 type TriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
@@ -28,17 +31,9 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
   const typeaheadRef = useRef('');
   const typeaheadTimeout = useRef<number | null>(null);
 
-  const getItems = () => {
-    if (!menuRef.current) {
-      return [];
-    }
-
-    return Array.from(
-      menuRef.current.querySelectorAll<HTMLButtonElement>(
-        '[role="menuitem"]',
-      ),
-    );
-  };
+  function getItems() {
+    return menuItemsRef.current.map((item) => item.ref);
+  }
 
   function openMenu(index = 0) {
     setActiveIndex(index);
@@ -62,6 +57,13 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
   // -------------------------
 
   const closeFnsRef = useRef<Set<() => void>>(new Set());
+  const menuItemsRef = useRef<MenuItemRegistration[]>([]);
+
+  useEffect(() => {
+    if (!open) {
+      menuItemsRef.current = [];
+    }
+  }, [open]);
 
   const menuContextValue: DropdownMenuContextValue = {
     registerClose: (fn: () => void) => {
@@ -76,114 +78,120 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
       closeFnsRef.current.forEach((fn) => fn());
       close();
     },
-    
+
+    registerMenuItem,
+    getMenuItems,
   };
 
-  // -------------------------
-  // KEYBOARD NAVIGATION (FLAT LIST ONLY)
-  // -------------------------
-  useEffect(() => {
-    if (!open) return;
-
-    function handleKeyDown(e: KeyboardEvent) {
-      if (!open) return;
-
-      const items = getItems();
-
-      if (items.length === 0) return;
-
-      // TYPEAHEAD
-      if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
-        typeaheadRef.current += e.key.toLowerCase();
-
-        if (typeaheadTimeout.current) {
-          window.clearTimeout(typeaheadTimeout.current);
-        }
-
-        typeaheadTimeout.current = window.setTimeout(() => {
-          typeaheadRef.current = '';
-        }, 500);
-
-        const matchIndex = items.findIndex((item) =>
-          (item.textContent ?? '')
-            .toLowerCase()
-            .startsWith(typeaheadRef.current),
-        );
-
-        if (matchIndex !== -1) {
-          setActiveIndex(matchIndex);
-        }
-
-        return;
-      }
-
-      // Arrow Down
-      if (e.key === 'ArrowDown') {
-        e.preventDefault();
-
-        if (!items.length) return;
-
-        setActiveIndex((i) => {
-          const next = (i + 1) % items.length;
-
-          return next;
-        });
-
-        return;
-      }
-
-      // Arrow Up
-      if (e.key === 'ArrowUp') {
-        e.preventDefault();
-
-        if (!items.length) return;
-
-        setActiveIndex((i) => {
-          const prev = (i - 1 + items.length) % items.length;
-          return prev;
-        });
-
-        return;
-      }
-
-      // Home
-      if (e.key === 'Home') {
-        e.preventDefault();
-        setActiveIndex(0);
-        return;
-      }
-
-      // End
-      if (e.key === 'End') {
-        e.preventDefault();
-        const last = items.length - 1;
-        setActiveIndex(last);
-        return;
-      }
-
-      // Enter / Space
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-
-        getItems()[activeIndex]?.click();
-        close();
-
-        return;
-      }
-
-      // Escape
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        close();
-      }
+  function registerMenuItem(item: MenuItemRegistration) {
+    if (
+      !menuItemsRef.current.some((registered) => registered.ref === item.ref)
+    ) {
+      menuItemsRef.current.push(item);
     }
 
-    document.addEventListener('keydown', handleKeyDown);
-
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      menuItemsRef.current = menuItemsRef.current.filter(
+        (registered) => registered.ref !== item.ref,
+      );
     };
-  }, [open, activeIndex]);
+  }
+
+  function getMenuItems() {
+    return menuItemsRef.current;
+  }
+
+  function handleMenuKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+    e.stopPropagation();
+
+    const items = getItems();
+
+    if (items.length === 0) return;
+
+    // TYPEAHEAD
+    if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      typeaheadRef.current += e.key.toLowerCase();
+
+      if (typeaheadTimeout.current) {
+        window.clearTimeout(typeaheadTimeout.current);
+      }
+
+      typeaheadTimeout.current = window.setTimeout(() => {
+        typeaheadRef.current = '';
+      }, 500);
+
+      const matchIndex = items.findIndex((item) =>
+        (item.textContent ?? '').toLowerCase().startsWith(typeaheadRef.current),
+      );
+
+      if (matchIndex !== -1) {
+        setActiveIndex(matchIndex);
+      }
+
+      return;
+    }
+
+    // Arrow Down
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+
+      if (!items.length) return;
+
+      setActiveIndex((i) => {
+        const next = (i + 1) % items.length;
+
+        return next;
+      });
+
+      return;
+    }
+
+    // Arrow Up
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+
+      if (!items.length) return;
+
+      setActiveIndex((i) => {
+        const prev = (i - 1 + items.length) % items.length;
+        return prev;
+      });
+
+      return;
+    }
+
+    // Home
+    if (e.key === 'Home') {
+      e.preventDefault();
+      setActiveIndex(0);
+      return;
+    }
+
+    // End
+    if (e.key === 'End') {
+      e.preventDefault();
+      const last = items.length - 1;
+      setActiveIndex(last);
+      return;
+    }
+
+    // Enter / Space
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+
+      getItems()[activeIndex]?.click();
+      close();
+
+      return;
+    }
+
+    // Escape
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      console.log('Root Escape');
+      close();
+    }
+  }
 
   // -------------------------
   // OUTSIDE CLICK
@@ -273,6 +281,7 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
             role="menu"
             aria-orientation="vertical"
             ref={menuRef}
+            onKeyDown={handleMenuKeyDown}
             className={styles.dropdownMenu}
             aria-labelledby={buttonId}
           >
@@ -286,6 +295,16 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
 
                 return React.cloneElement(element as any, {
                   id,
+
+                  ref: (el: HTMLButtonElement | null) => {
+                    if (el) {
+                      registerMenuItem({
+                        ref: el,
+                        label: el.textContent ?? '',
+                      });
+                    }
+                  },
+
                   tabIndex: index === activeIndex ? 0 : -1,
                   'aria-selected': index === activeIndex,
                   role: 'menuitem',

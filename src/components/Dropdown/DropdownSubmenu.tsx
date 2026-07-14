@@ -17,16 +17,47 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const parentMenuItemRef = useRef<HTMLButtonElement | null>(null);
+  const parentSubmenuCloseRef = useRef<(() => void) | null>(null);
   const menuRef = useRef<HTMLDivElement | null>(null);
   const itemRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const closeTimer = useRef<number | null>(null);
 
-  const { registerClose, requestCloseAll } = useDropdownMenu();
+  const { registerClose, registerMenuItem } =
+    useDropdownMenu();
 
   // register with parent so Escape can cascade
   useEffect(() => {
-    const unregister = registerClose(() => setOpen(false));
+    const unregister = registerClose(() => {
+      setOpen(false);
+    });
+
+    parentSubmenuCloseRef.current = unregister;
+
     return unregister;
   }, [registerClose]);
+
+  useEffect(() => {
+    if (!buttonRef.current) return;
+
+    return registerMenuItem({
+      ref: buttonRef.current,
+      label: String(label),
+    });
+  }, [registerMenuItem, label]);
+
+  function handleMouseEnter() {
+    if (closeTimer.current) {
+      window.clearTimeout(closeTimer.current);
+    }
+
+    openMenu();
+  }
+
+  function handleMouseLeave() {
+    closeTimer.current = window.setTimeout(() => {
+      closeMenu();
+    }, 150);
+  }
 
   function openMenu() {
     parentMenuItemRef.current = document.activeElement as HTMLButtonElement;
@@ -56,6 +87,16 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
   // -------------------------
   function handleKeyDown(e: React.KeyboardEvent) {
     const active = document.activeElement;
+
+    if (e.key === 'Escape' && menuRef.current?.contains(active)) {
+      console.log('Submenu Escape');
+      e.preventDefault();
+      e.stopPropagation();
+
+      closeMenu();
+
+      return;
+    }
 
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
@@ -90,16 +131,9 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
       return;
     }
 
-    // Escape → close submenu only
     if (e.key === 'Escape') {
       e.preventDefault();
       e.stopPropagation();
-
-      if (open) {
-        closeMenu();
-      } else {
-        requestCloseAll();
-      }
 
       return;
     }
@@ -128,9 +162,8 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
   return (
     <div
       style={{ position: 'relative' }}
-      onMouseEnter={openMenu}
-      onMouseLeave={closeMenu}
-      onKeyDown={handleKeyDown}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <button
         ref={buttonRef}
@@ -139,6 +172,7 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
         aria-haspopup="menu"
         aria-expanded={open}
         aria-controls={submenuId}
+        onKeyDown={handleKeyDown}
       >
         {label} <span aria-hidden="true">▶</span>
       </button>
@@ -148,6 +182,9 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
           id={submenuId}
           role="menu"
           ref={menuRef}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onKeyDown={handleKeyDown}
           style={{
             position: 'absolute',
             top: 0,
