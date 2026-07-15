@@ -1,6 +1,11 @@
 import React, { useId, useState, useRef, useEffect } from 'react';
 import { useDropdownMenu } from './useDropdownMenu';
 import { DropdownItem } from './DropdownItem';
+import { DropdownMenuProvider } from './DropdownMenuProvider';
+import type {
+  DropdownMenuContextValue,
+  MenuItemRegistration,
+} from './DropdownMenuContext';
 
 type DropdownSubmenuProps = {
   label: React.ReactNode;
@@ -15,6 +20,9 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
   const [open, setOpen] = useState(false);
   const submenuId = useId();
 
+  const submenuItemsRef = useRef<MenuItemRegistration[]>([]);
+  const submenuCloseFnsRef = useRef<Set<() => void>>(new Set());
+
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const parentMenuItemRef = useRef<HTMLButtonElement | null>(null);
   const parentSubmenuCloseRef = useRef<(() => void) | null>(null);
@@ -22,8 +30,7 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
   const itemRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const closeTimer = useRef<number | null>(null);
 
-  const { registerClose, registerMenuItem } =
-    useDropdownMenu();
+  const { registerClose, registerMenuItem } = useDropdownMenu();
 
   // register with parent so Escape can cascade
   useEffect(() => {
@@ -42,6 +49,9 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
     return registerMenuItem({
       ref: buttonRef.current,
       label: String(label),
+      hasSubmenu: true,
+      openSubmenu: () => setOpen(true),
+      closeSubmenu: () => setOpen(false),
     });
   }, [registerMenuItem, label]);
 
@@ -53,6 +63,41 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
     openMenu();
   }
 
+  function registerSubmenuItem(item: MenuItemRegistration) {
+    if (!submenuItemsRef.current.some((x) => x.ref === item.ref)) {
+      submenuItemsRef.current.push(item);
+    }
+
+    return () => {
+      submenuItemsRef.current = submenuItemsRef.current.filter(
+        (x) => x.ref !== item.ref,
+      );
+    };
+  }
+
+  function getSubmenuItems() {
+    return submenuItemsRef.current;
+  }
+
+  const submenuContextValue: DropdownMenuContextValue = {
+    registerClose: (fn) => {
+      submenuCloseFnsRef.current.add(fn);
+
+      return () => {
+        submenuCloseFnsRef.current.delete(fn);
+      };
+    },
+
+    requestCloseAll: () => {
+      submenuCloseFnsRef.current.forEach((fn) => fn());
+      closeMenu();
+    },
+
+    registerMenuItem: registerSubmenuItem,
+
+    getMenuItems: getSubmenuItems,
+  };
+
   function handleMouseLeave() {
     closeTimer.current = window.setTimeout(() => {
       closeMenu();
@@ -63,6 +108,13 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
     parentMenuItemRef.current = document.activeElement as HTMLButtonElement;
 
     setOpen(true);
+
+    requestAnimationFrame(() => {
+      console.log(
+        'submenu registered items:',
+        submenuItemsRef.current.map((item) => item.label),
+      );
+    });
   }
 
   function closeMenu() {
@@ -87,6 +139,23 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
   // -------------------------
   function handleKeyDown(e: React.KeyboardEvent) {
     const active = document.activeElement;
+
+    console.log(
+      'Submenu key:',
+      e.key,
+      'active:',
+      (active as HTMLElement)?.textContent,
+      'inside submenu:',
+      menuRef.current?.contains(active),
+    );
+
+    if (menuRef.current?.contains(active)) {
+      e.stopPropagation();
+
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+      }
+    }
 
     if (e.key === 'Escape' && menuRef.current?.contains(active)) {
       console.log('Submenu Escape');
@@ -141,8 +210,15 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
     // basic navigation inside submenu
     if (!menuRef.current?.contains(active)) return;
 
-    const items = itemRefs.current.filter(
-      (el): el is HTMLButtonElement => el instanceof HTMLButtonElement,
+    e.stopPropagation();
+
+    const items = getSubmenuItems()
+      .map((item) => item.ref)
+      .filter((el) => el instanceof HTMLButtonElement);
+
+    console.log(
+      'submenu items:',
+      items.map((item) => item.textContent),
     );
 
     const index = items.indexOf(active as HTMLButtonElement);
@@ -150,11 +226,17 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
 
     if (e.key === 'ArrowDown') {
       e.preventDefault();
+
+      if (items.length === 0) return;
+
       items[(safeIndex + 1) % items.length]?.focus();
     }
 
     if (e.key === 'ArrowUp') {
       e.preventDefault();
+
+      if (items.length === 0) return;
+
       items[(safeIndex - 1 + items.length) % items.length]?.focus();
     }
   }
@@ -178,48 +260,50 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
       </button>
 
       {open && (
-        <div
-          id={submenuId}
-          role="menu"
-          ref={menuRef}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          onKeyDown={handleKeyDown}
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: '100%',
-            marginLeft: 8,
-            padding: 8,
-            background: 'white',
-            border: '1px solid #ccc',
-            borderRadius: 6,
-            minWidth: 160,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 8,
-            zIndex: 1000,
-          }}
-        >
-          {React.Children.map(children, (child, index) => {
-            if (!React.isValidElement(child)) {
+        <DropdownMenuProvider value={submenuContextValue}>
+          <div
+            id={submenuId}
+            role="menu"
+            ref={menuRef}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            onKeyDown={handleKeyDown}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: '100%',
+              marginLeft: 8,
+              padding: 8,
+              background: 'white',
+              border: '1px solid #ccc',
+              borderRadius: 6,
+              minWidth: 160,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 8,
+              zIndex: 1000,
+            }}
+          >
+            {React.Children.map(children, (child, index) => {
+              if (!React.isValidElement(child)) {
+                return child;
+              }
+
+              if (child.type === DropdownItem) {
+                return React.cloneElement(child as ItemElement, {
+                  ref: (el: HTMLButtonElement | null) => {
+                    itemRefs.current[index + 1] = el;
+                  },
+                  onMouseEnter: () => {
+                    itemRefs.current[index + 1]?.focus();
+                  },
+                });
+              }
+
               return child;
-            }
-
-            if (child.type === DropdownItem) {
-              return React.cloneElement(child as ItemElement, {
-                ref: (el: HTMLButtonElement | null) => {
-                  itemRefs.current[index] = el;
-                },
-                onMouseEnter: () => {
-                  itemRefs.current[index]?.focus();
-                },
-              });
-            }
-
-            return child;
-          })}
-        </div>
+            })}
+          </div>
+        </DropdownMenuProvider>
       )}
     </div>
   );
