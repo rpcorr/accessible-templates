@@ -188,7 +188,6 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
     // Escape
     if (e.key === 'Escape') {
       e.preventDefault();
-      console.log('Root Escape');
       close();
     }
   }

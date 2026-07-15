@@ -108,13 +108,6 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
     parentMenuItemRef.current = document.activeElement as HTMLButtonElement;
 
     setOpen(true);
-
-    requestAnimationFrame(() => {
-      console.log(
-        'submenu registered items:',
-        submenuItemsRef.current.map((item) => item.label),
-      );
-    });
   }
 
   function closeMenu() {
@@ -139,15 +132,6 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
   // -------------------------
   function handleKeyDown(e: React.KeyboardEvent) {
     const active = document.activeElement;
-
-    console.log(
-      'Submenu key:',
-      e.key,
-      'active:',
-      (active as HTMLElement)?.textContent,
-      'inside submenu:',
-      menuRef.current?.contains(active),
-    );
 
     if (menuRef.current?.contains(active)) {
       e.stopPropagation();
@@ -216,13 +200,28 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
       .map((item) => item.ref)
       .filter((el) => el instanceof HTMLButtonElement);
 
-    console.log(
-      'submenu items:',
-      items.map((item) => item.textContent),
-    );
-
     const index = items.indexOf(active as HTMLButtonElement);
     const safeIndex = index >= 0 ? index : 0;
+
+    if (e.key === 'Home') {
+      e.preventDefault();
+
+      if (items.length === 0) return;
+
+      items[0]?.focus();
+
+      return;
+    }
+
+    if (e.key === 'End') {
+      e.preventDefault();
+
+      if (items.length === 0) return;
+
+      items[items.length - 1]?.focus();
+
+      return;
+    }
 
     if (e.key === 'ArrowDown') {
       e.preventDefault();
