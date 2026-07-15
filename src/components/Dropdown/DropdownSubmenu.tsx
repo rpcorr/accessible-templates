@@ -30,7 +30,11 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
   const itemRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const closeTimer = useRef<number | null>(null);
 
-  const { registerClose, registerMenuItem } = useDropdownMenu();
+  const {
+    registerClose,
+    registerMenuItem,
+    requestCloseAll: parentRequestCloseAll,
+  } = useDropdownMenu();
 
   // register with parent so Escape can cascade
   useEffect(() => {
@@ -90,7 +94,8 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
 
     requestCloseAll: () => {
       submenuCloseFnsRef.current.forEach((fn) => fn());
-      closeMenu();
+
+      parentRequestCloseAll();
     },
 
     registerMenuItem: registerSubmenuItem,

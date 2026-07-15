@@ -9,8 +9,8 @@ export type DropdownItemProps =
 export const DropdownItem = React.forwardRef<
   HTMLButtonElement,
   DropdownItemProps
->(({ children, ...props }, ref) => {
-  const { registerMenuItem } = useDropdownMenu();
+>(({ children, onKeyDown, onClick, ...props }, ref) => {
+  const { registerMenuItem, requestCloseAll } = useDropdownMenu();
 
   const buttonRef = React.useRef<HTMLButtonElement | null>(null);
 
@@ -41,6 +41,24 @@ export const DropdownItem = React.forwardRef<
       role="menuitem"
       tabIndex={-1}
       data-menuitem="true"
+      onClick={(e) => {
+        onClick?.(e);
+
+        if (e.defaultPrevented) return;
+
+        requestCloseAll();
+      }}
+      onKeyDown={(e) => {
+        onKeyDown?.(e);
+
+        if (e.defaultPrevented) return;
+
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+
+          requestCloseAll();
+        }
+      }}
     >
       {children}
     </button>

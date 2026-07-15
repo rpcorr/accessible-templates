@@ -42,7 +42,10 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
 
   function close() {
     setOpen(false);
-    triggerRef.current?.focus();
+
+    requestAnimationFrame(() => {
+      triggerRef.current?.focus();
+    });
   }
 
   function toggle() {
@@ -202,10 +205,10 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
       }
     }
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('pointerdown', handleClickOutside);
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('pointerdown', handleClickOutside);
     };
   }, []);
 
@@ -305,7 +308,6 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
                   },
 
                   tabIndex: index === activeIndex ? 0 : -1,
-                  'aria-selected': index === activeIndex,
                   role: 'menuitem',
                 });
               }
