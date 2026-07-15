@@ -3,6 +3,12 @@ import { createContext } from 'react';
 export type MenuItemRegistration = {
   ref: HTMLButtonElement;
   label: string;
+
+  hasSubmenu?: boolean;
+
+  openSubmenu?: () => void;
+
+  closeSubmenu?: () => void;
 };
 
 export type DropdownMenuContextValue = {
