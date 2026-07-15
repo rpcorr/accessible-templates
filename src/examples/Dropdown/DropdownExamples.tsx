@@ -22,7 +22,9 @@ export function DropdownExamples() {
           <DropdownItem>Logout</DropdownItem>
         </DropdownAccessible>
 
-        <DropdownAccessible trigger={<Button>File</Button>}>
+        <DropdownAccessible
+          trigger={<Button>Open Accessible Menu with Submenus</Button>}
+        >
           <DropdownItem>New</DropdownItem>
 
           <DropdownSubmenu label="Open">
