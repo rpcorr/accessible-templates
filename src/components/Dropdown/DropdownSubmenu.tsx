@@ -137,111 +137,85 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
   // -------------------------
   function handleKeyDown(e: React.KeyboardEvent) {
     const active = document.activeElement;
+    const onTrigger = active === buttonRef.current;
+    const inPanel = menuRef.current?.contains(active) ?? false;
 
-    if (menuRef.current?.contains(active)) {
-      e.stopPropagation();
-
-      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+    // -------------------------
+    // SUBMENU TRIGGER BUTTON
+    // -------------------------
+    if (onTrigger) {
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowRight') {
         e.preventDefault();
+        e.stopPropagation();
+
+        openMenu();
+        focusFirstItem();
+
+        return;
       }
+
+      if (e.key === 'ArrowLeft') {
+        if (open) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          closeMenu();
+        }
+
+        return;
+      }
+
+      return;
     }
 
-    if (e.key === 'Escape' && menuRef.current?.contains(active)) {
-      console.log('Submenu Escape');
-      e.preventDefault();
+    // -------------------------
+    // ITEMS INSIDE SUBMENU PANEL
+    // -------------------------
+    if (inPanel) {
       e.stopPropagation();
 
-      closeMenu();
+      const items = getSubmenuItems()
+        .map((item) => item.ref)
+        .filter((el) => el instanceof HTMLButtonElement);
 
-      return;
-    }
+      const index = items.indexOf(active as HTMLButtonElement);
+      const safeIndex = index >= 0 ? index : 0;
 
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      e.stopPropagation();
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeMenu();
+        return;
+      }
 
-      openMenu();
-      focusFirstItem();
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        closeMenu();
+        return;
+      }
 
-      return;
-    }
+      if (e.key === 'Home') {
+        e.preventDefault();
+        items[0]?.focus();
+        return;
+      }
 
-    // ArrowRight → open submenu
-    if (e.key === 'ArrowRight') {
-      e.preventDefault();
-      e.stopPropagation();
+      if (e.key === 'End') {
+        e.preventDefault();
+        items[items.length - 1]?.focus();
+        return;
+      }
 
-      openMenu();
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        items[(safeIndex + 1) % items.length]?.focus();
+        return;
+      }
 
-      // focus first item after opening
-      focusFirstItem();
-
-      return;
-    }
-
-    // ArrowLeft → close submenu + return focus
-    if (e.key === 'ArrowLeft') {
-      e.preventDefault();
-      e.stopPropagation();
-
-      closeMenu();
-
-      return;
-    }
-
-    if (e.key === 'Escape') {
-      e.preventDefault();
-      e.stopPropagation();
-
-      return;
-    }
-
-    // basic navigation inside submenu
-    if (!menuRef.current?.contains(active)) return;
-
-    e.stopPropagation();
-
-    const items = getSubmenuItems()
-      .map((item) => item.ref)
-      .filter((el) => el instanceof HTMLButtonElement);
-
-    const index = items.indexOf(active as HTMLButtonElement);
-    const safeIndex = index >= 0 ? index : 0;
-
-    if (e.key === 'Home') {
-      e.preventDefault();
-
-      if (items.length === 0) return;
-
-      items[0]?.focus();
-
-      return;
-    }
-
-    if (e.key === 'End') {
-      e.preventDefault();
-
-      if (items.length === 0) return;
-
-      items[items.length - 1]?.focus();
-
-      return;
-    }
-
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-
-      if (items.length === 0) return;
-
-      items[(safeIndex + 1) % items.length]?.focus();
-    }
-
-    if (e.key === 'ArrowUp') {
-      e.preventDefault();
-
-      if (items.length === 0) return;
-
-      items[(safeIndex - 1 + items.length) % items.length]?.focus();
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        items[(safeIndex - 1 + items.length) % items.length]?.focus();
+        return;
+      }
     }
   }
 
