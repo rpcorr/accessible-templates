@@ -1,6 +1,7 @@
 import React, { useId, useState, useRef, useEffect } from 'react';
 import { useDropdownMenu } from './useDropdownMenu';
 import { DropdownMenuProvider } from './DropdownMenuProvider';
+import styles from './Dropdown.module.css';
 import type {
   DropdownMenuContextValue,
   MenuItemRegistration,
@@ -221,7 +222,7 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
 
   return (
     <div
-      style={{ position: 'relative' }}
+      className={styles.submenuWrapper}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -243,24 +244,10 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
             id={submenuId}
             role="menu"
             ref={menuRef}
+            className={styles.submenuMenu}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onKeyDown={handleKeyDown}
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: '100%',
-              marginLeft: 8,
-              padding: 8,
-              background: 'white',
-              border: '1px solid #ccc',
-              borderRadius: 6,
-              minWidth: 160,
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 8,
-              zIndex: 1000,
-            }}
           >
             {children}
           </div>
