@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect, useId } from 'react';
 import styles from './Dropdown.module.css';
-import { DropdownItem } from './DropdownItem';
 import { DropdownMenuProvider } from './DropdownMenuProvider';
 import type {
   DropdownMenuContextValue,
@@ -229,6 +228,20 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
     });
   }, [open, activeIndex]);
 
+  // -------------------------
+  // UPDATE ACTIVE MENU ITEM
+  // -------------------------
+
+  useEffect(() => {
+    if (!open) return;
+
+    const items = getMenuItems();
+
+    items.forEach((item, index) => {
+      item.setActive?.(index === activeIndex);
+    });
+  }, [open, activeIndex]);
+
   // reset typeahead
   useEffect(() => {
     if (open) typeaheadRef.current = '';
@@ -287,32 +300,10 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
             className={styles.dropdownMenu}
             aria-labelledby={buttonId}
           >
-            {React.Children.map(children, (child, index) => {
+            {React.Children.map(children, (child) => {
               if (!React.isValidElement(child)) return child;
 
-              const element = child as React.ReactElement<any>;
-
-              if (element.type === DropdownItem) {
-                const id = element.props.id ?? `dropdown-item-${index}`;
-
-                return React.cloneElement(element as any, {
-                  id,
-
-                  ref: (el: HTMLButtonElement | null) => {
-                    if (el) {
-                      registerMenuItem({
-                        ref: el,
-                        label: el.textContent ?? '',
-                      });
-                    }
-                  },
-
-                  tabIndex: index === activeIndex ? 0 : -1,
-                  role: 'menuitem',
-                });
-              }
-
-              return element;
+              return child;
             })}
           </div>
         </DropdownMenuProvider>

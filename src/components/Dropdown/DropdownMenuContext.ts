@@ -4,10 +4,10 @@ export type MenuItemRegistration = {
   ref: HTMLButtonElement;
   label: string;
 
+  setActive?: (active: boolean) => void;
+
   hasSubmenu?: boolean;
-
   openSubmenu?: () => void;
-
   closeSubmenu?: () => void;
 };
 

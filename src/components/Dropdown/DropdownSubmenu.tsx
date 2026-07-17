@@ -52,10 +52,10 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
 
     return registerMenuItem({
       ref: buttonRef.current,
-      label: String(label),
-      hasSubmenu: true,
-      openSubmenu: () => setOpen(true),
-      closeSubmenu: () => setOpen(false),
+      label: String(children),
+      setActive: (active) => {
+        buttonRef.current!.tabIndex = active ? 0 : -1;
+      },
     });
   }, [registerMenuItem, label]);
 

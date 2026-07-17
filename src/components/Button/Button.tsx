@@ -3,35 +3,19 @@ import styles from './Button.module.css';
 
 type ButtonVariant = 'primary' | 'secondary';
 
-type ButtonProps = {
-  children: React.ReactNode;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  disabled?: boolean;
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariant;
-  type?: 'button' | 'submit' | 'reset';
   ariaLabel?: string;
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      children,
-      onClick,
-      disabled = false,
-      variant = 'primary',
-      type = 'button',
-      ariaLabel,
-    },
-    ref,
-  ) => {
+  ({ children, variant = 'primary', ariaLabel, className, ...props }, ref) => {
     return (
       <button
+        {...props}
         ref={ref}
-        type={type}
-        onClick={onClick}
-        disabled={disabled}
         aria-label={ariaLabel}
-        className={`${styles.button} ${styles[variant]}`}
+        className={`${styles.button} ${styles[variant]} ${className ?? ''}`}
       >
         {children}
       </button>

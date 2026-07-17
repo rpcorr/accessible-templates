@@ -30,6 +30,11 @@ export const DropdownItem = React.forwardRef<
     return registerMenuItem({
       ref: buttonRef.current,
       label: String(children),
+      setActive: (active) => {
+        if (buttonRef.current) {
+          buttonRef.current.tabIndex = active ? 0 : -1;
+        }
+      },
     });
   }, [registerMenuItem, children]);
 
@@ -39,7 +44,6 @@ export const DropdownItem = React.forwardRef<
       ref={setRefs}
       type="button"
       role="menuitem"
-      tabIndex={-1}
       data-menuitem="true"
       onClick={(e) => {
         onClick?.(e);
