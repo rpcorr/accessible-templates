@@ -50,6 +50,14 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
     });
   }, [registerMenuItem, label]);
 
+  useEffect(() => {
+    return () => {
+      if (closeTimer.current) {
+        window.clearTimeout(closeTimer.current);
+      }
+    };
+  }, []);
+
   function handleMouseEnter() {
     if (closeTimer.current) {
       window.clearTimeout(closeTimer.current);
@@ -174,6 +182,7 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
 
       if (e.key === 'Escape') {
         e.preventDefault();
+        e.stopPropagation();
         closeMenu();
         return;
       }

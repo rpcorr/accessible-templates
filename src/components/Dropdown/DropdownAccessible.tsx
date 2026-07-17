@@ -6,10 +6,7 @@ import type {
   MenuItemRegistration,
 } from './DropdownMenuContext';
 
-type TriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  onKeyDown?: React.KeyboardEventHandler<HTMLButtonElement>;
-};
+type TriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 type DropdownProps = {
   trigger: React.ReactElement<TriggerProps>;
@@ -21,7 +18,6 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const rootRef = useRef<HTMLDivElement | null>(null);
-  const menuRef = useRef<HTMLDivElement | null>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
 
   const menuId = useId();
@@ -235,9 +231,7 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
   useEffect(() => {
     if (!open) return;
 
-    const items = getMenuItems();
-
-    items.forEach((item, index) => {
+    menuItemsRef.current.forEach((item, index) => {
       item.setActive?.(index === activeIndex);
     });
   }, [open, activeIndex]);
@@ -295,16 +289,11 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
             id={menuId}
             role="menu"
             aria-orientation="vertical"
-            ref={menuRef}
             onKeyDown={handleMenuKeyDown}
             className={styles.dropdownMenu}
             aria-labelledby={buttonId}
           >
-            {React.Children.map(children, (child) => {
-              if (!React.isValidElement(child)) return child;
-
-              return child;
-            })}
+            {children}
           </div>
         </DropdownMenuProvider>
       )}

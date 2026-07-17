@@ -5,10 +5,6 @@ export type MenuItemRegistration = {
   label: string;
 
   setActive?: (active: boolean) => void;
-
-  hasSubmenu?: boolean;
-  openSubmenu?: () => void;
-  closeSubmenu?: () => void;
 };
 
 export type DropdownMenuContextValue = {

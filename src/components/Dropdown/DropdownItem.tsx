@@ -60,7 +60,7 @@ export const DropdownItem = React.forwardRef<
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
 
-          requestCloseAll();
+          e.currentTarget.click();
         }
       }}
     >
