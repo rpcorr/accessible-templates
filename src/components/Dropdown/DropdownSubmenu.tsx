@@ -59,7 +59,7 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
     };
   }, []);
 
-  function handleMouseEnter() {
+  function handleMouseEnter(): void {
     if (closeTimer.current) {
       window.clearTimeout(closeTimer.current);
     }
@@ -67,7 +67,7 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
     openMenu();
   }
 
-  function registerSubmenuItem(item: MenuItemRegistration) {
+  function registerSubmenuItem(item: MenuItemRegistration): () => void {
     if (!submenuItemsRef.current.some((x) => x.ref === item.ref)) {
       submenuItemsRef.current.push(item);
     }
@@ -79,7 +79,7 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
     };
   }
 
-  function getSubmenuItems() {
+  function getSubmenuItems(): MenuItemRegistration[] {
     return submenuItemsRef.current;
   }
 
@@ -103,19 +103,23 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
     getMenuItems: getSubmenuItems,
   };
 
-  function handleMouseLeave() {
+  function handleMouseLeave(): void {
     closeTimer.current = window.setTimeout(() => {
       closeMenu();
     }, 150);
   }
 
-  function openMenu() {
-    parentMenuItemRef.current = document.activeElement as HTMLButtonElement;
+  function openMenu(): void {
+    const active = document.activeElement;
+
+    if (active instanceof HTMLButtonElement) {
+      parentMenuItemRef.current = active;
+    }
 
     setOpen(true);
   }
 
-  function closeMenu() {
+  function closeMenu(): void {
     setOpen(false);
 
     requestAnimationFrame(() => {
@@ -123,7 +127,7 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
     });
   }
 
-  function focusFirstItem() {
+  function focusFirstItem(): void {
     requestAnimationFrame(() => {
       const firstItem =
         menuRef.current?.querySelector<HTMLButtonElement>('[role="menuitem"]');
@@ -135,7 +139,9 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
   // -------------------------
   // KEYBOARD HANDLING
   // -------------------------
-  function handleKeyDown(e: React.KeyboardEvent) {
+  function handleKeyDown(
+    e: React.KeyboardEvent<HTMLDivElement | HTMLButtonElement>,
+  ) {
     const active = document.activeElement;
     const onTrigger = active === buttonRef.current;
     const inPanel = menuRef.current?.contains(active) ?? false;

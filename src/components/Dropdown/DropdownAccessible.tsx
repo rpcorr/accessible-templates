@@ -26,16 +26,16 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
   const typeaheadRef = useRef('');
   const typeaheadTimeout = useRef<number | null>(null);
 
-  function getItems() {
+  function getItems(): HTMLButtonElement[] {
     return menuItemsRef.current.map((item) => item.ref);
   }
 
-  function openMenu(index = 0) {
+  function openMenu(index = 0): void {
     setActiveIndex(index);
     setOpen(true);
   }
 
-  function close() {
+  function close(): void {
     setOpen(false);
 
     requestAnimationFrame(() => {
@@ -43,7 +43,7 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
     });
   }
 
-  function toggle() {
+  function toggle(): void {
     if (open) {
       close();
     } else {
@@ -81,7 +81,7 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
     getMenuItems,
   };
 
-  function registerMenuItem(item: MenuItemRegistration) {
+  function registerMenuItem(item: MenuItemRegistration): () => void {
     if (
       !menuItemsRef.current.some((registered) => registered.ref === item.ref)
     ) {
@@ -95,11 +95,13 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
     };
   }
 
-  function getMenuItems() {
+  function getMenuItems(): MenuItemRegistration[] {
     return menuItemsRef.current;
   }
 
-  function handleMenuKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+  function handleMenuKeyDown(
+  e: React.KeyboardEvent<HTMLDivElement>,
+): void {
     e.stopPropagation();
 
     const items = getItems();
@@ -194,7 +196,7 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
   // OUTSIDE CLICK
   // -------------------------
   useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
+    function handleClickOutside(e: MouseEvent): void {
       if (rootRef.current && !rootRef.current.contains(e.target as Node)) {
         close();
       }
@@ -281,7 +283,7 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
         'aria-haspopup': 'menu',
         'aria-expanded': open,
         'aria-controls': menuId,
-      } as TriggerProps)}
+      })}
 
       {open && (
         <DropdownMenuProvider value={menuContextValue}>
