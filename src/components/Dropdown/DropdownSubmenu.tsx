@@ -1,6 +1,5 @@
 import React, { useId, useState, useRef, useEffect } from 'react';
 import { useDropdownMenu } from './useDropdownMenu';
-import { DropdownItem } from './DropdownItem';
 import { DropdownMenuProvider } from './DropdownMenuProvider';
 import type {
   DropdownMenuContextValue,
@@ -12,10 +11,6 @@ type DropdownSubmenuProps = {
   children: React.ReactNode;
 };
 
-type ItemElement = React.ReactElement<
-  React.ComponentProps<typeof DropdownItem>
->;
-
 export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
   const [open, setOpen] = useState(false);
   const submenuId = useId();
@@ -25,9 +20,7 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const parentMenuItemRef = useRef<HTMLButtonElement | null>(null);
-  const parentSubmenuCloseRef = useRef<(() => void) | null>(null);
   const menuRef = useRef<HTMLDivElement | null>(null);
-  const itemRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const closeTimer = useRef<number | null>(null);
 
   const {
@@ -38,13 +31,9 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
 
   // register with parent so Escape can cascade
   useEffect(() => {
-    const unregister = registerClose(() => {
+    return registerClose(() => {
       setOpen(false);
     });
-
-    parentSubmenuCloseRef.current = unregister;
-
-    return unregister;
   }, [registerClose]);
 
   useEffect(() => {
@@ -52,9 +41,11 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
 
     return registerMenuItem({
       ref: buttonRef.current,
-      label: String(children),
+      label: String(label),
       setActive: (active) => {
-        buttonRef.current!.tabIndex = active ? 0 : -1;
+        if (buttonRef.current) {
+          buttonRef.current.tabIndex = active ? 0 : -1;
+        }
       },
     });
   }, [registerMenuItem, label]);
@@ -262,24 +253,7 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
               zIndex: 1000,
             }}
           >
-            {React.Children.map(children, (child, index) => {
-              if (!React.isValidElement(child)) {
-                return child;
-              }
-
-              if (child.type === DropdownItem) {
-                return React.cloneElement(child as ItemElement, {
-                  ref: (el: HTMLButtonElement | null) => {
-                    itemRefs.current[index + 1] = el;
-                  },
-                  onMouseEnter: () => {
-                    itemRefs.current[index + 1]?.focus();
-                  },
-                });
-              }
-
-              return child;
-            })}
+            {children}
           </div>
         </DropdownMenuProvider>
       )}
