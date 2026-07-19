@@ -1,11 +1,9 @@
 import React, { useId, useState, useRef, useEffect } from 'react';
 import { useDropdownMenu } from './useDropdownMenu';
 import { DropdownMenuProvider } from './DropdownMenuProvider';
+import { createMenuItemRegistry } from './useMenuItemRegistry';
 import styles from './Dropdown.module.css';
-import type {
-  DropdownMenuContextValue,
-  MenuItemRegistration,
-} from './DropdownMenuContext';
+import type { DropdownMenuContextValue } from './DropdownMenuContext';
 
 type DropdownSubmenuProps = {
   label: React.ReactNode;
@@ -16,7 +14,7 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
   const [open, setOpen] = useState(false);
   const submenuId = useId();
 
-  const submenuItemsRef = useRef<MenuItemRegistration[]>([]);
+  const [submenuRegistry] = useState(createMenuItemRegistry);
   const submenuCloseFnsRef = useRef<Set<() => void>>(new Set());
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
@@ -67,22 +65,6 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
     openMenu();
   }
 
-  function registerSubmenuItem(item: MenuItemRegistration): () => void {
-    if (!submenuItemsRef.current.some((x) => x.ref === item.ref)) {
-      submenuItemsRef.current.push(item);
-    }
-
-    return () => {
-      submenuItemsRef.current = submenuItemsRef.current.filter(
-        (x) => x.ref !== item.ref,
-      );
-    };
-  }
-
-  function getSubmenuItems(): MenuItemRegistration[] {
-    return submenuItemsRef.current;
-  }
-
   const submenuContextValue: DropdownMenuContextValue = {
     registerClose: (fn) => {
       submenuCloseFnsRef.current.add(fn);
@@ -98,9 +80,9 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
       parentRequestCloseAll();
     },
 
-    registerMenuItem: registerSubmenuItem,
+    registerMenuItem: submenuRegistry.registerMenuItem,
 
-    getMenuItems: getSubmenuItems,
+    getMenuItems: submenuRegistry.getMenuItems,
   };
 
   function handleMouseLeave(): void {
@@ -180,16 +162,13 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
     if (inPanel) {
       e.stopPropagation();
 
-      const items = getSubmenuItems()
-        .map((item) => item.ref)
-        .filter((el) => el instanceof HTMLButtonElement);
+      const items = submenuRegistry.getMenuItems().map((item) => item.ref);
 
       const index = items.indexOf(active as HTMLButtonElement);
       const safeIndex = index >= 0 ? index : 0;
 
       if (e.key === 'Escape') {
         e.preventDefault();
-        e.stopPropagation();
         closeMenu();
         return;
       }

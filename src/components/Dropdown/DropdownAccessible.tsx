@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect, useId } from 'react';
 import styles from './Dropdown.module.css';
 import { DropdownMenuProvider } from './DropdownMenuProvider';
+import { createMenuItemRegistry } from './useMenuItemRegistry';
 import type {
   DropdownMenuContextValue,
-  MenuItemRegistration,
 } from './DropdownMenuContext';
 
 type TriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
@@ -27,7 +27,7 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
   const typeaheadTimeout = useRef<number | null>(null);
 
   function getItems(): HTMLButtonElement[] {
-    return menuItemsRef.current.map((item) => item.ref);
+    return menuRegistry.getMenuItems().map((item) => item.ref);
   }
 
   function openMenu(index = 0): void {
@@ -55,49 +55,25 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
   // -------------------------
 
   const closeFnsRef = useRef<Set<() => void>>(new Set());
-  const menuItemsRef = useRef<MenuItemRegistration[]>([]);
-
-  useEffect(() => {
-    if (!open) {
-      menuItemsRef.current = [];
-    }
-  }, [open]);
+  const [menuRegistry] = useState(createMenuItemRegistry);
 
   const menuContextValue: DropdownMenuContextValue = {
-    registerClose: (fn: () => void) => {
-      closeFnsRef.current.add(fn);
-
-      return () => {
-        closeFnsRef.current.delete(fn);
-      };
-    },
-
-    requestCloseAll: () => {
-      closeFnsRef.current.forEach((fn) => fn());
-      close();
-    },
-
-    registerMenuItem,
-    getMenuItems,
-  };
-
-  function registerMenuItem(item: MenuItemRegistration): () => void {
-    if (
-      !menuItemsRef.current.some((registered) => registered.ref === item.ref)
-    ) {
-      menuItemsRef.current.push(item);
-    }
+  registerClose: (fn) => {
+    closeFnsRef.current.add(fn);
 
     return () => {
-      menuItemsRef.current = menuItemsRef.current.filter(
-        (registered) => registered.ref !== item.ref,
-      );
+      closeFnsRef.current.delete(fn);
     };
-  }
+  },
 
-  function getMenuItems(): MenuItemRegistration[] {
-    return menuItemsRef.current;
-  }
+  requestCloseAll: () => {
+    closeFnsRef.current.forEach((fn) => fn());
+    close();
+  },
+
+  registerMenuItem: menuRegistry.registerMenuItem,
+  getMenuItems: menuRegistry.getMenuItems,
+};
 
   function handleMenuKeyDown(
   e: React.KeyboardEvent<HTMLDivElement>,
@@ -224,7 +200,7 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
     requestAnimationFrame(() => {
       el.focus();
     });
-  }, [open, activeIndex]);
+  }, [open, activeIndex, getItems]);
 
   // -------------------------
   // UPDATE ACTIVE MENU ITEM
@@ -233,10 +209,10 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
   useEffect(() => {
     if (!open) return;
 
-    menuItemsRef.current.forEach((item, index) => {
+    menuRegistry.getMenuItems().forEach((item, index) => {
       item.setActive?.(index === activeIndex);
     });
-  }, [open, activeIndex]);
+  }, [open, activeIndex, menuRegistry]);
 
   // reset typeahead
   useEffect(() => {
