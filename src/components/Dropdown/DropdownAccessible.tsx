@@ -1,12 +1,11 @@
-import React, { useState, useRef, useEffect, useId } from 'react';
+import React, { useState, useRef, useEffect, useId, useCallback } from 'react';
 import styles from './Dropdown.module.css';
 import { DropdownMenuProvider } from './DropdownMenuProvider';
 import { createMenuItemRegistry } from './useMenuItemRegistry';
-import type {
-  DropdownMenuContextValue,
-} from './DropdownMenuContext';
+import type { DropdownMenuContextValue } from './DropdownMenuContext';
 
-type TriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
+type TriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
+  React.RefAttributes<HTMLButtonElement>;
 
 type DropdownProps = {
   trigger: React.ReactElement<TriggerProps>;
@@ -25,10 +24,11 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
 
   const typeaheadRef = useRef('');
   const typeaheadTimeout = useRef<number | null>(null);
+  const [menuRegistry] = useState(createMenuItemRegistry);
 
-  function getItems(): HTMLButtonElement[] {
+  const getItems = useCallback((): HTMLButtonElement[] => {
     return menuRegistry.getMenuItems().map((item) => item.ref);
-  }
+  }, [menuRegistry]);
 
   function openMenu(index = 0): void {
     setActiveIndex(index);
@@ -55,29 +55,26 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
   // -------------------------
 
   const closeFnsRef = useRef<Set<() => void>>(new Set());
-  const [menuRegistry] = useState(createMenuItemRegistry);
 
   const menuContextValue: DropdownMenuContextValue = {
-  registerClose: (fn) => {
-    closeFnsRef.current.add(fn);
+    registerClose: (fn) => {
+      closeFnsRef.current.add(fn);
 
-    return () => {
-      closeFnsRef.current.delete(fn);
-    };
-  },
+      return () => {
+        closeFnsRef.current.delete(fn);
+      };
+    },
 
-  requestCloseAll: () => {
-    closeFnsRef.current.forEach((fn) => fn());
-    close();
-  },
+    requestCloseAll: () => {
+      closeFnsRef.current.forEach((fn) => fn());
+      close();
+    },
 
-  registerMenuItem: menuRegistry.registerMenuItem,
-  getMenuItems: menuRegistry.getMenuItems,
-};
+    registerMenuItem: menuRegistry.registerMenuItem,
+    getMenuItems: menuRegistry.getMenuItems,
+  };
 
-  function handleMenuKeyDown(
-  e: React.KeyboardEvent<HTMLDivElement>,
-): void {
+  function handleMenuKeyDown(e: React.KeyboardEvent<HTMLDivElement>): void {
     e.stopPropagation();
 
     const items = getItems();

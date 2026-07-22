@@ -21,6 +21,7 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
   const parentMenuItemRef = useRef<HTMLButtonElement | null>(null);
   const menuRef = useRef<HTMLDivElement | null>(null);
   const closeTimer = useRef<number | null>(null);
+  const isKeyboardNavigation = useRef(false);
 
   const {
     registerClose,
@@ -58,11 +59,13 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
   }, []);
 
   function handleMouseEnter(): void {
+    isKeyboardNavigation.current = false;
+
     if (closeTimer.current) {
       window.clearTimeout(closeTimer.current);
     }
 
-    openMenu();
+    openMenuFromMouse();
   }
 
   const submenuContextValue: DropdownMenuContextValue = {
@@ -86,12 +89,20 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
   };
 
   function handleMouseLeave(): void {
+    if (isKeyboardNavigation.current) {
+      return;
+    }
+
     closeTimer.current = window.setTimeout(() => {
       closeMenu();
     }, 150);
   }
 
-  function openMenu(): void {
+  function openMenuFromMouse(): void {
+    setOpen(true);
+  }
+
+  function openMenuFromKeyboard(): void {
     const active = document.activeElement;
 
     if (active instanceof HTMLButtonElement) {
@@ -99,6 +110,8 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
     }
 
     setOpen(true);
+
+    focusFirstItem();
   }
 
   function closeMenu(): void {
@@ -124,6 +137,21 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
   function handleKeyDown(
     e: React.KeyboardEvent<HTMLDivElement | HTMLButtonElement>,
   ) {
+    const isNavigationKey =
+      e.key === 'ArrowDown' ||
+      e.key === 'ArrowUp' ||
+      e.key === 'ArrowLeft' ||
+      e.key === 'ArrowRight' ||
+      e.key === 'Enter' ||
+      e.key === ' ' ||
+      e.key === 'Escape' ||
+      e.key === 'Home' ||
+      e.key === 'End';
+
+    if (isNavigationKey) {
+      isKeyboardNavigation.current = true;
+    }
+
     const active = document.activeElement;
     const onTrigger = active === buttonRef.current;
     const inPanel = menuRef.current?.contains(active) ?? false;
@@ -136,9 +164,7 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
         e.preventDefault();
         e.stopPropagation();
 
-        openMenu();
-        focusFirstItem();
-
+        openMenuFromKeyboard();
         return;
       }
 
@@ -193,12 +219,14 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
 
       if (e.key === 'ArrowDown') {
         e.preventDefault();
+
         items[(safeIndex + 1) % items.length]?.focus();
         return;
       }
 
       if (e.key === 'ArrowUp') {
         e.preventDefault();
+
         items[(safeIndex - 1 + items.length) % items.length]?.focus();
         return;
       }
@@ -215,6 +243,7 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
         ref={buttonRef}
         type="button"
         role="menuitem"
+        tabIndex={-1}
         aria-haspopup="menu"
         aria-expanded={open}
         aria-controls={submenuId}
