@@ -29,12 +29,15 @@ export function DropdownExamples() {
 
           <DropdownSubmenu label="Open">
             <DropdownItem>Project</DropdownItem>
-
+            <DropdownItem disabled>Sub Project (disabled)</DropdownItem>
             <DropdownSubmenu label="Recent">
               <DropdownItem>A</DropdownItem>
-              <DropdownItem>B</DropdownItem>
+              <DropdownItem disabled>B (disabled)</DropdownItem>
+              <DropdownItem>C</DropdownItem>
             </DropdownSubmenu>
           </DropdownSubmenu>
+
+          <DropdownItem disabled>Rename (disabled)</DropdownItem>
 
           <DropdownItem>Save</DropdownItem>
         </DropdownAccessible>

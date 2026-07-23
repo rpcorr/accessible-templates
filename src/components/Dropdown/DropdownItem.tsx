@@ -9,7 +9,7 @@ export type DropdownItemProps =
 export const DropdownItem = React.forwardRef<
   HTMLButtonElement,
   DropdownItemProps
->(({ children, onKeyDown, onClick, ...props }, ref) => {
+>(({ children, onKeyDown, onClick, disabled, ...props }, ref) => {
   const { registerMenuItem, requestCloseAll } = useDropdownMenu();
 
   const buttonRef = React.useRef<HTMLButtonElement | null>(null);
@@ -30,13 +30,15 @@ export const DropdownItem = React.forwardRef<
     return registerMenuItem({
       ref: buttonRef.current,
       label: String(children),
+      disabled,
+
       setActive: (active) => {
-        if (buttonRef.current) {
+        if (buttonRef.current && !disabled) {
           buttonRef.current.tabIndex = active ? 0 : -1;
         }
       },
     });
-  }, [registerMenuItem, children]);
+  }, [registerMenuItem, children, disabled]);
 
   return (
     <button
@@ -44,8 +46,15 @@ export const DropdownItem = React.forwardRef<
       ref={setRefs}
       type="button"
       role="menuitem"
+      tabIndex={disabled ? -1 : undefined}
+      aria-disabled={disabled || undefined}
       data-menuitem="true"
       onClick={(e) => {
+        if (disabled) {
+          e.preventDefault();
+          return;
+        }
+
         onClick?.(e);
 
         if (e.defaultPrevented) return;
@@ -55,7 +64,7 @@ export const DropdownItem = React.forwardRef<
       onKeyDown={(e) => {
         onKeyDown?.(e);
 
-        if (e.defaultPrevented) return;
+        if (e.defaultPrevented || disabled) return;
 
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();

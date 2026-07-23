@@ -3,6 +3,7 @@ import { createContext } from 'react';
 export type MenuItemRegistration = {
   ref: HTMLButtonElement;
   label: string;
+  disabled?: boolean;
 
   setActive?: (active: boolean) => void;
 };

@@ -124,8 +124,9 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
 
   function focusFirstItem(): void {
     requestAnimationFrame(() => {
-      const firstItem =
-        menuRef.current?.querySelector<HTMLButtonElement>('[role="menuitem"]');
+      const firstItem = submenuRegistry
+        .getMenuItems()
+        .find((item) => !item.disabled)?.ref;
 
       firstItem?.focus();
     });
@@ -188,7 +189,10 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
     if (inPanel) {
       e.stopPropagation();
 
-      const items = submenuRegistry.getMenuItems().map((item) => item.ref);
+      const items = submenuRegistry
+        .getMenuItems()
+        .filter((item) => !item.disabled)
+        .map((item) => item.ref);
 
       const index = items.indexOf(active as HTMLButtonElement);
       const safeIndex = index >= 0 ? index : 0;

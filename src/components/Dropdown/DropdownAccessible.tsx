@@ -27,7 +27,10 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
   const [menuRegistry] = useState(createMenuItemRegistry);
 
   const getItems = useCallback((): HTMLButtonElement[] => {
-    return menuRegistry.getMenuItems().map((item) => item.ref);
+    return menuRegistry
+      .getMenuItems()
+      .filter((item) => !item.disabled)
+      .map((item) => item.ref);
   }, [menuRegistry]);
 
   function openMenu(index = 0): void {
@@ -206,9 +209,12 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
   useEffect(() => {
     if (!open) return;
 
-    menuRegistry.getMenuItems().forEach((item, index) => {
-      item.setActive?.(index === activeIndex);
-    });
+    menuRegistry
+      .getMenuItems()
+      .filter((item) => !item.disabled)
+      .forEach((item, index) => {
+        item.setActive?.(index === activeIndex);
+      });
   }, [open, activeIndex, menuRegistry]);
 
   // reset typeahead
