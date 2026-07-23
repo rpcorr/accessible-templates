@@ -252,8 +252,12 @@ export function DropdownSubmenu({ label, children }: DropdownSubmenuProps) {
         aria-expanded={open}
         aria-controls={submenuId}
         onKeyDown={handleKeyDown}
+        className={styles.menuItem}
       >
-        {label} <span aria-hidden="true">▶</span>
+        <>
+          <span>{label}</span>
+          <span aria-hidden="true">▶</span>
+        </>
       </button>
 
       {open && (

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDropdownMenu } from './useDropdownMenu';
+import styles from './Dropdown.module.css';
 
 export type DropdownItemProps =
   React.ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -72,6 +73,7 @@ export const DropdownItem = React.forwardRef<
           e.currentTarget.click();
         }
       }}
+      className={styles.menuItem}
     >
       {children}
     </button>
