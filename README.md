@@ -35,7 +35,7 @@ This project is designed to:
 
 ## 📦 Getting Started
 
-### Install dependencies
+### Installation
 
 ```bash
 npm install
@@ -45,33 +45,32 @@ npm install
 
 ## 🧩 Components
 
+The following components are designed with accessibility as a first-class concern and follow modern React and WAI-ARIA best practices.
+
+Each component includes:
+
+- Accessibility features
+- Keyboard interaction documentation
+- Usage examples
+- Implementation notes where appropriate
+
 ### DropdownAccessible
 
-An accessible dropdown menu component supporting nested submenus, keyboard navigation, focus management, and mouse/keyboard interaction.
+An accessible dropdown menu component implementing the WAI-ARIA Menu Button pattern with nested submenus, keyboard navigation, focus management, disabled menu items, and semantic separators.
 
 #### Features
 
 - Keyboard accessible
 - Nested submenu support
-- Focus management
+- Automatic focus management and restoration
 - Mouse and keyboard interaction
-- Typeahead support
+- Typeahead (character search) support
 - Escape key handling
 - ARIA menu roles and states
 - Disabled menu item support
+- Menu separators
 
 #### Keyboard Support
-
-#### Disabled Menu Items
-
-Menu items can be disabled while remaining visible in the menu.
-
-Example:
-
-````tsx
-<DropdownItem disabled>
-  Rename
-</DropdownItem>
 
 ##### Trigger Button
 
@@ -101,6 +100,45 @@ Example:
 | Enter / Space | Open submenu                   |
 | Escape        | Close submenu and return focus |
 
+#### Disabled Menu Items
+
+Menu items can be disabled while remaining visible in the menu.
+
+Example:
+
+```tsx
+<DropdownItem disabled>Rename</DropdownItem>
+```
+
+Disabled items:
+
+- Remain visible in the menu
+- Are announced as unavailable by assistive technologies
+- Cannot be activated with mouse or keyboard
+- Are skipped during keyboard navigation
+- Are excluded from initial submenu focus
+
+#### Menu Separators
+
+Menu separators can be used to visually and semantically group related menu items.
+
+Example:
+
+```tsx
+<DropdownItem>New</DropdownItem>
+
+<DropdownSeparator />
+
+<DropdownItem>Save</DropdownItem>
+```
+
+Separators:
+
+- Are not focusable
+- Are skipped during keyboard navigation
+- Do not affect menu item selection
+- Provide semantic grouping with `role="separator"`
+
 #### Example
 
 ```tsx
@@ -109,19 +147,26 @@ Example:
 >
   <DropdownItem>New</DropdownItem>
 
+  <DropdownSeparator />
+
   <DropdownSubmenu label="Open">
     <DropdownItem>Project</DropdownItem>
-    <DropdownItem disabled>
-    Sub Project (disabled)
-    </DropdownItem>
+
+    <DropdownItem disabled>Sub Project (disabled)</DropdownItem>
+
+    <DropdownSeparator />
 
     <DropdownSubmenu label="Recent">
-    <DropdownItem disabled>
-        A (disabled)
-    </DropdownItem>
-    <DropdownItem>B</DropdownItem>
+      <DropdownItem disabled>A (disabled)</DropdownItem>
+      <DropdownItem>B</DropdownItem>
+      <DropdownItem>C</DropdownItem>
     </DropdownSubmenu>
+  </DropdownSubmenu>
 
-    <DropdownItem>Save</DropdownItem>
+  <DropdownSeparator />
+
+  <DropdownItem disabled>Rename (disabled)</DropdownItem>
+
+  <DropdownItem>Save</DropdownItem>
 </DropdownAccessible>
-````
+```

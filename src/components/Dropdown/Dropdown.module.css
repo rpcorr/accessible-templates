@@ -41,3 +41,9 @@
   gap: 8px;
   z-index: 1000;
 }
+
+.dropdownSeparator {
+  height: 1px;
+  margin: 6px 0;
+  background-color: #ccc;
+}

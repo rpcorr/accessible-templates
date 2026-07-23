@@ -3,6 +3,7 @@ import { DropdownAccessible } from '../../components/Dropdown/DropdownAccessible
 import { DropdownItem } from '../../components/Dropdown/DropdownItem';
 import { DropdownBasic } from '../../components/Dropdown/DropdownBasic';
 import { DropdownSubmenu } from '../../components/Dropdown/DropdownSubmenu';
+import { DropdownSeparator } from '../../components/Dropdown/DropdownSeparator';
 
 export function DropdownExamples() {
   return (
@@ -27,15 +28,24 @@ export function DropdownExamples() {
         >
           <DropdownItem>New</DropdownItem>
 
+          <DropdownSeparator />
+
           <DropdownSubmenu label="Open">
             <DropdownItem>Project</DropdownItem>
             <DropdownItem disabled>Sub Project (disabled)</DropdownItem>
+
+            <DropdownSeparator />
+
             <DropdownSubmenu label="Recent">
               <DropdownItem>A</DropdownItem>
               <DropdownItem disabled>B (disabled)</DropdownItem>
+
+              <DropdownSeparator />
               <DropdownItem>C</DropdownItem>
             </DropdownSubmenu>
           </DropdownSubmenu>
+
+          <DropdownSeparator />
 
           <DropdownItem disabled>Rename (disabled)</DropdownItem>
 
