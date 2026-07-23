@@ -58,8 +58,20 @@ An accessible dropdown menu component supporting nested submenus, keyboard navig
 - Typeahead support
 - Escape key handling
 - ARIA menu roles and states
+- Disabled menu item support
 
 #### Keyboard Support
+
+#### Disabled Menu Items
+
+Menu items can be disabled while remaining visible in the menu.
+
+Example:
+
+````tsx
+<DropdownItem disabled>
+  Rename
+</DropdownItem>
 
 ##### Trigger Button
 
@@ -99,13 +111,17 @@ An accessible dropdown menu component supporting nested submenus, keyboard navig
 
   <DropdownSubmenu label="Open">
     <DropdownItem>Project</DropdownItem>
+    <DropdownItem disabled>
+    Sub Project (disabled)
+    </DropdownItem>
 
     <DropdownSubmenu label="Recent">
-      <DropdownItem>A</DropdownItem>
-      <DropdownItem>B</DropdownItem>
+    <DropdownItem disabled>
+        A (disabled)
+    </DropdownItem>
+    <DropdownItem>B</DropdownItem>
     </DropdownSubmenu>
-  </DropdownSubmenu>
 
-  <DropdownItem>Save</DropdownItem>
+    <DropdownItem>Save</DropdownItem>
 </DropdownAccessible>
-```
+````
