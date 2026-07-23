@@ -40,3 +40,72 @@ This project is designed to:
 ```bash
 npm install
 ```
+
+---
+
+## 🧩 Components
+
+### DropdownAccessible
+
+An accessible dropdown menu component supporting nested submenus, keyboard navigation, focus management, and mouse/keyboard interaction.
+
+#### Features
+
+- Keyboard accessible
+- Nested submenu support
+- Focus management
+- Mouse and keyboard interaction
+- Typeahead support
+- Escape key handling
+- ARIA menu roles and states
+
+#### Keyboard Support
+
+##### Trigger Button
+
+| Key           | Action                         |
+| ------------- | ------------------------------ |
+| Enter / Space | Open menu                      |
+| Arrow Down    | Open menu and focus first item |
+| Arrow Up      | Open menu and focus last item  |
+
+##### Menu Items
+
+| Key           | Action                      |
+| ------------- | --------------------------- |
+| Arrow Down    | Move to next item           |
+| Arrow Up      | Move to previous item       |
+| Home          | Move to first item          |
+| End           | Move to last item           |
+| Enter / Space | Activate item               |
+| Escape        | Close menu and return focus |
+
+##### Submenus
+
+| Key           | Action                         |
+| ------------- | ------------------------------ |
+| Arrow Right   | Open submenu                   |
+| Arrow Left    | Close submenu and return focus |
+| Enter / Space | Open submenu                   |
+| Escape        | Close submenu and return focus |
+
+#### Example
+
+```tsx
+<DropdownAccessible
+  trigger={<Button>Open Accessible Menu with Submenus</Button>}
+>
+  <DropdownItem>New</DropdownItem>
+
+  <DropdownSubmenu label="Open">
+    <DropdownItem>Project</DropdownItem>
+
+    <DropdownSubmenu label="Recent">
+      <DropdownItem>A</DropdownItem>
+      <DropdownItem>B</DropdownItem>
+    </DropdownSubmenu>
+  </DropdownSubmenu>
+
+  <DropdownItem>Save</DropdownItem>
+</DropdownAccessible>
+```
