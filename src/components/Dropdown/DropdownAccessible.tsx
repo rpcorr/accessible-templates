@@ -262,6 +262,14 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
         'aria-haspopup': 'menu',
         'aria-expanded': open,
         'aria-controls': menuId,
+        children: (
+          <>
+            {trigger.props.children}
+            <span className={styles.menuCaret} aria-hidden="true">
+              {open ? '▲' : '▼'}
+            </span>
+          </>
+        ),
       })}
 
       {open && (

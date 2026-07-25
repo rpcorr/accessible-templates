@@ -28,6 +28,11 @@
   background-color: #ccc;
 }
 
+.menuCaret {
+  margin-left: 6px;
+  font-size: 0.7em;
+}
+
 .menuItem {
   display: flex;
   justify-content: space-between;
