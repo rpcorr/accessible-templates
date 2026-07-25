@@ -56,7 +56,7 @@ Each component includes:
 
 ### DropdownAccessible
 
-An accessible dropdown menu component implementing the WAI-ARIA Menu Button pattern with nested submenus, keyboard navigation, focus management, disabled menu items, and semantic separators.
+An accessible dropdown menu component implementing the WAI-ARIA Menu Button pattern with nested submenus, keyboard navigation, focus management, disabled menu items, semantic separators, and responsive behaviour.
 
 #### Features
 
@@ -138,6 +138,16 @@ Separators:
 - Are skipped during keyboard navigation
 - Do not affect menu item selection
 - Provide semantic grouping with `role="separator"`
+
+#### Responsive Behaviour
+
+The dropdown adapts to smaller screen sizes:
+
+- On larger screens, submenus open beside their parent menu.
+- At screen widths of 600px or less, submenus stack below their parent item.
+- Menu widths adapt to the available viewport space.
+- Long menu labels wrap to prevent content from overflowing the menu.
+- Nested submenus remain usable at multiple levels on smaller screens.
 
 #### Example
 
