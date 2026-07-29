@@ -4,11 +4,32 @@ import { DropdownExamples } from './examples/Dropdown/DropdownExamples';
 
 function App() {
   const navigationItems = [
-    { label: 'Home', href: '#', current: true },
-    { label: 'Products', href: '#' },
-    { label: 'Services', href: '#' },
-    { label: 'About', href: '#' },
-    { label: 'Contact', href: '#' },
+    {
+      id: 'home',
+      label: 'Home',
+      href: '#',
+      current: true,
+    },
+    {
+      id: 'products',
+      label: 'Products',
+      href: '#',
+    },
+    {
+      id: 'services',
+      label: 'Services',
+      href: '#',
+    },
+    {
+      id: 'about',
+      label: 'About',
+      href: '#',
+    },
+    {
+      id: 'contact',
+      label: 'Contact',
+      href: '#',
+    },
   ];
 
   return (
