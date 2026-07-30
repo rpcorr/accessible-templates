@@ -1,17 +1,7 @@
 import styles from './Navigation.module.css';
+import { NavigationItem as NavigationItemComponent } from './NavigationItem';
 
-export type NavigationItem = {
-  id: string;
-  label: string;
-
-  href?: string;
-
-  current?: boolean;
-  disabled?: boolean;
-  external?: boolean;
-
-  children?: NavigationItem[];
-};
+import type { NavigationItem } from './Navigation.types';
 
 type NavigationProps = {
   items: NavigationItem[];
@@ -26,15 +16,7 @@ export function Navigation({
     <nav className={styles.navigation} aria-label={ariaLabel}>
       <ul className={styles.navigationList}>
         {items.map((item) => (
-          <li key={item.id} className={styles.navigationItem}>
-            <a
-              href={item.href ?? '#'}
-              className={styles.navigationLink}
-              aria-current={item.current ? 'page' : undefined}
-            >
-              {item.label}
-            </a>
-          </li>
+          <NavigationItemComponent key={item.id} item={item} />
         ))}
       </ul>
     </nav>
