@@ -13,21 +13,33 @@ function App() {
     {
       id: 'products',
       label: 'Products',
-      href: '#',
+      children: [
+        {
+          id: 'web',
+          label: 'Web Development',
+          href: '#',
+        },
+        {
+          id: 'accessibility',
+          label: 'Accessibility',
+          children: [
+            {
+              id: 'wcag',
+              label: 'WCAG',
+              href: '#',
+            },
+            {
+              id: 'audits',
+              label: 'Accessibility Audits',
+              href: '#',
+            },
+          ],
+        },
+      ],
     },
     {
       id: 'services',
       label: 'Services',
-      href: '#',
-    },
-    {
-      id: 'about',
-      label: 'About',
-      href: '#',
-    },
-    {
-      id: 'contact',
-      label: 'Contact',
       href: '#',
     },
   ];

@@ -1,11 +1,16 @@
 import styles from './Navigation.module.css';
-import type { NavigationItem } from './Navigation.types';
+import { NavigationSubmenu } from './NavigationSubmenu';
+import type { NavigationItem as NavigationItemType } from './Navigation.types';
 
 type NavigationItemProps = {
-  item: NavigationItem;
+  item: NavigationItemType;
 };
 
 export function NavigationItem({ item }: NavigationItemProps) {
+  if (item.children && item.children.length > 0) {
+    return <NavigationSubmenu item={item} />;
+  }
+
   return (
     <li className={styles.navigationItem}>
       <a
