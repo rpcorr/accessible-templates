@@ -17,6 +17,9 @@ export function Navigation({
 }: NavigationProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement | null>(null);
+  const firstItemRef = useRef<HTMLAnchorElement | HTMLButtonElement | null>(
+    null,
+  );
 
   function handleKeyDown(e: React.KeyboardEvent) {
     if (e.key === 'Escape' && mobileOpen) {
@@ -28,6 +31,20 @@ export function Navigation({
     }
   }
 
+  function handleToggle() {
+    setMobileOpen((value) => {
+      const nextState = !value;
+
+      if (nextState) {
+        requestAnimationFrame(() => {
+          firstItemRef.current?.focus();
+        });
+      }
+
+      return nextState;
+    });
+  }
+
   return (
     <nav
       className={styles.navigation}
@@ -37,7 +54,7 @@ export function Navigation({
       <NavigationToggle
         ref={toggleRef}
         open={mobileOpen}
-        onClick={() => setMobileOpen((value) => !value)}
+        onClick={handleToggle}
       />
 
       <ul
@@ -46,8 +63,18 @@ export function Navigation({
           mobileOpen ? styles.mobileOpen : ''
         }`}
       >
-        {items.map((item) => (
-          <NavigationItemComponent key={item.id} item={item} />
+        {items.map((item, index) => (
+          <NavigationItemComponent
+            key={item.id}
+            item={item}
+            itemRef={
+              index === 0
+                ? (element) => {
+                    firstItemRef.current = element;
+                  }
+                : undefined
+            }
+          />
         ))}
       </ul>
     </nav>
