@@ -4,12 +4,23 @@ import type { NavigationItem as NavigationItemType } from './Navigation.types';
 
 type NavigationItemProps = {
   item: NavigationItemType;
+  mobile?: boolean;
   itemRef?: (element: HTMLAnchorElement | HTMLButtonElement | null) => void;
 };
 
-export function NavigationItem({ item, itemRef }: NavigationItemProps) {
+export function NavigationItem({
+  item,
+  itemRef,
+  mobile = false,
+}: NavigationItemProps) {
   if (item.children && item.children.length > 0) {
-    return <NavigationSubmenu item={item} buttonRefCallback={itemRef} />;
+    return (
+      <NavigationSubmenu
+        item={item}
+        buttonRefCallback={itemRef}
+        mobile={mobile}
+      />
+    );
   }
 
   return (

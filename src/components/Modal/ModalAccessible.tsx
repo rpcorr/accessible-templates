@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import styles from './Modal.module.css';
 import { Button } from '../Button';
+import { useFocusTrap } from '../../hooks/useFocusTrap';
 
 type ModalProps = {
   isOpen: boolean;
@@ -22,50 +23,27 @@ export function AccessibleModal({
 }: ModalProps) {
   const modalRef = useRef<HTMLDivElement | null>(null);
 
-  // ESC + focus trap setup
+  // Trap keyboard focus inside the modal
+  useFocusTrap({
+    active: isOpen,
+    containerRef: modalRef,
+  });
+
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen || disableClose) return;
 
-    const focusableElements =
-      modalRef.current?.querySelectorAll<HTMLElement>(
-        'button, [href], input, textarea, select, [tabindex]:not([tabindex="-1"])',
-      ) ?? [];
-
-    const firstElement = focusableElements[0];
-    const lastElement = focusableElements[focusableElements.length - 1];
-
-    firstElement?.focus();
-
-    function handleKeyDown(e: KeyboardEvent) {
-      // ESC closes modal
-      if (e.key === 'Escape' && !disableClose) {
+    function handleEscape(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
         onClose();
-      }
-
-      // TAB trap
-      if (e.key === 'Tab') {
-        if (focusableElements.length === 0) return;
-
-        if (e.shiftKey) {
-          if (document.activeElement === firstElement) {
-            e.preventDefault();
-            lastElement?.focus();
-          }
-        } else {
-          if (document.activeElement === lastElement) {
-            e.preventDefault();
-            firstElement?.focus();
-          }
-        }
       }
     }
 
-    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keydown', handleEscape);
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keydown', handleEscape);
     };
-  }, [isOpen, onClose, disableClose]);
+  }, [isOpen, disableClose, onClose]);
 
   const wasOpenRef = useRef(false);
 

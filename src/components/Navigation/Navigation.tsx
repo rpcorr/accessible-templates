@@ -3,6 +3,7 @@ import styles from './Navigation.module.css';
 
 import { NavigationToggle } from './NavigationToggle';
 import { NavigationItem as NavigationItemComponent } from './NavigationItem';
+import { NavigationDrawer } from './NavigationDrawer';
 
 import type { NavigationItem } from './Navigation.types';
 
@@ -57,26 +58,32 @@ export function Navigation({
         onClick={handleToggle}
       />
 
-      <ul
-        id="main-navigation"
-        className={`${styles.navigationList} ${
-          mobileOpen ? styles.mobileOpen : ''
-        }`}
+      <NavigationDrawer
+        open={mobileOpen}
+        onClose={() => {
+          setMobileOpen(false);
+
+          requestAnimationFrame(() => {
+            toggleRef.current?.focus();
+          });
+        }}
       >
-        {items.map((item, index) => (
-          <NavigationItemComponent
-            key={item.id}
-            item={item}
-            itemRef={
-              index === 0
-                ? (element) => {
-                    firstItemRef.current = element;
-                  }
-                : undefined
-            }
-          />
-        ))}
-      </ul>
+        <ul id="main-navigation" className={styles.navigationList}>
+          {items.map((item, index) => (
+            <NavigationItemComponent
+              key={item.id}
+              item={item}
+              itemRef={
+                index === 0
+                  ? (element) => {
+                      firstItemRef.current = element;
+                    }
+                  : undefined
+              }
+            />
+          ))}
+        </ul>
+      </NavigationDrawer>
     </nav>
   );
 }

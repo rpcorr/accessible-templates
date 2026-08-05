@@ -6,12 +6,14 @@ import type { NavigationItem as NavigationItemType } from './Navigation.types';
 type NavigationSubmenuProps = {
   item: NavigationItemType;
   nested?: boolean;
+  mobile?: boolean;
   buttonRefCallback?: (element: HTMLButtonElement | null) => void;
 };
 
 export function NavigationSubmenu({
   item,
   nested = false,
+  mobile = false,
   buttonRefCallback,
 }: NavigationSubmenuProps) {
   const [open, setOpen] = useState(false);
@@ -64,11 +66,10 @@ export function NavigationSubmenu({
   }
 
   function handleSubmenuNavigation(e: React.KeyboardEvent<HTMLUListElement>) {
-    if (e.key === 'Tab') {
+    if (e.key === 'Tab' && !mobile) {
       closeSubmenuWithoutFocus();
       return;
     }
-
     e.stopPropagation();
 
     const menuItems = menuItemRefs.current.filter(
