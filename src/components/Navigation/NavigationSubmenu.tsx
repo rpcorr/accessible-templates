@@ -170,6 +170,7 @@ export function NavigationSubmenu({
               <NavigationItem
                 key={child.id}
                 item={child}
+                mobile={mobile}
                 itemRef={(element) => {
                   menuItemRefs.current[index] = element;
                 }}

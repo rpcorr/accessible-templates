@@ -73,6 +73,7 @@ export function Navigation({
             <NavigationItemComponent
               key={item.id}
               item={item}
+              mobile={mobileOpen}
               itemRef={
                 index === 0
                   ? (element) => {
