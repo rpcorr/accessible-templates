@@ -18,19 +18,7 @@ export function Navigation({
 }: NavigationProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement | null>(null);
-  const firstItemRef = useRef<HTMLAnchorElement | HTMLButtonElement | null>(
-    null,
-  );
-
-  function handleKeyDown(e: React.KeyboardEvent) {
-    if (e.key === 'Escape' && mobileOpen) {
-      setMobileOpen(false);
-
-      requestAnimationFrame(() => {
-        toggleRef.current?.focus();
-      });
-    }
-  }
+  const drawerCloseRef = useRef<HTMLButtonElement | null>(null);
 
   function handleToggle() {
     setMobileOpen((value) => {
@@ -38,7 +26,7 @@ export function Navigation({
 
       if (nextState) {
         requestAnimationFrame(() => {
-          firstItemRef.current?.focus();
+          drawerCloseRef.current?.focus();
         });
       }
 
@@ -50,7 +38,6 @@ export function Navigation({
     <nav
       className={styles.navigation}
       aria-label={ariaLabel}
-      onKeyDown={handleKeyDown}
     >
       <NavigationToggle
         ref={toggleRef}
@@ -60,6 +47,7 @@ export function Navigation({
 
       <NavigationDrawer
         open={mobileOpen}
+        closeButtonRef={drawerCloseRef}
         onClose={() => {
           setMobileOpen(false);
 
@@ -68,19 +56,15 @@ export function Navigation({
           });
         }}
       >
-        <ul id="main-navigation" className={styles.navigationList}>
-          {items.map((item, index) => (
+        <ul
+          id="main-navigation"
+          className={`${styles.navigationList} ${styles.mobileNavigationList}`}
+        >
+          {items.map((item) => (
             <NavigationItemComponent
               key={item.id}
               item={item}
               mobile={mobileOpen}
-              itemRef={
-                index === 0
-                  ? (element) => {
-                      firstItemRef.current = element;
-                    }
-                  : undefined
-              }
             />
           ))}
         </ul>
