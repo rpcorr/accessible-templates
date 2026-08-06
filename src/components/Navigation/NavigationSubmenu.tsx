@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useId, useRef, useState } from 'react';
 import styles from './Navigation.module.css';
 import { NavigationItem } from './NavigationItem';
 import type { NavigationItem as NavigationItemType } from './Navigation.types';
@@ -17,6 +17,7 @@ export function NavigationSubmenu({
   buttonRefCallback,
 }: NavigationSubmenuProps) {
   const [open, setOpen] = useState(false);
+  const submenuId = useId();
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const submenuRef = useRef<HTMLUListElement | null>(null);
@@ -138,7 +139,8 @@ export function NavigationSubmenu({
         type="button"
         className={styles.navigationLink}
         aria-expanded={open}
-        aria-haspopup="menu"
+        aria-haspopup="true"
+        aria-controls={submenuId}
         onClick={() => {
           if (open) {
             closeSubmenu();
@@ -162,6 +164,7 @@ export function NavigationSubmenu({
           }`}
         >
           <ul
+            id={submenuId}
             ref={submenuRef}
             className={styles.submenuList}
             onKeyDown={handleSubmenuNavigation}
