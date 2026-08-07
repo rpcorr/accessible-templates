@@ -202,8 +202,7 @@ Mobile Layout
   ----------------------------------------
   */
 
-  .drawer .navigationList,
-  .mobileNavigationList {
+  .drawer .navigationList {
     display: flex;
     flex-direction: column;
 

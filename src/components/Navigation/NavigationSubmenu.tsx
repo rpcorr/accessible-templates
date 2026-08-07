@@ -1,12 +1,14 @@
-import { useId, useRef, useState } from 'react';
+import { useId, useRef } from 'react';
 import styles from './Navigation.module.css';
 import { NavigationItem } from './NavigationItem';
 import type { NavigationItem as NavigationItemType } from './Navigation.types';
+import { useNavigationMenu } from './NavigationContextHook';
 
 type NavigationSubmenuProps = {
   item: NavigationItemType;
   nested?: boolean;
   mobile?: boolean;
+  level?: number;
   buttonRefCallback?: (element: HTMLButtonElement | null) => void;
 };
 
@@ -14,9 +16,11 @@ export function NavigationSubmenu({
   item,
   nested = false,
   mobile = false,
+  level = 0,
   buttonRefCallback,
 }: NavigationSubmenuProps) {
-  const [open, setOpen] = useState(false);
+  const { openSubmenus, openSubmenu, closeSubmenu } = useNavigationMenu();
+  const open = openSubmenus[level] === item.id;
   const submenuId = useId();
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
@@ -32,13 +36,14 @@ export function NavigationSubmenu({
     });
   }
 
-  function openSubmenu() {
-    setOpen(true);
+  function openSubmenuHandler() {
+    openSubmenu(level, item.id);
+
     focusFirstItem();
   }
 
-  function closeSubmenu() {
-    setOpen(false);
+  function closeSubmenuHandler() {
+    closeSubmenu(level);
 
     requestAnimationFrame(() => {
       buttonRef.current?.focus();
@@ -46,7 +51,7 @@ export function NavigationSubmenu({
   }
 
   function closeSubmenuWithoutFocus() {
-    setOpen(false);
+    closeSubmenu(level);
   }
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLButtonElement>) {
@@ -55,19 +60,19 @@ export function NavigationSubmenu({
       case ' ':
       case 'ArrowRight':
         e.preventDefault();
-        openSubmenu();
+        openSubmenuHandler();
         break;
 
       case 'ArrowLeft':
       case 'Escape':
         e.preventDefault();
-        closeSubmenu();
+        closeSubmenuHandler();
         break;
     }
   }
 
   function handleSubmenuNavigation(e: React.KeyboardEvent<HTMLUListElement>) {
-    if (e.key === 'Tab' && !mobile) {
+    if (e.key === 'Tab') {
       closeSubmenuWithoutFocus();
       return;
     }
@@ -124,7 +129,7 @@ export function NavigationSubmenu({
       e.preventDefault();
       e.stopPropagation();
 
-      closeSubmenu();
+      closeSubmenuHandler();
     }
   }
 
@@ -143,9 +148,9 @@ export function NavigationSubmenu({
         aria-controls={submenuId}
         onClick={() => {
           if (open) {
-            closeSubmenu();
+            closeSubmenu(level);
           } else {
-            openSubmenu();
+            openSubmenu(level, item.id);
           }
         }}
         onKeyDown={handleKeyDown}
@@ -174,6 +179,7 @@ export function NavigationSubmenu({
                 key={child.id}
                 item={child}
                 mobile={mobile}
+                level={level + 1}
                 itemRef={(element) => {
                   menuItemRefs.current[index] = element;
                 }}

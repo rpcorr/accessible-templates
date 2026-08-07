@@ -6,6 +6,7 @@ import { NavigationItem as NavigationItemComponent } from './NavigationItem';
 import { NavigationDrawer } from './NavigationDrawer';
 
 import type { NavigationItem } from './Navigation.types';
+import { NavigationProvider } from './NavigationProvider';
 
 type NavigationProps = {
   items: NavigationItem[];
@@ -35,40 +36,36 @@ export function Navigation({
   }
 
   return (
-    <nav
-      className={styles.navigation}
-      aria-label={ariaLabel}
-    >
-      <NavigationToggle
-        ref={toggleRef}
-        open={mobileOpen}
-        onClick={handleToggle}
-      />
+    <NavigationProvider>
+      <nav className={styles.navigation} aria-label={ariaLabel}>
+        <NavigationToggle
+          ref={toggleRef}
+          open={mobileOpen}
+          onClick={handleToggle}
+        />
 
-      <NavigationDrawer
-        open={mobileOpen}
-        closeButtonRef={drawerCloseRef}
-        onClose={() => {
-          setMobileOpen(false);
+        <NavigationDrawer
+          open={mobileOpen}
+          closeButtonRef={drawerCloseRef}
+          onClose={() => {
+            setMobileOpen(false);
 
-          requestAnimationFrame(() => {
-            toggleRef.current?.focus();
-          });
-        }}
-      >
-        <ul
-          id="main-navigation"
-          className={`${styles.navigationList} ${styles.mobileNavigationList}`}
+            requestAnimationFrame(() => {
+              toggleRef.current?.focus();
+            });
+          }}
         >
-          {items.map((item) => (
-            <NavigationItemComponent
-              key={item.id}
-              item={item}
-              mobile={mobileOpen}
-            />
-          ))}
-        </ul>
-      </NavigationDrawer>
-    </nav>
+          <ul id="main-navigation" className={styles.navigationList}>
+            {items.map((item) => (
+              <NavigationItemComponent
+                key={item.id}
+                item={item}
+                mobile={mobileOpen}
+              />
+            ))}
+          </ul>
+        </NavigationDrawer>
+      </nav>
+    </NavigationProvider>
   );
 }
