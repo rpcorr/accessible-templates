@@ -138,13 +138,11 @@ export function NavigationSubmenu({
       <button
         ref={(element) => {
           buttonRef.current = element;
-
           buttonRefCallback?.(element);
         }}
         type="button"
         className={styles.navigationLink}
         aria-expanded={open}
-        aria-haspopup="true"
         aria-controls={submenuId}
         onClick={() => {
           if (open) {
