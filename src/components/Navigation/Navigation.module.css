@@ -279,3 +279,10 @@ Mobile Layout
     padding-left: 1.5rem;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .drawer,
+  .drawerOverlay {
+    transition: none;
+  }
+}
