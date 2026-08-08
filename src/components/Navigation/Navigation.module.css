@@ -35,10 +35,16 @@ Shared Styles
   border-radius: 4px;
 }
 
-.navigationLink:hover,
-.navigationLink:focus-visible {
+.navigationLink:hover {
   background: #e8f2ff;
-  outline: none;
+}
+
+.navigationLink:focus-visible {
+  position: relative;
+  z-index: 1001;
+
+  outline: 3px solid #005fcc;
+  outline-offset: 2px;
 }
 
 .navigationLink[aria-current='page'] {
@@ -202,7 +208,8 @@ Mobile Layout
   .drawerClose:hover,
   .drawerClose:focus-visible {
     background: #e8f2ff;
-    outline: none;
+    outline: 3px solid #005fcc;
+    outline-offset: 2px;
   }
 
   /*
@@ -223,6 +230,7 @@ Mobile Layout
 
   .navigationItem {
     width: 100%;
+    margin-top: 1.5rem;
   }
 
   .navigationLink {
