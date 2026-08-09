@@ -69,13 +69,13 @@ export function NavigationSubmenu({
     }
   }
 
-  function handleSubmenuBlur(e: React.FocusEvent<HTMLUListElement>) {
-    const nextFocusedElement = e.relatedTarget as Node | null;
+  // function handleSubmenuBlur(e: React.FocusEvent<HTMLUListElement>) {
+  //   const nextFocusedElement = e.relatedTarget as Node | null;
 
-    if (!nextFocusedElement || !e.currentTarget.contains(nextFocusedElement)) {
-      closeSubmenuWithoutFocus();
-    }
-  }
+  //   if (!nextFocusedElement || !e.currentTarget.contains(nextFocusedElement)) {
+  //     closeSubmenuWithoutFocus();
+  //   }
+  // }
 
   function handleSubmenuNavigation(e: React.KeyboardEvent) {
     if (e.key === 'Tab') {
@@ -185,7 +185,7 @@ export function NavigationSubmenu({
             ref={submenuRef}
             className={styles.submenuList}
             onKeyDown={handleSubmenuNavigation}
-            onBlur={handleSubmenuBlur}
+            // onBlur={handleSubmenuBlur}
           >
             {item.children?.map((child, index) => (
               <NavigationItem
