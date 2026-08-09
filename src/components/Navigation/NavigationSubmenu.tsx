@@ -1,4 +1,4 @@
-import { useId, useRef } from 'react';
+import { useEffect, useId, useRef } from 'react';
 import styles from './Navigation.module.css';
 import { NavigationItem } from './NavigationItem';
 import type { NavigationItem as NavigationItemType } from './Navigation.types';
@@ -30,16 +30,14 @@ export function NavigationSubmenu({
     [],
   );
 
-  function focusFirstItem() {
-    requestAnimationFrame(() => {
-      menuItemRefs.current[0]?.focus();
-    });
-  }
+  // function focusFirstItem() {
+  //   requestAnimationFrame(() => {
+  //     menuItemRefs.current[0]?.focus();
+  //   });
+  // }
 
   function openSubmenuHandler() {
     openSubmenu(level, item.id);
-
-    focusFirstItem();
   }
 
   function closeSubmenuHandler() {
@@ -71,11 +69,19 @@ export function NavigationSubmenu({
     }
   }
 
-  function handleSubmenuNavigation(e: React.KeyboardEvent<HTMLUListElement>) {
-    if (e.key === 'Tab') {
+  function handleSubmenuBlur(e: React.FocusEvent<HTMLUListElement>) {
+    const nextFocusedElement = e.relatedTarget as Node | null;
+
+    if (!nextFocusedElement || !e.currentTarget.contains(nextFocusedElement)) {
       closeSubmenuWithoutFocus();
+    }
+  }
+
+  function handleSubmenuNavigation(e: React.KeyboardEvent) {
+    if (e.key === 'Tab') {
       return;
     }
+
     e.stopPropagation();
 
     const menuItems = menuItemRefs.current.filter(
@@ -133,6 +139,14 @@ export function NavigationSubmenu({
     }
   }
 
+  useEffect(() => {
+    if (!open) return;
+
+    requestAnimationFrame(() => {
+      menuItemRefs.current[0]?.focus();
+    });
+  }, [open]);
+
   return (
     <li className={styles.navigationItem}>
       <button
@@ -171,6 +185,7 @@ export function NavigationSubmenu({
             ref={submenuRef}
             className={styles.submenuList}
             onKeyDown={handleSubmenuNavigation}
+            onBlur={handleSubmenuBlur}
           >
             {item.children?.map((child, index) => (
               <NavigationItem
