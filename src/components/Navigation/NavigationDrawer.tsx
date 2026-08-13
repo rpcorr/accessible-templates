@@ -61,6 +61,7 @@ export function NavigationDrawer({
           type="button"
           className={styles.drawerClose}
           onClick={onClose}
+          aria-label="Close navigation menu"
         >
           X
         </button>
