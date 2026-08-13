@@ -117,22 +117,10 @@ Mobile Layout
 ========================================
 */
 
-@media (max-width: 48rem) {
-  /*
-  ----------------------------------------
-  Navigation Toggle
-  ----------------------------------------
-  */
-
+@media (max-width: 768px) {
   .navigationToggle {
     display: block;
   }
-
-  /*
-  ----------------------------------------
-  Drawer
-  ----------------------------------------
-  */
 
   .drawer {
     position: fixed;
@@ -182,12 +170,6 @@ Mobile Layout
     pointer-events: auto;
   }
 
-  /*
-  ----------------------------------------
-  Drawer Close Button
-  ----------------------------------------
-  */
-
   .drawerClose {
     display: block;
 
@@ -212,16 +194,9 @@ Mobile Layout
     outline-offset: 2px;
   }
 
-  /*
-  ----------------------------------------
-  Mobile Navigation
-  ----------------------------------------
-  */
-
   .drawer .navigationList {
     display: flex;
     flex-direction: column;
-
     align-items: stretch;
 
     width: 100%;
@@ -236,16 +211,9 @@ Mobile Layout
   .navigationLink {
     display: block;
     width: 100%;
-
     box-sizing: border-box;
     text-align: left;
   }
-
-  /*
-  ----------------------------------------
-  Mobile Submenus
-  ----------------------------------------
-  */
 
   .submenuWrapper {
     position: static;
@@ -266,7 +234,6 @@ Mobile Layout
     flex-direction: column;
 
     width: 100%;
-
     min-width: 0;
 
     margin-top: 0.5rem;

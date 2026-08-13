@@ -1,6 +1,5 @@
 import styles from './Navigation.module.css';
 import { NavigationSubmenu } from './NavigationSubmenu';
-import { useNavigationMenu } from './NavigationContextHook';
 import type { NavigationItem as NavigationItemType } from './Navigation.types';
 
 type NavigationItemProps = {
@@ -8,6 +7,7 @@ type NavigationItemProps = {
   mobile?: boolean;
   level?: number;
   itemRef?: (element: HTMLAnchorElement | HTMLButtonElement | null) => void;
+  onNavigate?: () => void;
 };
 
 export function NavigationItem({
@@ -15,9 +15,8 @@ export function NavigationItem({
   itemRef,
   mobile = false,
   level = 0,
+  onNavigate,
 }: NavigationItemProps) {
-  const { closeSubmenu } = useNavigationMenu();
-
   if (item.children && item.children.length > 0) {
     return (
       <NavigationSubmenu
@@ -25,6 +24,7 @@ export function NavigationItem({
         buttonRefCallback={itemRef}
         mobile={mobile}
         level={level}
+        onNavigate={onNavigate}
       />
     );
   }
@@ -36,8 +36,10 @@ export function NavigationItem({
         href={item.href ?? '#'}
         className={styles.navigationLink}
         aria-current={item.current ? 'page' : undefined}
-        onFocus={() => {
-          closeSubmenu(level);
+        onClick={() => {
+          if (mobile) {
+            onNavigate?.();
+          }
         }}
       >
         {item.label}

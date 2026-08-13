@@ -10,6 +10,7 @@ type NavigationSubmenuProps = {
   mobile?: boolean;
   level?: number;
   buttonRefCallback?: (element: HTMLButtonElement | null) => void;
+  onNavigate?: () => void;
 };
 
 export function NavigationSubmenu({
@@ -18,23 +19,17 @@ export function NavigationSubmenu({
   mobile = false,
   level = 0,
   buttonRefCallback,
+  onNavigate,
 }: NavigationSubmenuProps) {
   const { openSubmenus, openSubmenu, closeSubmenu } = useNavigationMenu();
   const open = openSubmenus[level] === item.id;
   const submenuId = useId();
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
-  const submenuRef = useRef<HTMLUListElement | null>(null);
 
   const menuItemRefs = useRef<(HTMLAnchorElement | HTMLButtonElement | null)[]>(
     [],
   );
-
-  // function focusFirstItem() {
-  //   requestAnimationFrame(() => {
-  //     menuItemRefs.current[0]?.focus();
-  //   });
-  // }
 
   function openSubmenuHandler() {
     openSubmenu(level, item.id);
@@ -44,12 +39,11 @@ export function NavigationSubmenu({
     closeSubmenu(level);
 
     requestAnimationFrame(() => {
-      buttonRef.current?.focus();
+      if (buttonRef.current) {
+        buttonRef.current.dataset.restoringFocus = 'true';
+        buttonRef.current.focus();
+      }
     });
-  }
-
-  function closeSubmenuWithoutFocus() {
-    closeSubmenu(level);
   }
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLButtonElement>) {
@@ -68,14 +62,6 @@ export function NavigationSubmenu({
         break;
     }
   }
-
-  // function handleSubmenuBlur(e: React.FocusEvent<HTMLUListElement>) {
-  //   const nextFocusedElement = e.relatedTarget as Node | null;
-
-  //   if (!nextFocusedElement || !e.currentTarget.contains(nextFocusedElement)) {
-  //     closeSubmenuWithoutFocus();
-  //   }
-  // }
 
   function handleSubmenuNavigation(e: React.KeyboardEvent) {
     if (e.key === 'Tab') {
@@ -176,16 +162,15 @@ export function NavigationSubmenu({
 
       {open && (
         <div
+          data-testid="product-submenu"
           className={`${styles.submenuWrapper} ${
             nested ? styles.nestedSubmenu : ''
           }`}
         >
           <ul
             id={submenuId}
-            ref={submenuRef}
             className={styles.submenuList}
             onKeyDown={handleSubmenuNavigation}
-            // onBlur={handleSubmenuBlur}
           >
             {item.children?.map((child, index) => (
               <NavigationItem
@@ -196,6 +181,7 @@ export function NavigationSubmenu({
                 itemRef={(element) => {
                   menuItemRefs.current[index] = element;
                 }}
+                onNavigate={onNavigate}
               />
             ))}
           </ul>

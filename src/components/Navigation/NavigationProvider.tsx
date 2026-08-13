@@ -45,12 +45,17 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
     });
   }
 
+  function closeAllSubmenus() {
+    setOpenSubmenus({});
+  }
+
   return (
     <NavigationContext.Provider
       value={{
         openSubmenus,
         openSubmenu,
         closeSubmenu,
+        closeAllSubmenus,
       }}
     >
       {children}
