@@ -76,8 +76,8 @@ export function NavigationSubmenu({
 
     if (!menuItems.length) return;
 
-    const currentIndex = menuItems.indexOf(
-      document.activeElement as HTMLAnchorElement,
+    const currentIndex = menuItems.findIndex(
+      (item) => item === document.activeElement,
     );
 
     if (e.key === 'ArrowDown') {
