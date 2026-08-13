@@ -1,6 +1,9 @@
-import { ButtonExamples, ModalExamples } from './examples';
-import { DropdownExamples } from './examples/Dropdown/DropdownExamples';
-import { NavigationExamples } from './examples/Navigation/NavigationExamples';
+import {
+  ButtonExamples,
+  ModalExamples,
+  DropdownExamples,
+  NavigationExamples,
+} from './examples';
 
 function App() {
   return (
