@@ -55,6 +55,7 @@ export function NavigationDrawer({
         ref={drawerRef}
         className={`${styles.drawer} ${open ? styles.drawerOpen : ''}`}
         aria-hidden={!open}
+        inert={!open}
       >
         <button
           ref={closeButtonRef}
@@ -65,7 +66,6 @@ export function NavigationDrawer({
         >
           X
         </button>
-
         {children}
       </div>
     </>
