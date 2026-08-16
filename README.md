@@ -6,7 +6,7 @@ This project focuses on building UI that is:
 
 - Keyboard accessible
 - Screen reader friendly
-- WCAG 2.2 AA compliant (target)
+- WCAG 2.2 AA focused
 - Responsive and modern
 - Reusable across projects
 
@@ -45,7 +45,15 @@ npm install
 
 ## 🧩 Components
 
-The following components are designed with accessibility as a first-class concern and follow modern React and WAI-ARIA best practices.
+The following components are designed with accessibility as a first-class concern
+and follow modern React and WAI-ARIA best practices.
+
+| Component    | Status   | Accessibility Features                                                |
+| ------------ | -------- | --------------------------------------------------------------------- |
+| Button       | Complete | Keyboard accessible, focus-visible styling, semantic HTML             |
+| Modal Dialog | Complete | Focus management, focus trap, Escape handling, focus restoration      |
+| Dropdown     | Complete | Keyboard navigation, nested submenus, typeahead, focus management     |
+| Navigation   | Complete | Keyboard navigation, nested submenus, mobile drawer, focus management |
 
 Each component includes:
 
@@ -180,3 +188,60 @@ The dropdown adapts to smaller screen sizes:
   <DropdownItem>Save</DropdownItem>
 </DropdownAccessible>
 ```
+
+### Navigation
+
+An accessible responsive navigation component supporting nested submenus,
+keyboard navigation, focus management, and a mobile navigation drawer.
+
+#### Features
+
+- Keyboard accessible
+- Nested submenu support
+- Focus management and restoration
+- Responsive desktop and mobile layouts
+- Mobile navigation drawer
+- Focus trap within the mobile drawer
+- Escape key handling
+- Arrow-key submenu navigation
+- Home and End navigation
+- Screen reader support
+- `aria-expanded` and `aria-controls` states
+- Closed mobile drawer removed from keyboard navigation using `inert`
+
+#### Keyboard Support
+
+##### Top-Level Navigation
+
+| Key           | Action                                     |
+| ------------- | ------------------------------------------ |
+| Tab           | Move between navigation controls and links |
+| Enter / Space | Open submenu                               |
+| Arrow Down    | Move into submenu                          |
+| Arrow Right   | Open submenu                               |
+| Arrow Left    | Close submenu and return focus             |
+| Escape        | Close submenu and return focus             |
+
+##### Submenus
+
+| Key        | Action                         |
+| ---------- | ------------------------------ |
+| Arrow Down | Move to next item              |
+| Arrow Up   | Move to previous item          |
+| Home       | Move to first item             |
+| End        | Move to last item              |
+| Arrow Left | Close submenu and return focus |
+| Escape     | Close submenu and return focus |
+
+## ♿ Accessibility Testing
+
+Components are manually tested using:
+
+- Keyboard-only navigation
+- NVDA screen reader
+- Browser zoom at 200%
+- Browser zoom at 400%
+- Desktop and mobile layouts
+- Focus visibility and focus restoration
+- Responsive submenu behaviour
+- Keyboard interaction in both NVDA Browse Mode and Focus Mode where applicable
