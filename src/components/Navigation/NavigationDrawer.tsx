@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useLockBodyScroll } from '../../hooks/useLockBodyScroll';
 import styles from './Navigation.module.css';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
@@ -17,6 +17,22 @@ export function NavigationDrawer({
   children,
 }: NavigationDrawerProps) {
   const drawerRef = useRef<HTMLDivElement | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+
+    function handleChange() {
+      setIsMobile(mediaQuery.matches);
+    }
+
+    handleChange();
+    mediaQuery.addEventListener('change', handleChange);
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+    };
+  }, []);
 
   useFocusTrap({
     active: open,
@@ -54,8 +70,8 @@ export function NavigationDrawer({
       <div
         ref={drawerRef}
         className={`${styles.drawer} ${open ? styles.drawerOpen : ''}`}
-        aria-hidden={!open}
-        inert={!open}
+        aria-hidden={isMobile ? !open : undefined}
+        inert={isMobile && !open ? true : undefined}
       >
         <button
           ref={closeButtonRef}
