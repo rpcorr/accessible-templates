@@ -5,19 +5,16 @@ import { ModalPage } from './pages/ModalPage';
 import { DropdownPage } from './pages/DropdownPage';
 import { NavigationPage } from './pages/NavigationPage';
 import { navigationItems } from './data/navigationItems';
+import { getCurrentNavigationItems } from './utils/navigation';
 import { Routes, Route, useLocation } from 'react-router';
 
 function App() {
   const { pathname } = useLocation();
 
-  const currentNavigationItems = navigationItems.map((item) => ({
-    ...item,
-    current: item.href === pathname,
-    children: item.children?.map((child) => ({
-      ...child,
-      current: child.href === pathname,
-    })),
-  }));
+  const currentNavigationItems = getCurrentNavigationItems(
+    navigationItems,
+    pathname,
+  );
 
   return (
     <main className="container stack">
