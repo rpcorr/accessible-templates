@@ -39,7 +39,7 @@ export function createModalExamples({
         <>
           <p>This is a larger modal used for complex layouts.</p>
           <p>It adapts to wider content areas.</p>
-          <Button>Primary Action</Button>
+          <Button onClick={closeModal}>Primary Action</Button>
         </>
       ),
     },
@@ -55,7 +55,9 @@ export function createModalExamples({
 
           <div className="row" style={{ justifyContent: 'flex-end' }}>
             <Button onClick={closeModal}>Cancel</Button>
-            <Button variant="secondary">Confirm</Button>
+            <Button variant="secondary" onClick={closeModal}>
+              Confirm
+            </Button>
           </div>
         </>
       ),
