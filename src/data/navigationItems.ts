@@ -17,7 +17,7 @@ export const navigationItems: NavigationItem[] = [
       },
       {
         id: 'modal',
-        label: 'Modal Dialog',
+        label: 'Modals',
         href: '/modal',
       },
       {

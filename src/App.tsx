@@ -5,44 +5,19 @@ import { ModalPage } from './pages/ModalPage';
 import { DropdownPage } from './pages/DropdownPage';
 import { NavigationPage } from './pages/NavigationPage';
 import { navigationItems } from './data/navigationItems';
-
-function getCurrentNavigationItems(path: string): typeof navigationItems {
-  return navigationItems.map((item) => ({
-    ...item,
-    current: item.href === path ? true : undefined,
-    children: item.children?.map((child) => ({
-      ...child,
-      current: child.href === path ? true : undefined,
-    })),
-  }));
-}
+import { Routes, Route, useLocation } from 'react-router';
 
 function App() {
-  const path = window.location.pathname;
-  const currentNavigationItems = getCurrentNavigationItems(path);
+  const { pathname } = useLocation();
 
-  let page;
-
-  switch (path) {
-    case '/buttons':
-      page = <ButtonsPage />;
-      break;
-
-    case '/modal':
-      page = <ModalPage />;
-      break;
-
-    case '/dropdown':
-      page = <DropdownPage />;
-      break;
-
-    case '/navigation':
-      page = <NavigationPage />;
-      break;
-
-    default:
-      page = <HomePage />;
-  }
+  const currentNavigationItems = navigationItems.map((item) => ({
+    ...item,
+    current: item.href === pathname,
+    children: item.children?.map((child) => ({
+      ...child,
+      current: child.href === pathname,
+    })),
+  }));
 
   return (
     <main className="container stack">
@@ -50,7 +25,13 @@ function App() {
 
       <Navigation items={currentNavigationItems} />
 
-      {page}
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/buttons" element={<ButtonsPage />} />
+        <Route path="/modal" element={<ModalPage />} />
+        <Route path="/dropdown" element={<DropdownPage />} />
+        <Route path="/navigation" element={<NavigationPage />} />
+      </Routes>
     </main>
   );
 }
