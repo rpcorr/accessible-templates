@@ -4,9 +4,22 @@ import { ButtonsPage } from './pages/ButtonsPage';
 import { ModalPage } from './pages/ModalPage';
 import { DropdownPage } from './pages/DropdownPage';
 import { NavigationPage } from './pages/NavigationPage';
+import { navigationItems } from './data/navigationItems';
+
+function getCurrentNavigationItems(path: string): typeof navigationItems {
+  return navigationItems.map((item) => ({
+    ...item,
+    current: item.href === path ? true : undefined,
+    children: item.children?.map((child) => ({
+      ...child,
+      current: child.href === path ? true : undefined,
+    })),
+  }));
+}
 
 function App() {
   const path = window.location.pathname;
+  const currentNavigationItems = getCurrentNavigationItems(path);
 
   let page;
 
@@ -31,50 +44,11 @@ function App() {
       page = <HomePage />;
   }
 
-  const navigationItems = [
-    {
-      id: 'home',
-      label: 'Home',
-      href: '/',
-      current: path === '/',
-    },
-    {
-      id: 'components',
-      label: 'Components',
-      children: [
-        {
-          id: 'buttons',
-          label: 'Buttons',
-          href: '/buttons',
-          current: path === '/buttons',
-        },
-        {
-          id: 'modal',
-          label: 'Modal Dialog',
-          href: '/modal',
-          current: path === '/modal',
-        },
-        {
-          id: 'dropdown',
-          label: 'Dropdown',
-          href: '/dropdown',
-          current: path === '/dropdown',
-        },
-        {
-          id: 'navigation',
-          label: 'Navigation',
-          href: '/navigation',
-          current: path === '/navigation',
-        },
-      ],
-    },
-  ];
-
   return (
     <main className="container stack">
       <h1>Accessible Components</h1>
 
-      <Navigation items={navigationItems} />
+      <Navigation items={currentNavigationItems} />
 
       {page}
     </main>
