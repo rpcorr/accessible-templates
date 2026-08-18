@@ -7,6 +7,7 @@ import { NavigationPage } from './pages/NavigationPage';
 import { navigationItems } from './data/navigationItems';
 import { getCurrentNavigationItems } from './utils/navigation';
 import { Routes, Route, useLocation } from 'react-router';
+import { NotFoundPage } from './pages/NotFoundPage';
 
 function App() {
   const { pathname } = useLocation();
@@ -28,6 +29,7 @@ function App() {
         <Route path="/modal" element={<ModalPage />} />
         <Route path="/dropdown" element={<DropdownPage />} />
         <Route path="/navigation" element={<NavigationPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </main>
   );
