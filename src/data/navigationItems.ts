@@ -11,13 +11,13 @@ export const navigationItems: NavigationItem[] = [
     label: 'Components',
     children: [
       {
-        id: 'buttons',
-        label: 'Buttons',
-        href: '/buttons',
+        id: 'button',
+        label: 'Button',
+        href: '/button',
       },
       {
         id: 'modal',
-        label: 'Modals',
+        label: 'Modal',
         href: '/modal',
       },
       {
