@@ -1,3 +1,5 @@
+import { Link } from 'react-router';
+
 export function HomePage() {
   return (
     <>
@@ -7,16 +9,16 @@ export function HomePage() {
 
       <ul>
         <li>
-          <a href="/buttons">Buttons</a>
+          <Link to="/button">Button</Link>
         </li>
         <li>
-          <a href="/modal">Modal Dialog</a>
+          <Link to="/modal">Modal Dialog</Link>
         </li>
         <li>
-          <a href="/dropdown">Dropdown</a>
+          <Link to="/dropdown">Dropdown</Link>
         </li>
         <li>
-          <a href="/navigation">Navigation</a>
+          <Link to="/navigation">Navigation</Link>
         </li>
       </ul>
     </>

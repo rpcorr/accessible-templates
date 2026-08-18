@@ -1,3 +1,5 @@
+import { Link } from 'react-router';
+
 export function NotFoundPage() {
   return (
     <>
@@ -6,7 +8,7 @@ export function NotFoundPage() {
       <p>Sorry, the page you are looking for does not exist.</p>
 
       <p>
-        <a href="/">Return to Accessible Components</a>
+        <Link to="/">Return to Accessible Components</Link>
       </p>
     </>
   );
