@@ -1,6 +1,6 @@
 import { Navigation } from './components/Navigation';
 import { HomePage } from './pages/HomePage';
-import { ButtonsPage } from './pages/ButtonsPage';
+import { ButtonPage } from './pages/ButtonPage';
 import { ModalPage } from './pages/ModalPage';
 import { DropdownPage } from './pages/DropdownPage';
 import { NavigationPage } from './pages/NavigationPage';
@@ -25,7 +25,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/buttons" element={<ButtonsPage />} />
+        <Route path="/button" element={<ButtonPage />} />
         <Route path="/modal" element={<ModalPage />} />
         <Route path="/dropdown" element={<DropdownPage />} />
         <Route path="/navigation" element={<NavigationPage />} />
