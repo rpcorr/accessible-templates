@@ -1,11 +1,10 @@
-import { PageBackLink } from '../components/PageBackLink';
+import { PageLayout } from '../components/PageLayout/PageLayout';
 import { DropdownExamples } from '../examples';
 
 export function DropdownPage() {
   return (
-    <>
-      <PageBackLink />
+    <PageLayout title="Dropdown Examples">
       <DropdownExamples />
-    </>
+    </PageLayout>
   );
 }

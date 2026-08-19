@@ -1,11 +1,10 @@
-import { PageBackLink } from '../components/PageBackLink';
+import { PageLayout } from '../components/PageLayout/PageLayout';
 import { NavigationExamples } from '../examples';
 
 export function NavigationPage() {
   return (
-    <>
-      <PageBackLink />
+    <PageLayout title="Navigation Examples">
       <NavigationExamples />
-    </>
+    </PageLayout>
   );
 }

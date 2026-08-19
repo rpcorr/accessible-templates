@@ -15,7 +15,6 @@ export function ModalExamples() {
 
   return (
     <section className="stack">
-      <h2>Modal Examples</h2>
 
       <article className="row">
         {modals.map((modal) => {

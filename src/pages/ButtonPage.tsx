@@ -1,11 +1,12 @@
-import { PageBackLink } from '../components/PageBackLink';
+import { PageLayout } from '../components';
 import { ButtonExamples } from '../examples';
 
 export function ButtonPage() {
   return (
     <>
-      <PageBackLink />
-      <ButtonExamples />
+      <PageLayout title="Button Examples">
+        <ButtonExamples />
+      </PageLayout>
     </>
   );
 }

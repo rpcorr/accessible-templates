@@ -1,11 +1,10 @@
-import { PageBackLink } from '../components/PageBackLink';
+import { PageLayout } from '../components/PageLayout/PageLayout';
 import { ModalExamples } from '../examples';
 
 export function ModalPage() {
   return (
-    <>
-      <PageBackLink />
+    <PageLayout title="Modal Dialog Examples">
       <ModalExamples />
-    </>
+    </PageLayout>
   );
 }

@@ -44,7 +44,6 @@ export function NavigationExamples() {
 
   return (
     <>
-      <h2>Navigation Examples</h2>
       <Navigation items={navigationItems} />
     </>
   );
