@@ -8,6 +8,7 @@ import { DropdownSeparator } from '../../components/Dropdown/DropdownSeparator';
 export function DropdownExamples() {
   return (
     <div className="stack">
+      <h3>Examples</h3>
       <div className="row">
         <DropdownBasic trigger={<Button>Basic Menu</Button>}>
           <button>Profile</button>

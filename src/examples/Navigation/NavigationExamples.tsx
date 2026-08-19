@@ -43,8 +43,9 @@ export function NavigationExamples() {
   ];
 
   return (
-    <>
+    <section className="stack">
+      <h3>Examples</h3>
       <Navigation items={navigationItems} />
-    </>
+    </section>
   );
 }
