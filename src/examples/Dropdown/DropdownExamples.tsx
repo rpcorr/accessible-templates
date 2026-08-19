@@ -9,18 +9,27 @@ export function DropdownExamples() {
   return (
     <div className="stack">
       <h3>Examples</h3>
-      <div className="row">
+      <div className="stack">
+        <h4>Basic Dropdown</h4>
         <DropdownBasic trigger={<Button>Basic Menu</Button>}>
           <button>Profile</button>
           <button>Settings</button>
           <button>Logout</button>
         </DropdownBasic>
+      </div>
+
+      <div className="stack">
+        <h4>Accessible Dropdown</h4>
 
         <DropdownAccessible trigger={<Button>Accessible Menu</Button>}>
           <DropdownItem>Profile</DropdownItem>
           <DropdownItem>Settings</DropdownItem>
           <DropdownItem>Logout</DropdownItem>
         </DropdownAccessible>
+      </div>
+
+      <div className="stack">
+        <h4>Three-Level Submenus</h4>
 
         <DropdownAccessible
           trigger={<Button>Accessible Menu with 3-level Submenus</Button>}
@@ -51,7 +60,9 @@ export function DropdownExamples() {
           <DropdownItem>Save</DropdownItem>
         </DropdownAccessible>
       </div>
-      <div className="row">
+
+      <div className="stack">
+        <h4>Four-Level Submenus</h4>
         <DropdownAccessible
           trigger={<Button>Accessible Menu with 4-level Submenus</Button>}
         >

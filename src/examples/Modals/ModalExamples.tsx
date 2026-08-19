@@ -17,12 +17,14 @@ export function ModalExamples() {
     <section className="stack">
       <h3>Examples</h3>
 
-      <article className="row">
+      <article className="stack">
         {modals.map((modal) => {
           const isOpen = openModal === modal.id;
 
           return (
-            <div key={modal.id} className="row">
+            <div key={modal.id} className="stack">
+              <h4>{modal.exampleLabel}</h4>
+
               <Button
                 variant={modal.variant ?? 'primary'}
                 onClick={(e) => {

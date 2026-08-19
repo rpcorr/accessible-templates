@@ -11,6 +11,7 @@ export function createModalExamples({
   return [
     {
       id: 'basic',
+      exampleLabel: 'Basic Modal',
       title: 'Basic Modal',
       type: 'basic',
       triggerLabel: 'Open Basic Modal (not accessible)',
@@ -18,6 +19,7 @@ export function createModalExamples({
     },
     {
       id: 'accessible',
+      exampleLabel: 'Accessible Modal',
       title: 'Accessible Modal',
       type: 'accessible',
       triggerLabel: 'Open Accessible Modal',
@@ -30,6 +32,7 @@ export function createModalExamples({
     },
     {
       id: 'large',
+      exampleLabel: 'Large Modal',
       title: 'Large Modal Example',
       type: 'accessible',
       size: 'large',
@@ -45,6 +48,7 @@ export function createModalExamples({
     },
     {
       id: 'small',
+      exampleLabel: 'Small Modal',
       title: 'Small Modal Example',
       type: 'accessible',
       size: 'small',
@@ -64,6 +68,7 @@ export function createModalExamples({
     },
     {
       id: 'confirm',
+      exampleLabel: 'Confirmation Dialog',
       title: 'Delete Item?',
       type: 'accessible',
       size: 'small',
@@ -90,6 +95,7 @@ export function createModalExamples({
     },
     {
       id: 'form',
+      exampleLabel: 'Form Dialog',
       title: 'Create User',
       type: 'accessible',
       size: 'medium',
@@ -118,6 +124,7 @@ export function createModalExamples({
     },
     {
       id: 'long',
+      exampleLabel: 'Long Content Modal',
       title: 'Long Content Modal',
       type: 'accessible',
       size: 'medium',
@@ -137,6 +144,7 @@ export function createModalExamples({
 
     {
       id: 'blocking',
+      exampleLabel: 'Non-dismissible Modal',
       title: 'Important Action Required',
       type: 'accessible',
       size: 'small',

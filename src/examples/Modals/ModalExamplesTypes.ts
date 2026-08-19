@@ -1,5 +1,6 @@
 export type ModalExample = {
   id: string;
+  exampleLabel: string;
   title: string;
   size?: 'small' | 'medium' | 'large';
   triggerLabel: string;
