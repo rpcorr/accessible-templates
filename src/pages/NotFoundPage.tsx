@@ -2,7 +2,7 @@ import { Link } from 'react-router';
 
 export function NotFoundPage() {
   return (
-    <>
+    <section className="stack">
       <h2>Page Not Found</h2>
 
       <p>Sorry, the page you are looking for does not exist.</p>
@@ -10,6 +10,6 @@ export function NotFoundPage() {
       <p>
         <Link to="/">Return to Accessible Components</Link>
       </p>
-    </>
+    </section>
   );
 }
