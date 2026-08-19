@@ -3,7 +3,7 @@ import { ModalExamples } from '../examples';
 
 export function ModalPage() {
   return (
-    <PageLayout title="Modal Dialog Examples">
+    <PageLayout title="Modal Dialog">
       <p>
         Accessible modal dialogs with focus trapping, Escape key handling, focus
         restoration, and configurable dismissal behaviour.

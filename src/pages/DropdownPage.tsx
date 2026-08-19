@@ -3,7 +3,7 @@ import { DropdownExamples } from '../examples';
 
 export function DropdownPage() {
   return (
-    <PageLayout title="Dropdown Examples">
+    <PageLayout title="Dropdown">
       <p>
         Accessible dropdown menus with keyboard navigation, nested submenus,
         typeahead support, focus management, and responsive behaviour.
