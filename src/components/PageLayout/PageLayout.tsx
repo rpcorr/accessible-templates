@@ -9,8 +9,8 @@ type PageLayoutProps = {
 export function PageLayout({ title, children }: PageLayoutProps) {
   return (
     <section className="stack">
-      <PageBackLink />
       <h2>{title}</h2>
+      <PageBackLink />
       {children}
     </section>
   );
