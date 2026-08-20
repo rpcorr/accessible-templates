@@ -1,5 +1,6 @@
 import { Button } from '../../components/Button';
 import type { ModalExample } from './ModalExamplesTypes';
+import { CreateUserForm } from './CreateUserForm';
 
 type CreateModalExamplesProps = {
   closeModal: () => void;
@@ -101,26 +102,7 @@ export function createModalExamples({
       size: 'medium',
       triggerLabel: 'Open Form Dialog',
       variant: 'secondary',
-      content: (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            console.log('Form submitted');
-            closeModal();
-          }}
-          className="stack"
-        >
-          <input placeholder="Name" required />
-          <input placeholder="Email" required />
-
-          <div className="row" style={{ justifyContent: 'flex-end' }}>
-            <Button onClick={closeModal}>Cancel</Button>
-            <Button type="submit" variant="secondary">
-              Save
-            </Button>
-          </div>
-        </form>
-      ),
+      content: <CreateUserForm closeModal={closeModal} />,
     },
     {
       id: 'long',
