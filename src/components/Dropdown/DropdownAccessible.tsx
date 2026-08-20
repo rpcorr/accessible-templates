@@ -15,6 +15,7 @@ type DropdownProps = {
 export function DropdownAccessible({ trigger, children }: DropdownProps) {
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [initialFocusIndex, setInitialFocusIndex] = useState(0);
 
   const rootRef = useRef<HTMLDivElement | null>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
@@ -34,7 +35,8 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
   }, [menuRegistry]);
 
   function openMenu(index = 0): void {
-    setActiveIndex(index);
+    setInitialFocusIndex(index);
+    setActiveIndex(index >= 0 ? index : 0);
     setOpen(true);
   }
 
@@ -164,7 +166,9 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
     // Escape
     if (e.key === 'Escape') {
       e.preventDefault();
+      e.stopPropagation();
       close();
+      return;
     }
   }
 
@@ -196,13 +200,17 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
 
     const items = getItems();
 
-    const el = items[activeIndex];
-    if (!el) return;
+    if (items.length === 0) return;
+
+    const index =
+      initialFocusIndex === -1
+        ? items.length - 1
+        : Math.min(initialFocusIndex, items.length - 1);
 
     requestAnimationFrame(() => {
-      el.focus();
+      items[index]?.focus();
     });
-  }, [open, activeIndex, getItems]);
+  }, [open, initialFocusIndex, getItems]);
 
   // -------------------------
   // UPDATE ACTIVE MENU ITEM
@@ -236,8 +244,6 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
         },
 
         onKeyDown: (e: React.KeyboardEvent<HTMLButtonElement>) => {
-          trigger.props.onKeyDown?.(e);
-
           if (e.defaultPrevented) return;
 
           switch (e.key) {
@@ -246,12 +252,10 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
               openMenu(0);
               break;
 
-            case 'ArrowUp': {
+            case 'ArrowUp':
               e.preventDefault();
-              const items = getItems();
-              openMenu(Math.max(items.length - 1, 0));
+              openMenu(-1);
               break;
-            }
 
             case 'Enter':
             case ' ':
