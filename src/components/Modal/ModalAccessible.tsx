@@ -78,7 +78,9 @@ export function AccessibleModal({
       >
         {!disableClose && (
           <div className="row" style={{ justifyContent: 'flex-end' }}>
-            <Button onClick={onClose}>X</Button>
+            <Button onClick={onClose} aria-label="Close dialog">
+              X
+            </Button>
           </div>
         )}
 
