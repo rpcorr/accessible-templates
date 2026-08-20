@@ -173,6 +173,8 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
   // -------------------------
   useEffect(() => {
     function handleClickOutside(e: MouseEvent): void {
+      if (!open) return;
+
       if (rootRef.current && !rootRef.current.contains(e.target as Node)) {
         close();
       }
@@ -183,7 +185,7 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
     return () => {
       document.removeEventListener('pointerdown', handleClickOutside);
     };
-  }, []);
+  }, [open]);
 
   // -------------------------
   // FOCUS ON OPEN

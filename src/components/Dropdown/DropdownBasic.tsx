@@ -22,6 +22,8 @@ export function DropdownBasic({ trigger, children }: DropdownProps) {
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
+      if (!open) return;
+
       if (ref.current && !ref.current.contains(e.target as Node)) {
         close();
       }
@@ -40,7 +42,7 @@ export function DropdownBasic({ trigger, children }: DropdownProps) {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('keydown', handleEscape);
     };
-  }, []);
+  }, [open]);
 
   return (
     <div ref={ref} className={styles.dropdown}>
