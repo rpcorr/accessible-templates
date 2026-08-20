@@ -33,3 +33,25 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.docTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-block: 1rem;
+}
+
+.docTable th,
+.docTable td {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  text-align: left;
+  vertical-align: top;
+}
+
+.docTable th {
+  font-weight: 700;
+}
+
+.docTable tbody tr:nth-child(even) {
+  background: #f7f7f7;
+}

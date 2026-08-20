@@ -18,6 +18,14 @@ export function ButtonPage() {
         <li>Supports a disabled state.</li>
       </ul>
 
+      <h3>Keyboard Support</h3>
+
+      <ul>
+        <li>Tab moves focus to and from the button.</li>
+        <li>Enter activates the button.</li>
+        <li>Space activates the button.</li>
+      </ul>
+
       <ButtonExamples />
     </PageLayout>
   );

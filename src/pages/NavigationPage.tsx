@@ -29,6 +29,84 @@ export function NavigationPage() {
         </li>
         <li>Supports Escape to close the mobile drawer and restore focus.</li>
       </ul>
+
+      <h3>Keyboard Support</h3>
+
+      <p>The navigation supports the following keyboard interactions.</p>
+
+      <h4>Top-Level Navigation</h4>
+
+      <table className="docTable">
+        <thead>
+          <tr>
+            <th>Key</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Tab</td>
+            <td>Move between navigation controls and links</td>
+          </tr>
+          <tr>
+            <td>Enter / Space</td>
+            <td>Open a submenu</td>
+          </tr>
+          <tr>
+            <td>Arrow Down</td>
+            <td>Move into the submenu</td>
+          </tr>
+          <tr>
+            <td>Arrow Right</td>
+            <td>Open the submenu</td>
+          </tr>
+          <tr>
+            <td>Arrow Left</td>
+            <td>Close the submenu and return focus</td>
+          </tr>
+          <tr>
+            <td>Escape</td>
+            <td>Close the submenu and return focus</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>Submenus</h4>
+
+      <table className="docTable">
+        <thead>
+          <tr>
+            <th>Key</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Arrow Down</td>
+            <td>Move to the next item</td>
+          </tr>
+          <tr>
+            <td>Arrow Up</td>
+            <td>Move to the previous item</td>
+          </tr>
+          <tr>
+            <td>Home</td>
+            <td>Move to the first item</td>
+          </tr>
+          <tr>
+            <td>End</td>
+            <td>Move to the last item</td>
+          </tr>
+          <tr>
+            <td>Arrow Left</td>
+            <td>Close the submenu and return focus</td>
+          </tr>
+          <tr>
+            <td>Escape</td>
+            <td>Close the submenu and return focus</td>
+          </tr>
+        </tbody>
+      </table>
       <NavigationExamples />
     </PageLayout>
   );

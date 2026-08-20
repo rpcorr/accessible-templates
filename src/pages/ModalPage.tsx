@@ -20,6 +20,18 @@ export function ModalPage() {
         <li>Restores focus to the element that opened the modal.</li>
         <li>Supports non-dismissible dialogs when required.</li>
       </ul>
+
+      <h3>Keyboard Support</h3>
+
+      <ul>
+        <li>Tab moves focus between controls within the modal.</li>
+        <li>Shift + Tab moves focus backward within the modal.</li>
+        <li>Escape closes the modal when dismissal is allowed.</li>
+        <li>Focus is trapped inside the modal while it is open.</li>
+        <li>
+          Focus returns to the element that opened the modal when it closes.
+        </li>
+      </ul>
       <ModalExamples />
     </PageLayout>
   );
