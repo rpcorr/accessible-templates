@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styles from './Dropdown.module.css';
 
+type TriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
+
 type DropdownProps = {
-  trigger: React.ReactElement<{ onClick?: React.MouseEventHandler }>;
+  trigger: React.ReactElement<TriggerProps>;
   children: React.ReactNode;
 };
 
@@ -43,12 +45,20 @@ export function DropdownBasic({ trigger, children }: DropdownProps) {
   return (
     <div ref={ref} className={styles.dropdown}>
       {React.cloneElement(trigger, {
-        onClick: (e: React.MouseEvent) => {
+        onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
           trigger.props.onClick?.(e);
           toggle();
         },
-      })}
 
+        children: (
+          <>
+            {trigger.props.children}
+            <span className={styles.menuCaret} aria-hidden="true">
+              {open ? '▲' : '▼'}
+            </span>
+          </>
+        ),
+      })}
       {open && <div className={styles.dropdownMenu}>{children}</div>}
     </div>
   );
