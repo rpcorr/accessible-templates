@@ -5,16 +5,24 @@ type ButtonVariant = 'primary' | 'secondary';
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariant;
-  ariaLabel?: string;
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ children, variant = 'primary', ariaLabel, className, ...props }, ref) => {
+  (
+    {
+      children,
+      variant = 'primary',
+      className,
+      type = 'button',
+      ...props
+    },
+    ref,
+  ) => {
     return (
       <button
         {...props}
         ref={ref}
-        aria-label={ariaLabel}
+        type={type}
         className={`${styles.button} ${styles[variant]} ${className ?? ''}`}
       >
         {children}
