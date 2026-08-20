@@ -1,7 +1,9 @@
+import { Link } from 'react-router';
+
 export function PageBackLink() {
   return (
     <p>
-      <a href="/">← Back to Components</a>
+      <Link to="/">← Back to Home</Link>
     </p>
   );
 }
