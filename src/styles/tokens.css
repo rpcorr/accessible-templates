@@ -13,6 +13,10 @@
 
   --color-danger: #dc2626;
 
+  /* tooltip */
+  --color-tooltip-background: #111827;
+  --color-tooltip-text: #ffffff;
+
   /* focus ring (accessibility critical) */
   --color-focus: #f59e0b;
 

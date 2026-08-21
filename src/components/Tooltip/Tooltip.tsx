@@ -8,7 +8,7 @@ type TooltipChildProps = {
   onFocus?: React.FocusEventHandler<HTMLElement>;
   onBlur?: React.FocusEventHandler<HTMLElement>;
   onKeyDown?: React.KeyboardEventHandler<HTMLElement>;
-};
+} & React.RefAttributes<HTMLElement>;
 
 type TooltipPosition = 'top' | 'right' | 'bottom' | 'left';
 
@@ -29,12 +29,16 @@ export function Tooltip({
   const [isFocused, setIsFocused] = useState(false);
   const [dismissed, setDismissed] = useState(false);
   const [hoverReady, setHoverReady] = useState(false);
+  const [actualPosition, setActualPosition] =
+    useState<TooltipPosition>(position);
 
   const tooltipId = useId();
 
   const open = (isFocused || (isHovered && hoverReady)) && !dismissed;
 
   const openTimeoutRef = useRef<number | null>(null);
+  const triggerRef = useRef<HTMLElement | null>(null);
+  const tooltipRef = useRef<HTMLSpanElement | null>(null);
 
   useEffect(() => {
     return () => {
@@ -49,9 +53,120 @@ export function Tooltip({
     }
   }
 
+  useEffect(() => {
+    if (!open) return;
+
+    const trigger = triggerRef.current;
+    const tooltip = tooltipRef.current;
+
+    if (!trigger || !tooltip) return;
+
+    const updatePosition = () => {
+      const triggerRect = trigger.getBoundingClientRect();
+      const tooltipRect = tooltip.getBoundingClientRect();
+
+      const margin = 8;
+      const viewportPadding = 8;
+
+      const spaceTop = triggerRect.top;
+      const spaceRight = window.innerWidth - triggerRect.right;
+      const spaceBottom = window.innerHeight - triggerRect.bottom;
+      const spaceLeft = triggerRect.left;
+
+      let nextPosition = position;
+
+      // Flip vertically when necessary
+      if (
+        position === 'top' &&
+        tooltipRect.height + margin > spaceTop &&
+        spaceBottom > spaceTop
+      ) {
+        nextPosition = 'bottom';
+      }
+
+      if (
+        position === 'bottom' &&
+        tooltipRect.height + margin > spaceBottom &&
+        spaceTop > spaceBottom
+      ) {
+        nextPosition = 'top';
+      }
+
+      // Flip horizontally when necessary
+      if (
+        position === 'left' &&
+        tooltipRect.width + margin > spaceLeft &&
+        spaceRight > spaceLeft
+      ) {
+        nextPosition = 'right';
+      }
+
+      if (
+        position === 'right' &&
+        tooltipRect.width + margin > spaceRight &&
+        spaceLeft > spaceRight
+      ) {
+        nextPosition = 'left';
+      }
+
+      setActualPosition(nextPosition);
+
+      // Position the tooltip after the browser has applied the new
+      // position class.
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const updatedTooltip = tooltipRef.current;
+
+          if (!updatedTooltip) return;
+
+          const rect = updatedTooltip.getBoundingClientRect();
+
+          let offsetX = 0;
+          let offsetY = 0;
+
+          // Keep tooltip inside the horizontal viewport.
+          if (rect.left < viewportPadding) {
+            offsetX = viewportPadding - rect.left;
+          } else if (rect.right > window.innerWidth - viewportPadding) {
+            offsetX = window.innerWidth - viewportPadding - rect.right;
+          }
+
+          // Keep tooltip inside the vertical viewport.
+          if (rect.top < viewportPadding) {
+            offsetY = viewportPadding - rect.top;
+          } else if (rect.bottom > window.innerHeight - viewportPadding) {
+            offsetY = window.innerHeight - viewportPadding - rect.bottom;
+          }
+
+          updatedTooltip.style.setProperty(
+            '--tooltip-offset-x',
+            `${offsetX}px`,
+          );
+
+          updatedTooltip.style.setProperty(
+            '--tooltip-offset-y',
+            `${offsetY}px`,
+          );
+        });
+      });
+    };
+
+    updatePosition();
+
+    window.addEventListener('resize', updatePosition);
+
+    return () => {
+      window.removeEventListener('resize', updatePosition);
+    };
+  }, [open, position, content]);
+
   return (
     <span className={styles.tooltipWrapper}>
       {React.cloneElement(children, {
+        ref: (element) => {
+          triggerRef.current = element;
+        },
+
         'aria-describedby': open ? tooltipId : undefined,
 
         onMouseEnter: (e) => {
@@ -98,9 +213,10 @@ export function Tooltip({
 
       {open && (
         <span
+          ref={tooltipRef}
           id={tooltipId}
           role="tooltip"
-          className={`${styles.tooltip} ${styles[position]}`}
+          className={`${styles.tooltip} ${styles[actualPosition]}`}
         >
           {content}
         </span>
