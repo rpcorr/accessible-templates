@@ -16,9 +16,13 @@ type TooltipProps = {
 };
 
 export function Tooltip({ content, children }: TooltipProps) {
-  const [open, setOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
 
   const tooltipId = useId();
+
+  const open = (isHovered || isFocused) && !dismissed;
 
   return (
     <span className={styles.tooltipWrapper}>
@@ -27,29 +31,31 @@ export function Tooltip({ content, children }: TooltipProps) {
 
         onMouseEnter: (e) => {
           children.props.onMouseEnter?.(e);
-          setOpen(true);
+          setIsHovered(true);
+          setDismissed(false);
         },
 
         onMouseLeave: (e) => {
           children.props.onMouseLeave?.(e);
-          setOpen(false);
+          setIsHovered(false);
         },
 
         onFocus: (e) => {
           children.props.onFocus?.(e);
-          setOpen(true);
+          setIsFocused(true);
+          setDismissed(false);
         },
 
         onBlur: (e) => {
           children.props.onBlur?.(e);
-          setOpen(false);
+          setIsFocused(false);
         },
 
         onKeyDown: (e) => {
           children.props.onKeyDown?.(e);
 
           if (e.key === 'Escape') {
-            setOpen(false);
+            setDismissed(true);
           }
         },
       })}
