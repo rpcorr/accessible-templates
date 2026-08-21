@@ -7,10 +7,22 @@ export function TooltipExamples() {
       <h3>Examples</h3>
 
       <div className="stack">
-        <h4>Basic Tooltip</h4>
+        <h4>Tooltip Positions</h4>
 
-        <Tooltip content="Save your changes">
-          <Button>Save</Button>
+        <Tooltip content="Tooltip above" position="top" delay={0}>
+          <Button>Top</Button>
+        </Tooltip>
+
+        <Tooltip content="Tooltip to the right" position="right">
+          <Button>Right</Button>
+        </Tooltip>
+
+        <Tooltip content="Tooltip below" position="bottom">
+          <Button>Bottom</Button>
+        </Tooltip>
+
+        <Tooltip content="Tooltip to the left" position="left">
+          <Button>Left</Button>
         </Tooltip>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React, { useId, useState } from 'react';
+import React, { useEffect, useId, useRef, useState } from 'react';
 import styles from './Tooltip.module.css';
 
 type TooltipChildProps = {
@@ -10,19 +10,44 @@ type TooltipChildProps = {
   onKeyDown?: React.KeyboardEventHandler<HTMLElement>;
 };
 
+type TooltipPosition = 'top' | 'right' | 'bottom' | 'left';
+
 type TooltipProps = {
   content: React.ReactNode;
   children: React.ReactElement<TooltipChildProps>;
+  position?: TooltipPosition;
+  delay?: number;
 };
 
-export function Tooltip({ content, children }: TooltipProps) {
+export function Tooltip({
+  content,
+  children,
+  position = 'top',
+  delay = 300,
+}: TooltipProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [dismissed, setDismissed] = useState(false);
+  const [hoverReady, setHoverReady] = useState(false);
 
   const tooltipId = useId();
 
-  const open = (isHovered || isFocused) && !dismissed;
+  const open = (isFocused || (isHovered && hoverReady)) && !dismissed;
+
+  const openTimeoutRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      clearOpenTimeout();
+    };
+  }, []);
+
+  function clearOpenTimeout() {
+    if (openTimeoutRef.current !== null) {
+      window.clearTimeout(openTimeoutRef.current);
+      openTimeoutRef.current = null;
+    }
+  }
 
   return (
     <span className={styles.tooltipWrapper}>
@@ -31,13 +56,24 @@ export function Tooltip({ content, children }: TooltipProps) {
 
         onMouseEnter: (e) => {
           children.props.onMouseEnter?.(e);
+
           setIsHovered(true);
           setDismissed(false);
+
+          clearOpenTimeout();
+
+          openTimeoutRef.current = window.setTimeout(() => {
+            setHoverReady(true);
+          }, delay);
         },
 
         onMouseLeave: (e) => {
           children.props.onMouseLeave?.(e);
+
           setIsHovered(false);
+          setHoverReady(false);
+
+          clearOpenTimeout();
         },
 
         onFocus: (e) => {
@@ -61,7 +97,11 @@ export function Tooltip({ content, children }: TooltipProps) {
       })}
 
       {open && (
-        <span id={tooltipId} role="tooltip" className={styles.tooltip}>
+        <span
+          id={tooltipId}
+          role="tooltip"
+          className={`${styles.tooltip} ${styles[position]}`}
+        >
           {content}
         </span>
       )}
