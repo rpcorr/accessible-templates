@@ -30,6 +30,12 @@ export const navigationItems: NavigationItem[] = [
         label: 'Navigation',
         href: '/navigation',
       },
+
+      {
+        id: 'tooltip',
+        label: 'Tooltip',
+        href: '/tooltip',
+      },
     ],
   },
 ];
