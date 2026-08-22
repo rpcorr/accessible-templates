@@ -29,12 +29,14 @@ export function Tooltip({
   const [isFocused, setIsFocused] = useState(false);
   const [dismissed, setDismissed] = useState(false);
   const [hoverReady, setHoverReady] = useState(false);
+  const [isTooltipHovered, setIsTooltipHovered] = useState(false);
   const [actualPosition, setActualPosition] =
     useState<TooltipPosition>(position);
 
   const tooltipId = useId();
 
-  const open = (isFocused || (isHovered && hoverReady)) && !dismissed;
+  const open =
+    (isFocused || (isHovered && hoverReady) || isTooltipHovered) && !dismissed;
 
   const openTimeoutRef = useRef<number | null>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
@@ -217,8 +219,16 @@ export function Tooltip({
           id={tooltipId}
           role="tooltip"
           className={`${styles.tooltip} ${styles[actualPosition]}`}
+          onMouseEnter={() => {
+            setIsTooltipHovered(true);
+          }}
+          onMouseLeave={() => {
+            setIsTooltipHovered(false);
+          }}
         >
-          {content}
+          <span className={styles.tooltipContent} tabIndex={-1}>
+            {content}
+          </span>
         </span>
       )}
     </span>
