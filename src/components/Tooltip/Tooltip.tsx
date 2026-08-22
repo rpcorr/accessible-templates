@@ -1,6 +1,8 @@
 import React, { useEffect, useId, useRef, useState } from 'react';
 import styles from './Tooltip.module.css';
 
+const TOOLTIP_OPEN_EVENT = 'accessible-tooltip-open';
+
 type TooltipChildProps = {
   'aria-describedby'?: string;
   onMouseEnter?: React.MouseEventHandler<HTMLElement>;
@@ -161,6 +163,35 @@ export function Tooltip({
       window.removeEventListener('resize', updatePosition);
     };
   }, [open, position, content]);
+
+  useEffect(() => {
+    const handleTooltipOpen = (event: Event) => {
+      const customEvent = event as CustomEvent<string>;
+
+      if (customEvent.detail === tooltipId) {
+        return;
+      }
+
+      setIsTooltipHovered(false);
+      setDismissed(true);
+    };
+
+    window.addEventListener(TOOLTIP_OPEN_EVENT, handleTooltipOpen);
+
+    return () => {
+      window.removeEventListener(TOOLTIP_OPEN_EVENT, handleTooltipOpen);
+    };
+  }, [tooltipId]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    window.dispatchEvent(
+      new CustomEvent<string>(TOOLTIP_OPEN_EVENT, {
+        detail: tooltipId,
+      }),
+    );
+  }, [open, tooltipId]);
 
   return (
     <span className={styles.tooltipWrapper}>
