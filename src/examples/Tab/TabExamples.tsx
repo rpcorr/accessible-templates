@@ -99,17 +99,28 @@ export function TabsExamples() {
     {
       id: 'profile',
       label: 'Profile',
-      content: <p>This panel contains profile information.</p>,
+      content: (
+        <p>
+          This panel contains profile information and general account details.
+        </p>
+      ),
     },
     {
       id: 'account',
       label: 'Account',
-      content: <p>This panel contains account information.</p>,
+      content: (
+        <p>
+          This panel contains account information, security settings, and
+          account preferences.
+        </p>
+      ),
     },
     {
       id: 'preferences',
       label: 'Preferences',
-      content: <p>This panel contains user preferences.</p>,
+      content: (
+        <p>This panel contains user preferences and configuration options.</p>
+      ),
     },
     {
       id: 'documentation',
@@ -117,43 +128,23 @@ export function TabsExamples() {
       content: (
         <>
           <p>
-            This panel contains documentation, usage examples, and
-            implementation guidance for the component. It provides additional
-            information to help developers understand how the Tabs component
-            works and how it can be integrated into an accessible application.
+            Vertical tabs place the tab list beside the active tab panel while
+            maintaining the same accessible tab and panel relationships.
           </p>
 
           <p>
-            The Tabs component supports both horizontal and vertical
-            orientations. Keyboard users can navigate between enabled tabs using
-            the appropriate arrow keys, while screen reader users receive
-            information about the selected tab and its position within the tab
-            list.
+            Use the Up and Down Arrow keys to move between enabled tabs. Home
+            and End move to the first and last enabled tabs.
           </p>
 
-          <p>
-            Each tab is associated with its corresponding tab panel using ARIA
-            attributes. The active panel can receive keyboard focus so that its
-            content can be accessed and read by screen reader users.
-          </p>
-
-          <h5>Accessibility Features</h5>
+          <h5>Keyboard Support</h5>
 
           <ul>
-            <li>Keyboard navigation between enabled tabs</li>
-            <li>Horizontal and vertical tab orientations</li>
-            <li>Disabled tab support</li>
-            <li>Screen reader support with NVDA</li>
-            <li>Accessible tab and panel relationships</li>
-            <li>Responsive behaviour at increased browser zoom levels</li>
-            <li>Visible keyboard focus indicators</li>
+            <li>Up Arrow moves to the previous enabled tab.</li>
+            <li>Down Arrow moves to the next enabled tab.</li>
+            <li>Home moves to the first enabled tab.</li>
+            <li>End moves to the last enabled tab.</li>
           </ul>
-
-          <p>
-            The component is designed to remain usable at 100%, 200%, and 400%
-            browser zoom. Long tab labels and panel content should wrap
-            naturally without causing unnecessary horizontal scrolling.
-          </p>
         </>
       ),
     },
