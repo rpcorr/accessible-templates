@@ -51,10 +51,46 @@ export function TabsExamples() {
       id: 'documentation',
       label: 'Documentation',
       content: (
-        <p>
-          This panel contains documentation, usage examples, and implementation
-          guidance for the component.
-        </p>
+        <>
+          <p>
+            This panel contains documentation, usage examples, and
+            implementation guidance for the component. It provides additional
+            information to help developers understand how the Tabs component
+            works and how it can be integrated into an accessible application.
+          </p>
+
+          <p>
+            The Tabs component supports both horizontal and vertical
+            orientations. Keyboard users can navigate between enabled tabs using
+            the appropriate arrow keys, while screen reader users receive
+            information about the selected tab and its position within the tab
+            list.
+          </p>
+
+          <p>
+            Each tab is associated with its corresponding tab panel using ARIA
+            attributes. The active panel can receive keyboard focus so that its
+            content can be accessed and read by screen reader users.
+          </p>
+
+          <h5>Accessibility Features</h5>
+
+          <ul>
+            <li>Keyboard navigation between enabled tabs</li>
+            <li>Horizontal and vertical tab orientations</li>
+            <li>Disabled tab support</li>
+            <li>Screen reader support with NVDA</li>
+            <li>Accessible tab and panel relationships</li>
+            <li>Responsive behaviour at increased browser zoom levels</li>
+            <li>Visible keyboard focus indicators</li>
+          </ul>
+
+          <p>
+            The component is designed to remain usable at 100%, 200%, and 400%
+            browser zoom. Long tab labels and panel content should wrap
+            naturally without causing unnecessary horizontal scrolling.
+          </p>
+        </>
       ),
     },
   ];
@@ -74,6 +110,52 @@ export function TabsExamples() {
       id: 'preferences',
       label: 'Preferences',
       content: <p>This panel contains user preferences.</p>,
+    },
+    {
+      id: 'documentation',
+      label: 'Documentation',
+      content: (
+        <>
+          <p>
+            This panel contains documentation, usage examples, and
+            implementation guidance for the component. It provides additional
+            information to help developers understand how the Tabs component
+            works and how it can be integrated into an accessible application.
+          </p>
+
+          <p>
+            The Tabs component supports both horizontal and vertical
+            orientations. Keyboard users can navigate between enabled tabs using
+            the appropriate arrow keys, while screen reader users receive
+            information about the selected tab and its position within the tab
+            list.
+          </p>
+
+          <p>
+            Each tab is associated with its corresponding tab panel using ARIA
+            attributes. The active panel can receive keyboard focus so that its
+            content can be accessed and read by screen reader users.
+          </p>
+
+          <h5>Accessibility Features</h5>
+
+          <ul>
+            <li>Keyboard navigation between enabled tabs</li>
+            <li>Horizontal and vertical tab orientations</li>
+            <li>Disabled tab support</li>
+            <li>Screen reader support with NVDA</li>
+            <li>Accessible tab and panel relationships</li>
+            <li>Responsive behaviour at increased browser zoom levels</li>
+            <li>Visible keyboard focus indicators</li>
+          </ul>
+
+          <p>
+            The component is designed to remain usable at 100%, 200%, and 400%
+            browser zoom. Long tab labels and panel content should wrap
+            naturally without causing unnecessary horizontal scrolling.
+          </p>
+        </>
+      ),
     },
   ];
 
