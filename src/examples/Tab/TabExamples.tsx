@@ -27,11 +27,34 @@ export function TabsExamples() {
       content: <p>This panel contains settings and configuration options.</p>,
     },
     {
-      id: 'disabled',
-      label: 'Disabled',
+      id: 'accessibility',
+      label: 'Accessibility',
+      content: (
+        <p>
+          This panel contains accessibility information, including keyboard
+          support, screen reader behaviour, and ARIA implementation details.
+        </p>
+      ),
+    },
+    {
+      id: 'advanced-settings',
+      label: 'Advanced Settings',
       disabled: true,
       content: (
-        <p>This panel should not be accessible because the tab is disabled.</p>
+        <p>
+          This panel contains advanced configuration options and additional
+          settings.
+        </p>
+      ),
+    },
+    {
+      id: 'documentation',
+      label: 'Documentation',
+      content: (
+        <p>
+          This panel contains documentation, usage examples, and implementation
+          guidance for the component.
+        </p>
       ),
     },
   ];
