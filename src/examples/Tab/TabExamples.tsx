@@ -161,8 +161,6 @@ export function TabsExamples() {
 
   return (
     <div className="stack">
-      <h3>Examples</h3>
-
       <div className="stack">
         <h4>Horizontal Tabs</h4>
 
