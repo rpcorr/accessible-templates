@@ -4,3 +4,4 @@ export { DropdownExamples } from './Dropdown/DropdownExamples';
 export { NavigationExamples } from './Navigation/NavigationExamples';
 export { TooltipExamples } from './Tooltip/TooltipExamples';
 export { TabsExamples } from './Tab/TabExamples';
+export { AccordionExamples } from './Accordion/AccordionExamples';

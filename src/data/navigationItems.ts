@@ -41,6 +41,12 @@ export const navigationItems: NavigationItem[] = [
         label: 'Tab',
         href: '/tab',
       },
+
+      {
+        id: 'accordion',
+        label: 'Accordion',
+        href: '/accordion',
+      },
     ],
   },
 ];

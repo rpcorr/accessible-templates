@@ -10,6 +10,7 @@ import { NavigationPage } from './pages/NavigationPage';
 import { TooltipPage } from './pages/TooltipPage';
 import { navigationItems } from './data/navigationItems';
 import { TabsPage } from './pages/TabsPage';
+import { AccordionPage } from './pages/AccordionPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 
 function App() {
@@ -33,7 +34,9 @@ function App() {
         <Route path="/dropdown" element={<DropdownPage />} />
         <Route path="/navigation" element={<NavigationPage />} />
         <Route path="/tooltip" element={<TooltipPage />} />
+        <Route path="/accordion" element={<AccordionPage />} />
         <Route path="/tab" element={<TabsPage />} />
+
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </main>
