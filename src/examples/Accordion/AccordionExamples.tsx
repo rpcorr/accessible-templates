@@ -14,7 +14,8 @@ export function AccordionExamples() {
     },
     {
       id: 'accessibility',
-      title: 'Accessibility',
+      title:
+        'Accessibility Features, Keyboard Navigation, and Screen Reader Support',
       content: (
         <p>
           The Accordion component uses native buttons with aria-expanded and
