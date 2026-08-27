@@ -592,40 +592,6 @@ An accessible tabs component supporting horizontal and vertical orientations, ke
 - Home and End navigation
 - Visible keyboard focus indicators
 
-### Usage
-
-The `Tabs` component accepts an array of tab objects. Each tab includes an `id`, `label`, and `content`. Tabs can optionally be disabled.
-
-```tsx
-import { Tabs } from './components/Tab';
-
-const tabs = [
-  {
-    id: 'overview',
-    label: 'Overview',
-    content: <p>Overview content.</p>,
-  },
-  {
-    id: 'details',
-    label: 'Details',
-    content: <p>Details content.</p>,
-  },
-  {
-    id: 'settings',
-    label: 'Settings',
-    content: <p>Settings content.</p>,
-  },
-  {
-    id: 'advanced',
-    label: 'Advanced',
-    disabled: true,
-    content: <p>Advanced settings.</p>,
-  },
-];
-
-<Tabs tabs={tabs} />;
-```
-
 ### Accessibility
 
 The Tabs component uses the semantic `tablist`, `tab`, and `tabpanel` roles.
@@ -692,6 +658,40 @@ Long tab labels and panel content wrap naturally while maintaining access to the
 Vertical tabs maintain the tab list beside the panel while remaining usable at increased zoom levels.
 
 ### Usage
+
+The `Tabs` component accepts an array of tab objects. Each tab includes an `id`, `label`, and `content`. Tabs can optionally be disabled.
+
+Horizontal tabs are the default orientation. To create vertical tabs, set the `orientation` prop to `vertical`.
+
+```tsx
+import { Tabs } from './components/Tab';
+
+const tabs = [
+  {
+    id: 'overview',
+    label: 'Overview',
+    content: <p>Overview content.</p>,
+  },
+  {
+    id: 'details',
+    label: 'Details',
+    content: <p>Details content.</p>,
+  },
+  {
+    id: 'settings',
+    label: 'Settings',
+    content: <p>Settings content.</p>,
+  },
+  {
+    id: 'advanced',
+    label: 'Advanced',
+    disabled: true,
+    content: <p>Advanced settings.</p>,
+  },
+];
+
+<Tabs tabs={tabs} />;
+```
 
 #### Horizontal Tabs
 
