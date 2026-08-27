@@ -160,7 +160,7 @@ The Button component:
 
 | Space | Activate the button |
 
-### Example
+### Usage
 
 ```tsx
 <Button>Save</Button>
@@ -224,7 +224,7 @@ Focus remains within the dialog while it is open.
 
 When the dialog closes, focus returns to the element that opened it.
 
-### Example
+### Usage
 
 ```tsx
 <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
@@ -374,7 +374,7 @@ The dropdown adapts to smaller screen sizes:
 
 - Nested submenus remain usable at multiple levels on smaller screens
 
-### Example
+### Usage
 
 ```tsx
 <DropdownAccessible
@@ -455,7 +455,7 @@ An accessible responsive navigation component supporting nested and multi-level 
 
 | Escape | Close submenu and return focus |
 
-### Example
+### Usage
 
 ```tsx
 <Navigation
@@ -546,7 +546,7 @@ The tooltip automatically adjusts its position based on available viewport space
 - Tooltip positioning accounts for the trigger's location within the viewport
 - Tooltip positioning is adjusted to prevent content from being cut off
 
-### Example
+### Usage
 
 ```tsx
 
@@ -691,7 +691,7 @@ Long tab labels and panel content wrap naturally while maintaining access to the
 
 Vertical tabs maintain the tab list beside the panel while remaining usable at increased zoom levels.
 
-### Example
+### Usage
 
 #### Horizontal Tabs
 
@@ -726,6 +726,7 @@ An accessible accordion component supporting expandable and collapsible content 
 - Support for long section titles and panel content
 - Home and End navigation
 - Focus-visible keyboard interaction
+- Configurable single-panel or multiple-panel behaviour
 
 ### Keyboard Support
 
@@ -746,9 +747,11 @@ Arrow-key navigation skips disabled accordion sections.
 
 Expanded panel content can be read by screen reader users using Browse Mode reading commands.
 
-### Example
+### Usage
 
 The `Accordion` component accepts an array of accordion items. Each item includes an `id`, `title`, and `content`. Items can optionally be disabled.
+
+By default, multiple panels can be open at the same time.
 
 ```tsx
 import { Accordion } from './components/Accordion';
