@@ -15,7 +15,9 @@
 }
 
 .trigger {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
   padding: 0.75rem 1rem;
   border: 0;

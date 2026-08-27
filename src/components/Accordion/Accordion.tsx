@@ -130,7 +130,8 @@ export function Accordion({ items }: AccordionProps) {
                 onClick={() => toggleItem(item.id)}
                 onKeyDown={(event) => handleKeyDown(event, index)}
               >
-                {item.title}
+                <span>{item.title}</span>
+                <span aria-hidden="true">{isOpen ? '−' : '+'}</span>
               </button>
             </h4>
 
