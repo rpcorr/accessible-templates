@@ -10,9 +10,10 @@ type AccordionItem = {
 
 type AccordionProps = {
   items: AccordionItem[];
+  multiple?: boolean;
 };
 
-export function Accordion({ items }: AccordionProps) {
+export function Accordion({ items, multiple = true }: AccordionProps) {
   const [openItems, setOpenItems] = useState<string[]>([]);
   const accordionId = useId();
 
@@ -23,11 +24,17 @@ export function Accordion({ items }: AccordionProps) {
     .filter((index): index is number => index !== null);
 
   function toggleItem(id: string) {
-    setOpenItems((current) =>
-      current.includes(id)
-        ? current.filter((itemId) => itemId !== id)
-        : [...current, id],
-    );
+    setOpenItems((current) => {
+      if (current.includes(id)) {
+        return current.filter((itemId) => itemId !== id);
+      }
+
+      if (!multiple) {
+        return [id];
+      }
+
+      return [...current, id];
+    });
   }
 
   function focusItem(index: number) {
