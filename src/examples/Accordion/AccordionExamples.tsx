@@ -78,8 +78,6 @@ export function AccordionExamples() {
 
   return (
     <div className="stack">
-      <h4>Accordion</h4>
-
       <Accordion items={items} />
     </div>
   );

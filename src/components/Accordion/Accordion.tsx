@@ -116,7 +116,7 @@ export function Accordion({ items }: AccordionProps) {
 
         return (
           <div key={item.id} className={styles.item}>
-            <h3 className={styles.heading}>
+            <h4 className={styles.heading}>
               <button
                 ref={(element) => {
                   triggerRefs.current[index] = element;
@@ -132,7 +132,7 @@ export function Accordion({ items }: AccordionProps) {
               >
                 {item.title}
               </button>
-            </h3>
+            </h4>
 
             <div
               id={panelId}
