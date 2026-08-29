@@ -41,11 +41,15 @@ export const navigationItems: NavigationItem[] = [
         label: 'Tab',
         href: '/tab',
       },
-
       {
         id: 'accordion',
         label: 'Accordion',
         href: '/accordion',
+      },
+      {
+        id: 'breadcrumbs',
+        label: 'Breadcrumbs',
+        href: '/breadcrumbs',
       },
     ],
   },
