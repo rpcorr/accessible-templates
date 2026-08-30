@@ -13,7 +13,7 @@ export function BreadcrumbItem({
   current = false,
 }: BreadcrumbItemProps) {
   return (
-    <li className={styles.item}>
+    <li className={`${styles.item} ${current ? styles.currentItem : ''}`}>
       {current ? (
         <span className={styles.current} aria-current="page">
           {children}
