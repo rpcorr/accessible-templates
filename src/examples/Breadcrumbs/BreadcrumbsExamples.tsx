@@ -77,7 +77,7 @@ export function BreadcrumbsExamples() {
         <BreadcrumbItem href="/">Home</BreadcrumbItem>
         <BreadcrumbItem href="/products">Products</BreadcrumbItem>
         <BreadcrumbItem href="/products/accessibility">
-          Accessibility Accessibility Accessibility Accessibility
+          Accessibility
         </BreadcrumbItem>
         <BreadcrumbItem current>Breadcrumbs</BreadcrumbItem>
       </Breadcrumbs>
