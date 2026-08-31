@@ -90,15 +90,16 @@ npm  run  dev
 
 The following components have been completed and are designed with accessibility as a first-class concern.
 
-| Component    | Status   | Accessibility Features                                                                        |
-| ------------ | -------- | --------------------------------------------------------------------------------------------- |
-| Button       | Complete | Semantic HTML, keyboard accessibility, focus-visible styling                                  |
-| Modal Dialog | Complete | Focus management, focus trap, Escape handling, focus restoration                              |
-| Dropdown     | Complete | Keyboard navigation, nested submenus, typeahead, disabled items, separators, focus management |
-| Navigation   | Complete | Keyboard navigation, nested submenus, mobile drawer, focus trap, focus management             |
-| Tooltip      | Complete | Keyboard focus support, aria-describedby, Escape dismissal, responsive positioning            |
-| Tabs         | Complete | Keyboard navigation, horizontal and vertical orientations, disabled tabs, focus management    |
-| Accordion    | Complete | Keyboard navigation, expand/collapse, disabled items, focus management, screen reader support |
+| Component    | Status   | Accessibility Features                                                                                |
+| ------------ | -------- | ----------------------------------------------------------------------------------------------------- |
+| Button       | Complete | Semantic HTML, keyboard accessibility, focus-visible styling                                          |
+| Modal Dialog | Complete | Focus management, focus trap, Escape handling, focus restoration                                      |
+| Dropdown     | Complete | Keyboard navigation, nested submenus, typeahead, disabled items, separators, focus management         |
+| Navigation   | Complete | Keyboard navigation, nested submenus, mobile drawer, focus trap, focus management                     |
+| Tooltip      | Complete | Keyboard focus support, aria-describedby, Escape dismissal, responsive positioning                    |
+| Tabs         | Complete | Keyboard navigation, horizontal and vertical orientations, disabled tabs, focus management            |
+| Accordion    | Complete | Keyboard navigation, expand/collapse, disabled items, focus management, screen reader support         |
+| Breadcrumbs  | Complete | Semantic navigation, aria-current, keyboard accessibility, responsive wrapping, decorative separators |
 
 Each component includes:
 
@@ -237,6 +238,8 @@ When the dialog closes, focus returns to the element that opened it.
   <Button>Confirm</Button>
 </Modal>
 ```
+
+---
 
 ## Dropdown
 
@@ -398,6 +401,8 @@ The dropdown adapts to smaller screen sizes:
 </DropdownAccessible>
 ```
 
+---
+
 ## Navigation
 
 An accessible responsive navigation component supporting nested and multi-level submenus, keyboard navigation, focus management, and a mobile navigation drawer.
@@ -484,6 +489,8 @@ An accessible responsive navigation component supporting nested and multi-level 
   ]}
 />
 ```
+
+---
 
 ## Tooltip
 
@@ -778,6 +785,73 @@ const items = [
 <Accordion items={items} />;
 ```
 
+---
+
+## Breadcrumbs
+
+An accessible breadcrumb navigation component that helps users understand their location within a website hierarchy. It uses semantic navigation, native links, current-page identification, responsive wrapping, and multiple visual styles.
+
+### Features
+
+- Semantic `<nav>` landmark
+- Accessible navigation label
+- Ordered list structure for breadcrumb hierarchy
+- Native HTML links
+- Current page identification with `aria-current="page"`
+- Current page is not presented as a link
+- Multiple separator styles
+- Slash separator
+- Chevron separator
+- Greater-than separator
+- Pill-style breadcrumbs
+- Pill breadcrumbs with background
+- Pill breadcrumbs with active page styling
+- Arrow-shaped breadcrumbs
+- Hover styling for interactive breadcrumb links
+- Visible focus styling for keyboard interaction
+- Decorative separators that are not announced as meaningful content
+- Responsive wrapping on smaller screens
+- Vertical spacing between wrapped breadcrumb rows
+- Support for long breadcrumb labels and wrapped content
+- Arrow-shaped breadcrumbs expand to accommodate wrapped content
+- Active breadcrumb styling remains unchanged on hover
+
+### Keyboard Support
+
+| Key         | Action                               |
+| ----------- | ------------------------------------ |
+| Tab         | Move to the next breadcrumb link     |
+| Shift + Tab | Move to the previous breadcrumb link |
+| Enter       | Activate the focused breadcrumb link |
+| Space       | Activate the focused breadcrumb link |
+
+The current page is not focusable because it is represented as a non-interactive element rather than a link.
+
+Breadcrumbs use native HTML links, so no custom keyboard event handling is required.
+
+### Usage
+
+The `Breadcrumbs` component accepts breadcrumb items as children. Each `BreadcrumbItem` can be given an `href` for navigable pages or marked as the current page using the `current` prop.
+
+The `separator` prop controls the visual separator style. Available options are `slash`, `chevron`, `greater-than`, `pill`, and `arrow`.
+
+```tsx
+import { Breadcrumbs, BreadcrumbItem } from './components/Breadcrumbs';
+
+<Breadcrumbs separator="chevron">
+  <BreadcrumbItem href="/">Home</BreadcrumbItem>
+  <BreadcrumbItem href="/products">Products</BreadcrumbItem>
+  <BreadcrumbItem href="/products/accessibility">Accessibility</BreadcrumbItem>
+  <BreadcrumbItem current>Breadcrumbs</BreadcrumbItem>
+</Breadcrumbs>;
+```
+
+The current page is identified using `aria-current="page"` and should not be provided with an `href`.
+
+Visual separators are generated with CSS and are decorative, allowing screen reader users to navigate the breadcrumb links without unnecessary separator announcements.
+
+---
+
 ## ♿ Accessibility Testing
 
 Accessibility is treated as an ongoing part of the development process rather than a final verification step.
@@ -822,5 +896,6 @@ The current core component set is complete:
 - Tooltip
 - Tab
 - Accordion
+- Breadcrumbs
 
 The project is now focused on expanding the component library while continuing to apply the same accessibility-first development approach.
