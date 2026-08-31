@@ -6,6 +6,36 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
 }
 
+function getPageRange(currentPage: number, totalPages: number) {
+  if (totalPages <= 7) {
+    return Array.from({ length: totalPages }, (_, index) => index + 1);
+  }
+
+  const pages: (number | 'ellipsis')[] = [1];
+
+  if (currentPage <= 2) {
+    pages.push(2, 3, 'ellipsis');
+  } else if (currentPage === 3) {
+    pages.push(2, 3, 4, 'ellipsis');
+  } else if (currentPage === totalPages - 2) {
+    pages.push('ellipsis', currentPage - 1, currentPage, currentPage + 1);
+  } else if (currentPage >= totalPages - 1) {
+    pages.push('ellipsis', totalPages - 2, totalPages - 1);
+  } else {
+    pages.push(
+      'ellipsis',
+      currentPage - 1,
+      currentPage,
+      currentPage + 1,
+      'ellipsis',
+    );
+  }
+
+  pages.push(totalPages);
+
+  return pages;
+}
+
 export function Pagination({
   currentPage,
   totalPages,
@@ -25,8 +55,14 @@ export function Pagination({
           </button>
         </li>
 
-        {Array.from({ length: totalPages }, (_, index) => {
-          const page = index + 1;
+        {getPageRange(currentPage, totalPages).map((page, index) => {
+          if (page === 'ellipsis') {
+            return (
+              <li key={`ellipsis-${index}`} aria-hidden="true">
+                <span className={styles.ellipsis}>…</span>
+              </li>
+            );
+          }
 
           return (
             <li key={page}>
