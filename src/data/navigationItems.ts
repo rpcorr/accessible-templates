@@ -51,6 +51,12 @@ export const navigationItems: NavigationItem[] = [
         label: 'Breadcrumbs',
         href: '/breadcrumbs',
       },
+
+      {
+        id: 'pagination',
+        label: 'Pagination',
+        href: '/pagination',
+      },
     ],
   },
 ];

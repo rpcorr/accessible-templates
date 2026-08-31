@@ -12,6 +12,7 @@ import { navigationItems } from './data/navigationItems';
 import { TabsPage } from './pages/TabsPage';
 import { AccordionPage } from './pages/AccordionPage';
 import { BreadcrumbsPage } from './pages/BreadcrumbsPage';
+import { PaginationPage } from './pages/PaginiationPage';
 
 import { NotFoundPage } from './pages/NotFoundPage';
 
@@ -39,6 +40,7 @@ function App() {
         <Route path="/accordion" element={<AccordionPage />} />
         <Route path="/tab" element={<TabsPage />} />
         <Route path="/breadcrumbs" element={<BreadcrumbsPage />} />
+        <Route path="/pagination" element={<PaginationPage />} />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
