@@ -19,6 +19,7 @@ export function Pagination({
             type="button"
             onClick={() => onPageChange(currentPage - 1)}
             disabled={currentPage === 1}
+            aria-label="Go to previous page"
           >
             Previous
           </button>
@@ -33,6 +34,11 @@ export function Pagination({
                 type="button"
                 onClick={() => onPageChange(page)}
                 aria-current={currentPage === page ? 'page' : undefined}
+                aria-label={
+                  currentPage === page
+                    ? `Page ${page}, current page`
+                    : `Go to page ${page}`
+                }
               >
                 {page}
               </button>
@@ -45,6 +51,7 @@ export function Pagination({
             type="button"
             onClick={() => onPageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
+            aria-label="Go to next page"
           >
             Next
           </button>
