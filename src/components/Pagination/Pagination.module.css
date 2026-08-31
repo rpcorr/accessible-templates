@@ -13,10 +13,11 @@
   min-width: 2.5rem;
   min-height: 2.5rem;
   padding: 0.5rem 0.75rem;
+  cursor: pointer;
 }
 
 .list button:focus-visible {
-  outline: 3px solid currentColor;
+  outline: 3px solid #000000;
   outline-offset: 2px;
 }
 
@@ -27,4 +28,64 @@
 
 .ellipsis {
   padding: 0 0.25rem;
+}
+
+/* Shared active page */
+
+.active button[aria-current='page'],
+.pill button[aria-current='page'],
+.outline button[aria-current='page'] {
+  background-color: #1f4e79;
+  color: #ffffff;
+  border-color: #1f4e79;
+  font-weight: 600;
+  cursor: default;
+}
+
+.active button[aria-current='page']:hover,
+.pill button[aria-current='page']:hover,
+.outline button[aria-current='page']:hover {
+  background-color: #1f4e79;
+  color: #ffffff;
+  border-color: #1f4e79;
+}
+
+/* Pill */
+
+.pill button {
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background-color: transparent;
+}
+
+.pill button:hover:not(:disabled) {
+  background-color: #e8f0fe;
+}
+
+/* Outline */
+
+.outline {
+  column-gap: 0;
+}
+
+.outline button {
+  border: 1px solid currentColor;
+  background-color: transparent;
+  border-radius: 0;
+}
+
+.outline li + li button {
+  margin-left: -1px;
+}
+
+.outline li:first-child button {
+  border-radius: 0.375rem 0 0 0.375rem;
+}
+
+.outline li:last-child button {
+  border-radius: 0 0.375rem 0.375rem 0;
+}
+
+.outline button:hover:not(:disabled) {
+  background-color: #e8f0fe;
 }

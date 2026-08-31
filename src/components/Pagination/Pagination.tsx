@@ -1,9 +1,12 @@
 import styles from './Pagination.module.css';
 
+type PaginationVariant = 'active' | 'pill' | 'outline';
+
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
+  variant?: PaginationVariant;
 }
 
 function getPageRange(currentPage: number, totalPages: number) {
@@ -40,10 +43,11 @@ export function Pagination({
   currentPage,
   totalPages,
   onPageChange,
+  variant = 'active',
 }: PaginationProps) {
   return (
     <nav aria-label="Pagination">
-      <ul className={styles.list}>
+      <ul className={`${styles.list} ${styles[variant]}`}>
         <li>
           <button
             type="button"
