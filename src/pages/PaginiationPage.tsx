@@ -22,6 +22,10 @@ export function PaginationPage() {
         <li>Provides a visible focus indicator for keyboard users.</li>
         <li>Previous is disabled on the first page.</li>
         <li>Next is disabled on the last page.</li>
+        <li>
+          Disabled Previous and Next controls cannot be activated or receive
+          keyboard focus.
+        </li>
       </ul>
       <h3>Keyboard Support</h3>
       <ul>
