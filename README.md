@@ -86,21 +86,22 @@ npm  run  dev
 
 ---
 
-## 🧩 Components
+**## 🧩 Components**
 
 The following components have been completed and are designed with accessibility as a first-class concern.
 
-| Component    | Status   | Accessibility Features                                                                                |
-| ------------ | -------- | ----------------------------------------------------------------------------------------------------- |
-| Button       | Complete | Semantic HTML, keyboard accessibility, focus-visible styling                                          |
-| Modal Dialog | Complete | Focus management, focus trap, Escape handling, focus restoration                                      |
-| Dropdown     | Complete | Keyboard navigation, nested submenus, typeahead, disabled items, separators, focus management         |
-| Navigation   | Complete | Keyboard navigation, nested submenus, mobile drawer, focus trap, focus management                     |
-| Tooltip      | Complete | Keyboard focus support, aria-describedby, Escape dismissal, responsive positioning                    |
-| Tabs         | Complete | Keyboard navigation, horizontal and vertical orientations, disabled tabs, focus management            |
-| Accordion    | Complete | Keyboard navigation, expand/collapse, disabled items, focus management, screen reader support         |
-| Breadcrumbs  | Complete | Semantic navigation, aria-current, keyboard accessibility, responsive wrapping, decorative separators |
-| Pagination   | Complete | Semantic navigation, aria-current, keyboard accessibility, focus-visible styling, disabled controls   |
+| Component    | Status   | Accessibility Features                                                                                                              |
+| ------------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Button       | Complete | Semantic HTML, keyboard accessibility, focus-visible styling                                                                        |
+| Modal Dialog | Complete | Focus management, focus trap, Escape handling, focus restoration                                                                    |
+| Dropdown     | Complete | Keyboard navigation, nested submenus, typeahead, disabled items, separators, focus management                                       |
+| Navigation   | Complete | Keyboard navigation, nested submenus, mobile drawer, focus trap, focus management                                                   |
+| Tooltip      | Complete | Keyboard focus support, aria-describedby, Escape dismissal, responsive positioning                                                  |
+| Tabs         | Complete | Keyboard navigation, horizontal and vertical orientations, disabled tabs, focus management                                          |
+| Accordion    | Complete | Keyboard navigation, expand/collapse, disabled items, focus management, screen reader support                                       |
+| Breadcrumbs  | Complete | Semantic navigation, aria-current, keyboard accessibility, responsive wrapping, decorative separators                               |
+| Pagination   | Complete | Semantic navigation, aria-current, keyboard accessibility, focus-visible styling, disabled controls                                 |
+| Alert        | Complete | Semantic HTML, keyboard-accessible dismissal, customizable dismiss label, configurable heading levels, ARIA live-region integration |
 
 Each component includes:
 
@@ -935,6 +936,113 @@ It also correctly treats **Basic as the default**, so you don't need to specify 
 
 ---
 
+## Alert
+
+A reusable alert component for communicating informational messages, success feedback, warnings, and errors, with support for optional titles, configurable heading levels, dismissible alerts, and customizable dismiss labels.
+
+### Features
+
+- Info, success, warning, and error variants
+- Optional alert titles
+- Configurable heading levels from `h2` through `h6`
+- Dismissible alerts
+- Customizable dismiss button accessible label
+- Keyboard-accessible dismissal
+- Visible focus indicator
+- Type-safe dismissible and non-dismissible configurations
+- Native button for dismissal
+- Support for application-controlled ARIA live regions
+- Screen reader-friendly structure
+- Responsive layout
+
+### Keyboard Support
+
+| Key         | Action                                               |
+| ----------- | ---------------------------------------------------- |
+| Tab         | Move to the dismiss button                           |
+| Shift + Tab | Move to the previous focusable element               |
+| Enter       | Dismiss the alert when the dismiss button is focused |
+| Space       | Dismiss the alert when the dismiss button is focused |
+
+The dismiss button is only present when the alert is configured as dismissible.
+
+The dismiss button uses a customizable accessible label, allowing applications to provide context-specific or localized labels.
+
+### Heading Structure
+
+Alerts with titles use a semantic heading element. The heading level can be configured from `h2` through `h6` to fit the surrounding page structure.
+
+```tsx
+<Alert variant="info" title="Information" headingLevel="h3">
+  Your profile has been updated.
+</Alert>
+```
+
+The default heading level is `h2`.
+
+### Dismissible Alerts
+
+A dismissible Alert requires an `onDismiss` callback:
+
+```tsx
+import { Alert } from './components/Alert';
+
+function Example() {
+  const handleDismiss = () => {
+    console.log('Alert dismissed');
+  };
+
+  return (
+    <Alert
+      variant="warning"
+      title="Warning"
+      dismissible
+      onDismiss={handleDismiss}
+    >
+      You have unsaved changes.
+    </Alert>
+  );
+}
+```
+
+The dismiss button can have a custom accessible label:
+
+```tsx
+<Alert
+  variant="warning"
+  title="Warning"
+  dismissible
+  dismissLabel="Close notification"
+  onDismiss={handleDismiss}
+>
+  You have unsaved changes.
+</Alert>
+```
+
+### ARIA Live Regions
+
+The `Alert` component does not automatically create an ARIA live region. Applications can place an Alert inside an appropriate live region when dynamically generated messages need to be announced to screen readers.
+
+For polite status messages:
+
+```tsx
+<div role="status" aria-live="polite" aria-atomic="true">
+  {successMessage && <Alert variant="success">{successMessage}</Alert>}
+</div>
+```
+
+For urgent error messages:
+
+```tsx
+<div role="alert" aria-atomic="true">
+  {errorMessage && <Alert variant="error">{errorMessage}</Alert>}
+</div>
+```
+
+Keeping live-region behavior outside the `Alert` component allows the consuming application to determine when a message should be announced and which level of urgency is appropriate.
+
+---
+
 ## ♿ Accessibility Testing
 
 Accessibility is treated as an ongoing part of the development process rather than a final verification step.
@@ -981,5 +1089,10 @@ The current core component set is complete:
 - Accordion
 - Breadcrumbs
 - Pagination
+- Alerts
 
 The project is now focused on expanding the component library while continuing to apply the same accessibility-first development approach.
+
+```
+
+```
