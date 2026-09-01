@@ -100,6 +100,7 @@ The following components have been completed and are designed with accessibility
 | Tabs         | Complete | Keyboard navigation, horizontal and vertical orientations, disabled tabs, focus management            |
 | Accordion    | Complete | Keyboard navigation, expand/collapse, disabled items, focus management, screen reader support         |
 | Breadcrumbs  | Complete | Semantic navigation, aria-current, keyboard accessibility, responsive wrapping, decorative separators |
+| Pagination   | Complete | Semantic navigation, aria-current, keyboard accessibility, focus-visible styling, disabled controls   |
 
 Each component includes:
 
@@ -530,7 +531,6 @@ The tooltip:
 
 | Key | Action |
 
-| ----------- | --------------------------------- |
 | Tab | Move focus to the tooltip trigger |
 
 | Shift + Tab | Move focus backward |
@@ -852,6 +852,89 @@ Visual separators are generated with CSS and are decorative, allowing screen rea
 
 ---
 
+## Pagination
+
+A reusable pagination component for navigating between pages of content, with support for previous and next controls, page selection, current page indication, long page ranges, and visual variants.
+
+### Features
+
+- Previous and Next controls
+- Page selection
+- Current page indication using `aria-current="page"`
+- Long page range support with ellipsis
+- Accessible names for pagination controls
+- Disabled Previous control on the first page
+- Disabled Next control on the last page
+- Keyboard accessibility
+- Visible focus indicator
+- Current page remains keyboard focusable
+- Screen reader-friendly ellipsis indicators
+- Basic, pill, and outline visual variants
+- Responsive wrapping for long pagination ranges
+
+### Keyboard Support
+
+| Key         | Action                                  |
+| ----------- | --------------------------------------- |
+| Tab         | Move to the next pagination control     |
+| Shift + Tab | Move to the previous pagination control |
+| Enter       | Activate the focused pagination control |
+| Space       | Activate the focused pagination control |
+
+The current page remains keyboard focusable and displays a visible focus indicator when focused using the keyboard.
+
+Disabled Previous and Next controls cannot receive keyboard focus.
+
+Ellipsis indicators are hidden from screen readers because they are visual separators rather than interactive controls.
+
+### Usage
+
+The `Pagination` component accepts the current page, total number of pages, and a callback function that is called when the user selects a different page.
+
+```tsx
+import { useState } from 'react';
+import { Pagination } from './components/Pagination';
+
+function Example() {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  return (
+    <Pagination
+      currentPage={currentPage}
+      totalPages={10}
+      onPageChange={setCurrentPage}
+    />
+  );
+}
+```
+
+The component supports optional visual variants:
+
+```tsx
+<Pagination
+  currentPage={currentPage}
+  totalPages={10}
+  onPageChange={setCurrentPage}
+  variant="pill"
+/>
+```
+
+Available variants:
+
+- `basic` — standard pagination with a highlighted current page
+- `pill` — rounded pagination controls with a highlighted current page
+- `outline` — connected outlined pagination controls with a highlighted current page
+
+This version now matches your current `Pagination.tsx` API exactly:
+
+```tsx
+type PaginationVariant = 'basic' | 'pill' | 'outline';
+```
+
+It also correctly treats **Basic as the default**, so you don't need to specify `variant="basic"` unless you want to be explicit.
+
+---
+
 ## ♿ Accessibility Testing
 
 Accessibility is treated as an ongoing part of the development process rather than a final verification step.
@@ -897,5 +980,6 @@ The current core component set is complete:
 - Tab
 - Accordion
 - Breadcrumbs
+- Pagination
 
 The project is now focused on expanding the component library while continuing to apply the same accessibility-first development approach.
