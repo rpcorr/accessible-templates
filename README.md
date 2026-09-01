@@ -86,21 +86,22 @@ npm  run  dev
 
 ---
 
-## 🧩 Components
+**## 🧩 Components**
 
 The following components have been completed and are designed with accessibility as a first-class concern.
 
-| Component    | Status   | Accessibility Features                                                                                |
-| ------------ | -------- | ----------------------------------------------------------------------------------------------------- |
-| Button       | Complete | Semantic HTML, keyboard accessibility, focus-visible styling                                          |
-| Modal Dialog | Complete | Focus management, focus trap, Escape handling, focus restoration                                      |
-| Dropdown     | Complete | Keyboard navigation, nested submenus, typeahead, disabled items, separators, focus management         |
-| Navigation   | Complete | Keyboard navigation, nested submenus, mobile drawer, focus trap, focus management                     |
-| Tooltip      | Complete | Keyboard focus support, aria-describedby, Escape dismissal, responsive positioning                    |
-| Tabs         | Complete | Keyboard navigation, horizontal and vertical orientations, disabled tabs, focus management            |
-| Accordion    | Complete | Keyboard navigation, expand/collapse, disabled items, focus management, screen reader support         |
-| Breadcrumbs  | Complete | Semantic navigation, aria-current, keyboard accessibility, responsive wrapping, decorative separators |
-| Pagination   | Complete | Semantic navigation, aria-current, keyboard accessibility, focus-visible styling, disabled controls   |
+| Component    | Status   | Accessibility Features                                                                                                              |
+| ------------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Button       | Complete | Semantic HTML, keyboard accessibility, focus-visible styling                                                                        |
+| Modal Dialog | Complete | Focus management, focus trap, Escape handling, focus restoration                                                                    |
+| Dropdown     | Complete | Keyboard navigation, nested submenus, typeahead, disabled items, separators, focus management                                       |
+| Navigation   | Complete | Keyboard navigation, nested submenus, mobile drawer, focus trap, focus management                                                   |
+| Tooltip      | Complete | Keyboard focus support, aria-describedby, Escape dismissal, responsive positioning                                                  |
+| Tabs         | Complete | Keyboard navigation, horizontal and vertical orientations, disabled tabs, focus management                                          |
+| Accordion    | Complete | Keyboard navigation, expand/collapse, disabled items, focus management, screen reader support                                       |
+| Breadcrumbs  | Complete | Semantic navigation, aria-current, keyboard accessibility, responsive wrapping, decorative separators                               |
+| Pagination   | Complete | Semantic navigation, aria-current, keyboard accessibility, focus-visible styling, disabled controls                                 |
+| Alert        | Complete | Semantic HTML, keyboard-accessible dismissal, customizable dismiss label, configurable heading levels, ARIA live-region integration |
 
 Each component includes:
 
@@ -981,5 +982,6 @@ The current core component set is complete:
 - Accordion
 - Breadcrumbs
 - Pagination
+- Alerts
 
 The project is now focused on expanding the component library while continuing to apply the same accessibility-first development approach.
