@@ -5,6 +5,7 @@ export const AlertExamples = () => {
   const [showDismissibleAlert, setShowDismissibleAlert] = useState(true);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [showCustomDismissAlert, setShowCustomDismissAlert] = useState(true);
 
   return (
     <section>
@@ -53,6 +54,24 @@ export const AlertExamples = () => {
         </Alert>
       ) : (
         <button type="button" onClick={() => setShowDismissibleAlert(true)}>
+          Show alert again
+        </button>
+      )}
+
+      <h4>Custom Dismiss Label</h4>
+
+      {showCustomDismissAlert ? (
+        <Alert
+          variant="warning"
+          title="Custom dismiss label"
+          dismissible
+          dismissLabel="Close notification"
+          onDismiss={() => setShowCustomDismissAlert(false)}
+        >
+          This alert uses a custom accessible label for the dismiss button.
+        </Alert>
+      ) : (
+        <button type="button" onClick={() => setShowCustomDismissAlert(true)}>
           Show alert again
         </button>
       )}
