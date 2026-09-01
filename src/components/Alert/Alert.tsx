@@ -3,28 +3,40 @@ import styles from './Alert.module.css';
 
 export type AlertVariant = 'info' | 'success' | 'warning' | 'error';
 
-interface AlertProps {
+type AlertHeadingLevel = 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+
+interface AlertBaseProps {
   variant?: AlertVariant;
   title?: string;
+  headingLevel?: AlertHeadingLevel;
   children: ReactNode;
-  dismissible?: boolean;
-  onDismiss?: () => void;
 }
+
+interface DismissibleAlertProps extends AlertBaseProps {
+  dismissible: true;
+  onDismiss: () => void;
+}
+
+interface NonDismissibleAlertProps extends AlertBaseProps {
+  dismissible?: false;
+  onDismiss?: never;
+}
+
+type AlertProps = DismissibleAlertProps | NonDismissibleAlertProps;
 
 const Alert = ({
   variant = 'info',
   title,
+  headingLevel: Heading = 'h2',
   children,
   dismissible = false,
   onDismiss,
 }: AlertProps) => {
-  const role =
-    variant === 'error' || variant === 'warning' ? 'alert' : 'status';
-
   return (
-    <div className={`${styles.alert} ${styles[variant]}`} role={role}>
+    <div className={`${styles.alert} ${styles[variant]}`}>
       <div className={styles.content}>
-        {title && <h2 className={styles.title}>{title}</h2>}
+        {title && <Heading className={styles.title}>{title}</Heading>}
+
         <div className={styles.message}>{children}</div>
       </div>
 
