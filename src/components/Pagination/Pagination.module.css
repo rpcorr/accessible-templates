@@ -30,11 +30,9 @@
   padding: 0 0.25rem;
 }
 
-/* Shared active page */
+/* Basic */
 
-.active button[aria-current='page'],
-.pill button[aria-current='page'],
-.outline button[aria-current='page'] {
+.basic button[aria-current='page'] {
   background-color: #1f4e79;
   color: #ffffff;
   border-color: #1f4e79;
@@ -42,9 +40,7 @@
   cursor: default;
 }
 
-.active button[aria-current='page']:hover,
-.pill button[aria-current='page']:hover,
-.outline button[aria-current='page']:hover {
+.basic button[aria-current='page']:hover {
   background-color: #1f4e79;
   color: #ffffff;
   border-color: #1f4e79;
@@ -60,6 +56,20 @@
 
 .pill button:hover:not(:disabled) {
   background-color: #e8f0fe;
+}
+
+.pill button[aria-current='page'] {
+  background-color: #1f4e79;
+  color: #ffffff;
+  border-color: #1f4e79;
+  font-weight: 600;
+  cursor: default;
+}
+
+.pill button[aria-current='page']:hover {
+  background-color: #1f4e79;
+  color: #ffffff;
+  border-color: #1f4e79;
 }
 
 /* Outline */
@@ -88,4 +98,18 @@
 
 .outline button:hover:not(:disabled) {
   background-color: #e8f0fe;
+}
+
+.outline button[aria-current='page'] {
+  background-color: #1f4e79;
+  color: #ffffff;
+  border-color: #1f4e79;
+  font-weight: 600;
+  cursor: default;
+}
+
+.outline button[aria-current='page']:hover {
+  background-color: #1f4e79;
+  color: #ffffff;
+  border-color: #1f4e79;
 }

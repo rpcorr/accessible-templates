@@ -1,6 +1,6 @@
 import styles from './Pagination.module.css';
 
-type PaginationVariant = 'active' | 'pill' | 'outline';
+type PaginationVariant = 'basic' | 'pill' | 'outline';
 
 interface PaginationProps {
   currentPage: number;
@@ -43,7 +43,7 @@ export function Pagination({
   currentPage,
   totalPages,
   onPageChange,
-  variant = 'active',
+  variant = 'basic',
 }: PaginationProps) {
   return (
     <nav aria-label="Pagination">
