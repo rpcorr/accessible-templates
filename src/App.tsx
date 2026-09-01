@@ -13,6 +13,7 @@ import { TabsPage } from './pages/TabsPage';
 import { AccordionPage } from './pages/AccordionPage';
 import { BreadcrumbsPage } from './pages/BreadcrumbsPage';
 import { PaginationPage } from './pages/PaginiationPage';
+import { AlertPage } from './pages/AlertPage';
 
 import { NotFoundPage } from './pages/NotFoundPage';
 
@@ -41,6 +42,7 @@ function App() {
         <Route path="/tab" element={<TabsPage />} />
         <Route path="/breadcrumbs" element={<BreadcrumbsPage />} />
         <Route path="/pagination" element={<PaginationPage />} />
+        <Route path="/alert" element={<AlertPage />} />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

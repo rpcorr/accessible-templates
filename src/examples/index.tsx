@@ -7,3 +7,4 @@ export { TabsExamples } from './Tab/TabExamples';
 export { AccordionExamples } from './Accordion/AccordionExamples';
 export { BreadcrumbsExamples } from './Breadcrumbs/BreadcrumbsExamples';
 export { PaginationExamples } from './Pagination/PaginationExamples';
+export { AlertExamples } from './Alert/AlertExamples';
