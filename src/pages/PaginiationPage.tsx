@@ -6,10 +6,12 @@ export function PaginationPage() {
     <PageLayout title="Pagination">
       <p>
         A reusable pagination component for navigating between pages of content,
-        with support for previous and next controls, page selection, and current
-        page indication.
+        with support for previous and next controls, page selection, current
+        page indication, long page ranges, and visual variants.
       </p>
+
       <h3>Accessibility</h3>
+
       <ul>
         <li>Uses a semantic navigation landmark with an accessible label.</li>
         <li>Uses native HTML buttons for pagination controls.</li>
@@ -20,14 +22,18 @@ export function PaginationPage() {
           Provides accessible names for Previous, Next, and page controls.
         </li>
         <li>Provides a visible focus indicator for keyboard users.</li>
+        <li>The current page remains keyboard focusable.</li>
         <li>Previous is disabled on the first page.</li>
         <li>Next is disabled on the last page.</li>
         <li>
           Disabled Previous and Next controls cannot be activated or receive
           keyboard focus.
         </li>
+        <li>Ellipsis indicators are hidden from screen readers.</li>
       </ul>
+
       <h3>Keyboard Support</h3>
+
       <ul>
         <li>Tab moves focus to and from the pagination controls.</li>
         <li>Shift + Tab moves focus to the previous pagination control.</li>
