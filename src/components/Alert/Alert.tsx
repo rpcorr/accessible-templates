@@ -9,6 +9,7 @@ interface AlertBaseProps {
   variant?: AlertVariant;
   title?: string;
   headingLevel?: AlertHeadingLevel;
+  dismissLabel?: string;
   children: ReactNode;
 }
 
@@ -28,6 +29,7 @@ const Alert = ({
   variant = 'info',
   title,
   headingLevel: Heading = 'h2',
+  dismissLabel = 'Dismiss alert',
   children,
   dismissible = false,
   onDismiss,
@@ -45,7 +47,7 @@ const Alert = ({
           type="button"
           className={styles.dismiss}
           onClick={onDismiss}
-          aria-label="Dismiss alert"
+          aria-label={dismissLabel}
         >
           <span aria-hidden="true">&times;</span>
         </button>
