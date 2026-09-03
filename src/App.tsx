@@ -14,6 +14,7 @@ import { AccordionPage } from './pages/AccordionPage';
 import { BreadcrumbsPage } from './pages/BreadcrumbsPage';
 import { PaginationPage } from './pages/PaginiationPage';
 import { AlertPage } from './pages/AlertPage';
+import { StatusPage } from './pages/StatusPage';
 
 import { NotFoundPage } from './pages/NotFoundPage';
 
@@ -43,7 +44,7 @@ function App() {
         <Route path="/breadcrumbs" element={<BreadcrumbsPage />} />
         <Route path="/pagination" element={<PaginationPage />} />
         <Route path="/alert" element={<AlertPage />} />
-
+        <Route path="/status" element={<StatusPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </main>

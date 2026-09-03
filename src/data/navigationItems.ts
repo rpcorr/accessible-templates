@@ -57,11 +57,15 @@ export const navigationItems: NavigationItem[] = [
         label: 'Pagination',
         href: '/pagination',
       },
-
       {
         id: 'alert',
         label: 'Alert',
         href: '/alert',
+      },
+      {
+        id: 'status',
+        label: 'Status',
+        href: '/status',
       },
     ],
   },
