@@ -336,6 +336,7 @@ export const ProgressIndicatorExamples = () => {
             label="Water level"
             showValue
             variant="fill"
+            colour="info"
           />
         </div>
 
@@ -345,6 +346,7 @@ export const ProgressIndicatorExamples = () => {
             label="Water level"
             showValue
             variant="fill"
+            colour="info"
           />
         </div>
 
@@ -354,6 +356,7 @@ export const ProgressIndicatorExamples = () => {
             label="Water level"
             showValue
             variant="fill"
+            colour="info"
           />
         </div>
 
@@ -363,6 +366,7 @@ export const ProgressIndicatorExamples = () => {
             label="Full"
             showValue
             variant="fill"
+            colour="info"
           />
         </div>
       </div>
@@ -375,6 +379,7 @@ export const ProgressIndicatorExamples = () => {
           label="Water level"
           showValue
           variant="fill"
+          colour="info"
         />
 
         <div>
