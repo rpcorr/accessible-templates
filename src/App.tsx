@@ -15,6 +15,7 @@ import { BreadcrumbsPage } from './pages/BreadcrumbsPage';
 import { PaginationPage } from './pages/PaginiationPage';
 import { AlertPage } from './pages/AlertPage';
 import { StatusPage } from './pages/StatusPage';
+import { ProgressIndicatorPage } from './pages/ProgressIndicatorPage';
 
 import { NotFoundPage } from './pages/NotFoundPage';
 
@@ -45,6 +46,7 @@ function App() {
         <Route path="/pagination" element={<PaginationPage />} />
         <Route path="/alert" element={<AlertPage />} />
         <Route path="/status" element={<StatusPage />} />
+        <Route path="/progress-indicator" element={<ProgressIndicatorPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </main>

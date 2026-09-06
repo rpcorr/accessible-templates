@@ -9,3 +9,4 @@ export { BreadcrumbsExamples } from './Breadcrumbs/BreadcrumbsExamples';
 export { PaginationExamples } from './Pagination/PaginationExamples';
 export { AlertExamples } from './Alert/AlertExamples';
 export { StatusExamples } from './Status/StatusExamples';
+export { ProgressIndicatorExamples } from './ProgressIndicator/ProgressIndicatorExamples';

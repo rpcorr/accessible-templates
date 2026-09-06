@@ -67,6 +67,11 @@ export const navigationItems: NavigationItem[] = [
         label: 'Status',
         href: '/status',
       },
+      {
+        id: 'progress-indicator',
+        label: 'Progress Indicator',
+        href: '/progress-indicator',
+      },
     ],
   },
 ];

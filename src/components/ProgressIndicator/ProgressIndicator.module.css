@@ -1,0 +1,273 @@
+.container {
+  width: 100%;
+}
+
+.label {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.progress {
+  position: relative;
+  width: 100%;
+  height: 1rem;
+  overflow: hidden;
+  border: 1px solid currentColor;
+  border-radius: 0.25rem;
+  background: transparent;
+}
+
+.bar {
+  width: var(--progress);
+  height: 100%;
+  background: var(--progress-colour);
+  transition: width 0.3s ease;
+}
+
+.indeterminate {
+  width: 50%;
+  animation: indeterminate 1.5s infinite ease-in-out;
+}
+
+@keyframes indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  50% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar {
+    transition: none;
+  }
+
+  .indeterminate {
+    animation: none;
+    width: 50%;
+    margin-left: 25%;
+  }
+}
+
+/* Circular */
+
+.circularContainer {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.circularLabel {
+  font-weight: 600;
+}
+
+.circularProgress {
+  position: relative;
+  width: 6rem;
+  height: 6rem;
+  display: grid;
+  place-items: center;
+}
+
+.circularSvg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.circularTrack,
+.circularBar {
+  fill: none;
+  stroke-width: 10;
+}
+
+.circularTrack {
+  stroke: var(--progress-colour);
+  opacity: 0.2;
+}
+
+.circularBar {
+  stroke: var(--progress-colour);
+  stroke-linecap: round;
+  stroke-dasharray: var(--circumference);
+  stroke-dashoffset: var(--offset);
+  transition: stroke-dashoffset 0.3s ease;
+}
+
+.circularValue {
+  position: absolute;
+  font-weight: 700;
+}
+
+.circularIndeterminate {
+  stroke-dasharray: 70 283;
+  animation: circularIndeterminate 1.2s linear infinite;
+}
+
+@keyframes circularIndeterminate {
+  to {
+    transform: rotate(360deg);
+    transform-origin: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .circularBar {
+    transition: none;
+  }
+
+  .circularIndeterminate {
+    animation: none;
+  }
+}
+
+/* Icon */
+
+.iconContainer {
+  width: 100%;
+}
+
+.iconLabel {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.iconProgress {
+  position: relative;
+  width: 100%;
+  padding-top: 1.75rem;
+}
+
+.iconValue {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-weight: 600;
+}
+
+.iconTrack {
+  position: relative;
+  width: 100%;
+  height: 1rem;
+  overflow: hidden;
+  border: 1px solid currentColor;
+  border-radius: 0.25rem;
+  background: transparent;
+}
+
+.iconBar {
+  width: var(--progress);
+  height: 100%;
+  background: var(--progress-colour);
+  transition: width 0.3s ease;
+}
+
+.progressIcon {
+  position: absolute;
+  top: 2.25rem;
+  left: var(--progress);
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: transparent;
+  font-size: 1.75rem;
+  transition: left 0.3s ease;
+}
+
+.progressIcon svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iconBar,
+  .progressIcon {
+    transition: none;
+  }
+}
+
+/* Fill Container */
+
+.fillContainer {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.fillLabel {
+  font-weight: 600;
+}
+
+.fillProgress {
+  position: relative;
+  width: 8rem;
+  padding-top: 1.75rem;
+}
+
+.fillValue {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-weight: 600;
+}
+
+.fillShape {
+  position: relative;
+  width: 6rem;
+  height: 8rem;
+  overflow: hidden;
+  border: 2px solid currentColor;
+  /* border-radius: 0.5rem 0.5rem 0.75rem 0.75rem; */
+  border-radius: 0;
+  background: transparent;
+}
+
+.fillLevel {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: var(--progress);
+  background: var(--progress-colour);
+  transition: height 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fillLevel {
+    transition: none;
+  }
+}
+
+.default {
+  --progress-colour: currentColor;
+}
+
+.success {
+  --progress-colour: #198754;
+}
+
+.warning {
+  --progress-colour: #b58105;
+}
+
+.error {
+  --progress-colour: #c62828;
+}
+
+.info {
+  --progress-colour: #0066cc;
+}
