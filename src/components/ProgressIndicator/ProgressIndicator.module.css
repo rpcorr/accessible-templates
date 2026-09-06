@@ -27,6 +27,36 @@
   transition: width 0.3s ease;
 }
 
+/* Wavy */
+
+.bar.wavy {
+  clip-path: polygon(
+    0% 0%,
+    92% 0%,
+    96% 5%,
+    100% 10%,
+    96% 15%,
+    92% 20%,
+    96% 25%,
+    100% 30%,
+    96% 35%,
+    92% 40%,
+    96% 45%,
+    100% 50%,
+    96% 55%,
+    92% 60%,
+    96% 65%,
+    100% 70%,
+    96% 75%,
+    92% 80%,
+    96% 85%,
+    100% 90%,
+    96% 95%,
+    92% 100%,
+    0% 100%
+  );
+}
+
 .indeterminate {
   width: 50%;
   animation: indeterminate 1.5s infinite ease-in-out;
@@ -244,6 +274,39 @@
   height: var(--progress);
   background: var(--progress-colour);
   transition: height 0.3s ease;
+}
+
+.fillLevel.wavy {
+  clip-path: polygon(
+    0% 8%,
+    4% 3%,
+    8% 0%,
+    12% 2%,
+    16% 7%,
+    20% 10%,
+    24% 8%,
+    28% 3%,
+    32% 0%,
+    36% 2%,
+    40% 7%,
+    44% 10%,
+    48% 8%,
+    52% 3%,
+    56% 0%,
+    60% 2%,
+    64% 7%,
+    68% 10%,
+    72% 8%,
+    76% 3%,
+    80% 0%,
+    84% 2%,
+    88% 7%,
+    92% 10%,
+    96% 8%,
+    100% 3%,
+    100% 100%,
+    0% 100%
+  );
 }
 
 @media (prefers-reduced-motion: reduce) {

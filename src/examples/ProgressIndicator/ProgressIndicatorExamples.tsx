@@ -166,7 +166,14 @@ export const ProgressIndicatorExamples = () => {
 
       <h4>Custom Maximum</h4>
 
-      <ProgressIndicator value={3} max={5} label="Step progress" showValue />
+      <ProgressIndicator
+        value={3}
+        max={5}
+        label="Step progress"
+        showValue
+        wavy
+        colour="error"
+      />
 
       <h4>Dynamic Progress</h4>
 
@@ -337,6 +344,7 @@ export const ProgressIndicatorExamples = () => {
             showValue
             variant="fill"
             colour="info"
+            wavy
           />
         </div>
 
@@ -357,6 +365,7 @@ export const ProgressIndicatorExamples = () => {
             showValue
             variant="fill"
             colour="info"
+            wavy
           />
         </div>
 
@@ -380,6 +389,7 @@ export const ProgressIndicatorExamples = () => {
           showValue
           variant="fill"
           colour="info"
+          wavy
         />
 
         <div>
@@ -416,6 +426,7 @@ export const ProgressIndicatorExamples = () => {
           label="Warning"
           showValue
           colour="warning"
+          wavy
         />
 
         <ProgressIndicator value={35} label="Error" showValue colour="error" />

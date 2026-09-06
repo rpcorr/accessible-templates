@@ -9,7 +9,8 @@ export function ProgressIndicatorPage() {
         ongoing operations, with support for determinate and indeterminate
         progress, accessible labels, optional visible progress values, multiple
         visual presentations including linear, circular, icon, and
-        fill-container progress, and customizable colour variants.
+        fill-container progress, customizable colour variants, and an optional
+        wavy leading edge for linear and fill progress.
       </p>
 
       <div className="stack">
@@ -49,6 +50,22 @@ export function ProgressIndicatorPage() {
           <code>icon</code> displays a movable icon along the progress track,
           and <code>fill</code> displays progress as a container filling from
           the bottom upward.
+        </p>
+
+        <h3>Wavy Progress</h3>
+
+        <p>
+          The optional <code>wavy</code> prop adds a wavy leading edge to the
+          progress indicator. When used with the <code>linear</code> variant,
+          the filled portion has a wavy edge at the end of the progress bar.
+          When used with the <code>fill</code> variant, the filled portion has a
+          wavy edge along the top.
+        </p>
+
+        <p>
+          Wavy progress is a visual enhancement and can be combined with any
+          supported colour variant. It does not change the progress value or
+          accessibility information communicated by the progress indicator.
         </p>
 
         <h3>Colour Variants</h3>

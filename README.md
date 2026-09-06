@@ -1089,7 +1089,7 @@ function Example() {
 
 ## 📊 Progress Indicator
 
-An accessible progress indicator for communicating the progress of ongoing operations. The component supports determinate and indeterminate progress, multiple visual presentations, accessible labels, optional visible progress values, colour variants, and reduced-motion support.
+An accessible progress indicator for communicating the progress of ongoing operations. The component supports determinate and indeterminate progress, multiple visual presentations, accessible labels, optional visible progress values, colour variants, an optional wavy leading edge, and reduced-motion support.
 
 ### Features
 
@@ -1098,6 +1098,7 @@ An accessible progress indicator for communicating the progress of ongoing opera
 - Circular progress indicator
 - Icon-based progress indicator
 - Fill-container progress indicator
+- Optional wavy leading edge for linear and fill progress
 - Colour variants
 - Custom maximum values
 - Optional visible percentage values
