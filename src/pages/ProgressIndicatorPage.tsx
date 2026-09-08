@@ -111,8 +111,6 @@ export function ProgressIndicatorPage() {
         </p>
       </div>
 
-      <h3>Examples</h3>
-
       <ProgressIndicatorExamples />
     </PageLayout>
   );
