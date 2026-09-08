@@ -16,6 +16,7 @@ import { PaginationPage } from './pages/PaginiationPage';
 import { AlertPage } from './pages/AlertPage';
 import { StatusPage } from './pages/StatusPage';
 import { ProgressIndicatorPage } from './pages/ProgressIndicatorPage';
+import { LoadingSpinnerPage } from './pages/LoadingSpinnerPage';
 
 import { NotFoundPage } from './pages/NotFoundPage';
 
@@ -47,6 +48,7 @@ function App() {
         <Route path="/alert" element={<AlertPage />} />
         <Route path="/status" element={<StatusPage />} />
         <Route path="/progress-indicator" element={<ProgressIndicatorPage />} />
+        <Route path="/loading-spinner" element={<LoadingSpinnerPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </main>

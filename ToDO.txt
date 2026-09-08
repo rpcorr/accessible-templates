@@ -1,6 +1,5 @@
 To do:
 
-Loading/Spinner
 Form Controls
 Checkbox
 Radio Group

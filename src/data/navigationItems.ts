@@ -72,6 +72,11 @@ export const navigationItems: NavigationItem[] = [
         label: 'Progress Indicator',
         href: '/progress-indicator',
       },
+      {
+        id: 'loading-spinner',
+        label: 'Loading Spinner',
+        href: '/loading-spinner',
+      },
     ],
   },
 ];

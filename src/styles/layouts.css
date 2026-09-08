@@ -39,3 +39,7 @@
   display: flex;
   justify-content: center;
 }
+
+.loadingSpinnerSizes {
+  margin-bottom: 1.5rem;
+}

@@ -1,0 +1,492 @@
+.default {
+  --spinner-colour: currentColor;
+}
+
+.success {
+  --spinner-colour: #198754;
+}
+
+.warning {
+  --spinner-colour: #b58105;
+}
+
+.error {
+  --spinner-colour: #c62828;
+}
+
+.info {
+  --spinner-colour: #0066cc;
+}
+
+/* Base */
+
+.spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.label {
+  margin-left: 0.5rem;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Spinner */
+
+.visual {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 0.2rem solid var(--spinner-colour);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Dots */
+
+.dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.dots span {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background-color: var(--spinner-colour);
+  animation: dotPulse 1.2s ease-in-out infinite;
+}
+
+.dots span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.dots span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes dotPulse {
+  0%,
+  60%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+
+  30% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Pulse */
+
+.pulse {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background-color: var(--spinner-colour);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Bars */
+
+.bars {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  height: 2rem;
+}
+
+.bars span {
+  width: 0.3rem;
+  height: 1rem;
+  border-radius: 0.15rem;
+  background-color: var(--spinner-colour);
+  animation: soundBars 1s ease-in-out infinite;
+}
+
+.bars span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.bars span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes soundBars {
+  0%,
+  100% {
+    transform: scaleY(0.5);
+  }
+
+  50% {
+    transform: scaleY(1.5);
+  }
+}
+
+/* Sizes */
+
+.small .visual {
+  width: 1rem;
+  height: 1rem;
+}
+
+.medium .visual {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.large .visual {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.small .dots span {
+  width: 0.3rem;
+  height: 0.3rem;
+}
+
+.medium .dots span {
+  width: 0.4rem;
+  height: 0.4rem;
+}
+
+.large .dots span {
+  width: 0.6rem;
+  height: 0.6rem;
+}
+
+.small .pulse {
+  width: 1rem;
+  height: 1rem;
+}
+
+.medium .pulse {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.large .pulse {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.small .bars {
+  height: 1.25rem;
+}
+
+.medium .bars {
+  height: 2rem;
+}
+
+.large .bars {
+  height: 3rem;
+}
+
+.small .bars span {
+  width: 0.2rem;
+}
+
+.medium .bars span {
+  width: 0.3rem;
+}
+
+.large .bars span {
+  width: 0.4rem;
+}
+
+/* Orbit */
+
+.orbit {
+  position: relative;
+  display: block;
+  width: 2rem;
+  height: 2rem;
+}
+
+.orbit span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.35rem;
+  height: 0.35rem;
+  margin: -0.175rem;
+  border-radius: 50%;
+  background-color: var(--spinner-colour);
+  transform: rotate(calc(var(--angle) * 1deg)) translateY(-0.75rem);
+  animation: orbitFade 1.2s linear infinite;
+}
+
+.orbit span:nth-child(1) {
+  --angle: 0;
+  animation-delay: 0s;
+}
+
+.orbit span:nth-child(2) {
+  --angle: 45;
+  animation-delay: 0.15s;
+}
+
+.orbit span:nth-child(3) {
+  --angle: 90;
+  animation-delay: 0.3s;
+}
+
+.orbit span:nth-child(4) {
+  --angle: 135;
+  animation-delay: 0.45s;
+}
+
+.orbit span:nth-child(5) {
+  --angle: 180;
+  animation-delay: 0.6s;
+}
+
+.orbit span:nth-child(6) {
+  --angle: 225;
+  animation-delay: 0.75s;
+}
+
+.orbit span:nth-child(7) {
+  --angle: 270;
+  animation-delay: 0.9s;
+}
+
+.orbit span:nth-child(8) {
+  --angle: 315;
+  animation-delay: 1.05s;
+}
+
+@keyframes orbitFade {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.1;
+  }
+}
+
+.small .orbit {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.small .orbit span {
+  width: 0.25rem;
+  height: 0.25rem;
+  margin: -0.125rem;
+  transform: rotate(calc(var(--angle) * 1deg)) translateY(-0.55rem);
+}
+
+.large .orbit {
+  width: 3rem;
+  height: 3rem;
+}
+
+.large .orbit span {
+  width: 0.45rem;
+  height: 0.45rem;
+  margin: -0.225rem;
+  transform: rotate(calc(var(--angle) * 1deg)) translateY(-1.1rem);
+}
+
+/* Comet */
+
+.comet {
+  position: relative;
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  animation: cometRotate 1.2s linear infinite;
+  /* cometFade 1.2s linear infinite; */
+}
+
+.comet span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.35rem;
+  height: 0.35rem;
+  margin: -0.175rem;
+  border-radius: 50%;
+  background-color: var(--spinner-colour);
+  /* transform: rotate(calc(var(--angle) * 1deg)) translateY(-0.75rem); */
+  transform: rotate(calc(var(--angle) * 1deg)) translateY(-0.8rem);
+}
+
+/* Leading dot - lightest */
+.comet span:nth-child(1) {
+  --angle: 0;
+  /* opacity: 0.2; */
+  opacity: 0.3;
+  animation: cometHead 1.2s ease-in-out infinite;
+}
+
+/* Trail */
+.comet span:nth-child(2) {
+  --angle: 35;
+  /* opacity: 0.4; */
+  opacity: 0.5;
+  animation: cometTrail1 1.2s ease-in-out infinite;
+}
+
+.comet span:nth-child(3) {
+  --angle: 70;
+  opacity: 0.7;
+  opacity: 0.75;
+  animation: cometTrail2 1.2s ease-in-out infinite;
+}
+
+/* Trailing dot - brightest */
+.comet span:nth-child(4) {
+  /* --angle: 105; */
+  --angle: 90;
+  opacity: 1;
+  animation: cometTrail3 1.2s ease-in-out infinite;
+}
+
+/*
+@keyframes cometRotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes cometFade {
+  0%,
+  75% {
+    opacity: 1;
+  }
+
+  88%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.small .comet {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+*/
+
+@keyframes cometRotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes cometHead {
+  0%,
+  70% {
+    opacity: 0.3;
+  }
+
+  85%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes cometTrail1 {
+  0%,
+  65% {
+    opacity: 0.5;
+  }
+
+  80%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes cometTrail2 {
+  0%,
+  60% {
+    opacity: 0.75;
+  }
+
+  75%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes cometTrail3 {
+  0%,
+  55% {
+    opacity: 1;
+  }
+
+  70%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.small .comet span {
+  width: 0.25rem;
+  height: 0.25rem;
+  margin: -0.125rem;
+  transform: rotate(calc(var(--angle) * 1deg)) translateY(-0.55rem);
+}
+
+.large .comet {
+  width: 3rem;
+  height: 3rem;
+}
+
+.large .comet span {
+  width: 0.45rem;
+  height: 0.45rem;
+  margin: -0.225rem;
+  transform: rotate(calc(var(--angle) * 1deg)) translateY(-1.1rem);
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .visual,
+  .dots span,
+  .pulse,
+  .bars span,
+  .orbit span,
+  .comet span {
+    animation: none;
+  }
+}
