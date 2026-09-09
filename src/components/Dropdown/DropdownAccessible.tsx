@@ -219,12 +219,13 @@ export function DropdownAccessible({ trigger, children }: DropdownProps) {
   useEffect(() => {
     if (!open) return;
 
-    menuRegistry
-      .getMenuItems()
-      .filter((item) => !item.disabled)
-      .forEach((item, index) => {
-        item.setActive?.(index === activeIndex);
-      });
+    const items = menuRegistry.getMenuItems().filter((item) => !item.disabled);
+
+    items.forEach((item, index) => {
+      item.setActive?.(index === activeIndex);
+    });
+
+    items[activeIndex]?.ref.focus();
   }, [open, activeIndex, menuRegistry]);
 
   // reset typeahead
