@@ -52,6 +52,19 @@ Shared Styles
   text-decoration: underline;
 }
 
+.submenuTrigger {
+  font-weight: 600;
+  background: #f5f5f5;
+}
+
+.submenuTrigger:hover {
+  background: #e8f2ff;
+}
+
+.submenuTrigger[aria-expanded='true'] {
+  background: #e8f2ff;
+}
+
 .menuCaret {
   margin-left: 6px;
   font-size: 0.75em;
@@ -80,6 +93,10 @@ Desktop Submenus
 }
 
 .submenuList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+
   margin: 0;
   padding: 0;
 

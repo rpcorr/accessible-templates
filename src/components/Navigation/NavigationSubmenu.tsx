@@ -141,7 +141,7 @@ export function NavigationSubmenu({
           buttonRefCallback?.(element);
         }}
         type="button"
-        className={styles.navigationLink}
+        className={`${styles.navigationLink} ${styles.submenuTrigger}`}
         aria-expanded={open}
         aria-controls={submenuId}
         onClick={() => {
