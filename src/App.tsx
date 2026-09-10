@@ -17,6 +17,7 @@ import { AlertPage } from './pages/AlertPage';
 import { StatusPage } from './pages/StatusPage';
 import { ProgressIndicatorPage } from './pages/ProgressIndicatorPage';
 import { LoadingSpinnerPage } from './pages/LoadingSpinnerPage';
+import { CheckboxPage } from './pages/CheckboxPage';
 
 import { NotFoundPage } from './pages/NotFoundPage';
 
@@ -49,6 +50,7 @@ function App() {
         <Route path="/status" element={<StatusPage />} />
         <Route path="/progress-indicator" element={<ProgressIndicatorPage />} />
         <Route path="/loading-spinner" element={<LoadingSpinnerPage />} />
+        <Route path="/checkbox" element={<CheckboxPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </main>

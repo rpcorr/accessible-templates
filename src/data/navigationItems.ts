@@ -77,6 +77,11 @@ export const navigationItems: NavigationItem[] = [
         label: 'Loading Spinner',
         href: '/loading-spinner',
       },
+      {
+        id: 'checkbox',
+        label: 'Checkbox',
+        href: '/checkbox',
+      },
     ],
   },
 ];
