@@ -108,6 +108,11 @@ export const navigationItems: NavigationItem[] = [
             label: 'Checkbox',
             href: '/checkbox',
           },
+          {
+            id: 'radio-group',
+            label: 'Radio Group',
+            href: '/radio-group',
+          },
         ],
       },
     ],

@@ -12,3 +12,4 @@ export { StatusExamples } from './Status/StatusExamples';
 export { ProgressIndicatorExamples } from './ProgressIndicator/ProgressIndicatorExamples';
 export { LoadingSpinnerExamples } from './LoadingSpinner/LoadingSpinnerExamples';
 export { CheckboxExamples } from './Checkbox/CheckboxExamples';
+export { RadioGroupExamples } from './RadioGroup/RadioGroupExamples';

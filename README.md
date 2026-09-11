@@ -90,22 +90,23 @@ npm  run  dev
 
 The following components have been completed and are designed with accessibility as a first-class concern.
 
-| Component          | Status   | Accessibility Features                                                                                                                                                                                  |
-| ------------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Button             | Complete | Semantic HTML, keyboard accessibility, focus-visible styling                                                                                                                                            |
-| Modal Dialog       | Complete | Focus management, focus trap, Escape handling, focus restoration                                                                                                                                        |
-| Dropdown           | Complete | Keyboard navigation, nested submenus, typeahead, disabled items, separators, focus management                                                                                                           |
-| Navigation         | Complete | Keyboard navigation, nested submenus, mobile drawer, focus trap, focus management                                                                                                                       |
-| Tooltip            | Complete | Keyboard focus support, aria-describedby, Escape dismissal, responsive positioning                                                                                                                      |
-| Tabs               | Complete | Keyboard navigation, horizontal and vertical orientations, disabled tabs, focus management                                                                                                              |
-| Accordion          | Complete | Keyboard navigation, expand/collapse, disabled items, focus management, screen reader support                                                                                                           |
-| Breadcrumbs        | Complete | Semantic navigation, aria-current, keyboard accessibility, responsive wrapping, decorative separators                                                                                                   |
-| Pagination         | Complete | Semantic navigation, aria-current, keyboard accessibility, focus-visible styling, disabled controls                                                                                                     |
-| Alert              | Complete | Semantic HTML, keyboard-accessible dismissal, customizable dismiss label, configurable heading levels, ARIA live-region integration                                                                     |
-| Status             | Complete | Polite live region, dynamic updates, aria-atomic, screen reader support                                                                                                                                 |
-| Progress Indicator | Complete | ARIA progressbar semantics, determinate and indeterminate states, linear, circular, icon, and fill-container variants, reduced-motion support                                                           |
-| Loading Spinner    | Complete | ARIA status semantics, accessible labels, decorative animation hidden from assistive technology, multiple animation variants, reduced-motion support                                                    |
-| Checkbox           | Complete | Native checkbox semantics, label association, keyboard accessibility, checked and indeterminate states, disabled and required states, description support, visible focus styling, screen reader support |
+| Component          | Status   | Accessibility Features                                                                                                                                                                                                                                 |
+| ------------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Button             | Complete | Semantic HTML, keyboard accessibility, focus-visible styling                                                                                                                                                                                           |
+| Modal Dialog       | Complete | Focus management, focus trap, Escape handling, focus restoration                                                                                                                                                                                       |
+| Dropdown           | Complete | Keyboard navigation, nested submenus, typeahead, disabled items, separators, focus management                                                                                                                                                          |
+| Navigation         | Complete | Keyboard navigation, nested submenus, mobile drawer, focus trap, focus management                                                                                                                                                                      |
+| Tooltip            | Complete | Keyboard focus support, aria-describedby, Escape dismissal, responsive positioning                                                                                                                                                                     |
+| Tabs               | Complete | Keyboard navigation, horizontal and vertical orientations, disabled tabs, focus management                                                                                                                                                             |
+| Accordion          | Complete | Keyboard navigation, expand/collapse, disabled items, focus management, screen reader support                                                                                                                                                          |
+| Breadcrumbs        | Complete | Semantic navigation, aria-current, keyboard accessibility, responsive wrapping, decorative separators                                                                                                                                                  |
+| Pagination         | Complete | Semantic navigation, aria-current, keyboard accessibility, focus-visible styling, disabled controls                                                                                                                                                    |
+| Alert              | Complete | Semantic HTML, keyboard-accessible dismissal, customizable dismiss label, configurable heading levels, ARIA live-region integration                                                                                                                    |
+| Status             | Complete | Polite live region, dynamic updates, aria-atomic, screen reader support                                                                                                                                                                                |
+| Progress Indicator | Complete | ARIA progressbar semantics, determinate and indeterminate states, linear, circular, icon, and fill-container variants, reduced-motion support                                                                                                          |
+| Loading Spinner    | Complete | ARIA status semantics, accessible labels, decorative animation hidden from assistive technology, multiple animation variants, reduced-motion support                                                                                                   |
+| Checkbox           | Complete | Native checkbox semantics, label association, keyboard accessibility, checked and indeterminate states, disabled and required states, description support, visible focus styling, screen reader support                                                |
+| Radio Group        | Complete | Native radio semantics, fieldset/legend grouping, keyboard accessibility, vertical and horizontal orientations, controlled and uncontrolled selection, disabled and required states, description support, visible focus styling, screen reader support |
 
 Each component includes:
 
@@ -1199,6 +1200,96 @@ import { Checkbox } from './components/FormControls/Checkbox';
 
 ---
 
+## 📻 Radio Group
+
+An accessible radio group component for allowing users to select one option from a set of mutually exclusive choices. The component uses native HTML radio buttons grouped with a `fieldset` and `legend`, while providing consistent styling, accessible descriptions, vertical and horizontal layouts, and support for controlled and uncontrolled selection.
+
+### Features
+
+- Native `<input type="radio">` semantics
+- `fieldset` and `legend` grouping
+- One-option selection within a group
+- Vertical and horizontal orientations
+- Controlled and uncontrolled usage
+- Default selection
+- Disabled options
+- Disabled groups
+- Required groups
+- Optional description text
+- Accessible label association
+- Keyboard accessibility
+- Visible `:focus-visible` styling
+- Screen reader support
+
+### Accessibility
+
+The Radio Group uses native radio inputs with a shared `name` attribute, providing built-in keyboard interaction and screen reader support.
+
+The radio buttons are grouped using a `fieldset` and `legend`, providing an accessible name for the group.
+
+Users can press `Tab` to move focus into the radio group. The arrow keys move between radio options and select the focused option. `Space` can also be used to select the focused radio button.
+
+Disabled options cannot be selected, and a disabled group prevents all of its radio buttons from being interacted with.
+
+Optional descriptions are associated with the radio group using `aria-describedby`.
+
+### Usage
+
+```tsx
+import { RadioGroup } from './components/FormControls/RadioGroup';
+
+<RadioGroup
+  label="Choose a size"
+  name="size"
+  options={[
+    { value: 'small', label: 'Small' },
+    { value: 'medium', label: 'Medium' },
+    { value: 'large', label: 'Large' },
+  ]}
+/>;
+```
+
+### Orientation
+
+Radio groups are displayed vertically by default. Set the `orientation` prop to `horizontal` to display the options in a row.
+
+```tsx
+<RadioGroup
+  label="Choose a size"
+  name="size"
+  orientation="horizontal"
+  options={[
+    { value: 'small', label: 'Small' },
+    { value: 'medium', label: 'Medium' },
+    { value: 'large', label: 'Large' },
+  ]}
+/>
+```
+
+Horizontal options wrap when necessary to remain usable at smaller screen sizes.
+
+### Controlled Usage
+
+The `value` and `onChange` props can be used to control the selected option.
+
+```tsx
+const [selected, setSelected] = useState('medium');
+
+<RadioGroup
+  label="Choose a size"
+  name="size"
+  value={selected}
+  onChange={setSelected}
+  options={[
+    { value: 'small', label: 'Small' },
+    { value: 'medium', label: 'Medium' },
+    { value: 'large', label: 'Large' },
+  ]}
+/>;
+```
+
+---
+
 ## ♿ Accessibility Testing
 
 Accessibility is treated as an ongoing part of the development process rather than a final verification step.
@@ -1250,5 +1341,6 @@ The current core component set is complete:
 - Progress Indicator
 - Loading Spinner
 - Checkbox
+- Radio Group
 
 The project is now focused on expanding the component library while continuing to apply the same accessibility-first development approach.
