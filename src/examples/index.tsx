@@ -16,3 +16,4 @@ export { RadioGroupExamples } from './RadioGroup/RadioGroupExamples';
 export { SelectExamples } from './Select/SelectExamples';
 export { ComboboxExamples } from './Combobox/ComboboxExamples';
 export { SwitchExamples } from './Switch/SwitchExamples';
+export { SliderExamples } from './Slider/SliderExamples';

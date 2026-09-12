@@ -128,6 +128,11 @@ export const navigationItems: NavigationItem[] = [
             label: 'Switch',
             href: '/switch',
           },
+          {
+            id: 'slider',
+            label: 'Slider',
+            href: '/slider',
+          },
         ],
       },
     ],

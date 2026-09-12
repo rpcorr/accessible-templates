@@ -1,0 +1,74 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.label {
+  font-weight: 600;
+}
+
+.value {
+  min-width: 3rem;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.description {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.slider {
+  width: 100%;
+  margin: 0;
+  cursor: pointer;
+}
+
+.slider:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 4px;
+}
+
+.slider:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.default {
+  accent-color: currentColor;
+}
+
+.success {
+  accent-color: #16803c;
+}
+
+.warning {
+  accent-color: #9a6700;
+}
+
+.error {
+  accent-color: #c62828;
+}
+
+.info {
+  accent-color: #1565c0;
+}
+
+.vertical {
+  align-items: flex-start;
+}
+
+.sliderVertical {
+  width: auto;
+  height: 12rem;
+  writing-mode: vertical-lr;
+  direction: rtl;
+}

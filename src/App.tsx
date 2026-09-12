@@ -22,6 +22,7 @@ import { RadioGroupPage } from './pages/RadioGroupPage';
 import { SelectPage } from './pages/SelectPage';
 import { ComboboxPage } from './pages/ComboboxPage';
 import { SwitchPage } from './pages/SwitchPage';
+import { SliderPage } from './pages/SliderPage';
 
 import { NotFoundPage } from './pages/NotFoundPage';
 
@@ -59,6 +60,7 @@ function App() {
         <Route path="/select" element={<SelectPage />} />
         <Route path="/combobox" element={<ComboboxPage />} />
         <Route path="/switch" element={<SwitchPage />} />
+        <Route path="/slider" element={<SliderPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </main>
