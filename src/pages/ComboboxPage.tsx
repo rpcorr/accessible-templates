@@ -26,6 +26,12 @@ export function ComboboxPage() {
           associated with the input using <code>aria-describedby</code>.
         </p>
 
+        <p>
+          When no matching options are found after filtering, a polite live
+          region announces <strong>No options found.</strong> after a short
+          delay to avoid interrupting users while they are typing.
+        </p>
+
         <h3>Filtering and Selection</h3>
 
         <p>

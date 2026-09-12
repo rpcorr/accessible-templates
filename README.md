@@ -108,6 +108,7 @@ The following components have been completed and are designed with accessibility
 | Checkbox           | Complete | Native checkbox semantics, label association, keyboard accessibility, checked and indeterminate states, disabled and required states, description support, visible focus styling, screen reader support                                                                                             |
 | Radio Group        | Complete | Native radio semantics, fieldset/legend grouping, keyboard accessibility, vertical and horizontal orientations, controlled and uncontrolled selection, disabled and required states, description support, visible focus styling, screen reader support                                              |
 | Select             | Complete | Native select semantics, label association, keyboard accessibility, single and multiple selection, placeholder support, controlled and uncontrolled selection, disabled options, disabled state, required state, description support, error messaging, visible focus styling, screen reader support |
+| Combobox           | Complete | Editable typeahead filtering, combobox and listbox semantics, keyboard navigation, disabled options, controlled and uncontrolled values, required and disabled states, description support, no-results feedback, visible focus styling, screen reader support                                       |
 
 Each component includes:
 
@@ -1384,7 +1385,7 @@ const [selectedCountry, setSelectedCountry] = useState('canada');
 
 Set the `multiple` prop to `true` to allow users to select more than one option. Multiple selection uses an array of strings for `value`, `defaultValue`, and the `onChange` callback.
 
-```tsx
+```
 import { useState } from 'react';
 import { Select } from './components/FormControls/Select';
 
@@ -1407,8 +1408,67 @@ const [selectedSkills, setSelectedSkills] = useState<string[]>([
     { value: 'react', label: 'React' },
   ]}
 />
+```
 
 ---
+
+## Combobox
+
+The Combobox is an editable form control that allows users to type into an input and filter a list of available options. Users can select an option using the keyboard or mouse.
+
+### Features
+
+- Editable typeahead filtering
+- Combobox and listbox ARIA semantics
+- Keyboard navigation
+- Mouse selection
+- Disabled options
+- Controlled and uncontrolled values
+- Required and disabled states
+- Optional description
+- No-results feedback
+- Visible focus styling
+- Screen reader support
+
+### Accessibility
+
+The Combobox uses an input with the `combobox` role and a popup `listbox` containing the available options. ARIA relationships connect the input to the listbox and identify the currently active option for assistive technologies.
+
+The input is associated with its visible label using a native `<label>` element. An optional description is associated with the input using `aria-describedby`.
+
+When filtering produces no matching options, a polite live region announces **"No options found."** after a short delay. The delayed announcement prevents unnecessary announcements while the user is actively typing.
+
+### Keyboard Support
+
+| Key          | Action                                                      |
+| ------------ | ----------------------------------------------------------- |
+| `Arrow Down` | Moves to the next available option                          |
+| `Arrow Up`   | Moves to the previous available option                      |
+| `Enter`      | Selects the active option                                   |
+| `Escape`     | Closes the options list                                     |
+| `Tab`        | Closes the options list and moves focus out of the Combobox |
+
+Users can type at any time to filter the available options. Disabled options cannot be selected or reached using the arrow-key navigation.
+
+### Usage
+
+```tsx
+import { Combobox } from './components/FormControls/Combobox';
+
+const countryOptions = [
+  { value: 'Canada', label: 'Canada' },
+  { value: 'United States', label: 'United States' },
+  { value: 'Mexico', label: 'Mexico' },
+  { value: 'Ireland', label: 'Ireland' },
+];
+
+<Combobox
+  label="Choose a country"
+  name="country"
+  placeholder="Start typing..."
+  options={countryOptions}
+/>;
+```
 
 ## ♿ Accessibility Testing
 
@@ -1465,4 +1525,3 @@ The current core component set is complete:
 - Select
 
 The project is now focused on expanding the component library while continuing to apply the same accessibility-first development approach.
-```
