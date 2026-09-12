@@ -21,6 +21,7 @@ import { CheckboxPage } from './pages/CheckboxPage';
 import { RadioGroupPage } from './pages/RadioGroupPage';
 import { SelectPage } from './pages/SelectPage';
 import { ComboboxPage } from './pages/ComboboxPage';
+import { SwitchPage } from './pages/SwitchPage';
 
 import { NotFoundPage } from './pages/NotFoundPage';
 
@@ -57,6 +58,7 @@ function App() {
         <Route path="/radio-group" element={<RadioGroupPage />} />
         <Route path="/select" element={<SelectPage />} />
         <Route path="/combobox" element={<ComboboxPage />} />
+        <Route path="/switch" element={<SwitchPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </main>
