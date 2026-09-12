@@ -118,6 +118,11 @@ export const navigationItems: NavigationItem[] = [
             label: 'Select',
             href: '/select',
           },
+          {
+            id: 'combobox',
+            label: 'Combobox',
+            href: '/combobox',
+          },
         ],
       },
     ],
