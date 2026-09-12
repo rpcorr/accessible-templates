@@ -19,6 +19,7 @@ import { ProgressIndicatorPage } from './pages/ProgressIndicatorPage';
 import { LoadingSpinnerPage } from './pages/LoadingSpinnerPage';
 import { CheckboxPage } from './pages/CheckboxPage';
 import { RadioGroupPage } from './pages/RadioGroupPage';
+import { SelectPage } from './pages/SelectPage';
 
 import { NotFoundPage } from './pages/NotFoundPage';
 
@@ -53,6 +54,7 @@ function App() {
         <Route path="/loading-spinner" element={<LoadingSpinnerPage />} />
         <Route path="/checkbox" element={<CheckboxPage />} />
         <Route path="/radio-group" element={<RadioGroupPage />} />
+        <Route path="/select" element={<SelectPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </main>

@@ -13,3 +13,4 @@ export { ProgressIndicatorExamples } from './ProgressIndicator/ProgressIndicator
 export { LoadingSpinnerExamples } from './LoadingSpinner/LoadingSpinnerExamples';
 export { CheckboxExamples } from './Checkbox/CheckboxExamples';
 export { RadioGroupExamples } from './RadioGroup/RadioGroupExamples';
+export { SelectExamples } from './Select/SelectExamples';

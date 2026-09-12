@@ -113,6 +113,11 @@ export const navigationItems: NavigationItem[] = [
             label: 'Radio Group',
             href: '/radio-group',
           },
+          {
+            id: 'select',
+            label: 'Select',
+            href: '/select',
+          },
         ],
       },
     ],
