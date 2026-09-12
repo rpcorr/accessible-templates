@@ -7,14 +7,11 @@ type SelectOption = {
   disabled?: boolean;
 };
 
-type SelectProps = {
+type SelectBaseProps = {
   label: string;
   options: SelectOption[];
   id?: string;
   name?: string;
-  value?: string;
-  defaultValue?: string;
-  onChange?: (value: string) => void;
   placeholder?: string;
   description?: string;
   error?: string;
@@ -22,24 +19,36 @@ type SelectProps = {
   disabled?: boolean;
 };
 
+type SingleSelectProps = SelectBaseProps & {
+  multiple?: false;
+  value?: string;
+  defaultValue?: string;
+  onChange?: (value: string) => void;
+};
+
+type MultipleSelectProps = SelectBaseProps & {
+  multiple: true;
+  value?: string[];
+  defaultValue?: string[];
+  onChange?: (value: string[]) => void;
+};
+
+type SelectProps = SingleSelectProps | MultipleSelectProps;
+
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
-  (
-    {
+  (props, ref) => {
+    const {
       label,
       options,
       id,
       name,
-      value,
-      defaultValue,
-      onChange,
       placeholder,
       description,
       error,
       required = false,
       disabled = false,
-    },
-    ref,
-  ) => {
+    } = props;
+
     const generatedId = useId();
     const selectId = id ?? generatedId;
 
@@ -49,6 +58,8 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
 
     const describedBy =
       [descriptionId, errorId].filter(Boolean).join(' ') || undefined;
+
+    const isMultiple = props.multiple === true;
 
     return (
       <div className={styles.container}>
@@ -71,15 +82,36 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           ref={ref}
           id={selectId}
           name={name}
-          className={styles.select}
-          {...(value !== undefined ? { value } : { defaultValue })}
-          onChange={(event) => onChange?.(event.target.value)}
+          className={`${styles.select} ${isMultiple ? styles.multiple : ''}`}
+          {...(props.multiple
+            ? {
+                multiple: true,
+                ...(props.value !== undefined
+                  ? { value: props.value }
+                  : { defaultValue: props.defaultValue }),
+                onChange: (event: React.ChangeEvent<HTMLSelectElement>) => {
+                  const selectedValues = Array.from(
+                    event.target.selectedOptions,
+                    (option) => option.value,
+                  );
+
+                  props.onChange?.(selectedValues);
+                },
+              }
+            : {
+                ...(props.value !== undefined
+                  ? { value: props.value }
+                  : { defaultValue: props.defaultValue }),
+                onChange: (event: React.ChangeEvent<HTMLSelectElement>) => {
+                  props.onChange?.(event.target.value);
+                },
+              })}
           aria-describedby={describedBy}
           aria-invalid={error ? true : undefined}
           required={required}
           disabled={disabled}
         >
-          {placeholder && (
+          {!isMultiple && placeholder && (
             <option value="" disabled>
               {placeholder}
             </option>

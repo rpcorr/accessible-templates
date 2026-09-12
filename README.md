@@ -90,24 +90,24 @@ npm  run  dev
 
 The following components have been completed and are designed with accessibility as a first-class concern.
 
-| Component          | Status   | Accessibility Features                                                                                                                                                                                                                                               |
-| ------------------ | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Button             | Complete | Semantic HTML, keyboard accessibility, focus-visible styling                                                                                                                                                                                                         |
-| Modal Dialog       | Complete | Focus management, focus trap, Escape handling, focus restoration                                                                                                                                                                                                     |
-| Dropdown           | Complete | Keyboard navigation, nested submenus, typeahead, disabled items, separators, focus management                                                                                                                                                                        |
-| Navigation         | Complete | Keyboard navigation, nested submenus, mobile drawer, focus trap, focus management                                                                                                                                                                                    |
-| Tooltip            | Complete | Keyboard focus support, aria-describedby, Escape dismissal, responsive positioning                                                                                                                                                                                   |
-| Tabs               | Complete | Keyboard navigation, horizontal and vertical orientations, disabled tabs, focus management                                                                                                                                                                           |
-| Accordion          | Complete | Keyboard navigation, expand/collapse, disabled items, focus management, screen reader support                                                                                                                                                                        |
-| Breadcrumbs        | Complete | Semantic navigation, aria-current, keyboard accessibility, responsive wrapping, decorative separators                                                                                                                                                                |
-| Pagination         | Complete | Semantic navigation, aria-current, keyboard accessibility, focus-visible styling, disabled controls                                                                                                                                                                  |
-| Alert              | Complete | Semantic HTML, keyboard-accessible dismissal, customizable dismiss label, configurable heading levels, ARIA live-region integration                                                                                                                                  |
-| Status             | Complete | Polite live region, dynamic updates, aria-atomic, screen reader support                                                                                                                                                                                              |
-| Progress Indicator | Complete | ARIA progressbar semantics, determinate and indeterminate states, linear, circular, icon, and fill-container variants, reduced-motion support                                                                                                                        |
-| Loading Spinner    | Complete | ARIA status semantics, accessible labels, decorative animation hidden from assistive technology, multiple animation variants, reduced-motion support                                                                                                                 |
-| Checkbox           | Complete | Native checkbox semantics, label association, keyboard accessibility, checked and indeterminate states, disabled and required states, description support, visible focus styling, screen reader support                                                              |
-| Radio Group        | Complete | Native radio semantics, fieldset/legend grouping, keyboard accessibility, vertical and horizontal orientations, controlled and uncontrolled selection, disabled and required states, description support, visible focus styling, screen reader support               |
-| Select             | Complete | Native select semantics, label association, keyboard accessibility, placeholder support, controlled and uncontrolled selection, disabled options, disabled state, required state, description support, error messaging, visible focus styling, screen reader support |
+| Component          | Status   | Accessibility Features                                                                                                                                                                                                                                                                              |
+| ------------------ | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Button             | Complete | Semantic HTML, keyboard accessibility, focus-visible styling                                                                                                                                                                                                                                        |
+| Modal Dialog       | Complete | Focus management, focus trap, Escape handling, focus restoration                                                                                                                                                                                                                                    |
+| Dropdown           | Complete | Keyboard navigation, nested submenus, typeahead, disabled items, separators, focus management                                                                                                                                                                                                       |
+| Navigation         | Complete | Keyboard navigation, nested submenus, mobile drawer, focus trap, focus management                                                                                                                                                                                                                   |
+| Tooltip            | Complete | Keyboard focus support, aria-describedby, Escape dismissal, responsive positioning                                                                                                                                                                                                                  |
+| Tabs               | Complete | Keyboard navigation, horizontal and vertical orientations, disabled tabs, focus management                                                                                                                                                                                                          |
+| Accordion          | Complete | Keyboard navigation, expand/collapse, disabled items, focus management, screen reader support                                                                                                                                                                                                       |
+| Breadcrumbs        | Complete | Semantic navigation, aria-current, keyboard accessibility, responsive wrapping, decorative separators                                                                                                                                                                                               |
+| Pagination         | Complete | Semantic navigation, aria-current, keyboard accessibility, focus-visible styling, disabled controls                                                                                                                                                                                                 |
+| Alert              | Complete | Semantic HTML, keyboard-accessible dismissal, customizable dismiss label, configurable heading levels, ARIA live-region integration                                                                                                                                                                 |
+| Status             | Complete | Polite live region, dynamic updates, aria-atomic, screen reader support                                                                                                                                                                                                                             |
+| Progress Indicator | Complete | ARIA progressbar semantics, determinate and indeterminate states, linear, circular, icon, and fill-container variants, reduced-motion support                                                                                                                                                       |
+| Loading Spinner    | Complete | ARIA status semantics, accessible labels, decorative animation hidden from assistive technology, multiple animation variants, reduced-motion support                                                                                                                                                |
+| Checkbox           | Complete | Native checkbox semantics, label association, keyboard accessibility, checked and indeterminate states, disabled and required states, description support, visible focus styling, screen reader support                                                                                             |
+| Radio Group        | Complete | Native radio semantics, fieldset/legend grouping, keyboard accessibility, vertical and horizontal orientations, controlled and uncontrolled selection, disabled and required states, description support, visible focus styling, screen reader support                                              |
+| Select             | Complete | Native select semantics, label association, keyboard accessibility, single and multiple selection, placeholder support, controlled and uncontrolled selection, disabled options, disabled state, required state, description support, error messaging, visible focus styling, screen reader support |
 
 Each component includes:
 
@@ -1298,7 +1298,7 @@ An accessible select component for allowing users to choose one option from a li
 ### Features
 
 - Native `<select>` semantics
-- Single-option selection
+- Single and multiple selection
 - Accessible label association
 - Placeholder option support
 - Default selection
@@ -1380,6 +1380,34 @@ const [selectedCountry, setSelectedCountry] = useState('canada');
 />;
 ```
 
+### Multiple Selection
+
+Set the `multiple` prop to `true` to allow users to select more than one option. Multiple selection uses an array of strings for `value`, `defaultValue`, and the `onChange` callback.
+
+```tsx
+import { useState } from 'react';
+import { Select } from './components/FormControls/Select';
+
+const [selectedSkills, setSelectedSkills] = useState<string[]>([
+  'html',
+  'css',
+]);
+
+<Select
+  label="Choose your skills"
+  name="skills"
+  multiple
+  value={selectedSkills}
+  onChange={setSelectedSkills}
+  options={[
+    { value: 'html', label: 'HTML' },
+    { value: 'css', label: 'CSS' },
+    { value: 'javascript', label: 'JavaScript' },
+    { value: 'typescript', label: 'TypeScript' },
+    { value: 'react', label: 'React' },
+  ]}
+/>
+
 ---
 
 ## ♿ Accessibility Testing
@@ -1437,3 +1465,4 @@ The current core component set is complete:
 - Select
 
 The project is now focused on expanding the component library while continuing to apply the same accessibility-first development approach.
+```

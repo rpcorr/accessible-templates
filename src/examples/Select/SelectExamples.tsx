@@ -4,6 +4,10 @@ import { Tabs } from '../../components/Tab';
 
 export function SelectExamples() {
   const [selectedCountry, setSelectedCountry] = useState('canada');
+  const [selectedSkills, setSelectedSkills] = useState<string[]>([
+    'html',
+    'css',
+  ]);
 
   return (
     <section>
@@ -63,6 +67,25 @@ export function SelectExamples() {
                 />
 
                 <p>Selected country: {selectedCountry}</p>
+
+                <h4>Multiple Select</h4>
+                <Select
+                  label="Choose your skills"
+                  name="skills"
+                  multiple
+                  value={selectedSkills}
+                  onChange={setSelectedSkills}
+                  description="Use Ctrl or Command with the mouse, or Shift with the arrow keys, to select multiple options."
+                  options={[
+                    { value: 'html', label: 'HTML' },
+                    { value: 'css', label: 'CSS' },
+                    { value: 'javascript', label: 'JavaScript' },
+                    { value: 'typescript', label: 'TypeScript' },
+                    { value: 'react', label: 'React' },
+                  ]}
+                />
+
+                <p>Selected skills: {selectedSkills.join(', ') || 'None'}</p>
               </>
             ),
           },
