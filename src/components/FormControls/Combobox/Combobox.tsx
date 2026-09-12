@@ -45,12 +45,14 @@ export function Combobox({
   const inputId = id ?? generatedId;
   const listboxId = `${inputId}-listbox`;
   const descriptionId = description ? `${inputId}-description` : undefined;
+  const statusId = `${inputId}-status`;
 
   const [internalValue, setInternalValue] = useState(defaultValue);
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [hasTyped, setHasTyped] = useState(false);
+  const [statusMessage, setStatusMessage] = useState('');
 
-  const inputRef = useRef<HTMLInputElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const optionRefs = useRef<Array<HTMLLIElement | null>>([]);
 
@@ -94,6 +96,8 @@ export function Combobox({
       ) {
         setIsOpen(false);
         setActiveIndex(-1);
+        setHasTyped(false);
+        setStatusMessage('');
       }
     }
 
@@ -103,6 +107,20 @@ export function Combobox({
       document.removeEventListener('pointerdown', handlePointerDown);
     };
   }, []);
+
+  useEffect(() => {
+    if (!isOpen || !hasTyped || filteredOptions.length > 0) {
+      return;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      setStatusMessage('No options found.');
+    }, 1000);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, [currentValue, filteredOptions.length, hasTyped, isOpen]);
 
   function updateValue(nextValue: string) {
     if (value === undefined) {
@@ -116,6 +134,8 @@ export function Combobox({
     updateValue(event.target.value);
     setIsOpen(true);
     setActiveIndex(-1);
+    setHasTyped(true);
+    setStatusMessage('');
   }
 
   function handleSelect(option: ComboboxOption) {
@@ -126,6 +146,8 @@ export function Combobox({
     updateValue(option.value);
     setIsOpen(false);
     setActiveIndex(-1);
+    setHasTyped(false);
+    setStatusMessage('');
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLInputElement>) {
@@ -196,6 +218,8 @@ export function Combobox({
           event.preventDefault();
           setIsOpen(false);
           setActiveIndex(-1);
+          setHasTyped(false);
+          setStatusMessage('');
         }
 
         break;
@@ -204,6 +228,8 @@ export function Combobox({
       case 'Tab': {
         setIsOpen(false);
         setActiveIndex(-1);
+        setHasTyped(false);
+        setStatusMessage('');
         break;
       }
     }
@@ -223,7 +249,6 @@ export function Combobox({
 
       <div className={styles.comboboxWrapper}>
         <input
-          ref={inputRef}
           id={inputId}
           name={name}
           type="text"
@@ -247,6 +272,16 @@ export function Combobox({
           }}
           onKeyDown={handleKeyDown}
         />
+
+        <div
+          id={statusId}
+          className={styles.status}
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          {isOpen ? statusMessage : ''}
+        </div>
 
         {isOpen && (
           <div className={styles.popup}>
