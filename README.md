@@ -1554,7 +1554,7 @@ The Slider relies on the native range input for keyboard interaction and does no
 
 ### Values
 
-The Slider supports custom minimum and maximum values, step increments, default values, and controlled values.
+The Slider supports custom minimum and maximum values for the range, step increments, default values, and controlled values.
 
 By default:
 
@@ -3294,6 +3294,7 @@ The Slider is an accessible single-value form control that allows users to selec
 - Disabled state
 - Optional description
 - Optional visible value
+- Formatted value output
 - Colour variants
 - Visible focus styling
 - Screen reader support
@@ -3306,11 +3307,13 @@ The input is associated with its visible label using a native `<label>` element.
 
 The current value can optionally be displayed alongside the label using the native `<output>` element.
 
+Custom value formatting affects only the visible value displayed to users. The underlying Slider continues to use the numeric value provided by the native range input.
+
 The Slider relies on the native range input for keyboard interaction and does not add custom keyboard handling.
 
 ### Values
 
-The Slider supports custom minimum and maximum values, step increments, default values, and controlled values.
+The Slider supports custom minimum and maximum values for the range, step increments, default values, and controlled values.
 
 By default:
 
@@ -3318,6 +3321,39 @@ By default:
 - Maximum: `100`
 - Step: `1`
 - Default value: `50`
+
+### Formatted Values
+
+The Slider supports custom formatting for the visible value using the `formatValue` prop. This can be used to display values with units, currency symbols, percentages, or other meaningful formats.
+
+For example:
+
+```tsx
+<Slider
+  label="Opacity"
+  defaultValue={75}
+  formatValue={(value) => `${value}%`}
+/>
+
+<Slider
+  label="Price"
+  min={0}
+  max={1000}
+  step={10}
+  defaultValue={500}
+  formatValue={(value) => `$${value}`}
+/>
+
+<Slider
+  label="Temperature"
+  min={0}
+  max={40}
+  defaultValue={20}
+  formatValue={(value) => `${value}°C`}
+/>
+```
+
+The `formatValue` function changes only the visible representation of the value. The underlying Slider value remains numeric.
 
 ### Colour Variants
 
@@ -3420,6 +3456,33 @@ const [volume, setVolume] = useState(50);
   label="Info"
   colour="info"
   defaultValue={30}
+/>
+```
+
+### Formatted Values
+
+```tsx
+<Slider
+  label="Opacity"
+  defaultValue={75}
+  formatValue={(value) => `${value}%`}
+/>
+
+<Slider
+  label="Price"
+  min={0}
+  max={1000}
+  step={10}
+  defaultValue={500}
+  formatValue={(value) => `$${value}`}
+/>
+
+<Slider
+  label="Temperature"
+  min={0}
+  max={40}
+  defaultValue={20}
+  formatValue={(value) => `${value}°C`}
 />
 ```
 

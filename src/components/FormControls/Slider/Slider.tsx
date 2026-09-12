@@ -10,6 +10,7 @@ type SliderProps = {
   step?: number;
   value?: number;
   defaultValue?: number;
+  formatValue?: (value: number) => string;
   onChange?: (value: number) => void;
   disabled?: boolean;
   description?: string;
@@ -29,6 +30,7 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
       step = 1,
       value,
       defaultValue = 50,
+      formatValue = (value) => String(value),
       onChange,
       disabled = false,
       description,
@@ -69,7 +71,7 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
 
           {showValue && (
             <output htmlFor={sliderId} className={styles.value}>
-              {currentValue}
+              {formatValue(currentValue)}
             </output>
           )}
         </div>

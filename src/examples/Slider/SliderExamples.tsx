@@ -63,6 +63,37 @@ export function SliderExamples() {
               </div>
 
               <div>
+                <h4>Formatted Values</h4>
+
+                <div className="stack">
+                  <Slider
+                    label="Opacity"
+                    defaultValue={75}
+                    formatValue={(value) => `${value}%`}
+                  />
+
+                  <Slider
+                    label="Price"
+                    min={0}
+                    max={1000}
+                    step={10}
+                    colour="success"
+                    defaultValue={500}
+                    formatValue={(value) => `$${value}`}
+                  />
+
+                  <Slider
+                    label="Temperature"
+                    min={0}
+                    max={40}
+                    colour="info"
+                    defaultValue={20}
+                    formatValue={(value) => `${value}°C`}
+                  />
+                </div>
+              </div>
+
+              <div>
                 <h4>Vertical Slider</h4>
 
                 <Slider

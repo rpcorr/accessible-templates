@@ -2,7 +2,6 @@ To do:
 
 Form Controls
 
-Switch
 Disclosure
 Toast / Notification
 Skip Link
