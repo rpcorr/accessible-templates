@@ -1,6 +1,11 @@
 To do:
 
 Form Controls
+ - Text Input
+ - Textarea
+ - Number Input
+ - File Upload
+ - Date Input
 
 Disclosure
 Toast / Notification

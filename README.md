@@ -111,6 +111,7 @@ The following components have been completed and are designed with accessibility
 | Combobox           | Complete | Editable typeahead filtering, combobox and listbox semantics, keyboard navigation, disabled options, controlled and uncontrolled values, required and disabled states, description support, no-results feedback, visible focus styling, screen reader support                                       |
 | Switch             | Complete | Native checkbox semantics with switch role, keyboard accessibility, on/off states, controlled and uncontrolled values, disabled and required states, description support, visible focus styling, screen reader support                                                                              |
 | Slider             | Complete | Native range input semantics, keyboard accessibility, horizontal and vertical orientations, custom ranges and step values, controlled and uncontrolled values, disabled state, description support, visible value output, colour variants, visible focus styling, screen reader support             |
+| Text Input         | Complete | Native input semantics, label association, multiple input types, controlled and uncontrolled values, required, disabled and read-only states, description support, error messaging, validation constraints, visible focus styling, and screen reader support                                        |
 
 Each component includes:
 
@@ -3514,6 +3515,55 @@ const [volume, setVolume] = useState(50);
 <Slider label="Brightness" defaultValue={75} showValue={false} />
 ```
 
+---
+
+## Text Input
+
+The Text Input is an accessible form control that allows users to enter and edit text. It uses the native HTML `<input>` element and supports multiple input types, descriptions, error messages, validation constraints, and common form states.
+
+### Features
+
+- Native `<input>` semantics
+- Label association
+- Text, email, password, telephone, and URL input types
+- Controlled and uncontrolled values
+- Required state
+- Disabled state
+- Read-only state
+- Description support
+- Error messaging
+- Minimum and maximum length constraints
+- Visible focus styling
+- Screen reader support
+
+### Accessibility
+
+The Text Input uses a native `<input>` element, which provides appropriate semantics and accessibility information to assistive technologies.
+
+The input is associated with its visible label using a native `<label>` element. Optional descriptions and error messages are associated with the input using `aria-describedby`.
+
+When an error is provided, the input uses `aria-invalid` to communicate its invalid state to assistive technologies.
+
+The Text Input relies on the native input element for keyboard interaction and does not add custom keyboard handling.
+
+### Input Types
+
+The Text Input supports the following input types:
+
+- `text`
+- `email`
+- `password`
+- `tel`
+- `url`
+
+### Usage
+
+```tsx
+import { TextInput } from './components/FormControls/TextInput';
+
+<TextInput label="Name" placeholder="Enter your name" />;
+```
+
 ## ♿ Accessibility Testing
 
 Accessibility is treated as an ongoing part of the development process rather than a final verification step.
@@ -3569,5 +3619,6 @@ The current core component set is complete:
 - Select
 - Switch
 - Slider
+- Text Input
 
 The project is now focused on expanding the component library while continuing to apply the same accessibility-first development approach.

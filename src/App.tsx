@@ -23,6 +23,7 @@ import { SelectPage } from './pages/SelectPage';
 import { ComboboxPage } from './pages/ComboboxPage';
 import { SwitchPage } from './pages/SwitchPage';
 import { SliderPage } from './pages/SliderPage';
+import { TextInputPage } from './pages/TextInputPage';
 
 import { NotFoundPage } from './pages/NotFoundPage';
 
@@ -61,6 +62,7 @@ function App() {
         <Route path="/combobox" element={<ComboboxPage />} />
         <Route path="/switch" element={<SwitchPage />} />
         <Route path="/slider" element={<SliderPage />} />
+        <Route path="/text-input" element={<TextInputPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </main>

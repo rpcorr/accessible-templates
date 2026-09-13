@@ -133,6 +133,11 @@ export const navigationItems: NavigationItem[] = [
             label: 'Slider',
             href: '/slider',
           },
+          {
+            id: 'text-input',
+            label: 'Text Input',
+            href: '/text-input',
+          },
         ],
       },
     ],

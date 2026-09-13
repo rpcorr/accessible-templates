@@ -17,3 +17,4 @@ export { SelectExamples } from './Select/SelectExamples';
 export { ComboboxExamples } from './Combobox/ComboboxExamples';
 export { SwitchExamples } from './Switch/SwitchExamples';
 export { SliderExamples } from './Slider/SliderExamples';
+export { TextInputExamples } from './TextInput/TextInputExamples';
