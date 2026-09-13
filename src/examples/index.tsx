@@ -1,12 +1,12 @@
 export { ButtonExamples } from './ButtonsActions/Buttons/ButtonExamples';
 export { ModalExamples } from './OverlaysMenus/Modals/ModalExamples';
 export { DropdownExamples } from './OverlaysMenus/Dropdown/DropdownExamples';
-export { NavigationExamples } from './Navigation/Navigation/NavigationExamples';
+export { NavigationExamples } from './Navigations/Navigation/NavigationExamples';
 export { TooltipExamples } from './OverlaysMenus/Tooltip/TooltipExamples';
 export { TabsExamples } from './ContentFeedback/Tab/TabExamples';
 export { AccordionExamples } from './ContentFeedback/Accordion/AccordionExamples';
-export { BreadcrumbsExamples } from './Navigation/Breadcrumbs/BreadcrumbsExamples';
-export { PaginationExamples } from './Navigation/Pagination/PaginationExamples';
+export { BreadcrumbsExamples } from './Navigations/Breadcrumbs/BreadcrumbsExamples';
+export { PaginationExamples } from './Navigations/Pagination/PaginationExamples';
 export { AlertExamples } from './ContentFeedback/Alert/AlertExamples';
 export { StatusExamples } from './ContentFeedback/Status/StatusExamples';
 export { ProgressIndicatorExamples } from './ContentFeedback/ProgressIndicator/ProgressIndicatorExamples';

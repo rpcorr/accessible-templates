@@ -1,18 +1,18 @@
 import { getCurrentNavigationItems } from './utils/navigation';
 import { Routes, Route, useLocation } from 'react-router';
 
-import { Navigation } from './components/Navigation/Navigation';
+import { Navigation } from './components/Navigations/Navigation';
 import { HomePage } from './pages/HomePage';
 import { ButtonPage } from './pages/ButtonsActions/ButtonPage';
 import { ModalPage } from './pages/OverlaysMenus/ModalPage';
 import { DropdownPage } from './pages/OverlaysMenus/DropdownPage';
-import { NavigationPage } from './pages/Navigation/NavigationPage';
+import { NavigationPage } from './pages/Navigations/NavigationPage';
 import { TooltipPage } from './pages/OverlaysMenus/TooltipPage';
 import { navigationItems } from './data/navigationItems';
 import { TabsPage } from './pages/ContentFeedback/TabsPage';
 import { AccordionPage } from './pages/ContentFeedback/AccordionPage';
-import { BreadcrumbsPage } from './pages/Navigation/BreadcrumbsPage';
-import { PaginationPage } from './pages/Navigation/PaginiationPage';
+import { BreadcrumbsPage } from './pages/Navigations/BreadcrumbsPage';
+import { PaginationPage } from './pages/Navigations/PaginiationPage';
 import { AlertPage } from './pages/ContentFeedback/AlertPage';
 import { StatusPage } from './pages/ContentFeedback/StatusPage';
 import { ProgressIndicatorPage } from './pages/ContentFeedback/ProgressIndicatorPage';
@@ -46,12 +46,12 @@ function App() {
         <Route path="/buttons-actions/button" element={<ButtonPage />} />
         <Route path="/overlays-menus/modal" element={<ModalPage />} />
         <Route path="/overlays-menus/dropdown" element={<DropdownPage />} />
-        <Route path="/navigation/navigation" element={<NavigationPage />} />
         <Route path="/overlays-menus/tooltip" element={<TooltipPage />} />
+        <Route path="/navigations/navigation" element={<NavigationPage />} />
         <Route path="/content-feedback/accordion" element={<AccordionPage />} />
         <Route path="/content-feedback/tab" element={<TabsPage />} />
-        <Route path="/navigation/breadcrumbs" element={<BreadcrumbsPage />} />
-        <Route path="/navigation/pagination" element={<PaginationPage />} />
+        <Route path="/navigations/breadcrumbs" element={<BreadcrumbsPage />} />
+        <Route path="/navigations/pagination" element={<PaginationPage />} />
         <Route path="/content-feedback/alert" element={<AlertPage />} />
         <Route path="/content-feedback/status" element={<StatusPage />} />
         <Route

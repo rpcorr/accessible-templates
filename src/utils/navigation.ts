@@ -1,4 +1,4 @@
-import type { NavigationItem } from '../components/Navigation/Navigation/Navigation.types';
+import type { NavigationItem } from '../components/Navigations/Navigation/Navigation.types';
 
 export function getCurrentNavigationItems(
   items: NavigationItem[],

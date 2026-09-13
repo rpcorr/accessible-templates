@@ -1,7 +1,7 @@
 import {
   Breadcrumbs,
   BreadcrumbItem,
-} from '../../../components/Navigation/Breadcrumbs';
+} from '../../../components/Navigations/Breadcrumbs';
 
 export function BreadcrumbsExamples() {
   return (

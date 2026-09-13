@@ -1,4 +1,4 @@
-import type { NavigationItem } from '../components/Navigation/Navigation/Navigation.types';
+import type { NavigationItem } from '../components/Navigations/Navigation/Navigation.types';
 
 export const navigationItems: NavigationItem[] = [
   {
@@ -44,22 +44,22 @@ export const navigationItems: NavigationItem[] = [
       },
       {
         id: 'navigation',
-        label: 'Navigation',
+        label: 'Navigations',
         children: [
           {
             id: 'navigation-component',
             label: 'Navigation',
-            href: '/navigation/navigation',
+            href: '/navigations/navigation',
           },
           {
             id: 'breadcrumbs',
             label: 'Breadcrumbs',
-            href: '/navigation/breadcrumbs',
+            href: '/navigations/breadcrumbs',
           },
           {
             id: 'pagination',
             label: 'Pagination',
-            href: '/navigation/pagination',
+            href: '/navigations/pagination',
           },
         ],
       },

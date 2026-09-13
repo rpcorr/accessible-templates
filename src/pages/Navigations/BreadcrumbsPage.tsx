@@ -1,5 +1,5 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbsExamples } from '../../examples/Navigation/Breadcrumbs/BreadcrumbsExamples';
+import { BreadcrumbsExamples } from '../../examples/Navigations/Breadcrumbs/BreadcrumbsExamples';
 
 export function BreadcrumbsPage() {
   return (
