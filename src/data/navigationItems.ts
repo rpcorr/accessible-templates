@@ -22,56 +22,9 @@ export const navigationItems: NavigationItem[] = [
         ],
       },
       {
-        id: 'overlays-menus',
-        label: 'Overlays & Menus',
-        children: [
-          {
-            id: 'modal',
-            label: 'Modal Dialog',
-            href: '/overlays-menus/modal',
-          },
-          {
-            id: 'dropdown',
-            label: 'Dropdown',
-            href: '/overlays-menus/dropdown',
-          },
-          {
-            id: 'tooltip',
-            label: 'Tooltip',
-            href: '/overlays-menus/tooltip',
-          },
-        ],
-      },
-      {
-        id: 'navigation',
-        label: 'Navigations',
-        children: [
-          {
-            id: 'navigation-component',
-            label: 'Navigation',
-            href: '/navigations/navigation',
-          },
-          {
-            id: 'breadcrumbs',
-            label: 'Breadcrumbs',
-            href: '/navigations/breadcrumbs',
-          },
-          {
-            id: 'pagination',
-            label: 'Pagination',
-            href: '/navigations/pagination',
-          },
-        ],
-      },
-      {
         id: 'content-feedback',
         label: 'Content & Feedback',
         children: [
-          {
-            id: 'tab',
-            label: 'Tab',
-            href: '/content-feedback/tab',
-          },
           {
             id: 'accordion',
             label: 'Accordion',
@@ -83,9 +36,9 @@ export const navigationItems: NavigationItem[] = [
             href: '/content-feedback/alert',
           },
           {
-            id: 'status',
-            label: 'Status',
-            href: '/content-feedback/status',
+            id: 'loading-spinner',
+            label: 'Loading Spinner',
+            href: '/content-feedback/loading-spinner',
           },
           {
             id: 'progress-indicator',
@@ -93,9 +46,14 @@ export const navigationItems: NavigationItem[] = [
             href: '/content-feedback/progress-indicator',
           },
           {
-            id: 'loading-spinner',
-            label: 'Loading Spinner',
-            href: '/content-feedback/loading-spinner',
+            id: 'status',
+            label: 'Status',
+            href: '/content-feedback/status',
+          },
+          {
+            id: 'tab',
+            label: 'Tab',
+            href: '/content-feedback/tab',
           },
         ],
       },
@@ -109,6 +67,11 @@ export const navigationItems: NavigationItem[] = [
             href: '/form-controls/checkbox',
           },
           {
+            id: 'combobox',
+            label: 'Combobox',
+            href: '/form-controls/combobox',
+          },
+          {
             id: 'radio-group',
             label: 'Radio Group',
             href: '/form-controls/radio-group',
@@ -119,9 +82,9 @@ export const navigationItems: NavigationItem[] = [
             href: '/form-controls/select',
           },
           {
-            id: 'combobox',
-            label: 'Combobox',
-            href: '/form-controls/combobox',
+            id: 'slider',
+            label: 'Slider',
+            href: '/form-controls/slider',
           },
           {
             id: 'switch',
@@ -129,14 +92,51 @@ export const navigationItems: NavigationItem[] = [
             href: '/form-controls/switch',
           },
           {
-            id: 'slider',
-            label: 'Slider',
-            href: '/form-controls/slider',
-          },
-          {
             id: 'text-input',
             label: 'Text Input',
             href: '/form-controls/text-input',
+          },
+        ],
+      },
+      {
+        id: 'navigation',
+        label: 'Navigation',
+        children: [
+          {
+            id: 'breadcrumbs',
+            label: 'Breadcrumbs',
+            href: '/navigations/breadcrumbs',
+          },
+          {
+            id: 'navigation-component',
+            label: 'Navigation',
+            href: '/navigations/navigation',
+          },
+          {
+            id: 'pagination',
+            label: 'Pagination',
+            href: '/navigations/pagination',
+          },
+        ],
+      },
+      {
+        id: 'overlays-menus',
+        label: 'Overlays & Menus',
+        children: [
+          {
+            id: 'dropdown',
+            label: 'Dropdown',
+            href: '/overlays-menus/dropdown',
+          },
+          {
+            id: 'modal',
+            label: 'Modal Dialog',
+            href: '/overlays-menus/modal',
+          },
+          {
+            id: 'tooltip',
+            label: 'Tooltip',
+            href: '/overlays-menus/tooltip',
           },
         ],
       },
