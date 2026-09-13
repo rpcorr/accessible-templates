@@ -1,9 +1,19 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
+import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { BreadcrumbsExamples } from '../../examples/Navigations/Breadcrumbs/BreadcrumbsExamples';
 
 export function BreadcrumbsPage() {
   return (
-    <PageLayout title="Breadcrumbs">
+    <PageLayout
+      title="Breadcrumbs"
+      breadcrumbs={
+        <>
+          <BreadcrumbItem href="/">Home</BreadcrumbItem>
+          <BreadcrumbItem href="/navigations">Navigations</BreadcrumbItem>
+          <BreadcrumbItem current>Breadcrumbs</BreadcrumbItem>
+        </>
+      }
+    >
       <p>
         A reusable breadcrumb navigation component that uses semantic HTML,
         supports keyboard navigation, identifies the current page, and provides

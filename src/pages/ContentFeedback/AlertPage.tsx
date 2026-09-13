@@ -1,9 +1,21 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
+import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { AlertExamples } from '../../examples';
 
 export function AlertPage() {
   return (
-    <PageLayout title="Alert">
+    <PageLayout
+      title="Alert"
+      breadcrumbs={
+        <>
+          <BreadcrumbItem href="/">Home</BreadcrumbItem>
+          <BreadcrumbItem href="/content-feedback">
+            Content Feedback
+          </BreadcrumbItem>
+          <BreadcrumbItem current>Alert</BreadcrumbItem>
+        </>
+      }
+    >
       <p>
         An accessible alert component for communicating important information,
         feedback, warnings, and errors to users.

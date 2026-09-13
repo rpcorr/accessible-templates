@@ -1,9 +1,21 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
+import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { StatusExamples } from '../../examples';
 
 export function StatusPage() {
   return (
-    <PageLayout title="Status">
+    <PageLayout
+      title="Status"
+      breadcrumbs={
+        <>
+          <BreadcrumbItem href="/">Home</BreadcrumbItem>
+          <BreadcrumbItem href="/content-feedback">
+            Content Feedback
+          </BreadcrumbItem>
+          <BreadcrumbItem current>Status</BreadcrumbItem>
+        </>
+      }
+    >
       <p>
         An accessible status component for communicating non-urgent updates
         without interrupting the user's current task.

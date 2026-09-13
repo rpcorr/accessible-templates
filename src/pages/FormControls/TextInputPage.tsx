@@ -1,9 +1,19 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
+import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { TextInputExamples } from '../../examples/FormControls/TextInput/TextInputExamples';
 
 export function TextInputPage() {
   return (
-    <PageLayout title="Text Input">
+    <PageLayout
+      title="Text Input"
+      breadcrumbs={
+        <>
+          <BreadcrumbItem href="/">Home</BreadcrumbItem>
+          <BreadcrumbItem href="/form-controls">Form Controls</BreadcrumbItem>
+          <BreadcrumbItem current>Text Input</BreadcrumbItem>
+        </>
+      }
+    >
       <main className="stack">
         <p>
           An accessible text input that allows users to enter and edit text. The

@@ -1,9 +1,19 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
+import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { ComboboxExamples } from '../../examples';
 
 export function ComboboxPage() {
   return (
-    <PageLayout title="Combobox">
+    <PageLayout
+      title="Combobox"
+      breadcrumbs={
+        <>
+          <BreadcrumbItem href="/">Home</BreadcrumbItem>
+          <BreadcrumbItem href="/form-controls">Form Controls</BreadcrumbItem>
+          <BreadcrumbItem current>Combobox</BreadcrumbItem>
+        </>
+      }
+    >
       <main className="stack">
         <p>
           An accessible combobox component that allows users to type into an

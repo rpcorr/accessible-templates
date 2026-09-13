@@ -1,9 +1,21 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
+import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { ModalExamples } from '../../examples';
 
 export function ModalPage() {
   return (
-    <PageLayout title="Modal Dialog">
+    <PageLayout
+      title="Modal Dialog"
+      breadcrumbs={
+        <>
+          <BreadcrumbItem href="/">Home</BreadcrumbItem>
+          <BreadcrumbItem href="/overlays-menus">
+            Overlays & Menus
+          </BreadcrumbItem>
+          <BreadcrumbItem current>Modal Dialog</BreadcrumbItem>
+        </>
+      }
+    >
       <p>
         Accessible modal dialogs with focus trapping, Escape key handling, focus
         restoration, and configurable dismissal behaviour.

@@ -1,9 +1,21 @@
 import { PageLayout } from '../../components';
+import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { TooltipExamples } from '../../examples/OverlaysMenus/Tooltip/TooltipExamples';
 
 export function TooltipPage() {
   return (
-    <PageLayout title="Tooltip">
+    <PageLayout
+      title="Tooltip"
+      breadcrumbs={
+        <>
+          <BreadcrumbItem href="/">Home</BreadcrumbItem>
+          <BreadcrumbItem href="/overlays-menus">
+            Overlays & Menus
+          </BreadcrumbItem>
+          <BreadcrumbItem current>Tooltip</BreadcrumbItem>
+        </>
+      }
+    >
       <p>
         Accessible tooltips with keyboard and mouse support, configurable
         positioning, hover delay, Escape key dismissal, and responsive

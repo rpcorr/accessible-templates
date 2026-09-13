@@ -1,9 +1,19 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
+import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { SliderExamples } from '../../examples';
 
 export function SliderPage() {
   return (
-    <PageLayout title="Slider">
+    <PageLayout
+      title="Slider"
+      breadcrumbs={
+        <>
+          <BreadcrumbItem href="/">Home</BreadcrumbItem>
+          <BreadcrumbItem href="/form-controls">Form Controls</BreadcrumbItem>
+          <BreadcrumbItem current>Slider</BreadcrumbItem>
+        </>
+      }
+    >
       <main className="stack">
         <p>
           An accessible single-value slider that allows users to select a

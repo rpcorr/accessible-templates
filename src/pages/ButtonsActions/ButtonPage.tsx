@@ -1,9 +1,21 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
+import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { ButtonExamples } from '../../examples/ButtonsActions/Buttons/ButtonExamples';
 
 export function ButtonPage() {
   return (
-    <PageLayout title="Button">
+    <PageLayout
+      title="Button"
+      breadcrumbs={
+        <>
+          <BreadcrumbItem href="/">Home</BreadcrumbItem>
+          <BreadcrumbItem href="/buttons-actions">
+            Buttons & Actions
+          </BreadcrumbItem>
+          <BreadcrumbItem current>Button</BreadcrumbItem>
+        </>
+      }
+    >
       <p>
         A reusable button component with semantic HTML, keyboard support,
         visible focus styling, and disabled-state handling.

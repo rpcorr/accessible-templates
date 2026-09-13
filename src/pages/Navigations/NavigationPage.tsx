@@ -1,9 +1,19 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
+import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { NavigationExamples } from '../../examples';
 
 export function NavigationPage() {
   return (
-    <PageLayout title="Navigation">
+    <PageLayout
+      title="Navigation"
+      breadcrumbs={
+        <>
+          <BreadcrumbItem href="/">Home</BreadcrumbItem>
+          <BreadcrumbItem href="/navigations">Navigations</BreadcrumbItem>
+          <BreadcrumbItem current>Navigation</BreadcrumbItem>
+        </>
+      }
+    >
       <p>
         Accessible responsive navigation with nested submenus, keyboard
         navigation, focus management, and a mobile navigation drawer.
