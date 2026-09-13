@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { TextInputExamples } from '../../examples/FormControls/TextInput/TextInputExamples';
+import { TextInputExamples } from '../../examples';
 
 export function TextInputPage() {
   return (

@@ -78,16 +78,16 @@ export function FormControlsPage() {
 
           <li>
             <strong>
-              <Link to="/form-controls/text-input">Text Input</Link>
+              <Link to="/form-controls/textarea">Textarea</Link>
             </strong>
-            <p>A single-line input for entering and editing text.</p>
+            <p>A multi-line input for entering and editing longer text.</p>
           </li>
 
           <li>
             <strong>
-              <Link to="/form-controls/textarea">Textarea</Link>
+              <Link to="/form-controls/text-input">Text Input</Link>
             </strong>
-            <p>A multi-line input for entering and editing longer text.</p>
+            <p>A single-line input for entering and editing text.</p>
           </li>
         </ul>
       </main>

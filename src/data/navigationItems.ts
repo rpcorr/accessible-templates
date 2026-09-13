@@ -92,6 +92,11 @@ export const navigationItems: NavigationItem[] = [
             href: '/form-controls/switch',
           },
           {
+            id: 'textarea',
+            label: 'Textarea',
+            href: '/form-controls/textarea',
+          },
+          {
             id: 'text-input',
             label: 'Text Input',
             href: '/form-controls/text-input',

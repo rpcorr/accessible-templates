@@ -112,6 +112,7 @@ The following components have been completed and are designed with accessibility
 | Switch             | Complete | Native checkbox semantics with switch role, keyboard accessibility, on/off states, controlled and uncontrolled values, disabled and required states, description support, visible focus styling, screen reader support                                                                              |
 | Slider             | Complete | Native range input semantics, keyboard accessibility, horizontal and vertical orientations, custom ranges and step values, controlled and uncontrolled values, disabled state, description support, visible value output, colour variants, visible focus styling, screen reader support             |
 | Text Input         | Complete | Native input semantics, label association, multiple input types, controlled and uncontrolled values, required, disabled and read-only states, description support, error messaging, validation constraints, visible focus styling, and screen reader support                                        |
+| Textarea           | Complete | Accessible labeling, keyboard accessibility, focus-visible styling, validation support                                                                                                                                                                                                              |
 
 Each component includes:
 
@@ -3564,6 +3565,45 @@ import { TextInput } from './components/FormControls/TextInput';
 <TextInput label="Name" placeholder="Enter your name" />;
 ```
 
+---
+
+## Textarea
+
+An accessible textarea component for multi-line text input, designed with semantic HTML, keyboard accessibility, visible focus indicators, and accessible form labeling.
+
+### Features
+
+- Uses a native `<textarea>` element
+- Keyboard accessible
+- Supports accessible labels
+- Supports required and disabled states
+- Supports placeholder text
+- Supports validation and error messaging
+- Supports helper text
+- Provides visible focus styling
+- Supports controlled and uncontrolled usage
+- Responsive across different screen sizes
+
+### Accessibility
+
+The Textarea component:
+
+- Uses the native `<textarea>` element
+- Supports accessible labeling through an associated `<label>`
+- Provides a visible focus indicator
+- Supports required and disabled states
+- Associates helper and error messages with the textarea where applicable
+- Preserves native keyboard interaction
+- Supports assistive technology through semantic HTML and ARIA attributes where required
+
+### Usage
+
+```tsx
+import { Textarea } from './components/FormControls/Textarea';
+
+<Textarea id="message" label="Message" name="message" rows={5} />;
+```
+
 ## ♿ Accessibility Testing
 
 Accessibility is treated as an ongoing part of the development process rather than a final verification step.
@@ -3620,5 +3660,6 @@ The current core component set is complete:
 - Switch
 - Slider
 - Text Input
+- Textarea
 
 The project is now focused on expanding the component library while continuing to apply the same accessibility-first development approach.
