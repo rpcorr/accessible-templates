@@ -1,4 +1,4 @@
-import type { NavigationItem } from '../components/Navigation/Navigation.types';
+import type { NavigationItem } from '../components/Navigation/Navigation/Navigation.types';
 
 export const navigationItems: NavigationItem[] = [
   {
@@ -17,7 +17,7 @@ export const navigationItems: NavigationItem[] = [
           {
             id: 'button',
             label: 'Button',
-            href: '/button',
+            href: '/buttons-actions/button',
           },
         ],
       },
@@ -28,17 +28,17 @@ export const navigationItems: NavigationItem[] = [
           {
             id: 'modal',
             label: 'Modal Dialog',
-            href: '/modal',
+            href: '/overlays-menus/modal',
           },
           {
             id: 'dropdown',
             label: 'Dropdown',
-            href: '/dropdown',
+            href: '/overlays-menus/dropdown',
           },
           {
             id: 'tooltip',
             label: 'Tooltip',
-            href: '/tooltip',
+            href: '/overlays-menus/tooltip',
           },
         ],
       },
@@ -49,17 +49,17 @@ export const navigationItems: NavigationItem[] = [
           {
             id: 'navigation-component',
             label: 'Navigation',
-            href: '/navigation',
+            href: '/navigation/navigation',
           },
           {
             id: 'breadcrumbs',
             label: 'Breadcrumbs',
-            href: '/breadcrumbs',
+            href: '/navigation/breadcrumbs',
           },
           {
             id: 'pagination',
             label: 'Pagination',
-            href: '/pagination',
+            href: '/navigation/pagination',
           },
         ],
       },
@@ -70,32 +70,32 @@ export const navigationItems: NavigationItem[] = [
           {
             id: 'tab',
             label: 'Tabs',
-            href: '/tab',
+            href: '/content-feedback/tab',
           },
           {
             id: 'accordion',
             label: 'Accordion',
-            href: '/accordion',
+            href: '/content-feedback/accordion',
           },
           {
             id: 'alert',
             label: 'Alert',
-            href: '/alert',
+            href: '/content-feedback/alert',
           },
           {
             id: 'status',
             label: 'Status',
-            href: '/status',
+            href: '/content-feedback/status',
           },
           {
             id: 'progress-indicator',
             label: 'Progress Indicator',
-            href: '/progress-indicator',
+            href: '/content-feedback/progress-indicator',
           },
           {
             id: 'loading-spinner',
             label: 'Loading Spinner',
-            href: '/loading-spinner',
+            href: '/content-feedback/loading-spinner',
           },
         ],
       },
@@ -106,37 +106,37 @@ export const navigationItems: NavigationItem[] = [
           {
             id: 'checkbox',
             label: 'Checkbox',
-            href: '/checkbox',
+            href: '/form-controls/checkbox',
           },
           {
             id: 'radio-group',
             label: 'Radio Group',
-            href: '/radio-group',
+            href: '/form-controls/radio-group',
           },
           {
             id: 'select',
             label: 'Select',
-            href: '/select',
+            href: '/form-controls/select',
           },
           {
             id: 'combobox',
             label: 'Combobox',
-            href: '/combobox',
+            href: '/form-controls/combobox',
           },
           {
             id: 'switch',
             label: 'Switch',
-            href: '/switch',
+            href: '/form-controls/switch',
           },
           {
             id: 'slider',
             label: 'Slider',
-            href: '/slider',
+            href: '/form-controls/slider',
           },
           {
             id: 'text-input',
             label: 'Text Input',
-            href: '/text-input',
+            href: '/form-controls/text-input',
           },
         ],
       },

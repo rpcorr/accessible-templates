@@ -1,29 +1,29 @@
 import { getCurrentNavigationItems } from './utils/navigation';
 import { Routes, Route, useLocation } from 'react-router';
 
-import { Navigation } from './components/Navigation';
+import { Navigation } from './components/Navigation/Navigation';
 import { HomePage } from './pages/HomePage';
-import { ButtonPage } from './pages/ButtonPage';
-import { ModalPage } from './pages/ModalPage';
-import { DropdownPage } from './pages/DropdownPage';
-import { NavigationPage } from './pages/NavigationPage';
-import { TooltipPage } from './pages/TooltipPage';
+import { ButtonPage } from './pages/ButtonsActions/ButtonPage';
+import { ModalPage } from './pages/OverlaysMenus/ModalPage';
+import { DropdownPage } from './pages/OverlaysMenus/DropdownPage';
+import { NavigationPage } from './pages/Navigation/NavigationPage';
+import { TooltipPage } from './pages/OverlaysMenus/TooltipPage';
 import { navigationItems } from './data/navigationItems';
-import { TabsPage } from './pages/TabsPage';
-import { AccordionPage } from './pages/AccordionPage';
-import { BreadcrumbsPage } from './pages/BreadcrumbsPage';
-import { PaginationPage } from './pages/PaginiationPage';
-import { AlertPage } from './pages/AlertPage';
-import { StatusPage } from './pages/StatusPage';
-import { ProgressIndicatorPage } from './pages/ProgressIndicatorPage';
-import { LoadingSpinnerPage } from './pages/LoadingSpinnerPage';
-import { CheckboxPage } from './pages/CheckboxPage';
-import { RadioGroupPage } from './pages/RadioGroupPage';
-import { SelectPage } from './pages/SelectPage';
-import { ComboboxPage } from './pages/ComboboxPage';
-import { SwitchPage } from './pages/SwitchPage';
-import { SliderPage } from './pages/SliderPage';
-import { TextInputPage } from './pages/TextInputPage';
+import { TabsPage } from './pages/ContentFeedback/TabsPage';
+import { AccordionPage } from './pages/ContentFeedback/AccordionPage';
+import { BreadcrumbsPage } from './pages/Navigation/BreadcrumbsPage';
+import { PaginationPage } from './pages/Navigation/PaginiationPage';
+import { AlertPage } from './pages/ContentFeedback/AlertPage';
+import { StatusPage } from './pages/ContentFeedback/StatusPage';
+import { ProgressIndicatorPage } from './pages/ContentFeedback/ProgressIndicatorPage';
+import { LoadingSpinnerPage } from './pages/ContentFeedback/LoadingSpinnerPage';
+import { CheckboxPage } from './pages/FormControls/CheckboxPage';
+import { RadioGroupPage } from './pages/FormControls/RadioGroupPage';
+import { SelectPage } from './pages/FormControls/SelectPage';
+import { ComboboxPage } from './pages/FormControls/ComboboxPage';
+import { SwitchPage } from './pages/FormControls/SwitchPage';
+import { SliderPage } from './pages/FormControls/SliderPage';
+import { TextInputPage } from './pages/FormControls/TextInputPage';
 
 import { NotFoundPage } from './pages/NotFoundPage';
 
@@ -43,26 +43,32 @@ function App() {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/button" element={<ButtonPage />} />
-        <Route path="/modal" element={<ModalPage />} />
-        <Route path="/dropdown" element={<DropdownPage />} />
-        <Route path="/navigation" element={<NavigationPage />} />
-        <Route path="/tooltip" element={<TooltipPage />} />
-        <Route path="/accordion" element={<AccordionPage />} />
-        <Route path="/tab" element={<TabsPage />} />
-        <Route path="/breadcrumbs" element={<BreadcrumbsPage />} />
-        <Route path="/pagination" element={<PaginationPage />} />
-        <Route path="/alert" element={<AlertPage />} />
-        <Route path="/status" element={<StatusPage />} />
-        <Route path="/progress-indicator" element={<ProgressIndicatorPage />} />
-        <Route path="/loading-spinner" element={<LoadingSpinnerPage />} />
-        <Route path="/checkbox" element={<CheckboxPage />} />
-        <Route path="/radio-group" element={<RadioGroupPage />} />
-        <Route path="/select" element={<SelectPage />} />
-        <Route path="/combobox" element={<ComboboxPage />} />
-        <Route path="/switch" element={<SwitchPage />} />
-        <Route path="/slider" element={<SliderPage />} />
-        <Route path="/text-input" element={<TextInputPage />} />
+        <Route path="/buttons-actions/button" element={<ButtonPage />} />
+        <Route path="/overlays-menus/modal" element={<ModalPage />} />
+        <Route path="/overlays-menus/dropdown" element={<DropdownPage />} />
+        <Route path="/navigation/navigation" element={<NavigationPage />} />
+        <Route path="/overlays-menus/tooltip" element={<TooltipPage />} />
+        <Route path="/content-feedback/accordion" element={<AccordionPage />} />
+        <Route path="/content-feedback/tab" element={<TabsPage />} />
+        <Route path="/navigation/breadcrumbs" element={<BreadcrumbsPage />} />
+        <Route path="/navigation/pagination" element={<PaginationPage />} />
+        <Route path="/content-feedback/alert" element={<AlertPage />} />
+        <Route path="/content-feedback/status" element={<StatusPage />} />
+        <Route
+          path="/content-feedback/progress-indicator"
+          element={<ProgressIndicatorPage />}
+        />
+        <Route
+          path="/content-feedback/loading-spinner"
+          element={<LoadingSpinnerPage />}
+        />
+        <Route path="/form-controls/checkbox" element={<CheckboxPage />} />
+        <Route path="/form-controls/radio-group" element={<RadioGroupPage />} />
+        <Route path="/form-controls/select" element={<SelectPage />} />
+        <Route path="/form-controls/combobox" element={<ComboboxPage />} />
+        <Route path="/form-controls/switch" element={<SwitchPage />} />
+        <Route path="/form-controls/slider" element={<SliderPage />} />
+        <Route path="/form-controls/text-input" element={<TextInputPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </main>
