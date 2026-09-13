@@ -19,3 +19,4 @@ export { SwitchExamples } from './FormControls/Switch/SwitchExamples';
 export { SliderExamples } from './FormControls/Slider/SliderExamples';
 export { TextInputExamples } from './FormControls/TextInput/TextInputExamples';
 export { TextareaExamples } from './FormControls/Textarea/TextareaExamples';
+export { NumberInputExamples } from './FormControls/NumberInput/NumberInputExamples';

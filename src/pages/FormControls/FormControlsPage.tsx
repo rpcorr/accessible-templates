@@ -44,6 +44,13 @@ export function FormControlsPage() {
 
           <li>
             <strong>
+              <Link to="/form-controls/number-input">Number Input</Link>
+            </strong>
+            <p>A single-line input for entering and editing numeric values.</p>
+          </li>
+
+          <li>
+            <strong>
               <Link to="/form-controls/radio-group">Radio Group</Link>
             </strong>
             <p>

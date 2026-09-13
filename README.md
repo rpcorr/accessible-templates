@@ -109,6 +109,7 @@ The following components have been completed and are designed with accessibility
 | Radio Group        | Complete | Native radio semantics, fieldset/legend grouping, keyboard accessibility, vertical and horizontal orientations, controlled and uncontrolled selection, disabled and required states, description support, visible focus styling, screen reader support                                              |
 | Select             | Complete | Native select semantics, label association, keyboard accessibility, single and multiple selection, placeholder support, controlled and uncontrolled selection, disabled options, disabled state, required state, description support, error messaging, visible focus styling, screen reader support |
 | Combobox           | Complete | Editable typeahead filtering, combobox and listbox semantics, keyboard navigation, disabled options, controlled and uncontrolled values, required and disabled states, description support, no-results feedback, visible focus styling, screen reader support                                       |
+| Number Input       | Complete | Native number input semantics, label association, keyboard accessibility, min, max, and step constraints, controlled and uncontrolled values, required, disabled, and read-only states, description support, error messaging, visible focus styling, screen reader support                          |
 | Switch             | Complete | Native checkbox semantics with switch role, keyboard accessibility, on/off states, controlled and uncontrolled values, disabled and required states, description support, visible focus styling, screen reader support                                                                              |
 | Slider             | Complete | Native range input semantics, keyboard accessibility, horizontal and vertical orientations, custom ranges and step values, controlled and uncontrolled values, disabled state, description support, visible value output, colour variants, visible focus styling, screen reader support             |
 | Text Input         | Complete | Native input semantics, label association, multiple input types, controlled and uncontrolled values, required, disabled and read-only states, description support, error messaging, validation constraints, visible focus styling, and screen reader support                                        |
@@ -130,11 +131,11 @@ Each component includes:
 
 ---
 
-## Button
+### Button
 
 An accessible button component providing semantic HTML, keyboard interaction, and visible focus styling.
 
-### Features
+#### Features
 
 - Uses a native `<button>` element
 
@@ -146,7 +147,7 @@ An accessible button component providing semantic HTML, keyboard interaction, an
 
 - Reusable across the project
 
-### Accessibility
+#### Accessibility
 
 The Button component:
 
@@ -160,7 +161,7 @@ The Button component:
 
 - Supports assistive technology through native semantics
 
-### Keyboard Support
+#### Keyboard Support
 
 | Key | Action |
 
@@ -174,7 +175,7 @@ The Button component:
 
 | Space | Activate the button |
 
-### Usage
+#### Usage
 
 ```tsx
 <Button>Save</Button>
@@ -182,11 +183,11 @@ The Button component:
 
 ---
 
-## Modal Dialog
+### Modal Dialog
 
 An accessible modal dialog component that manages keyboard focus, supports Escape key dismissal, traps focus while open, and restores focus to the element that opened the dialog.
 
-### Features
+#### Features
 
 - Semantic dialog implementation
 
@@ -204,7 +205,7 @@ An accessible modal dialog component that manages keyboard focus, supports Escap
 
 - Screen reader support
 
-### Accessibility
+#### Accessibility
 
 The Modal Dialog component:
 
@@ -222,7 +223,7 @@ The Modal Dialog component:
 
 - Provides a visible focus indicator for interactive controls
 
-### Keyboard Support
+#### Keyboard Support
 
 | Key | Action |
 
@@ -238,7 +239,7 @@ Focus remains within the dialog while it is open.
 
 When the dialog closes, focus returns to the element that opened it.
 
-### Usage
+#### Usage
 
 ```tsx
 <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
@@ -254,11 +255,11 @@ When the dialog closes, focus returns to the element that opened it.
 
 ---
 
-## Dropdown
+### Dropdown
 
 An accessible dropdown menu implementing the WAI-ARIA Menu Button pattern with nested submenus, keyboard navigation, typeahead, focus management, disabled menu items, semantic separators, and responsive behaviour.
 
-### Features
+#### Features
 
 - Keyboard accessible
 
@@ -282,9 +283,9 @@ An accessible dropdown menu implementing the WAI-ARIA Menu Button pattern with n
 
 - Responsive submenu behaviour
 
-### Keyboard Support
+#### Keyboard Support
 
-#### Trigger Button
+##### Trigger Button
 
 | Key | Action |
 
@@ -296,7 +297,7 @@ An accessible dropdown menu implementing the WAI-ARIA Menu Button pattern with n
 
 | Arrow Up | Open menu and focus last item |
 
-#### Menu Items
+##### Menu Items
 
 | Key | Action |
 
@@ -314,7 +315,7 @@ An accessible dropdown menu implementing the WAI-ARIA Menu Button pattern with n
 
 | Escape | Close menu and return focus to trigger |
 
-#### Submenus
+##### Submenus
 
 | Key | Action |
 
@@ -328,7 +329,7 @@ An accessible dropdown menu implementing the WAI-ARIA Menu Button pattern with n
 
 | Escape | Close submenu and return focus |
 
-### Disabled Menu Items
+#### Disabled Menu Items
 
 Menu items can be disabled while remaining visible in the menu.
 
@@ -350,7 +351,7 @@ Disabled items:
 
 - Do not receive initial keyboard focus
 
-### Menu Separators
+#### Menu Separators
 
 Menu separators visually and semantically group related menu items.
 
@@ -376,7 +377,7 @@ Separators:
 
 - Use `role="separator"` for semantic meaning
 
-### Responsive Behaviour
+#### Responsive Behaviour
 
 The dropdown adapts to smaller screen sizes:
 
@@ -390,7 +391,7 @@ The dropdown adapts to smaller screen sizes:
 
 - Nested submenus remain usable at multiple levels on smaller screens
 
-### Usage
+#### Usage
 
 ```tsx
 <DropdownAccessible
@@ -416,11 +417,11 @@ The dropdown adapts to smaller screen sizes:
 
 ---
 
-## Navigation
+### Navigation
 
 An accessible responsive navigation component supporting nested and multi-level submenus, keyboard navigation, focus management, and a mobile navigation drawer.
 
-### Features
+#### Features
 
 - Keyboard accessible
 - Nested and multi-level submenu support
@@ -435,9 +436,9 @@ An accessible responsive navigation component supporting nested and multi-level 
 - `aria-expanded` and `aria-controls` states
 - Closed mobile drawer removed from keyboard navigation using `inert`
 
-### Keyboard Support
+#### Keyboard Support
 
-#### Top-Level Navigation
+##### Top-Level Navigation
 
 | Key | Action |
 
@@ -455,7 +456,7 @@ An accessible responsive navigation component supporting nested and multi-level 
 
 | Escape | Close submenu and return focus |
 
-#### Submenus
+##### Submenus
 
 | Key | Action |
 
@@ -473,7 +474,7 @@ An accessible responsive navigation component supporting nested and multi-level 
 
 | Escape | Close submenu and return focus |
 
-### Usage
+#### Usage
 
 ```tsx
 <Navigation
@@ -505,11 +506,11 @@ An accessible responsive navigation component supporting nested and multi-level 
 
 ---
 
-## Tooltip
+### Tooltip
 
 An accessible tooltip component that provides contextual information for interactive elements while supporting keyboard focus, mouse interaction, configurable positioning, responsive behaviour, and assistive technology support.
 
-### Features
+#### Features
 
 - Keyboard focus support
 - Mouse hover support
@@ -524,7 +525,7 @@ An accessible tooltip component that provides contextual information for interac
 - Tooltip is excluded from keyboard navigation
 - Supports browser zoom at 200% and 400%
 
-### Accessibility
+#### Accessibility
 
 The tooltip is associated with its trigger using `aria-describedby` while visible.
 
@@ -539,7 +540,7 @@ The tooltip:
 - Automatically adjusts its position when space is limited
 - Wraps long content to prevent horizontal overflow
 
-### Keyboard Support
+#### Keyboard Support
 
 | Key | Action |
 
@@ -551,7 +552,7 @@ The tooltip:
 
 The tooltip itself is not included in the keyboard navigation order.
 
-### Responsive Behaviour
+#### Responsive Behaviour
 
 The tooltip automatically adjusts its position based on available viewport space.
 
@@ -565,7 +566,7 @@ The tooltip automatically adjusts its position based on available viewport space
 - Tooltip positioning accounts for the trigger's location within the viewport
 - Tooltip positioning is adjusted to prevent content from being cut off
 
-### Usage
+#### Usage
 
 ```tsx
 
@@ -594,11 +595,11 @@ The tooltip automatically adjusts its position based on available viewport space
 
 ---
 
-## Tabs
+### Tabs
 
 An accessible tabs component supporting horizontal and vertical orientations, keyboard navigation, disabled tabs, focus management, screen reader support, and responsive behaviour.
 
-### Features
+#### Features
 
 - Horizontal and vertical orientations
 - Keyboard navigation
@@ -611,7 +612,7 @@ An accessible tabs component supporting horizontal and vertical orientations, ke
 - Home and End navigation
 - Visible keyboard focus indicators
 
-### Accessibility
+#### Accessibility
 
 The Tabs component uses the semantic `tablist`, `tab`, and `tabpanel` roles.
 
@@ -626,9 +627,9 @@ Disabled tabs remain visible but are excluded from keyboard navigation and canno
 
 Tab panels can receive keyboard focus so that screen reader users can access and read their content.
 
-### Keyboard Support
+#### Keyboard Support
 
-#### Horizontal Tabs
+##### Horizontal Tabs
 
 | Key         | Action                                      |
 | ----------- | ------------------------------------------- |
@@ -639,7 +640,7 @@ Tab panels can receive keyboard focus so that screen reader users can access and
 | Tab         | Move from the active tab to the tab panel   |
 | Shift + Tab | Return from the tab panel to the active tab |
 
-#### Vertical Tabs
+##### Vertical Tabs
 
 | Key         | Action                                      |
 | ----------- | ------------------------------------------- |
@@ -650,7 +651,7 @@ Tab panels can receive keyboard focus so that screen reader users can access and
 | Tab         | Move from the active tab to the tab panel   |
 | Shift + Tab | Return from the tab panel to the active tab |
 
-### Disabled Tabs
+#### Disabled Tabs
 
 Disabled tabs:
 
@@ -660,7 +661,7 @@ Disabled tabs:
 - Are skipped during arrow-key navigation
 - Do not become the active tab
 
-### Responsive Behaviour
+#### Responsive Behaviour
 
 Tabs are designed to remain usable at increased browser zoom levels.
 
@@ -676,7 +677,7 @@ Long tab labels and panel content wrap naturally while maintaining access to the
 
 Vertical tabs maintain the tab list beside the panel while remaining usable at increased zoom levels.
 
-### Usage
+#### Usage
 
 The `Tabs` component accepts an array of tab objects. Each tab includes an `id`, `label`, and `content`. Tabs can optionally be disabled.
 
@@ -712,13 +713,13 @@ const tabs = [
 <Tabs tabs={tabs} />;
 ```
 
-#### Horizontal Tabs
+##### Horizontal Tabs
 
 ```tsx
 <Tabs tabs={horizontalTabs} />
 ```
 
-#### Vertical Tabs
+##### Vertical Tabs
 
 ```tsx
 <Tabs tabs={verticalTabs} orientation="vertical" />
@@ -726,11 +727,11 @@ const tabs = [
 
 ---
 
-## Accordion
+### Accordion
 
 An accessible accordion component supporting expandable and collapsible content sections, keyboard navigation, disabled sections, screen reader support, focus management, and responsive behaviour.
 
-### Features
+#### Features
 
 - Expandable and collapsible panels
 - Multiple panels can be open at the same time
@@ -747,7 +748,7 @@ An accessible accordion component supporting expandable and collapsible content 
 - Focus-visible keyboard interaction
 - Configurable single-panel or multiple-panel behaviour
 
-### Keyboard Support
+#### Keyboard Support
 
 | Key         | Action                                               |
 | ----------- | ---------------------------------------------------- |
@@ -766,7 +767,7 @@ Arrow-key navigation skips disabled accordion sections.
 
 Expanded panel content can be read by screen reader users using Browse Mode reading commands.
 
-### Usage
+#### Usage
 
 The `Accordion` component accepts an array of accordion items. Each item includes an `id`, `title`, and `content`. Items can optionally be disabled.
 
@@ -799,11 +800,11 @@ const items = [
 
 ---
 
-## Breadcrumbs
+### Breadcrumbs
 
 An accessible breadcrumb navigation component that helps users understand their location within a website hierarchy. It uses semantic navigation, native links, current-page identification, responsive wrapping, and multiple visual styles.
 
-### Features
+#### Features
 
 - Semantic `<nav>` landmark
 - Accessible navigation label
@@ -828,7 +829,7 @@ An accessible breadcrumb navigation component that helps users understand their 
 - Arrow-shaped breadcrumbs expand to accommodate wrapped content
 - Active breadcrumb styling remains unchanged on hover
 
-### Keyboard Support
+#### Keyboard Support
 
 | Key         | Action                               |
 | ----------- | ------------------------------------ |
@@ -841,7 +842,7 @@ The current page is not focusable because it is represented as a non-interactive
 
 Breadcrumbs use native HTML links, so no custom keyboard event handling is required.
 
-### Usage
+#### Usage
 
 The `Breadcrumbs` component accepts breadcrumb items as children. Each `BreadcrumbItem` can be given an `href` for navigable pages or marked as the current page using the `current` prop.
 
@@ -864,11 +865,11 @@ Visual separators are generated with CSS and are decorative, allowing screen rea
 
 ---
 
-## Pagination
+### Pagination
 
 A reusable pagination component for navigating between pages of content, with support for previous and next controls, page selection, current page indication, long page ranges, and visual variants.
 
-### Features
+#### Features
 
 - Previous and Next controls
 - Page selection
@@ -884,7 +885,7 @@ A reusable pagination component for navigating between pages of content, with su
 - Basic, pill, and outline visual variants
 - Responsive wrapping for long pagination ranges
 
-### Keyboard Support
+#### Keyboard Support
 
 | Key         | Action                                  |
 | ----------- | --------------------------------------- |
@@ -899,7 +900,7 @@ Disabled Previous and Next controls cannot receive keyboard focus.
 
 Ellipsis indicators are hidden from screen readers because they are visual separators rather than interactive controls.
 
-### Usage
+#### Usage
 
 The `Pagination` component accepts the current page, total number of pages, and a callback function that is called when the user selects a different page.
 
@@ -947,11 +948,11 @@ It also correctly treats **Basic as the default**, so you don't need to specify 
 
 ---
 
-## Alert
+### Alert
 
 A reusable alert component for communicating informational messages, success feedback, warnings, and errors, with support for optional titles, configurable heading levels, dismissible alerts, and customizable dismiss labels.
 
-### Features
+#### Features
 
 - Info, success, warning, and error variants
 - Optional alert titles
@@ -966,7 +967,7 @@ A reusable alert component for communicating informational messages, success fee
 - Screen reader-friendly structure
 - Responsive layout
 
-### Keyboard Support
+#### Keyboard Support
 
 | Key         | Action                                               |
 | ----------- | ---------------------------------------------------- |
@@ -979,7 +980,7 @@ The dismiss button is only present when the alert is configured as dismissible.
 
 The dismiss button uses a customizable accessible label, allowing applications to provide context-specific or localized labels.
 
-### Heading Structure
+#### Heading Structure
 
 Alert with titles use a semantic heading element. The heading level can be configured from `h2` through `h6` to fit the surrounding page structure.
 
@@ -991,7 +992,7 @@ Alert with titles use a semantic heading element. The heading level can be confi
 
 The default heading level is `h2`.
 
-### Dismissible Alert
+#### Dismissible Alert
 
 A dismissible Alert requires an `onDismiss` callback:
 
@@ -1030,7 +1031,7 @@ The dismiss button can have a custom accessible label:
 </Alert>
 ```
 
-### ARIA Live Regions
+#### ARIA Live Regions
 
 The `Alert` component does not automatically create an ARIA live region. Applications can place an Alert inside an appropriate live region when dynamically generated messages need to be announced to screen readers.
 
@@ -1054,11 +1055,11 @@ Keeping live-region behavior outside the `Alert` component allows the consuming 
 
 ---
 
-## Status
+### Status
 
 A reusable status component for communicating non-urgent updates to users, including dynamic changes, form submissions, loading states, processing updates, and other informational feedback.
 
-### Features
+#### Features
 
 - Semantic `role="status"` live region
 - Polite announcements using `aria-live="polite"`
@@ -1072,7 +1073,7 @@ A reusable status component for communicating non-urgent updates to users, inclu
 - Does not move keyboard focus when the status changes
 - Screen reader-friendly live-region behavior
 
-### Accessibility
+#### Accessibility
 
 The `Status` component uses `role="status"` for non-urgent updates that should be communicated to assistive technology without interrupting the user's current task.
 
@@ -1084,7 +1085,7 @@ Polite announcements are not guaranteed to be announced immediately or individua
 
 The `Status` component does not move focus when its content changes. Focus management should be handled by the surrounding interaction when necessary.
 
-### Usage
+#### Usage
 
 The `Status` component accepts content as its children:
 
@@ -1098,11 +1099,11 @@ function Example() {
 
 ---
 
-## 📊 Progress Indicator
+### 📊 Progress Indicator
 
 An accessible progress indicator for communicating the progress of ongoing operations. The component supports determinate and indeterminate progress, multiple visual presentations, accessible labels, optional visible progress values, colour variants, an optional wavy leading edge, and reduced-motion support.
 
-### Features
+#### Features
 
 - Determinate and indeterminate progress
 - Linear progress bar
@@ -1121,7 +1122,7 @@ An accessible progress indicator for communicating the progress of ongoing opera
 - `prefers-reduced-motion` support
 - Screen reader support with NVDA
 
-### Usage
+#### Usage
 
 ```
 import { ProgressIndicator } from './components/ProgressIndicator';
@@ -1131,11 +1132,11 @@ import { ProgressIndicator } from './components/ProgressIndicator';
 
 ---
 
-## 🔄 Loading Spinner
+### 🔄 Loading Spinner
 
 An accessible loading indicator for communicating that an operation is currently in progress when the amount of progress cannot be determined. The component supports multiple animation variants, different visual sizes, colour variants, accessible labels, optional visible loading messages, and reduced-motion support.
 
-### Features
+#### Features
 
 - Spinner animation
 
@@ -1167,7 +1168,7 @@ An accessible loading indicator for communicating that an operation is currently
 
 - Screen reader support with NVDA
 
-### Usage
+#### Usage
 
 ```
 import { LoadingSpinner } from './components/LoadingSpinner';
@@ -1177,11 +1178,11 @@ import { LoadingSpinner } from './components/LoadingSpinner';
 
 ---
 
-## ☑️ Checkbox
+### ☑️ Checkbox
 
 An accessible checkbox component for allowing users to select one or more options from a set of choices. The component uses a native HTML checkbox while providing consistent styling, accessible labels and descriptions, checked and indeterminate states, and disabled and required states.
 
-### Features
+#### Features
 
 - Native `<input type="checkbox">` semantics
 - Checked and unchecked states
@@ -1196,7 +1197,7 @@ An accessible checkbox component for allowing users to select one or more option
 - Screen reader support
 - Accessible state announcements
 
-### Usage
+#### Usage
 
 ```tsx
 import { Checkbox } from './components/FormControls/Checkbox';
@@ -1206,11 +1207,11 @@ import { Checkbox } from './components/FormControls/Checkbox';
 
 ---
 
-## 📻 Radio Group
+### 📻 Radio Group
 
 An accessible radio group component for allowing users to select one option from a set of mutually exclusive choices. The component uses native HTML radio buttons grouped with a `fieldset` and `legend`, while providing consistent styling, accessible descriptions, vertical and horizontal layouts, and support for controlled and uncontrolled selection.
 
-### Features
+#### Features
 
 - Native `<input type="radio">` semantics
 - `fieldset` and `legend` grouping
@@ -1227,7 +1228,7 @@ An accessible radio group component for allowing users to select one option from
 - Visible `:focus-visible` styling
 - Screen reader support
 
-### Accessibility
+#### Accessibility
 
 The Radio Group uses native radio inputs with a shared `name` attribute, providing built-in keyboard interaction and screen reader support.
 
@@ -1239,7 +1240,7 @@ Disabled options cannot be selected, and a disabled group prevents all of its ra
 
 Optional descriptions are associated with the radio group using `aria-describedby`.
 
-### Usage
+#### Usage
 
 ```tsx
 import { RadioGroup } from './components/FormControls/RadioGroup';
@@ -1255,7 +1256,7 @@ import { RadioGroup } from './components/FormControls/RadioGroup';
 />;
 ```
 
-### Orientation
+#### Orientation
 
 Radio groups are displayed vertically by default. Set the `orientation` prop to `horizontal` to display the options in a row.
 
@@ -1274,7 +1275,7 @@ Radio groups are displayed vertically by default. Set the `orientation` prop to 
 
 Horizontal options wrap when necessary to remain usable at smaller screen sizes.
 
-### Controlled Usage
+#### Controlled Usage
 
 The `value` and `onChange` props can be used to control the selected option.
 
@@ -1296,11 +1297,11 @@ const [selected, setSelected] = useState('medium');
 
 ---
 
-## 🔽 Select
+### 🔽 Select
 
 An accessible select component for allowing users to choose one option from a list of choices. The component uses a native HTML `<select>` element while providing consistent styling, accessible labels and descriptions, placeholder support, selection states, disabled and required states, and error messaging.
 
-### Features
+#### Features
 
 - Native `<select>` semantics
 - Single and multiple selection
@@ -1317,7 +1318,7 @@ An accessible select component for allowing users to choose one option from a li
 - Visible `:focus-visible` styling
 - Screen reader support
 
-### Accessibility
+#### Accessibility
 
 The Select component uses a native HTML `<select>` element, providing built-in keyboard interaction, selection behaviour, and screen reader support.
 
@@ -1329,7 +1330,7 @@ The select provides a visible focus indicator for keyboard users and supports sc
 
 Keyboard interaction is provided by the browser's native select behaviour, including moving between options and selecting an option.
 
-### Usage
+#### Usage
 
 ```tsx
 import { Select } from './components/FormControls/Select';
@@ -1345,7 +1346,7 @@ import { Select } from './components/FormControls/Select';
 />;
 ```
 
-### Placeholder
+#### Placeholder
 
 A placeholder can be provided for selects where the user must make a selection.
 
@@ -1365,7 +1366,7 @@ A placeholder can be provided for selects where the user must make a selection.
 
 The placeholder is disabled and uses an empty value so it cannot be selected as a valid choice.
 
-### Controlled Usage
+#### Controlled Usage
 
 The `value` and `onChange` props can be used to control the selected option.
 
@@ -1385,7 +1386,7 @@ const [selectedCountry, setSelectedCountry] = useState('canada');
 />;
 ```
 
-### Multiple Selection
+#### Multiple Selection
 
 Set the `multiple` prop to `true` to allow users to select more than one option. Multiple selection uses an array of strings for `value`, `defaultValue`, and the `onChange` callback.
 
@@ -1416,11 +1417,11 @@ const [selectedSkills, setSelectedSkills] = useState<string[]>([
 
 ---
 
-## Combobox
+### Combobox
 
 The Combobox is an editable form control that allows users to type into an input and filter a list of available options. Users can select an option using the keyboard or mouse.
 
-### Features
+#### Features
 
 - Editable typeahead filtering
 - Combobox and listbox ARIA semantics
@@ -1434,7 +1435,7 @@ The Combobox is an editable form control that allows users to type into an input
 - Visible focus styling
 - Screen reader support
 
-### Accessibility
+#### Accessibility
 
 The Combobox uses an input with the `combobox` role and a popup `listbox` containing the available options. ARIA relationships connect the input to the listbox and identify the currently active option for assistive technologies.
 
@@ -1442,7 +1443,7 @@ The input is associated with its visible label using a native `<label>` element.
 
 When filtering produces no matching options, a polite live region announces **"No options found."** after a short delay. The delayed announcement prevents unnecessary announcements while the user is actively typing.
 
-### Keyboard Support
+#### Keyboard Support
 
 | Key          | Action                                                      |
 | ------------ | ----------------------------------------------------------- |
@@ -1454,7 +1455,7 @@ When filtering produces no matching options, a polite live region announces **"N
 
 Users can type at any time to filter the available options. Disabled options cannot be selected or reached using the arrow-key navigation.
 
-### Usage
+#### Usage
 
 ```tsx
 import { Combobox } from './components/FormControls/Combobox';
@@ -1476,11 +1477,63 @@ const countryOptions = [
 
 ---
 
-## Switch
+### Number Input
+
+The Number Input is an accessible form control that allows users to enter and edit numeric values using the keyboard or the browser's built-in number controls.
+
+#### Features
+
+- Native `<input type="number">` semantics
+- Label association
+- Keyboard accessibility
+- Controlled and uncontrolled values
+- Required state
+- Disabled state
+- Read-only state
+- Description support
+- Error messaging
+- Minimum and maximum value constraints
+- Custom step increments
+- Visible focus styling
+- Screen reader support
+
+#### Accessibility
+
+The Number Input uses a native `<input type="number">` element, providing built-in support for numeric input and browser accessibility features.
+
+The input is associated with its visible label using a native `<label>` element. An optional description and error message are associated with the input using `aria-describedby`.
+
+When an error is provided, the input uses `aria-invalid="true"` to communicate its invalid state to assistive technologies.
+
+#### Validation
+
+The Number Input supports the native `min`, `max`, and `step` attributes to define valid numeric values and increments.
+
+#### States
+
+The Number Input supports default values and controlled values, required fields, descriptions, error messages, disabled inputs, and read-only inputs.
+
+#### Keyboard Support
+
+Users can enter a number using the keyboard. When supported by the browser, `Arrow Up` and `Arrow Down` can be used to increase or decrease the value according to the configured `step`.
+
+`Tab` moves focus to and from the input. The native number input behavior is preserved so users can interact with the control using their preferred input method.
+
+#### Usage
+
+```tsx
+import { NumberInput } from './components/FormControls/NumberInput';
+
+<NumberInput label="Age" name="age" placeholder="Enter your age" />;
+```
+
+---
+
+### Switch
 
 The Switch is a form control that allows users to toggle a setting between on and off states. Users can toggle the switch using the keyboard or mouse. The Switch also supports colour variants for different visual styles.
 
-### Features
+#### Features
 
 - Native checkbox semantics with `switch` role
 - Keyboard accessibility
@@ -1492,7 +1545,7 @@ The Switch is a form control that allows users to toggle a setting between on an
 - Visible focus styling
 - Screen reader support
 
-### Accessibility
+#### Accessibility
 
 The Switch uses a native `<input type="checkbox">` with the `switch` role, providing appropriate semantics for assistive technologies.
 
@@ -1502,20 +1555,20 @@ The visual switch track and thumb are decorative and hidden from assistive techn
 
 Colour is used only as a visual indication and does not communicate the switch state by itself. The switch state is communicated through its native semantics and `switch` role.
 
-### States
+#### States
 
 The Switch supports checked and unchecked states, default values, controlled values, disabled and required states, optional descriptions, and colour variants.
 
 Available colour variants are `default`, `success`, `warning`, `error`, and `info`.
 
-### Keyboard Support
+#### Keyboard Support
 
 | Key     | Action                                |
 | ------- | ------------------------------------- |
 | `Space` | Toggles the Switch between on and off |
 | `Tab`   | Moves focus to and from the Switch    |
 
-### Usage
+#### Usage
 
 ```tsx
 import { Switch } from './components/FormControls/Switch';
@@ -1525,11 +1578,11 @@ import { Switch } from './components/FormControls/Switch';
 
 ---
 
-## Slider
+### Slider
 
 The Slider is an accessible single-value form control that allows users to select a numeric value from a defined range. It uses the native HTML range input and supports horizontal and vertical orientations.
 
-### Features
+#### Features
 
 - Native `<input type="range">` semantics
 - Keyboard accessibility
@@ -1545,7 +1598,7 @@ The Slider is an accessible single-value form control that allows users to selec
 - Visible focus styling
 - Screen reader support
 
-### Accessibility
+#### Accessibility
 
 The Slider uses a native `<input type="range">`, which provides the appropriate slider semantics and accessibility information to assistive technologies.
 
@@ -1557,7 +1610,7 @@ Custom value formatting affects only the visible value displayed to users. The u
 
 The Slider relies on the native range input for keyboard interaction and does not add custom keyboard handling.
 
-### Values
+#### Values
 
 The Slider supports custom minimum and maximum values for the range, step increments, default values, and controlled values.
 
@@ -1568,7 +1621,7 @@ By default:
 - Step: `1`
 - Default value: `50`
 
-### Formatted Values
+#### Formatted Values
 
 The Slider supports custom formatting for the visible value using the `formatValue` prop. This can be used to display values with units, currency symbols, percentages, or other meaningful formats.
 
@@ -1601,7 +1654,7 @@ For example:
 
 The `formatValue` function changes only the visible representation of the value. The underlying Slider value remains numeric.
 
-### Colour Variants
+#### Colour Variants
 
 The Slider supports colour variants for different visual styles.
 
@@ -1615,7 +1668,7 @@ Available colour variants are:
 
 Colour is used only as a visual styling option and does not communicate the Slider's value or state by itself. The value and slider semantics remain available through the native range input.
 
-### Orientation
+#### Orientation
 
 The Slider supports horizontal and vertical orientations.
 
@@ -1627,7 +1680,7 @@ To create a vertical Slider, set the `orientation` prop to `vertical`.
 <Slider label="Volume" orientation="vertical" defaultValue={65} />
 ```
 
-### Keyboard Support
+#### Keyboard Support
 
 The native range input provides keyboard support.
 
@@ -1643,7 +1696,7 @@ The native range input provides keyboard support.
 | `Page Down`   | Decrease the value by a larger increment |
 | `Tab`         | Move focus to or from the Slider         |
 
-### Usage
+#### Usage
 
 ```tsx
 import { Slider } from './components/FormControls/Slider';
@@ -1651,19 +1704,19 @@ import { Slider } from './components/FormControls/Slider';
 <Slider label="Volume" />;
 ```
 
-### Custom Range
+#### Custom Range
 
 ```tsx
 <Slider label="Temperature" min={10} max={30} defaultValue={20} />
 ```
 
-### Step Values
+#### Step Values
 
 ```tsx
 <Slider label="Rating" min={0} max={10} step={1} defaultValue={5} />
 ```
 
-### Controlled Usage
+#### Controlled Usage
 
 ```tsx
 const [volume, setVolume] = useState(50);
@@ -1671,7 +1724,7 @@ const [volume, setVolume] = useState(50);
 <Slider label="Volume" value={volume} onChange={setVolume} />;
 ```
 
-### Colour Variants Examples
+#### Colour Variants Examples
 
 ```tsx
 <Slider
@@ -1705,13 +1758,13 @@ const [volume, setVolume] = useState(50);
 />
 ```
 
-### Vertical Slider
+#### Vertical Slider
 
 ```tsx
 <Slider label="Volume" orientation="vertical" defaultValue={65} colour="info" />
 ```
 
-### Description
+#### Description
 
 ```tsx
 <Slider
@@ -1721,13 +1774,13 @@ const [volume, setVolume] = useState(50);
 />
 ```
 
-### Disabled
+#### Disabled
 
 ```tsx
 <Slider label="Disabled slider" defaultValue={50} disabled />
 ```
 
-### Hide Visible Value
+#### Hide Visible Value
 
 ```tsx
 <Slider label="Brightness" defaultValue={75} showValue={false} />
@@ -1735,11 +1788,11 @@ const [volume, setVolume] = useState(50);
 
 ---
 
-## Text Input
+### Text Input
 
 The Text Input is an accessible form control that allows users to enter and edit text. It uses the native HTML `<input>` element and supports multiple input types, descriptions, error messages, validation constraints, and common form states.
 
-### Features
+#### Features
 
 - Native `<input>` semantics
 - Label association
@@ -1754,7 +1807,7 @@ The Text Input is an accessible form control that allows users to enter and edit
 - Visible focus styling
 - Screen reader support
 
-### Accessibility
+#### Accessibility
 
 The Text Input uses a native `<input>` element, which provides appropriate semantics and accessibility information to assistive technologies.
 
@@ -1764,7 +1817,7 @@ When an error is provided, the input uses `aria-invalid` to communicate its inva
 
 The Text Input relies on the native input element for keyboard interaction and does not add custom keyboard handling.
 
-### Input Types
+#### Input Types
 
 The Text Input supports the following input types:
 
@@ -1774,7 +1827,7 @@ The Text Input supports the following input types:
 - `tel`
 - `url`
 
-### Usage
+#### Usage
 
 ```tsx
 import { TextInput } from './components/FormControls/TextInput';
@@ -1784,11 +1837,11 @@ import { TextInput } from './components/FormControls/TextInput';
 
 ---
 
-## Textarea
+### Textarea
 
 An accessible textarea component for multi-line text input, designed with semantic HTML, keyboard accessibility, visible focus indicators, and accessible form labeling.
 
-### Features
+#### Features
 
 - Uses a native `<textarea>` element
 - Keyboard accessible
@@ -1801,7 +1854,7 @@ An accessible textarea component for multi-line text input, designed with semant
 - Supports controlled and uncontrolled usage
 - Responsive across different screen sizes
 
-### Accessibility
+#### Accessibility
 
 The Textarea component:
 
@@ -1813,7 +1866,7 @@ The Textarea component:
 - Preserves native keyboard interaction
 - Supports assistive technology through semantic HTML and ARIA attributes where required
 
-### Usage
+#### Usage
 
 ```tsx
 import { Textarea } from './components/FormControls/Textarea';
@@ -1879,5 +1932,6 @@ The current core component set is complete:
 - Slider
 - Text Input
 - Textarea
+- Number Input
 
 The project will continue to expand while maintaining the same accessibility-first development approach, with ongoing improvements to testing, documentation, and component quality.

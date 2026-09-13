@@ -72,6 +72,11 @@ export const navigationItems: NavigationItem[] = [
             href: '/form-controls/combobox',
           },
           {
+            id: 'number-input',
+            label: 'Number Input',
+            href: '/form-controls/number-input',
+          },
+          {
             id: 'radio-group',
             label: 'Radio Group',
             href: '/form-controls/radio-group',

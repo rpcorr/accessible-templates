@@ -34,6 +34,7 @@ import { SwitchPage } from './pages/FormControls/SwitchPage';
 import { SliderPage } from './pages/FormControls/SliderPage';
 import { TextInputPage } from './pages/FormControls/TextInputPage';
 import { TextareaPage } from './pages/FormControls/TextareaPage';
+import { NumberInputPage } from './pages/FormControls/NumberInputPage';
 
 import { NotFoundPage } from './pages/NotFoundPage';
 
@@ -89,6 +90,7 @@ function App() {
         <Route path="/form-controls/slider" element={<SliderPage />} />
         <Route path="/form-controls/text-input" element={<TextInputPage />} />
         <Route path="/form-controls/textarea" element={<TextareaPage />} />
+        <Route path="/form-controls/number-input" element={<NumberInputPage />} />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
