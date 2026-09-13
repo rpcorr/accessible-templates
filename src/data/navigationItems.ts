@@ -69,7 +69,7 @@ export const navigationItems: NavigationItem[] = [
         children: [
           {
             id: 'tab',
-            label: 'Tabs',
+            label: 'Tab',
             href: '/content-feedback/tab',
           },
           {
