@@ -4,6 +4,7 @@ import { FileUpload } from '../../components/FormControls/FileUpload';
 export function FileUploadExamples() {
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
   const [multipleFiles, setMultipleFiles] = useState<FileList | null>(null);
+  const [droppedFiles, setDroppedFiles] = useState<FileList | null>(null);
   const [acceptedFileError, setAcceptedFileError] = useState('');
 
   function handleAcceptedFileChange(files: FileList | null) {
@@ -28,10 +29,10 @@ export function FileUploadExamples() {
 
   return (
     <div>
-      <h2>File Upload Examples</h2>
+      <h3>Examples</h3>
 
       <section>
-        <h3>Basic File Upload</h3>
+        <h4>Basic File Upload</h4>
 
         <FileUpload
           label="Upload a document"
@@ -47,7 +48,7 @@ export function FileUploadExamples() {
       </section>
 
       <section>
-        <h3>Multiple Files</h3>
+        <h4>Multiple Files</h4>
 
         <FileUpload
           label="Upload documents"
@@ -73,7 +74,34 @@ export function FileUploadExamples() {
       </section>
 
       <section>
-        <h3>Accepted File Types</h3>
+        <h4>Drag and Drop File Upload</h4>
+
+        <FileUpload
+          label="Upload files"
+          name="dropzone-files"
+          variant="dropzone"
+          multiple
+          helperText="Drag and drop files here, or use the file picker."
+          onChange={setDroppedFiles}
+        />
+
+        {droppedFiles && droppedFiles.length > 0 && (
+          <div>
+            <p>
+              Selected files: <strong>{droppedFiles.length}</strong>
+            </p>
+
+            <ul>
+              {Array.from(droppedFiles).map((file) => (
+                <li key={`${file.name}-${file.lastModified}`}>{file.name}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </section>
+
+      <section>
+        <h4>Accepted File Types</h4>
 
         <FileUpload
           label="Upload a document"
@@ -86,7 +114,7 @@ export function FileUploadExamples() {
       </section>
 
       <section>
-        <h3>Required File Upload</h3>
+        <h4>Required File Upload</h4>
 
         <FileUpload
           label="Upload your resume"
@@ -98,7 +126,7 @@ export function FileUploadExamples() {
       </section>
 
       <section>
-        <h3>Disabled File Upload</h3>
+        <h4>Disabled File Upload</h4>
 
         <FileUpload
           label="Upload a document"
