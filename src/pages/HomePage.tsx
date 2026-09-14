@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 export function HomePage() {
   return (
     <main>
-      <h2>Accessible Templates</h2>
+      <h2>Accessible Components</h2>
 
       <p>
         Explore a collection of reusable, accessible UI components and patterns
