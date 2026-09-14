@@ -45,7 +45,7 @@ function App() {
 
   return (
     <main className="container stack">
-      <h1>Accessible Templates</h1>
+      <h1>Accessible Library</h1>
 
       <Navigation items={currentNavigationItems} />
 
