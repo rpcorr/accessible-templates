@@ -1,7 +1,6 @@
 To do:
 
 Form Controls
- - Number Input
  - File Upload
  - Date Input
 
