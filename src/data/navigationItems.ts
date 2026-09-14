@@ -110,7 +110,7 @@ export const navigationItems: NavigationItem[] = [
       },
       {
         id: 'navigation',
-        label: 'Navigation',
+        label: 'Navigations',
         children: [
           {
             id: 'breadcrumbs',
