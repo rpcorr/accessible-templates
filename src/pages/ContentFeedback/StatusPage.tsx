@@ -9,9 +9,7 @@ export function StatusPage() {
       breadcrumbs={
         <>
           <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/content-feedback">
-            Content Feedback
-          </BreadcrumbItem>
+          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
           <BreadcrumbItem current>Status</BreadcrumbItem>
         </>
       }

@@ -4,13 +4,16 @@ import { SwitchExamples } from '../../examples';
 
 export function SwitchPage() {
   return (
-    <PageLayout title="Switch" breadcrumbs={
-      <>
-        <BreadcrumbItem href="/">Home</BreadcrumbItem>
-        <BreadcrumbItem href="/form-controls">Form Controls</BreadcrumbItem>
-        <BreadcrumbItem current>Switch</BreadcrumbItem>
-      </>
-    }>
+    <PageLayout
+      title="Switch"
+      breadcrumbs={
+        <>
+          <BreadcrumbItem href="/">Home</BreadcrumbItem>
+          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
+          <BreadcrumbItem current>Switch</BreadcrumbItem>
+        </>
+      }
+    >
       <main className="stack">
         <p>
           An accessible switch component that allows users to toggle a setting

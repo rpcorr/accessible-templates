@@ -9,9 +9,7 @@ export function TooltipPage() {
       breadcrumbs={
         <>
           <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/overlays-menus">
-            Overlays & Menus
-          </BreadcrumbItem>
+          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
           <BreadcrumbItem current>Tooltip</BreadcrumbItem>
         </>
       }

@@ -9,9 +9,7 @@ export function ModalPage() {
       breadcrumbs={
         <>
           <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/overlays-menus">
-            Overlays & Menus
-          </BreadcrumbItem>
+          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
           <BreadcrumbItem current>Modal Dialog</BreadcrumbItem>
         </>
       }

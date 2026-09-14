@@ -9,7 +9,7 @@ export function TextInputPage() {
       breadcrumbs={
         <>
           <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/form-controls">Form Controls</BreadcrumbItem>
+          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
           <BreadcrumbItem current>Text Input</BreadcrumbItem>
         </>
       }

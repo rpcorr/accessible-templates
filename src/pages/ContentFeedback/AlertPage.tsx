@@ -9,9 +9,7 @@ export function AlertPage() {
       breadcrumbs={
         <>
           <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/content-feedback">
-            Content Feedback
-          </BreadcrumbItem>
+          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
           <BreadcrumbItem current>Alert</BreadcrumbItem>
         </>
       }

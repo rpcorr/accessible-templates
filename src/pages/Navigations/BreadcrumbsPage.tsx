@@ -9,7 +9,7 @@ export function BreadcrumbsPage() {
       breadcrumbs={
         <>
           <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/navigations">Navigations</BreadcrumbItem>
+          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
           <BreadcrumbItem current>Breadcrumbs</BreadcrumbItem>
         </>
       }

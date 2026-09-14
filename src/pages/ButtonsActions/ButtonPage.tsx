@@ -9,9 +9,7 @@ export function ButtonPage() {
       breadcrumbs={
         <>
           <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/buttons-actions">
-            Buttons & Actions
-          </BreadcrumbItem>
+          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
           <BreadcrumbItem current>Button</BreadcrumbItem>
         </>
       }
