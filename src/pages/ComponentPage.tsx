@@ -122,6 +122,14 @@ export function ComponentPage() {
                 </span>
               </li>
               <li>
+                {' '}
+                <Link to="/form-controls/file-upload">File Upload</Link>{' '}
+                <p>
+                  {' '}
+                  A control for selecting one or more files to upload.{' '}
+                </p>{' '}
+              </li>
+              <li>
                 <Link to="/form-controls/number-input">Number Input</Link>
                 <span>
                   A single-line input for entering and editing numeric values.

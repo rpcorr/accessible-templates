@@ -2,6 +2,31 @@ To do:
 
 Form Controls
  - File Upload
+
+
+        Later enhancements
+
+        Depending on how much functionality you want the component to support, we can consider:
+
+        File size validation
+
+        Maximum file count
+
+        File removal or clearing
+
+        Selected-file list
+
+        Upload progress
+
+        Cancel upload
+
+        Error recovery
+
+        Custom validation callbacks
+
+
+
+
  - Date Input
 
 Disclosure

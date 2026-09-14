@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.label {
+  font-weight: 600;
+}
+
+.input {
+  font: inherit;
+  max-width: 100%;
+}
+
+.input:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.input:disabled {
+  cursor: not-allowed;
+}
+
+.helperText,
+.errorMessage {
+  margin: 0;
+  font-size: var(--text-sm);
+}
+
+.errorMessage {
+  color: var(--color-danger);
+}

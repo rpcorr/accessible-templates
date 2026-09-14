@@ -72,6 +72,11 @@ export const navigationItems: NavigationItem[] = [
             href: '/form-controls/combobox',
           },
           {
+            id: 'fileupload',
+            label: 'File Upload',
+            href: '/form-controls/file-upload',
+          },
+          {
             id: 'number-input',
             label: 'Number Input',
             href: '/form-controls/number-input',
