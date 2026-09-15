@@ -11,6 +11,7 @@ interface FileUploadProps {
   helperText?: string;
   errorMessage?: string;
   variant?: 'default' | 'dropzone';
+  maxFileSize?: number;
   onChange?: (files: FileList | null) => void;
 }
 
@@ -24,21 +25,51 @@ export function FileUpload({
   helperText,
   errorMessage,
   variant = 'default',
+  maxFileSize,
   onChange,
 }: FileUploadProps) {
   const inputId = useId();
   const [isDragging, setIsDragging] = useState(false);
+  const [fileSizeError, setFileSizeError] = useState('');
+
   const helperTextId = `${inputId}-helper`;
   const errorMessageId = `${inputId}-error`;
 
-  const describedBy = errorMessage
+  const displayedErrorMessage = errorMessage || fileSizeError;
+
+  const describedBy = displayedErrorMessage
     ? errorMessageId
     : helperText
       ? helperTextId
       : undefined;
 
+  function validateFileSize(files: FileList | null): boolean {
+    if (!files || maxFileSize === undefined) {
+      setFileSizeError('');
+      return true;
+    }
+
+    const oversizedFile = Array.from(files).find(
+      (file) => file.size > maxFileSize,
+    );
+
+    if (oversizedFile) {
+      setFileSizeError(
+        `"${oversizedFile.name}" exceeds the maximum file size.`,
+      );
+      return false;
+    }
+
+    setFileSizeError('');
+    return true;
+  }
+
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    onChange?.(event.target.files);
+    const files = event.target.files;
+
+    if (validateFileSize(files)) {
+      onChange?.(files);
+    }
   }
 
   function handleDragOver(event: DragEvent<HTMLDivElement>) {
@@ -65,7 +96,12 @@ export function FileUpload({
     }
 
     setIsDragging(false);
-    onChange?.(event.dataTransfer.files);
+
+    const files = event.dataTransfer.files;
+
+    if (validateFileSize(files)) {
+      onChange?.(files);
+    }
   }
 
   const input = (
@@ -79,7 +115,7 @@ export function FileUpload({
       required={required}
       disabled={disabled}
       aria-describedby={describedBy}
-      aria-invalid={errorMessage ? true : undefined}
+      aria-invalid={displayedErrorMessage ? true : undefined}
       onChange={handleChange}
     />
   );
@@ -108,15 +144,15 @@ export function FileUpload({
         input
       )}
 
-      {helperText && !errorMessage && (
+      {helperText && !displayedErrorMessage && (
         <p id={helperTextId} className={styles.helperText}>
           {helperText}
         </p>
       )}
 
-      {errorMessage && (
+      {displayedErrorMessage && (
         <p id={errorMessageId} className={styles.errorMessage} role="alert">
-          {errorMessage}
+          {displayedErrorMessage}
         </p>
       )}
     </div>

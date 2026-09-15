@@ -5,6 +5,7 @@ export function FileUploadExamples() {
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
   const [multipleFiles, setMultipleFiles] = useState<FileList | null>(null);
   const [droppedFiles, setDroppedFiles] = useState<FileList | null>(null);
+  const [sizeLimitedFile, setSizeLimitedFile] = useState<FileList | null>(null);
   const [acceptedFileError, setAcceptedFileError] = useState('');
 
   function handleAcceptedFileChange(files: FileList | null) {
@@ -111,6 +112,25 @@ export function FileUploadExamples() {
           errorMessage={acceptedFileError}
           onChange={handleAcceptedFileChange}
         />
+      </section>
+
+      <section>
+        <h4>File Size Validation</h4>
+
+        <FileUpload
+          label="Upload a document"
+          name="size-limited-document"
+          // maxFileSize={5 * 1024 * 1024}
+          maxFileSize={1024}
+          helperText="Maximum file size: 5 MB."
+          onChange={setSizeLimitedFile}
+        />
+
+        {sizeLimitedFile && sizeLimitedFile.length > 0 && (
+          <p>
+            Selected file: <strong>{sizeLimitedFile[0].name}</strong>
+          </p>
+        )}
       </section>
 
       <section>
