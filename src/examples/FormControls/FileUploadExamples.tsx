@@ -12,13 +12,14 @@ export function FileUploadExamples() {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<FileList | null>(null);
+  const [uploadingExample, setUploadingExample] = useState<string | null>(null);
 
-  function handleAcceptedFileChange(files: FileList | null) {
+  function handleAcceptedFileChange(files: FileList | null): boolean {
     const file = files?.[0];
 
     if (!file) {
       setAcceptedFileError('');
-      return;
+      return false;
     }
 
     const allowedExtensions = ['.pdf', '.doc', '.docx'];
@@ -31,18 +32,22 @@ export function FileUploadExamples() {
     setAcceptedFileError(
       isAllowed ? '' : 'Please select a PDF, DOC, or DOCX file.',
     );
+
+    return isAllowed;
   }
 
-  function handleUpload(files: FileList | null) {
+  function handleUpload(files: FileList | null, example: string) {
     if (!files || files.length === 0) {
-      setUploadedFiles(null);
       setUploadProgress(0);
       setIsUploading(false);
+      setUploadedFiles(null);
+      setUploadingExample(null);
       return;
     }
 
     setUploadedFiles(files);
     setUploadProgress(0);
+    setUploadingExample(example);
     setIsUploading(true);
   }
 
@@ -79,7 +84,10 @@ export function FileUploadExamples() {
         <FileUpload
           label="Upload a document"
           name="document"
-          onChange={setSelectedFiles}
+          onChange={(files) => {
+            setSelectedFiles(files);
+            handleUpload(files, 'basic');
+          }}
         />
 
         {selectedFiles && selectedFiles.length > 0 && (
@@ -87,6 +95,25 @@ export function FileUploadExamples() {
             Selected file: <strong>{selectedFiles[0].name}</strong>
           </p>
         )}
+
+        {uploadingExample === 'basic' && isUploading && (
+          <ProgressIndicator
+            variant="linear"
+            value={uploadProgress}
+            label="Upload progress"
+            showValue
+            colour="info"
+          />
+        )}
+
+        {uploadingExample === 'basic' &&
+          !isUploading &&
+          uploadProgress === 100 &&
+          uploadedFiles && (
+            <p>
+              Upload complete: <strong>{uploadedFiles[0].name}</strong>
+            </p>
+          )}
       </section>
 
       <section>
@@ -98,7 +125,10 @@ export function FileUploadExamples() {
           multiple
           showClearButton
           helperText="You can select multiple files."
-          onChange={setMultipleFiles}
+          onChange={(files) => {
+            setMultipleFiles(files);
+            handleUpload(files, 'multiple');
+          }}
         />
 
         {multipleFiles && multipleFiles.length > 0 && (
@@ -114,6 +144,25 @@ export function FileUploadExamples() {
             </ul>
           </div>
         )}
+
+        {uploadingExample === 'multiple' && isUploading && (
+          <ProgressIndicator
+            variant="linear"
+            value={uploadProgress}
+            label="Upload progress"
+            showValue
+            colour="info"
+          />
+        )}
+
+        {uploadingExample === 'multiple' &&
+          !isUploading &&
+          uploadProgress === 100 &&
+          uploadedFiles && (
+            <p>
+              Upload complete: <strong>{uploadedFiles.length} files</strong>
+            </p>
+          )}
       </section>
 
       <section>
@@ -125,7 +174,10 @@ export function FileUploadExamples() {
           multiple
           maxFileCount={2}
           helperText="You can select a maximum of 2 files."
-          onChange={setLimitedFiles}
+          onChange={(files) => {
+            setLimitedFiles(files);
+            handleUpload(files, 'count');
+          }}
         />
 
         {limitedFiles && limitedFiles.length > 0 && (
@@ -141,6 +193,25 @@ export function FileUploadExamples() {
             </ul>
           </div>
         )}
+
+        {uploadingExample === 'count' && isUploading && (
+          <ProgressIndicator
+            variant="linear"
+            value={uploadProgress}
+            label="Upload progress"
+            showValue
+            colour="info"
+          />
+        )}
+
+        {uploadingExample === 'count' &&
+          !isUploading &&
+          uploadProgress === 100 &&
+          uploadedFiles && (
+            <p>
+              Upload complete: <strong>{uploadedFiles.length} files</strong>
+            </p>
+          )}
       </section>
 
       <section>
@@ -152,8 +223,11 @@ export function FileUploadExamples() {
           variant="dropzone"
           multiple
           maxFileCount={2}
-          helperText="Drag and drop files here, or use the file picker. Maximum of 2 files"
-          onChange={setDroppedFiles}
+          helperText="Drag and drop files here, or use the file picker. Maximum of 2 files."
+          onChange={(files) => {
+            setDroppedFiles(files);
+            handleUpload(files, 'dropzone');
+          }}
         />
 
         {droppedFiles && droppedFiles.length > 0 && (
@@ -169,6 +243,25 @@ export function FileUploadExamples() {
             </ul>
           </div>
         )}
+
+        {uploadingExample === 'dropzone' && isUploading && (
+          <ProgressIndicator
+            variant="linear"
+            value={uploadProgress}
+            label="Upload progress"
+            showValue
+            colour="info"
+          />
+        )}
+
+        {uploadingExample === 'dropzone' &&
+          !isUploading &&
+          uploadProgress === 100 &&
+          uploadedFiles && (
+            <p>
+              Upload complete: <strong>{uploadedFiles.length} files</strong>
+            </p>
+          )}
       </section>
 
       <section>
@@ -180,8 +273,31 @@ export function FileUploadExamples() {
           accept=".pdf,.doc,.docx"
           helperText="Accepted formats: PDF, DOC, and DOCX."
           errorMessage={acceptedFileError}
-          onChange={handleAcceptedFileChange}
+          onChange={(files) => {
+            if (handleAcceptedFileChange(files)) {
+              handleUpload(files, 'accepted');
+            }
+          }}
         />
+
+        {uploadingExample === 'accepted' && isUploading && (
+          <ProgressIndicator
+            variant="linear"
+            value={uploadProgress}
+            label="Upload progress"
+            showValue
+            colour="info"
+          />
+        )}
+
+        {uploadingExample === 'accepted' &&
+          !isUploading &&
+          uploadProgress === 100 &&
+          uploadedFiles && (
+            <p>
+              Upload complete: <strong>{uploadedFiles[0].name}</strong>
+            </p>
+          )}
       </section>
 
       <section>
@@ -192,8 +308,11 @@ export function FileUploadExamples() {
           name="size-limited-document"
           // maxFileSize={5 * 1024 * 1024}
           maxFileSize={1024}
-          helperText="Maximum file size: 5 MB."
-          onChange={setSizeLimitedFile}
+          helperText="Maximum file size: 1 KB."
+          onChange={(files) => {
+            setSizeLimitedFile(files);
+            handleUpload(files, 'size');
+          }}
         />
 
         {sizeLimitedFile && sizeLimitedFile.length > 0 && (
@@ -201,34 +320,25 @@ export function FileUploadExamples() {
             Selected file: <strong>{sizeLimitedFile[0].name}</strong>
           </p>
         )}
-      </section>
 
-      <section>
-        <h4>Upload Progress</h4>
-
-        <FileUpload
-          label="Upload a document"
-          name="upload-progress-document"
-          onChange={handleUpload}
-        />
-
-        {isUploading && (
-          <div>
-            <ProgressIndicator
-              variant="linear"
-              value={uploadProgress}
-              label="Upload progress"
-              showValue
-              colour="info"
-            />
-          </div>
+        {uploadingExample === 'size' && isUploading && (
+          <ProgressIndicator
+            variant="linear"
+            value={uploadProgress}
+            label="Upload progress"
+            showValue
+            colour="info"
+          />
         )}
 
-        {!isUploading && uploadProgress === 100 && uploadedFiles && (
-          <p>
-            Upload complete: <strong>{uploadedFiles[0].name}</strong>
-          </p>
-        )}
+        {uploadingExample === 'size' &&
+          !isUploading &&
+          uploadProgress === 100 &&
+          uploadedFiles && (
+            <p>
+              Upload complete: <strong>{uploadedFiles[0].name}</strong>
+            </p>
+          )}
       </section>
 
       <section>
@@ -240,7 +350,27 @@ export function FileUploadExamples() {
           accept=".pdf,.doc,.docx"
           required
           helperText="Please upload your resume."
+          onChange={(files) => handleUpload(files, 'required')}
         />
+
+        {uploadingExample === 'required' && isUploading && (
+          <ProgressIndicator
+            variant="linear"
+            value={uploadProgress}
+            label="Upload progress"
+            showValue
+            colour="info"
+          />
+        )}
+
+        {uploadingExample === 'required' &&
+          !isUploading &&
+          uploadProgress === 100 &&
+          uploadedFiles && (
+            <p>
+              Upload complete: <strong>{uploadedFiles[0].name}</strong>
+            </p>
+          )}
       </section>
 
       <section>
