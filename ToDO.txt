@@ -8,10 +8,6 @@ Form Controls
 
         Depending on how much functionality you want the component to support, we can consider:
 
-        File size validation
-
-        Maximum file count
-
         File removal or clearing
 
         Selected-file list

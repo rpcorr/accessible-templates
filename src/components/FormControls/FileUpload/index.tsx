@@ -12,6 +12,7 @@ interface FileUploadProps {
   errorMessage?: string;
   variant?: 'default' | 'dropzone';
   maxFileSize?: number;
+  maxFileCount?: number;
   onChange?: (files: FileList | null) => void;
 }
 
@@ -26,16 +27,19 @@ export function FileUpload({
   errorMessage,
   variant = 'default',
   maxFileSize,
+  maxFileCount,
   onChange,
 }: FileUploadProps) {
   const inputId = useId();
   const [isDragging, setIsDragging] = useState(false);
   const [fileSizeError, setFileSizeError] = useState('');
+  const [fileCountError, setFileCountError] = useState('');
 
   const helperTextId = `${inputId}-helper`;
   const errorMessageId = `${inputId}-error`;
 
-  const displayedErrorMessage = errorMessage || fileSizeError;
+  const validationError = fileSizeError || fileCountError;
+  const displayedErrorMessage = errorMessage || validationError;
 
   const describedBy = displayedErrorMessage
     ? errorMessageId
@@ -43,31 +47,43 @@ export function FileUpload({
       ? helperTextId
       : undefined;
 
-  function validateFileSize(files: FileList | null): boolean {
-    if (!files || maxFileSize === undefined) {
-      setFileSizeError('');
+  function validateFiles(files: FileList | null): boolean {
+    setFileSizeError('');
+    setFileCountError('');
+
+    if (!files) {
       return true;
     }
 
-    const oversizedFile = Array.from(files).find(
-      (file) => file.size > maxFileSize,
-    );
-
-    if (oversizedFile) {
-      setFileSizeError(
-        `"${oversizedFile.name}" exceeds the maximum file size.`,
+    if (maxFileCount !== undefined && files.length > maxFileCount) {
+      setFileCountError(
+        `Please select no more than ${maxFileCount} file${
+          maxFileCount === 1 ? '' : 's'
+        }.`,
       );
       return false;
     }
 
-    setFileSizeError('');
+    if (maxFileSize !== undefined) {
+      const oversizedFile = Array.from(files).find(
+        (file) => file.size > maxFileSize,
+      );
+
+      if (oversizedFile) {
+        setFileSizeError(
+          `"${oversizedFile.name}" exceeds the maximum file size.`,
+        );
+        return false;
+      }
+    }
+
     return true;
   }
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const files = event.target.files;
 
-    if (validateFileSize(files)) {
+    if (validateFiles(files)) {
       onChange?.(files);
     }
   }
@@ -99,7 +115,7 @@ export function FileUpload({
 
     const files = event.dataTransfer.files;
 
-    if (validateFileSize(files)) {
+    if (validateFiles(files)) {
       onChange?.(files);
     }
   }

@@ -6,6 +6,7 @@ export function FileUploadExamples() {
   const [multipleFiles, setMultipleFiles] = useState<FileList | null>(null);
   const [droppedFiles, setDroppedFiles] = useState<FileList | null>(null);
   const [sizeLimitedFile, setSizeLimitedFile] = useState<FileList | null>(null);
+  const [limitedFiles, setLimitedFiles] = useState<FileList | null>(null);
   const [acceptedFileError, setAcceptedFileError] = useState('');
 
   function handleAcceptedFileChange(files: FileList | null) {
@@ -75,6 +76,33 @@ export function FileUploadExamples() {
       </section>
 
       <section>
+        <h4>Maximum File Count</h4>
+
+        <FileUpload
+          label="Upload documents"
+          name="limited-documents"
+          multiple
+          maxFileCount={2}
+          helperText="You can select a maximum of 2 files."
+          onChange={setLimitedFiles}
+        />
+
+        {limitedFiles && limitedFiles.length > 0 && (
+          <div>
+            <p>
+              Selected files: <strong>{limitedFiles.length}</strong>
+            </p>
+
+            <ul>
+              {Array.from(limitedFiles).map((file) => (
+                <li key={`${file.name}-${file.lastModified}`}>{file.name}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </section>
+
+      <section>
         <h4>Drag and Drop File Upload</h4>
 
         <FileUpload
@@ -82,7 +110,8 @@ export function FileUploadExamples() {
           name="dropzone-files"
           variant="dropzone"
           multiple
-          helperText="Drag and drop files here, or use the file picker."
+          maxFileCount={2}
+          helperText="Drag and drop files here, or use the file picker. Maximum of 2 files"
           onChange={setDroppedFiles}
         />
 
