@@ -10,9 +10,6 @@ export function FileUploadPage() {
         <>
           <BreadcrumbItem href="/">Home</BreadcrumbItem>
           <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem href="/form-controls/file-upload">
-            Form Controls
-          </BreadcrumbItem>
           <BreadcrumbItem current>File Upload</BreadcrumbItem>
         </>
       }
