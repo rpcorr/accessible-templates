@@ -56,6 +56,7 @@ export function FileUploadExamples() {
           label="Upload documents"
           name="documents"
           multiple
+          showClearButton
           helperText="You can select multiple files."
           onChange={setMultipleFiles}
         />

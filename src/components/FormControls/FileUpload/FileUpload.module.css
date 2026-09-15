@@ -51,3 +51,18 @@
   border-color: var(--color-primary);
   background: var(--color-secondary);
 }
+
+.clearButton {
+  align-self: flex-start;
+  font: inherit;
+  cursor: pointer;
+}
+
+.clearButton:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.clearButton:disabled {
+  cursor: not-allowed;
+}

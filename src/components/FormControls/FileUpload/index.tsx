@@ -1,4 +1,10 @@
-import { useId, useState, type ChangeEvent, type DragEvent } from 'react';
+import {
+  useId,
+  useRef,
+  useState,
+  type ChangeEvent,
+  type DragEvent,
+} from 'react';
 import styles from './FileUpload.module.css';
 
 interface FileUploadProps {
@@ -13,6 +19,7 @@ interface FileUploadProps {
   variant?: 'default' | 'dropzone';
   maxFileSize?: number;
   maxFileCount?: number;
+  showClearButton?: boolean;
   onChange?: (files: FileList | null) => void;
 }
 
@@ -28,10 +35,14 @@ export function FileUpload({
   variant = 'default',
   maxFileSize,
   maxFileCount,
+  showClearButton = false,
   onChange,
 }: FileUploadProps) {
   const inputId = useId();
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const [isDragging, setIsDragging] = useState(false);
+  const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
   const [fileSizeError, setFileSizeError] = useState('');
   const [fileCountError, setFileCountError] = useState('');
 
@@ -84,6 +95,7 @@ export function FileUpload({
     const files = event.target.files;
 
     if (validateFiles(files)) {
+      setSelectedFiles(files);
       onChange?.(files);
     }
   }
@@ -116,12 +128,26 @@ export function FileUpload({
     const files = event.dataTransfer.files;
 
     if (validateFiles(files)) {
+      setSelectedFiles(files);
       onChange?.(files);
     }
   }
 
+  function handleClear() {
+    if (inputRef.current) {
+      inputRef.current.value = '';
+      inputRef.current.focus();
+    }
+
+    setSelectedFiles(null);
+    setFileSizeError('');
+    setFileCountError('');
+    onChange?.(null);
+  }
+
   const input = (
     <input
+      ref={inputRef}
       id={inputId}
       className={styles.input}
       type="file"
@@ -158,6 +184,17 @@ export function FileUpload({
         </div>
       ) : (
         input
+      )}
+
+      {showClearButton && selectedFiles && selectedFiles.length > 0 && (
+        <button
+          type="button"
+          className={styles.clearButton}
+          onClick={handleClear}
+          disabled={disabled}
+        >
+          Clear selection
+        </button>
       )}
 
       {helperText && !displayedErrorMessage && (
