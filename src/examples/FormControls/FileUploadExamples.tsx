@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FileUpload } from '../../components/FormControls/FileUpload';
+import { ProgressIndicator } from '../../components/ContentFeedback/ProgressIndicator';
 
 export function FileUploadExamples() {
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
@@ -8,6 +9,9 @@ export function FileUploadExamples() {
   const [sizeLimitedFile, setSizeLimitedFile] = useState<FileList | null>(null);
   const [limitedFiles, setLimitedFiles] = useState<FileList | null>(null);
   const [acceptedFileError, setAcceptedFileError] = useState('');
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadedFiles, setUploadedFiles] = useState<FileList | null>(null);
 
   function handleAcceptedFileChange(files: FileList | null) {
     const file = files?.[0];
@@ -28,6 +32,42 @@ export function FileUploadExamples() {
       isAllowed ? '' : 'Please select a PDF, DOC, or DOCX file.',
     );
   }
+
+  function handleUpload(files: FileList | null) {
+    if (!files || files.length === 0) {
+      setUploadedFiles(null);
+      setUploadProgress(0);
+      setIsUploading(false);
+      return;
+    }
+
+    setUploadedFiles(files);
+    setUploadProgress(0);
+    setIsUploading(true);
+  }
+
+  useEffect(() => {
+    if (!isUploading) {
+      return;
+    }
+
+    const intervalId = window.setInterval(() => {
+      setUploadProgress((currentProgress) => {
+        const nextProgress = Math.min(currentProgress + 5, 100);
+
+        if (nextProgress === 100) {
+          window.clearInterval(intervalId);
+          setIsUploading(false);
+        }
+
+        return nextProgress;
+      });
+    }, 200);
+
+    return () => {
+      window.clearInterval(intervalId);
+    };
+  }, [isUploading]);
 
   return (
     <div>
@@ -159,6 +199,34 @@ export function FileUploadExamples() {
         {sizeLimitedFile && sizeLimitedFile.length > 0 && (
           <p>
             Selected file: <strong>{sizeLimitedFile[0].name}</strong>
+          </p>
+        )}
+      </section>
+
+      <section>
+        <h4>Upload Progress</h4>
+
+        <FileUpload
+          label="Upload a document"
+          name="upload-progress-document"
+          onChange={handleUpload}
+        />
+
+        {isUploading && (
+          <div>
+            <ProgressIndicator
+              variant="linear"
+              value={uploadProgress}
+              label="Upload progress"
+              showValue
+              colour="info"
+            />
+          </div>
+        )}
+
+        {!isUploading && uploadProgress === 100 && uploadedFiles && (
+          <p>
+            Upload complete: <strong>{uploadedFiles[0].name}</strong>
           </p>
         )}
       </section>
