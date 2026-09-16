@@ -38,9 +38,9 @@ export function FileUploadExamples() {
 
   function handleUpload(files: FileList | null, example: string) {
     if (!files || files.length === 0) {
+      setUploadedFiles(null);
       setUploadProgress(0);
       setIsUploading(false);
-      setUploadedFiles(null);
       setUploadingExample(null);
       return;
     }
@@ -49,6 +49,35 @@ export function FileUploadExamples() {
     setUploadProgress(0);
     setUploadingExample(example);
     setIsUploading(true);
+  }
+
+  function handleCancelUpload() {
+    setIsUploading(false);
+    setUploadProgress(0);
+    setUploadedFiles(null);
+    setUploadingExample(null);
+  }
+
+  function renderUploadProgress(example: string) {
+    if (uploadingExample !== example || !isUploading) {
+      return null;
+    }
+
+    return (
+      <div>
+        <ProgressIndicator
+          variant="linear"
+          value={uploadProgress}
+          label="Upload progress"
+          showValue
+          colour="info"
+        />
+
+        <button type="button" onClick={handleCancelUpload}>
+          Cancel upload
+        </button>
+      </div>
+    );
   }
 
   useEffect(() => {
@@ -96,15 +125,7 @@ export function FileUploadExamples() {
           </p>
         )}
 
-        {uploadingExample === 'basic' && isUploading && (
-          <ProgressIndicator
-            variant="linear"
-            value={uploadProgress}
-            label="Upload progress"
-            showValue
-            colour="info"
-          />
-        )}
+        {renderUploadProgress('basic')}
 
         {uploadingExample === 'basic' &&
           !isUploading &&
@@ -145,15 +166,7 @@ export function FileUploadExamples() {
           </div>
         )}
 
-        {uploadingExample === 'multiple' && isUploading && (
-          <ProgressIndicator
-            variant="linear"
-            value={uploadProgress}
-            label="Upload progress"
-            showValue
-            colour="info"
-          />
-        )}
+        {renderUploadProgress('multiple')}
 
         {uploadingExample === 'multiple' &&
           !isUploading &&
@@ -194,15 +207,7 @@ export function FileUploadExamples() {
           </div>
         )}
 
-        {uploadingExample === 'count' && isUploading && (
-          <ProgressIndicator
-            variant="linear"
-            value={uploadProgress}
-            label="Upload progress"
-            showValue
-            colour="info"
-          />
-        )}
+        {renderUploadProgress('count')}
 
         {uploadingExample === 'count' &&
           !isUploading &&
@@ -244,15 +249,7 @@ export function FileUploadExamples() {
           </div>
         )}
 
-        {uploadingExample === 'dropzone' && isUploading && (
-          <ProgressIndicator
-            variant="linear"
-            value={uploadProgress}
-            label="Upload progress"
-            showValue
-            colour="info"
-          />
-        )}
+        {renderUploadProgress('dropzone')}
 
         {uploadingExample === 'dropzone' &&
           !isUploading &&
@@ -280,15 +277,7 @@ export function FileUploadExamples() {
           }}
         />
 
-        {uploadingExample === 'accepted' && isUploading && (
-          <ProgressIndicator
-            variant="linear"
-            value={uploadProgress}
-            label="Upload progress"
-            showValue
-            colour="info"
-          />
-        )}
+        {renderUploadProgress('accepted')}
 
         {uploadingExample === 'accepted' &&
           !isUploading &&
@@ -321,15 +310,7 @@ export function FileUploadExamples() {
           </p>
         )}
 
-        {uploadingExample === 'size' && isUploading && (
-          <ProgressIndicator
-            variant="linear"
-            value={uploadProgress}
-            label="Upload progress"
-            showValue
-            colour="info"
-          />
-        )}
+        {renderUploadProgress('size')}
 
         {uploadingExample === 'size' &&
           !isUploading &&
@@ -353,15 +334,7 @@ export function FileUploadExamples() {
           onChange={(files) => handleUpload(files, 'required')}
         />
 
-        {uploadingExample === 'required' && isUploading && (
-          <ProgressIndicator
-            variant="linear"
-            value={uploadProgress}
-            label="Upload progress"
-            showValue
-            colour="info"
-          />
-        )}
+        {renderUploadProgress('required')}
 
         {uploadingExample === 'required' &&
           !isUploading &&
