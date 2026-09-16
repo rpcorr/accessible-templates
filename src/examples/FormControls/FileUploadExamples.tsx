@@ -1,5 +1,8 @@
-import { useState, useEffect } from 'react';
-import { FileUpload } from '../../components/FormControls/FileUpload';
+import { useRef, useState, useEffect, type RefObject } from 'react';
+import {
+  FileUpload,
+  type FileUploadRef,
+} from '../../components/FormControls/FileUpload';
 import { ProgressIndicator } from '../../components/ContentFeedback/ProgressIndicator';
 
 export function FileUploadExamples() {
@@ -13,6 +16,14 @@ export function FileUploadExamples() {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<FileList | null>(null);
   const [uploadingExample, setUploadingExample] = useState<string | null>(null);
+
+  const basicFileUploadRef = useRef<FileUploadRef>(null);
+  const multipleFileUploadRef = useRef<FileUploadRef>(null);
+  const countFileUploadRef = useRef<FileUploadRef>(null);
+  const dropzoneFileUploadRef = useRef<FileUploadRef>(null);
+  const acceptedFileUploadRef = useRef<FileUploadRef>(null);
+  const sizeFileUploadRef = useRef<FileUploadRef>(null);
+  const requiredFileUploadRef = useRef<FileUploadRef>(null);
 
   function handleAcceptedFileChange(files: FileList | null): boolean {
     const file = files?.[0];
@@ -51,14 +62,21 @@ export function FileUploadExamples() {
     setIsUploading(true);
   }
 
-  function handleCancelUpload() {
+  function handleCancelUpload(
+    fileUploadRef: React.RefObject<FileUploadRef | null>,
+  ) {
+    fileUploadRef.current?.clear();
+
     setIsUploading(false);
     setUploadProgress(0);
     setUploadedFiles(null);
     setUploadingExample(null);
   }
 
-  function renderUploadProgress(example: string) {
+  function renderUploadProgress(
+    example: string,
+    fileUploadRef: RefObject<FileUploadRef | null>,
+  ) {
     if (uploadingExample !== example || !isUploading) {
       return null;
     }
@@ -73,7 +91,7 @@ export function FileUploadExamples() {
           colour="info"
         />
 
-        <button type="button" onClick={handleCancelUpload}>
+        <button type="button" onClick={() => handleCancelUpload(fileUploadRef)}>
           Cancel upload
         </button>
       </div>
@@ -111,6 +129,7 @@ export function FileUploadExamples() {
         <h4>Basic File Upload</h4>
 
         <FileUpload
+          ref={basicFileUploadRef}
           label="Upload a document"
           name="document"
           onChange={(files) => {
@@ -125,7 +144,7 @@ export function FileUploadExamples() {
           </p>
         )}
 
-        {renderUploadProgress('basic')}
+        {renderUploadProgress('basic', basicFileUploadRef)}
 
         {uploadingExample === 'basic' &&
           !isUploading &&
@@ -141,10 +160,16 @@ export function FileUploadExamples() {
         <h4>Multiple Files</h4>
 
         <FileUpload
+          ref={multipleFileUploadRef}
           label="Upload documents"
           name="documents"
           multiple
-          showClearButton
+          showClearButton={
+            uploadingExample === 'multiple' &&
+            !isUploading &&
+            uploadProgress === 100 &&
+            uploadedFiles !== null
+          }
           helperText="You can select multiple files."
           onChange={(files) => {
             setMultipleFiles(files);
@@ -166,7 +191,7 @@ export function FileUploadExamples() {
           </div>
         )}
 
-        {renderUploadProgress('multiple')}
+        {renderUploadProgress('multiple', multipleFileUploadRef)}
 
         {uploadingExample === 'multiple' &&
           !isUploading &&
@@ -182,6 +207,7 @@ export function FileUploadExamples() {
         <h4>Maximum File Count</h4>
 
         <FileUpload
+          ref={countFileUploadRef}
           label="Upload documents"
           name="limited-documents"
           multiple
@@ -207,7 +233,7 @@ export function FileUploadExamples() {
           </div>
         )}
 
-        {renderUploadProgress('count')}
+        {renderUploadProgress('count', countFileUploadRef)}
 
         {uploadingExample === 'count' &&
           !isUploading &&
@@ -223,6 +249,7 @@ export function FileUploadExamples() {
         <h4>Drag and Drop File Upload</h4>
 
         <FileUpload
+          ref={dropzoneFileUploadRef}
           label="Upload files"
           name="dropzone-files"
           variant="dropzone"
@@ -249,7 +276,7 @@ export function FileUploadExamples() {
           </div>
         )}
 
-        {renderUploadProgress('dropzone')}
+        {renderUploadProgress('dropzone', dropzoneFileUploadRef)}
 
         {uploadingExample === 'dropzone' &&
           !isUploading &&
@@ -265,6 +292,7 @@ export function FileUploadExamples() {
         <h4>Accepted File Types</h4>
 
         <FileUpload
+          ref={acceptedFileUploadRef}
           label="Upload a document"
           name="accepted-document"
           accept=".pdf,.doc,.docx"
@@ -277,7 +305,7 @@ export function FileUploadExamples() {
           }}
         />
 
-        {renderUploadProgress('accepted')}
+        {renderUploadProgress('accepted', acceptedFileUploadRef)}
 
         {uploadingExample === 'accepted' &&
           !isUploading &&
@@ -293,11 +321,13 @@ export function FileUploadExamples() {
         <h4>File Size Validation</h4>
 
         <FileUpload
+          ref={sizeFileUploadRef}
           label="Upload a document"
           name="size-limited-document"
-          // maxFileSize={5 * 1024 * 1024}
-          maxFileSize={1024}
-          helperText="Maximum file size: 1 KB."
+          maxFileSize={5 * 1024 * 1024}
+          // test only
+          //maxFileSize={1024}
+          helperText="Maximum file size: 5MB."
           onChange={(files) => {
             setSizeLimitedFile(files);
             handleUpload(files, 'size');
@@ -310,7 +340,7 @@ export function FileUploadExamples() {
           </p>
         )}
 
-        {renderUploadProgress('size')}
+        {renderUploadProgress('size', sizeFileUploadRef)}
 
         {uploadingExample === 'size' &&
           !isUploading &&
@@ -326,6 +356,7 @@ export function FileUploadExamples() {
         <h4>Required File Upload</h4>
 
         <FileUpload
+          ref={requiredFileUploadRef}
           label="Upload your resume"
           name="resume"
           accept=".pdf,.doc,.docx"
@@ -334,7 +365,7 @@ export function FileUploadExamples() {
           onChange={(files) => handleUpload(files, 'required')}
         />
 
-        {renderUploadProgress('required')}
+        {renderUploadProgress('required', requiredFileUploadRef)}
 
         {uploadingExample === 'required' &&
           !isUploading &&
