@@ -6,16 +6,12 @@ import {
 import { ProgressIndicator } from '../../components/ContentFeedback/ProgressIndicator';
 
 export function FileUploadExamples() {
-  const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
-  const [multipleFiles, setMultipleFiles] = useState<FileList | null>(null);
-  const [droppedFiles, setDroppedFiles] = useState<FileList | null>(null);
-  const [sizeLimitedFile, setSizeLimitedFile] = useState<FileList | null>(null);
-  const [limitedFiles, setLimitedFiles] = useState<FileList | null>(null);
   const [acceptedFileError, setAcceptedFileError] = useState('');
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
-  const [uploadedFiles, setUploadedFiles] = useState<FileList | null>(null);
+  const [uploadedFiles, setUploadedFiles] = useState<File[] | null>(null);
   const [uploadingExample, setUploadingExample] = useState<string | null>(null);
+  const [completedExample, setCompletedExample] = useState<string | null>(null);
 
   const basicFileUploadRef = useRef<FileUploadRef>(null);
   const multipleFileUploadRef = useRef<FileUploadRef>(null);
@@ -24,6 +20,7 @@ export function FileUploadExamples() {
   const acceptedFileUploadRef = useRef<FileUploadRef>(null);
   const sizeFileUploadRef = useRef<FileUploadRef>(null);
   const requiredFileUploadRef = useRef<FileUploadRef>(null);
+  const circularFileUploadRef = useRef<FileUploadRef>(null);
 
   function handleAcceptedFileChange(files: FileList | null): boolean {
     const file = files?.[0];
@@ -52,12 +49,14 @@ export function FileUploadExamples() {
       setUploadedFiles(null);
       setUploadProgress(0);
       setIsUploading(false);
+      setCompletedExample(null);
       setUploadingExample(null);
       return;
     }
 
-    setUploadedFiles(files);
+    setUploadedFiles(Array.from(files));
     setUploadProgress(0);
+    setCompletedExample(null);
     setUploadingExample(example);
     setIsUploading(true);
   }
@@ -71,11 +70,13 @@ export function FileUploadExamples() {
     setUploadProgress(0);
     setUploadedFiles(null);
     setUploadingExample(null);
+    setCompletedExample(null);
   }
 
   function renderUploadProgress(
     example: string,
     fileUploadRef: RefObject<FileUploadRef | null>,
+    variant: 'linear' | 'circular' = 'linear',
   ) {
     if (uploadingExample !== example || !isUploading) {
       return null;
@@ -84,7 +85,7 @@ export function FileUploadExamples() {
     return (
       <div>
         <ProgressIndicator
-          variant="linear"
+          variant={variant}
           value={uploadProgress}
           label="Upload progress"
           showValue
@@ -109,6 +110,32 @@ export function FileUploadExamples() {
 
         if (nextProgress === 100) {
           window.clearInterval(intervalId);
+
+          switch (uploadingExample) {
+            case 'basic':
+              basicFileUploadRef.current?.reset();
+              break;
+            case 'multiple':
+              multipleFileUploadRef.current?.reset();
+              break;
+            case 'count':
+              countFileUploadRef.current?.reset();
+              break;
+            case 'dropzone':
+              dropzoneFileUploadRef.current?.reset();
+              break;
+            case 'accepted':
+              acceptedFileUploadRef.current?.reset();
+              break;
+            case 'size':
+              sizeFileUploadRef.current?.reset();
+              break;
+            case 'required':
+              requiredFileUploadRef.current?.reset();
+              break;
+          }
+
+          setCompletedExample(uploadingExample);
           setIsUploading(false);
         }
 
@@ -119,7 +146,7 @@ export function FileUploadExamples() {
     return () => {
       window.clearInterval(intervalId);
     };
-  }, [isUploading]);
+  }, [isUploading, uploadingExample]);
 
   return (
     <div>
@@ -132,24 +159,14 @@ export function FileUploadExamples() {
           ref={basicFileUploadRef}
           label="Upload a document"
           name="document"
-          onChange={(files) => {
-            setSelectedFiles(files);
-            handleUpload(files, 'basic');
-          }}
+          onChange={(files) => handleUpload(files, 'basic')}
         />
-
-        {selectedFiles && selectedFiles.length > 0 && (
-          <p>
-            Selected file: <strong>{selectedFiles[0].name}</strong>
-          </p>
-        )}
 
         {renderUploadProgress('basic', basicFileUploadRef)}
 
-        {uploadingExample === 'basic' &&
-          !isUploading &&
-          uploadProgress === 100 &&
-          uploadedFiles && (
+        {completedExample === 'basic' &&
+          uploadedFiles &&
+          uploadedFiles.length > 0 && (
             <p>
               Upload complete: <strong>{uploadedFiles[0].name}</strong>
             </p>
@@ -171,35 +188,24 @@ export function FileUploadExamples() {
             uploadedFiles !== null
           }
           helperText="You can select multiple files."
-          onChange={(files) => {
-            setMultipleFiles(files);
-            handleUpload(files, 'multiple');
-          }}
+          onChange={(files) => handleUpload(files, 'multiple')}
         />
-
-        {multipleFiles && multipleFiles.length > 0 && (
-          <div>
-            <p>
-              Selected files: <strong>{multipleFiles.length}</strong>
-            </p>
-
-            <ul>
-              {Array.from(multipleFiles).map((file) => (
-                <li key={`${file.name}-${file.lastModified}`}>{file.name}</li>
-              ))}
-            </ul>
-          </div>
-        )}
 
         {renderUploadProgress('multiple', multipleFileUploadRef)}
 
         {uploadingExample === 'multiple' &&
-          !isUploading &&
-          uploadProgress === 100 &&
-          uploadedFiles && (
-            <p>
-              Upload complete: <strong>{uploadedFiles.length} files</strong>
-            </p>
+          uploadedFiles &&
+          uploadedFiles.length > 0 && (
+            <div>
+              <p>Upload complete:</p>
+              <ul>
+                {uploadedFiles.map((file) => (
+                  <li key={`${file.name}-${file.lastModified}`}>
+                    <strong>{file.name}</strong>
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
       </section>
 
@@ -213,35 +219,27 @@ export function FileUploadExamples() {
           multiple
           maxFileCount={2}
           helperText="You can select a maximum of 2 files."
-          onChange={(files) => {
-            setLimitedFiles(files);
-            handleUpload(files, 'count');
-          }}
+          onChange={(files) => handleUpload(files, 'count')}
         />
-
-        {limitedFiles && limitedFiles.length > 0 && (
-          <div>
-            <p>
-              Selected files: <strong>{limitedFiles.length}</strong>
-            </p>
-
-            <ul>
-              {Array.from(limitedFiles).map((file) => (
-                <li key={`${file.name}-${file.lastModified}`}>{file.name}</li>
-              ))}
-            </ul>
-          </div>
-        )}
 
         {renderUploadProgress('count', countFileUploadRef)}
 
         {uploadingExample === 'count' &&
           !isUploading &&
           uploadProgress === 100 &&
-          uploadedFiles && (
-            <p>
-              Upload complete: <strong>{uploadedFiles.length} files</strong>
-            </p>
+          uploadedFiles &&
+          uploadedFiles.length > 0 && (
+            <>
+              <p>Upload complete:</p>
+
+              <ul>
+                {uploadedFiles.map((file) => (
+                  <li key={`${file.name}-${file.lastModified}`}>
+                    <strong>{file.name}</strong>
+                  </li>
+                ))}
+              </ul>
+            </>
           )}
       </section>
 
@@ -256,35 +254,27 @@ export function FileUploadExamples() {
           multiple
           maxFileCount={2}
           helperText="Drag and drop files here, or use the file picker. Maximum of 2 files."
-          onChange={(files) => {
-            setDroppedFiles(files);
-            handleUpload(files, 'dropzone');
-          }}
+          onChange={(files) => handleUpload(files, 'dropzone')}
         />
-
-        {droppedFiles && droppedFiles.length > 0 && (
-          <div>
-            <p>
-              Selected files: <strong>{droppedFiles.length}</strong>
-            </p>
-
-            <ul>
-              {Array.from(droppedFiles).map((file) => (
-                <li key={`${file.name}-${file.lastModified}`}>{file.name}</li>
-              ))}
-            </ul>
-          </div>
-        )}
 
         {renderUploadProgress('dropzone', dropzoneFileUploadRef)}
 
         {uploadingExample === 'dropzone' &&
           !isUploading &&
           uploadProgress === 100 &&
-          uploadedFiles && (
-            <p>
-              Upload complete: <strong>{uploadedFiles.length} files</strong>
-            </p>
+          uploadedFiles &&
+          uploadedFiles.length > 0 && (
+            <>
+              <p>Upload complete:</p>
+
+              <ul>
+                {uploadedFiles.map((file) => (
+                  <li key={`${file.name}-${file.lastModified}`}>
+                    <strong>{file.name}</strong>
+                  </li>
+                ))}
+              </ul>
+            </>
           )}
       </section>
 
@@ -310,7 +300,8 @@ export function FileUploadExamples() {
         {uploadingExample === 'accepted' &&
           !isUploading &&
           uploadProgress === 100 &&
-          uploadedFiles && (
+          uploadedFiles &&
+          uploadedFiles.length > 0 && (
             <p>
               Upload complete: <strong>{uploadedFiles[0].name}</strong>
             </p>
@@ -325,27 +316,19 @@ export function FileUploadExamples() {
           label="Upload a document"
           name="size-limited-document"
           maxFileSize={5 * 1024 * 1024}
-          // test only
-          //maxFileSize={1024}
+          // Test only:
+          // maxFileSize={1024}
           helperText="Maximum file size: 5MB."
-          onChange={(files) => {
-            setSizeLimitedFile(files);
-            handleUpload(files, 'size');
-          }}
+          onChange={(files) => handleUpload(files, 'size')}
         />
-
-        {sizeLimitedFile && sizeLimitedFile.length > 0 && (
-          <p>
-            Selected file: <strong>{sizeLimitedFile[0].name}</strong>
-          </p>
-        )}
 
         {renderUploadProgress('size', sizeFileUploadRef)}
 
         {uploadingExample === 'size' &&
           !isUploading &&
           uploadProgress === 100 &&
-          uploadedFiles && (
+          uploadedFiles &&
+          uploadedFiles.length > 0 && (
             <p>
               Upload complete: <strong>{uploadedFiles[0].name}</strong>
             </p>
@@ -370,7 +353,8 @@ export function FileUploadExamples() {
         {uploadingExample === 'required' &&
           !isUploading &&
           uploadProgress === 100 &&
-          uploadedFiles && (
+          uploadedFiles &&
+          uploadedFiles.length > 0 && (
             <p>
               Upload complete: <strong>{uploadedFiles[0].name}</strong>
             </p>
@@ -386,6 +370,27 @@ export function FileUploadExamples() {
           disabled
           helperText="File uploads are currently unavailable."
         />
+      </section>
+
+      <section>
+        <h4>Circular Upload Progress</h4>
+
+        <FileUpload
+          ref={circularFileUploadRef}
+          label="Upload a document"
+          name="circular-document"
+          onChange={(files) => handleUpload(files, 'circular')}
+        />
+
+        {renderUploadProgress('circular', circularFileUploadRef, 'circular')}
+
+        {completedExample === 'circular' &&
+          uploadedFiles &&
+          uploadedFiles.length > 0 && (
+            <p>
+              Upload complete: <strong>{uploadedFiles[0].name}</strong>
+            </p>
+          )}
       </section>
     </div>
   );

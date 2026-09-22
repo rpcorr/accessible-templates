@@ -12,6 +12,7 @@ import styles from './FileUpload.module.css';
 
 export interface FileUploadRef {
   clear: () => void;
+  reset: () => void;
 }
 
 interface FileUploadProps {
@@ -69,6 +70,24 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
         ? helperTextId
         : undefined;
 
+    const clearSelectedFiles = useCallback(() => {
+      if (inputRef.current) {
+        inputRef.current.value = '';
+      }
+
+      setSelectedFiles(null);
+    }, []);
+
+    const reset = useCallback(() => {
+      if (inputRef.current) {
+        inputRef.current.value = '';
+      }
+
+      setSelectedFiles(null);
+      setFileSizeError('');
+      setFileCountError('');
+    }, []);
+
     function validateFiles(files: FileList | null): boolean {
       setFileSizeError('');
       setFileCountError('');
@@ -77,10 +96,16 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
         return true;
       }
 
-      if (maxFileCount !== undefined && files.length > maxFileCount) {
+      const effectiveMaxFileCount =
+        maxFileCount !== undefined ? maxFileCount : multiple ? undefined : 1;
+
+      if (
+        effectiveMaxFileCount !== undefined &&
+        files.length > effectiveMaxFileCount
+      ) {
         setFileCountError(
-          `Please select no more than ${maxFileCount} file${
-            maxFileCount === 1 ? '' : 's'
+          `Please select no more than ${effectiveMaxFileCount} file${
+            effectiveMaxFileCount === 1 ? '' : 's'
           }.`,
         );
         return false;
@@ -108,7 +133,11 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
       if (validateFiles(files)) {
         setSelectedFiles(files);
         onChange?.(files);
+        return;
       }
+
+      clearSelectedFiles();
+      onChange?.(null);
     }
 
     function handleDragOver(event: DragEvent<HTMLDivElement>) {
@@ -141,27 +170,32 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
       if (validateFiles(files)) {
         setSelectedFiles(files);
         onChange?.(files);
+        return;
       }
+
+      clearSelectedFiles();
+      onChange?.(null);
     }
 
     const handleClear = useCallback(() => {
+      clearSelectedFiles();
+
       if (inputRef.current) {
-        inputRef.current.value = '';
         inputRef.current.focus();
       }
 
-      setSelectedFiles(null);
       setFileSizeError('');
       setFileCountError('');
       onChange?.(null);
-    }, [onChange]);
+    }, [clearSelectedFiles, onChange]);
 
     useImperativeHandle(
       ref,
       () => ({
         clear: handleClear,
+        reset,
       }),
-      [handleClear],
+      [handleClear, reset],
     );
 
     const input = (
