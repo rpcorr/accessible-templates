@@ -8,9 +8,7 @@ Form Controls
 
         Depending on how much functionality you want the component to support, we can consider:
 
-        Cancel upload
-
-        Error recovery
+       
 
         Custom validation callbacks
 

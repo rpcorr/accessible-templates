@@ -23,6 +23,15 @@ export function FileUploadExamples() {
   const requiredFileUploadRef = useRef<FileUploadRef>(null);
   const circularFileUploadRef = useRef<FileUploadRef>(null);
 
+  const [errorUploadProgress, setErrorUploadProgress] = useState(0);
+  const [isErrorUploading, setIsErrorUploading] = useState(false);
+  const [errorUploadFailed, setErrorUploadFailed] = useState(false);
+  const [errorUploadCompleted, setErrorUploadCompleted] = useState(false);
+  const [errorUploadedFile, setErrorUploadedFile] = useState<File | null>(null);
+  const [errorUploadAttempt, setErrorUploadAttempt] = useState(1);
+
+  const errorRecoveryFileUploadRef = useRef<FileUploadRef>(null);
+
   function handleAcceptedFileChange(files: FileList | null): boolean {
     const file = files?.[0];
 
@@ -100,6 +109,46 @@ export function FileUploadExamples() {
     );
   }
 
+  function handleErrorRecoveryUpload(files: FileList | null) {
+    const file = files?.[0];
+
+    if (!file) {
+      setErrorUploadProgress(0);
+      setIsErrorUploading(false);
+      setErrorUploadFailed(false);
+      setErrorUploadCompleted(false);
+      setErrorUploadedFile(null);
+      setErrorUploadAttempt(1);
+      return;
+    }
+
+    setErrorUploadedFile(file);
+    setErrorUploadProgress(0);
+    setIsErrorUploading(true);
+    setErrorUploadFailed(false);
+    setErrorUploadCompleted(false);
+    setErrorUploadAttempt(1);
+  }
+
+  function handleRetryErrorUpload() {
+    setErrorUploadProgress(0);
+    setErrorUploadFailed(false);
+    setErrorUploadCompleted(false);
+    setErrorUploadAttempt(2);
+    setIsErrorUploading(true);
+  }
+
+  function handleCancelErrorUpload() {
+    errorRecoveryFileUploadRef.current?.clear();
+
+    setErrorUploadProgress(0);
+    setIsErrorUploading(false);
+    setErrorUploadFailed(false);
+    setErrorUploadCompleted(false);
+    setErrorUploadedFile(null);
+    setErrorUploadAttempt(1);
+  }
+
   useEffect(() => {
     if (!isUploading) {
       return;
@@ -158,6 +207,68 @@ export function FileUploadExamples() {
       window.clearInterval(intervalId);
     };
   }, [isUploading, uploadingExample]);
+
+  // useEffect(() => {
+  //   if (!isErrorUploading) {
+  //     return;
+  //   }
+
+  //   const intervalId = window.setInterval(() => {
+  //     setErrorUploadProgress((currentProgress) => {
+  //       const nextProgress = Math.min(currentProgress + 10, 60);
+
+  //       if (nextProgress === 60) {
+  //         window.clearInterval(intervalId);
+  //         setIsErrorUploading(false);
+  //         setErrorUploadFailed(true);
+  //       }
+
+  //       return nextProgress;
+  //     });
+  //   }, 200);
+
+  //   return () => {
+  //     window.clearInterval(intervalId);
+  //   };
+  // }, [isErrorUploading]);
+
+  useEffect(() => {
+    if (!isErrorUploading) {
+      return;
+    }
+
+    const intervalId = window.setInterval(() => {
+      setErrorUploadProgress((currentProgress) => {
+        const increment = errorUploadAttempt === 1 ? 10 : 5;
+        const nextProgress = Math.min(
+          currentProgress + increment,
+          errorUploadAttempt === 1 ? 60 : 100,
+        );
+
+        if (errorUploadAttempt === 1 && nextProgress === 60) {
+          window.clearInterval(intervalId);
+
+          setIsErrorUploading(false);
+          setErrorUploadFailed(true);
+        }
+
+        if (errorUploadAttempt === 2 && nextProgress === 100) {
+          window.clearInterval(intervalId);
+
+          errorRecoveryFileUploadRef.current?.reset();
+
+          setIsErrorUploading(false);
+          setErrorUploadCompleted(true);
+        }
+
+        return nextProgress;
+      });
+    }, 200);
+
+    return () => {
+      window.clearInterval(intervalId);
+    };
+  }, [isErrorUploading, errorUploadAttempt]);
 
   return (
     <div>
@@ -413,6 +524,64 @@ export function FileUploadExamples() {
                         <strong>{uploadedFiles[0].name}</strong>
                       </p>
                     )}
+                </div>
+              </div>
+            ),
+          },
+          {
+            id: 'error-recovery',
+            label: 'Error Recovery',
+            content: (
+              <div className="stack">
+                <div>
+                  <h4>Upload Error Recovery</h4>
+
+                  <FileUpload
+                    ref={errorRecoveryFileUploadRef}
+                    label="Upload a document"
+                    name="error-recovery-document"
+                    helperText="This example simulates an upload failure at 60%."
+                    onChange={handleErrorRecoveryUpload}
+                  />
+
+                  {isErrorUploading && (
+                    <div>
+                      <ProgressIndicator
+                        variant="linear"
+                        value={errorUploadProgress}
+                        label="Upload progress"
+                        showValue
+                        colour="info"
+                      />
+
+                      <button type="button" onClick={handleCancelErrorUpload}>
+                        Cancel upload
+                      </button>
+                    </div>
+                  )}
+
+                  {errorUploadFailed && (
+                    <div>
+                      <p role="alert">
+                        Upload failed. The file could not be uploaded. Please
+                        try again.
+                      </p>
+
+                      <button type="button" onClick={handleRetryErrorUpload}>
+                        Retry upload
+                      </button>
+
+                      <button type="button" onClick={handleCancelErrorUpload}>
+                        Cancel
+                      </button>
+                    </div>
+                  )}
+
+                  {errorUploadCompleted && errorUploadedFile && (
+                    <p role="status">
+                      Upload complete: <strong>{errorUploadedFile.name}</strong>
+                    </p>
+                  )}
                 </div>
               </div>
             ),
