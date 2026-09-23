@@ -27,6 +27,7 @@ interface FileUploadProps {
   variant?: 'default' | 'dropzone';
   maxFileSize?: number;
   maxFileCount?: number;
+  validateFiles?: (files: FileList) => string | null;
   showClearButton?: boolean;
   onChange?: (files: FileList | null) => void;
 }
@@ -45,6 +46,7 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
       variant = 'default',
       maxFileSize,
       maxFileCount,
+      validateFiles,
       showClearButton = false,
       onChange,
     },
@@ -57,11 +59,14 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
     const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
     const [fileSizeError, setFileSizeError] = useState('');
     const [fileCountError, setFileCountError] = useState('');
+    const [customValidationError, setCustomValidationError] = useState('');
 
     const helperTextId = `${inputId}-helper`;
     const errorMessageId = `${inputId}-error`;
 
-    const validationError = fileSizeError || fileCountError;
+    const validationError =
+      fileSizeError || fileCountError || customValidationError;
+
     const displayedErrorMessage = errorMessage || validationError;
 
     const describedBy = displayedErrorMessage
@@ -86,11 +91,13 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
       setSelectedFiles(null);
       setFileSizeError('');
       setFileCountError('');
+      setCustomValidationError('');
     }, []);
 
-    function validateFiles(files: FileList | null): boolean {
+    function validateSelectedFiles(files: FileList | null): boolean {
       setFileSizeError('');
       setFileCountError('');
+      setCustomValidationError('');
 
       if (!files) {
         return true;
@@ -124,13 +131,22 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
         }
       }
 
+      if (validateFiles) {
+        const customError = validateFiles(files);
+
+        if (customError) {
+          setCustomValidationError(customError);
+          return false;
+        }
+      }
+
       return true;
     }
 
     function handleChange(event: ChangeEvent<HTMLInputElement>) {
       const files = event.target.files;
 
-      if (validateFiles(files)) {
+      if (validateSelectedFiles(files)) {
         setSelectedFiles(files);
         onChange?.(files);
         return;
@@ -167,7 +183,7 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
 
       const files = event.dataTransfer.files;
 
-      if (validateFiles(files)) {
+      if (validateSelectedFiles(files)) {
         setSelectedFiles(files);
         onChange?.(files);
         return;
@@ -186,6 +202,7 @@ export const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(
 
       setFileSizeError('');
       setFileCountError('');
+      setCustomValidationError('');
       onChange?.(null);
     }, [clearSelectedFiles, onChange]);
 

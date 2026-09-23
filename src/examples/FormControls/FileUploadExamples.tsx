@@ -21,6 +21,7 @@ export function FileUploadExamples() {
   const acceptedFileUploadRef = useRef<FileUploadRef>(null);
   const sizeFileUploadRef = useRef<FileUploadRef>(null);
   const requiredFileUploadRef = useRef<FileUploadRef>(null);
+  const customValidationFileUploadRef = useRef<FileUploadRef>(null);
   const circularFileUploadRef = useRef<FileUploadRef>(null);
 
   const [errorUploadProgress, setErrorUploadProgress] = useState(0);
@@ -192,6 +193,10 @@ export function FileUploadExamples() {
 
             case 'required':
               requiredFileUploadRef.current?.reset();
+              break;
+
+            case 'custom':
+              customValidationFileUploadRef.current?.reset();
               break;
           }
 
@@ -517,6 +522,46 @@ export function FileUploadExamples() {
                   {renderUploadProgress('required', requiredFileUploadRef)}
 
                   {completedExample === 'required' &&
+                    uploadedFiles &&
+                    uploadedFiles.length > 0 && (
+                      <p>
+                        Upload complete:{' '}
+                        <strong>{uploadedFiles[0].name}</strong>
+                      </p>
+                    )}
+                </div>
+
+                <div>
+                  <h4>Custom Validation</h4>
+
+                  <FileUpload
+                    ref={customValidationFileUploadRef}
+                    label="Upload an invoice"
+                    name="custom-validation-document"
+                    accept=".pdf,.doc,.docx"
+                    helperText='The filename must contain "invoice".'
+                    validateFiles={(files) => {
+                      const file = files[0];
+
+                      if (!file) {
+                        return null;
+                      }
+
+                      if (!file.name.toLowerCase().includes('invoice')) {
+                        return 'The filename must contain "invoice".';
+                      }
+
+                      return null;
+                    }}
+                    onChange={(files) => handleUpload(files, 'custom')}
+                  />
+
+                  {renderUploadProgress(
+                    'custom',
+                    customValidationFileUploadRef,
+                  )}
+
+                  {completedExample === 'custom' &&
                     uploadedFiles &&
                     uploadedFiles.length > 0 && (
                       <p>
