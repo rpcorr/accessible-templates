@@ -4,6 +4,7 @@ import {
   type FileUploadRef,
 } from '../../components/FormControls/FileUpload';
 import { ProgressIndicator } from '../../components/ContentFeedback/ProgressIndicator';
+import { Tabs } from '../../components/ContentFeedback/Tab';
 
 export function FileUploadExamples() {
   const [acceptedFileError, setAcceptedFileError] = useState('');
@@ -13,7 +14,7 @@ export function FileUploadExamples() {
   const [uploadingExample, setUploadingExample] = useState<string | null>(null);
   const [completedExample, setCompletedExample] = useState<string | null>(null);
 
-  const basicFileUploadRef = useRef<FileUploadRef>(null);
+  const linearFileUploadRef = useRef<FileUploadRef>(null);
   const multipleFileUploadRef = useRef<FileUploadRef>(null);
   const countFileUploadRef = useRef<FileUploadRef>(null);
   const dropzoneFileUploadRef = useRef<FileUploadRef>(null);
@@ -112,24 +113,34 @@ export function FileUploadExamples() {
           window.clearInterval(intervalId);
 
           switch (uploadingExample) {
-            case 'basic':
-              basicFileUploadRef.current?.reset();
+            case 'linear':
+              linearFileUploadRef.current?.reset();
               break;
+
+            case 'circular':
+              circularFileUploadRef.current?.reset();
+              break;
+
             case 'multiple':
               multipleFileUploadRef.current?.reset();
               break;
+
             case 'count':
               countFileUploadRef.current?.reset();
               break;
+
             case 'dropzone':
               dropzoneFileUploadRef.current?.reset();
               break;
+
             case 'accepted':
               acceptedFileUploadRef.current?.reset();
               break;
+
             case 'size':
               sizeFileUploadRef.current?.reset();
               break;
+
             case 'required':
               requiredFileUploadRef.current?.reset();
               break;
@@ -152,246 +163,280 @@ export function FileUploadExamples() {
     <div>
       <h3>Examples</h3>
 
-      <section>
-        <h4>Basic File Upload</h4>
+      <Tabs
+        tabs={[
+          {
+            id: 'progress',
+            label: 'Upload Progress',
+            content: (
+              <div className="stack">
+                <div>
+                  <h4>Linear Upload Progress</h4>
 
-        <FileUpload
-          ref={basicFileUploadRef}
-          label="Upload a document"
-          name="document"
-          onChange={(files) => handleUpload(files, 'basic')}
-        />
+                  <FileUpload
+                    ref={linearFileUploadRef}
+                    label="Upload a document"
+                    name="linear-document"
+                    onChange={(files) => handleUpload(files, 'linear')}
+                  />
 
-        {renderUploadProgress('basic', basicFileUploadRef)}
+                  {renderUploadProgress('linear', linearFileUploadRef)}
 
-        {completedExample === 'basic' &&
-          uploadedFiles &&
-          uploadedFiles.length > 0 && (
-            <p>
-              Upload complete: <strong>{uploadedFiles[0].name}</strong>
-            </p>
-          )}
-      </section>
+                  {completedExample === 'linear' &&
+                    uploadedFiles &&
+                    uploadedFiles.length > 0 && (
+                      <p>
+                        Upload complete:{' '}
+                        <strong>{uploadedFiles[0].name}</strong>
+                      </p>
+                    )}
+                </div>
 
-      <section>
-        <h4>Multiple Files</h4>
+                <div>
+                  <h4>Circular Upload Progress</h4>
 
-        <FileUpload
-          ref={multipleFileUploadRef}
-          label="Upload documents"
-          name="documents"
-          multiple
-          showClearButton={
-            uploadingExample === 'multiple' &&
-            !isUploading &&
-            uploadProgress === 100 &&
-            uploadedFiles !== null
-          }
-          helperText="You can select multiple files."
-          onChange={(files) => handleUpload(files, 'multiple')}
-        />
+                  <FileUpload
+                    ref={circularFileUploadRef}
+                    label="Upload a document"
+                    name="circular-document"
+                    onChange={(files) => handleUpload(files, 'circular')}
+                  />
 
-        {renderUploadProgress('multiple', multipleFileUploadRef)}
+                  {renderUploadProgress(
+                    'circular',
+                    circularFileUploadRef,
+                    'circular',
+                  )}
 
-        {uploadingExample === 'multiple' &&
-          uploadedFiles &&
-          uploadedFiles.length > 0 && (
-            <div>
-              <p>Upload complete:</p>
-              <ul>
-                {uploadedFiles.map((file) => (
-                  <li key={`${file.name}-${file.lastModified}`}>
-                    <strong>{file.name}</strong>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-      </section>
+                  {completedExample === 'circular' &&
+                    uploadedFiles &&
+                    uploadedFiles.length > 0 && (
+                      <p>
+                        Upload complete:{' '}
+                        <strong>{uploadedFiles[0].name}</strong>
+                      </p>
+                    )}
+                </div>
+              </div>
+            ),
+          },
+          {
+            id: 'multiple',
+            label: 'Multiple & Limits',
+            content: (
+              <div className="stack">
+                <div>
+                  <h4>Multiple Files</h4>
 
-      <section>
-        <h4>Maximum File Count</h4>
+                  <FileUpload
+                    ref={multipleFileUploadRef}
+                    label="Upload documents"
+                    name="documents"
+                    multiple
+                    helperText="You can select multiple files."
+                    onChange={(files) => handleUpload(files, 'multiple')}
+                  />
 
-        <FileUpload
-          ref={countFileUploadRef}
-          label="Upload documents"
-          name="limited-documents"
-          multiple
-          maxFileCount={2}
-          helperText="You can select a maximum of 2 files."
-          onChange={(files) => handleUpload(files, 'count')}
-        />
+                  {renderUploadProgress('multiple', multipleFileUploadRef)}
 
-        {renderUploadProgress('count', countFileUploadRef)}
+                  {completedExample === 'multiple' &&
+                    uploadedFiles &&
+                    uploadedFiles.length > 0 && (
+                      <div>
+                        <p>Upload complete:</p>
 
-        {uploadingExample === 'count' &&
-          !isUploading &&
-          uploadProgress === 100 &&
-          uploadedFiles &&
-          uploadedFiles.length > 0 && (
-            <>
-              <p>Upload complete:</p>
+                        <ul>
+                          {uploadedFiles.map((file) => (
+                            <li key={`${file.name}-${file.lastModified}`}>
+                              <strong>{file.name}</strong>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                </div>
 
-              <ul>
-                {uploadedFiles.map((file) => (
-                  <li key={`${file.name}-${file.lastModified}`}>
-                    <strong>{file.name}</strong>
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
-      </section>
+                <div>
+                  <h4>Maximum File Count</h4>
 
-      <section>
-        <h4>Drag and Drop File Upload</h4>
+                  <FileUpload
+                    ref={countFileUploadRef}
+                    label="Upload documents"
+                    name="limited-documents"
+                    multiple
+                    maxFileCount={2}
+                    helperText="You can select a maximum of 2 files."
+                    onChange={(files) => handleUpload(files, 'count')}
+                  />
 
-        <FileUpload
-          ref={dropzoneFileUploadRef}
-          label="Upload files"
-          name="dropzone-files"
-          variant="dropzone"
-          multiple
-          maxFileCount={2}
-          helperText="Drag and drop files here, or use the file picker. Maximum of 2 files."
-          onChange={(files) => handleUpload(files, 'dropzone')}
-        />
+                  {renderUploadProgress('count', countFileUploadRef)}
 
-        {renderUploadProgress('dropzone', dropzoneFileUploadRef)}
+                  {completedExample === 'count' &&
+                    uploadedFiles &&
+                    uploadedFiles.length > 0 && (
+                      <>
+                        <p>Upload complete:</p>
 
-        {uploadingExample === 'dropzone' &&
-          !isUploading &&
-          uploadProgress === 100 &&
-          uploadedFiles &&
-          uploadedFiles.length > 0 && (
-            <>
-              <p>Upload complete:</p>
+                        <ul>
+                          {uploadedFiles.map((file) => (
+                            <li key={`${file.name}-${file.lastModified}`}>
+                              <strong>{file.name}</strong>
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
+                </div>
+              </div>
+            ),
+          },
+          {
+            id: 'drag-drop',
+            label: 'Drag & Drop',
+            content: (
+              <div className="stack">
+                <div>
+                  <h4>Drag and Drop File Upload</h4>
 
-              <ul>
-                {uploadedFiles.map((file) => (
-                  <li key={`${file.name}-${file.lastModified}`}>
-                    <strong>{file.name}</strong>
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
-      </section>
+                  <FileUpload
+                    ref={dropzoneFileUploadRef}
+                    label="Upload files"
+                    name="dropzone-files"
+                    variant="dropzone"
+                    multiple
+                    maxFileCount={2}
+                    helperText="Drag and drop files here, or use the file picker. Maximum of 2 files."
+                    onChange={(files) => handleUpload(files, 'dropzone')}
+                  />
 
-      <section>
-        <h4>Accepted File Types</h4>
+                  {renderUploadProgress('dropzone', dropzoneFileUploadRef)}
 
-        <FileUpload
-          ref={acceptedFileUploadRef}
-          label="Upload a document"
-          name="accepted-document"
-          accept=".pdf,.doc,.docx"
-          helperText="Accepted formats: PDF, DOC, and DOCX."
-          errorMessage={acceptedFileError}
-          onChange={(files) => {
-            if (handleAcceptedFileChange(files)) {
-              handleUpload(files, 'accepted');
-            }
-          }}
-        />
+                  {completedExample === 'dropzone' &&
+                    uploadedFiles &&
+                    uploadedFiles.length > 0 && (
+                      <>
+                        <p>Upload complete:</p>
 
-        {renderUploadProgress('accepted', acceptedFileUploadRef)}
+                        <ul>
+                          {uploadedFiles.map((file) => (
+                            <li key={`${file.name}-${file.lastModified}`}>
+                              <strong>{file.name}</strong>
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
+                </div>
+              </div>
+            ),
+          },
+          {
+            id: 'validation',
+            label: 'Validation',
+            content: (
+              <div className="stack">
+                <div>
+                  <h4>Accepted File Types</h4>
 
-        {uploadingExample === 'accepted' &&
-          !isUploading &&
-          uploadProgress === 100 &&
-          uploadedFiles &&
-          uploadedFiles.length > 0 && (
-            <p>
-              Upload complete: <strong>{uploadedFiles[0].name}</strong>
-            </p>
-          )}
-      </section>
+                  <FileUpload
+                    ref={acceptedFileUploadRef}
+                    label="Upload a document"
+                    name="accepted-document"
+                    accept=".pdf,.doc,.docx"
+                    helperText="Accepted formats: PDF, DOC, and DOCX."
+                    errorMessage={acceptedFileError}
+                    onChange={(files) => {
+                      if (handleAcceptedFileChange(files)) {
+                        handleUpload(files, 'accepted');
+                      }
+                    }}
+                  />
 
-      <section>
-        <h4>File Size Validation</h4>
+                  {renderUploadProgress('accepted', acceptedFileUploadRef)}
 
-        <FileUpload
-          ref={sizeFileUploadRef}
-          label="Upload a document"
-          name="size-limited-document"
-          maxFileSize={5 * 1024 * 1024}
-          // Test only:
-          // maxFileSize={1024}
-          helperText="Maximum file size: 5MB."
-          onChange={(files) => handleUpload(files, 'size')}
-        />
+                  {completedExample === 'accepted' &&
+                    uploadedFiles &&
+                    uploadedFiles.length > 0 && (
+                      <p>
+                        Upload complete:{' '}
+                        <strong>{uploadedFiles[0].name}</strong>
+                      </p>
+                    )}
+                </div>
 
-        {renderUploadProgress('size', sizeFileUploadRef)}
+                <div>
+                  <h4>File Size Validation</h4>
 
-        {uploadingExample === 'size' &&
-          !isUploading &&
-          uploadProgress === 100 &&
-          uploadedFiles &&
-          uploadedFiles.length > 0 && (
-            <p>
-              Upload complete: <strong>{uploadedFiles[0].name}</strong>
-            </p>
-          )}
-      </section>
+                  <FileUpload
+                    ref={sizeFileUploadRef}
+                    label="Upload a document"
+                    name="size-limited-document"
+                    maxFileSize={5 * 1024 * 1024}
+                    // Test only:
+                    // maxFileSize={1024}
+                    helperText="Maximum file size: 5MB."
+                    onChange={(files) => handleUpload(files, 'size')}
+                  />
 
-      <section>
-        <h4>Required File Upload</h4>
+                  {renderUploadProgress('size', sizeFileUploadRef)}
 
-        <FileUpload
-          ref={requiredFileUploadRef}
-          label="Upload your resume"
-          name="resume"
-          accept=".pdf,.doc,.docx"
-          required
-          helperText="Please upload your resume."
-          onChange={(files) => handleUpload(files, 'required')}
-        />
+                  {completedExample === 'size' &&
+                    uploadedFiles &&
+                    uploadedFiles.length > 0 && (
+                      <p>
+                        Upload complete:{' '}
+                        <strong>{uploadedFiles[0].name}</strong>
+                      </p>
+                    )}
+                </div>
 
-        {renderUploadProgress('required', requiredFileUploadRef)}
+                <div>
+                  <h4>Required File Upload</h4>
 
-        {uploadingExample === 'required' &&
-          !isUploading &&
-          uploadProgress === 100 &&
-          uploadedFiles &&
-          uploadedFiles.length > 0 && (
-            <p>
-              Upload complete: <strong>{uploadedFiles[0].name}</strong>
-            </p>
-          )}
-      </section>
+                  <FileUpload
+                    ref={requiredFileUploadRef}
+                    label="Upload your resume"
+                    name="resume"
+                    accept=".pdf,.doc,.docx"
+                    required
+                    helperText="Please upload your resume."
+                    onChange={(files) => handleUpload(files, 'required')}
+                  />
 
-      <section>
-        <h4>Disabled File Upload</h4>
+                  {renderUploadProgress('required', requiredFileUploadRef)}
 
-        <FileUpload
-          label="Upload a document"
-          name="disabled-document"
-          disabled
-          helperText="File uploads are currently unavailable."
-        />
-      </section>
+                  {completedExample === 'required' &&
+                    uploadedFiles &&
+                    uploadedFiles.length > 0 && (
+                      <p>
+                        Upload complete:{' '}
+                        <strong>{uploadedFiles[0].name}</strong>
+                      </p>
+                    )}
+                </div>
+              </div>
+            ),
+          },
+          {
+            id: 'disabled',
+            label: 'Disabled',
+            content: (
+              <div className="stack">
+                <div>
+                  <h4>Disabled File Upload</h4>
 
-      <section>
-        <h4>Circular Upload Progress</h4>
-
-        <FileUpload
-          ref={circularFileUploadRef}
-          label="Upload a document"
-          name="circular-document"
-          onChange={(files) => handleUpload(files, 'circular')}
-        />
-
-        {renderUploadProgress('circular', circularFileUploadRef, 'circular')}
-
-        {completedExample === 'circular' &&
-          uploadedFiles &&
-          uploadedFiles.length > 0 && (
-            <p>
-              Upload complete: <strong>{uploadedFiles[0].name}</strong>
-            </p>
-          )}
-      </section>
+                  <FileUpload
+                    label="Upload a document"
+                    name="disabled-document"
+                    disabled
+                    helperText="File uploads are currently unavailable."
+                  />
+                </div>
+              </div>
+            ),
+          },
+        ]}
+      />
     </div>
   );
 }
