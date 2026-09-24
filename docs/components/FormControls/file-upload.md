@@ -15,12 +15,14 @@ An accessible file upload component for selecting one or more files. It uses the
 - Supports validation and error messaging
 - Supports maximum file size validation
 - Supports maximum file count validation
+- Supports custom validation callbacks
 - Supports drag-and-drop file selection
 - Provides visible focus styling
 - Provides visual feedback when files are dragged over the dropzone
 - Supports file handling through `onChange`
 - Supports an optional clear selection button
 - Supports programmatic clearing through a ref
+- Supports programmatic resetting after an upload or workflow
 - Responsive
 
 ## Installation
@@ -31,7 +33,7 @@ Import the component:
 import { FileUpload } from '../../components/FormControls/FileUpload';
 ```
 
-To use the programmatic `clear()` method, also import the `FileUploadRef` type:
+To use the programmatic `clear()` and `reset()` methods, also import the `FileUploadRef` type:
 
 ```tsx
 import {
@@ -249,7 +251,7 @@ The `errorMessage` prop can be used to display a validation error.
 
 When an error message is provided, the component marks the input as invalid and associates the error message with the file input.
 
-Client-side validation can also be performed using the `onChange` callback.
+The component provides built-in validation for maximum file size and file count. Application-specific validation can also be provided using the `validateFiles` callback or performed using the `onChange` callback.
 
 For production applications, file validation should also consider factors such as:
 
@@ -293,6 +295,53 @@ For example:
 ```
 
 If the selected files exceed the maximum count, the component displays a validation error and does not pass the files to the `onChange` callback.
+
+### Custom Validation
+
+The `validateFiles` prop allows applications to provide custom validation logic.
+
+The callback receives the selected `FileList` and should return:
+
+- A string containing the validation error when the files are invalid
+- `null` when the files are valid
+
+For example, the following requires the filename to contain the word `invoice`:
+
+```tsx
+<FileUpload
+  label="Upload an invoice"
+  name="invoice"
+  accept=".pdf,.doc,.docx"
+  helperText='The filename must contain "invoice".'
+  validateFiles={(files) => {
+    const file = files[0];
+
+    if (!file) {
+      return null;
+    }
+
+    if (!file.name.toLowerCase().includes('invoice')) {
+      return 'The filename must contain "invoice".';
+    }
+
+    return null;
+  }}
+/>
+```
+
+If the callback returns an error message, the component displays the message and does not pass the files to the onChange callback.
+
+Custom validation is performed after the built-in maximum file count and maximum file size validation.
+
+Custom validation can be used for application-specific requirements such as:
+
+Filename requirements
+File naming conventions
+Application-specific file types
+Business rules
+Restrictions based on file metadata
+
+Custom client-side validation should not replace appropriate server-side validation.
 
 ### Example: File Validation
 
@@ -342,23 +391,46 @@ Selecting the clear button:
 
 - Clears the native file input
 - Removes the selected files from the component's internal state
-- Clears file size and file count validation errors
+- Clears file size and file count, and custom validation errors
 - Returns focus to the native file input
 - Calls `onChange` with `null`
 
 The clear button is optional and is only displayed when `showClearButton` is enabled and files are selected.
 
-## Programmatic Clearing with a Ref
+## Programmatic Clearing and Resetting with a Ref
 
-The component exposes a `clear()` method through the `FileUploadRef` type. This allows a parent component to clear the selected files programmatically.
+The component exposes `clear()` and `reset()` methods through the `FileUploadRef` type. These methods allow a parent component to control the file input programmatically.
 
-This is useful when an application needs to reset the file input after an action such as:
+### `clear()`
+
+The `clear()` method completely clears the current file selection.
+
+It:
+
+- Clears the native file input
+- Removes the selected files from the component's internal state
+- Clears validation errors
+- Calls `onChange` with `null`
+- Returns focus to the native file input
+
+This is useful when:
 
 - Cancelling an upload
 - Resetting a form
-- Completing a workflow
 - Clearing application state
 - Responding to an external reset action
+
+### `reset()`
+
+The `reset()` method clears the native file input, selected files, and validation errors without calling `onChange`.
+
+This is useful after a successful upload when the native file input should return to its initial **No file chosen** state while the parent application retains its upload-completion state.
+
+For example:
+
+```tsx
+fileUploadRef.current?.reset();
+```
 
 ### Example: Using `FileUploadRef`
 
