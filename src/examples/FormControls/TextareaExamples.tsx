@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Tabs } from '../../../components/ContentFeedback/Tab';
-import { Textarea } from '../../../components/FormControls/Textarea';
+import { Tabs } from '../../components/ContentFeedback/Tab';
+import { Textarea } from '../../components/FormControls/Textarea';
 
 export function TextareaExamples() {
   const [message, setMessage] = useState('');

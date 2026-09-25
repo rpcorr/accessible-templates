@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Switch } from '../../../components/FormControls/Switch';
-import { Tabs } from '../../../components/ContentFeedback/Tab';
+import { Switch } from '../../components/FormControls/Switch';
+import { Tabs } from '../../components/ContentFeedback/Tab';
 
 export function SwitchExamples() {
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);

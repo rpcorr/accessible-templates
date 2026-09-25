@@ -1,5 +1,5 @@
-import { LoadingSpinner } from '../../../components/ContentFeedback/LoadingSpinner';
-import { Tabs } from '../../../components/ContentFeedback/Tab';
+import { LoadingSpinner } from '../../components/ContentFeedback/LoadingSpinner';
+import { Tabs } from '../../components/ContentFeedback/Tab';
 
 export const LoadingSpinnerExamples = () => {
   return (

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Alert } from '../../../components/ContentFeedback/Alert';
+import { Alert } from '../../components/ContentFeedback/Alert';
 
 export const AlertExamples = () => {
   const [showDismissibleAlert, setShowDismissibleAlert] = useState(true);

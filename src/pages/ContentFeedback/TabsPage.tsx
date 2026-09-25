@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { TabsExamples } from '../../examples/ContentFeedback/Tab/TabExamples';
+import { TabsExamples } from '../../examples/ContentFeedback/TabExamples';
 
 export function TabsPage() {
   return (

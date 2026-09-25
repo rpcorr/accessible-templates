@@ -1,5 +1,5 @@
-import { Button } from '../../../components/ButtonsActions/Button';
-import { Tooltip } from '../../../components/OverlaysMenus/Tooltip';
+import { Button } from '../../components/ButtonsActions/Button';
+import { Tooltip } from '../../components/OverlaysMenus/Tooltip';
 
 export function TooltipExamples() {
   return (

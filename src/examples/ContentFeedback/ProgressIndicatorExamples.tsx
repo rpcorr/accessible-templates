@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { ProgressIndicator } from '../../../components/ContentFeedback/ProgressIndicator';
-import { Tabs } from '../../../components/ContentFeedback/Tab';
+import { ProgressIndicator } from '../../components/ContentFeedback/ProgressIndicator';
+import { Tabs } from '../../components/ContentFeedback/Tab';
 
 export const ProgressIndicatorExamples = () => {
   const [progress, setProgress] = useState(0);

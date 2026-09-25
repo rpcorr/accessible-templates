@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { BreadcrumbsExamples } from '../../examples/Navigations/Breadcrumbs/BreadcrumbsExamples';
+import { BreadcrumbsExamples } from '../../examples/Navigations/BreadcrumbsExamples';
 
 export function BreadcrumbsPage() {
   return (

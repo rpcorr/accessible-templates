@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Combobox } from '../../../components/FormControls/Combobox';
-import { Tabs } from '../../../components/ContentFeedback/Tab';
+import { Combobox } from '../../components/FormControls/Combobox';
+import { Tabs } from '../../components/ContentFeedback/Tab';
 
 const countryOptions = [
   { value: 'Canada', label: 'Canada' },

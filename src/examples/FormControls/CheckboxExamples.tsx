@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Checkbox } from '../../../components/FormControls/Checkbox';
+import { Checkbox } from '../../components/FormControls/Checkbox';
 
 export function CheckboxExamples() {
   const [controlledChecked, setControlledChecked] = useState(false);

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { RadioGroup } from '../../../components/FormControls/RadioGroup';
-import { Tabs } from '../../../components/ContentFeedback/Tab';
+import { RadioGroup } from '../../components/FormControls/RadioGroup';
+import { Tabs } from '../../components/ContentFeedback/Tab';
 
 export function RadioGroupExamples() {
   const [selectedTheme, setSelectedTheme] = useState('system');

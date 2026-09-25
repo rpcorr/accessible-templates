@@ -1,4 +1,4 @@
-import { Accordion } from '../../../components/ContentFeedback/Accordion';
+import { Accordion } from '../../components/ContentFeedback/Accordion';
 
 export function AccordionExamples() {
   const items = [

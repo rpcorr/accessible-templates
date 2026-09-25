@@ -1,4 +1,4 @@
-import { Button } from '../../../components/ButtonsActions/Button';
+import { Button } from '../../components/ButtonsActions/Button';
 
 export function ButtonExamples() {
   return (

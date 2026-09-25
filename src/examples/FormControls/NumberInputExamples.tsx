@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NumberInput } from '../../../components/FormControls/NumberInput';
+import { NumberInput } from '../../components/FormControls/NumberInput';
 
 export function NumberInputExamples() {
   const [controlledValue, setControlledValue] = useState('18');

@@ -1,4 +1,4 @@
-import { Navigation } from '../../../components/Navigations/Navigation';
+import { Navigation } from '../../components/Navigations/Navigation';
 
 export function NavigationExamples() {
   const navigationItems = [

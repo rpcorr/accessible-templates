@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Select } from '../../../components/FormControls/Select';
-import { Tabs } from '../../../components/ContentFeedback/Tab';
+import { Select } from '../../components/FormControls/Select';
+import { Tabs } from '../../components/ContentFeedback/Tab';
 
 export function SelectExamples() {
   const [selectedCountry, setSelectedCountry] = useState('canada');

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Tabs } from '../../../components/ContentFeedback/Tab';
-import { TextInput } from '../../../components/FormControls/TextInput';
+import { Tabs } from '../../components/ContentFeedback/Tab';
+import { TextInput } from '../../components/FormControls/TextInput';
 
 export function TextInputExamples() {
   const [name, setName] = useState('');

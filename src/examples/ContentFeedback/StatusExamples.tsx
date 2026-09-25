@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Status } from '../../../components/ContentFeedback/Status';
+import { Status } from '../../components/ContentFeedback/Status';
 
 export const StatusExamples = () => {
   const [statusMessage, setStatusMessage] = useState('');

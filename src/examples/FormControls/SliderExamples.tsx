@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Slider } from '../../../components/FormControls/Slider';
-import { Tabs } from '../../../components/ContentFeedback/Tab';
+import { Slider } from '../../components/FormControls/Slider';
+import { Tabs } from '../../components/ContentFeedback/Tab';
 
 export function SliderExamples() {
   const [volume, setVolume] = useState(50);

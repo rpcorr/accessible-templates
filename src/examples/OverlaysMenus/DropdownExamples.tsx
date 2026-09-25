@@ -1,9 +1,9 @@
-import { Button } from '../../../components/ButtonsActions/Button';
-import { DropdownAccessible } from '../../../components/OverlaysMenus/Dropdown/DropdownAccessible';
-import { DropdownItem } from '../../../components/OverlaysMenus/Dropdown/DropdownItem';
-import { DropdownBasic } from '../../../components/OverlaysMenus/Dropdown/DropdownBasic';
-import { DropdownSubmenu } from '../../../components/OverlaysMenus/Dropdown/DropdownSubmenu';
-import { DropdownSeparator } from '../../../components/OverlaysMenus/Dropdown/DropdownSeparator';
+import { Button } from '../../components/ButtonsActions/Button';
+import { DropdownAccessible } from '../../components/OverlaysMenus/Dropdown/DropdownAccessible';
+import { DropdownItem } from '../../components/OverlaysMenus/Dropdown/DropdownItem';
+import { DropdownBasic } from '../../components/OverlaysMenus/Dropdown/DropdownBasic';
+import { DropdownSubmenu } from '../../components/OverlaysMenus/Dropdown/DropdownSubmenu';
+import { DropdownSeparator } from '../../components/OverlaysMenus/Dropdown/DropdownSeparator';
 
 export function DropdownExamples() {
   return (

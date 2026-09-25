@@ -1,4 +1,4 @@
-import { Tabs } from '../../../components/ContentFeedback/Tab';
+import { Tabs } from '../../components/ContentFeedback/Tab';
 
 export function TabsExamples() {
   const horizontalTabs = [
