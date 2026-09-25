@@ -25,6 +25,12 @@ An accessible file upload component for selecting one or more files. It uses the
 - Supports programmatic resetting after an upload or workflow
 - Responsive
 
+## Upload Responsibility
+
+The component handles file selection, client-side validation, and selection state. It does not upload files to a server.
+
+Applications are responsible for handling the selected `FileList` through `onChange` and implementing the appropriate upload process.
+
 ## Installation
 
 Import the component:
@@ -79,7 +85,7 @@ The native file input can be operated using the keyboard.
 Users can:
 
 - Tab to the file input
-- Use **Space** or **Enter** to open the file picker
+- Use the keyboard to operate the native file input
 - Navigate and select files using the operating system's file picker
 
 The drag-and-drop interface does not replace the native file input. Keyboard users can always use the file picker.
@@ -91,6 +97,31 @@ The component uses a native file input with an associated visible label, allowin
 Helper text and error messages are associated with the input using `aria-describedby` when provided.
 
 Validation errors use `role="alert"` so that important error information can be announced by screen readers.
+
+### Upload Completion Announcements
+
+Applications that perform an upload can provide a screen reader announcement when the upload completes. A persistent `role="status"` live region can announce the completion message without moving focus away from the file upload control.
+
+For example:
+
+```tsx
+<div
+  role="status"
+  aria-live="polite"
+  aria-atomic="true"
+  className="visually-hidden"
+>
+  {uploadStatus}
+</div>
+```
+
+The status message can include the uploaded filename or filenames:
+
+```tsx
+setUploadStatus(`Upload complete: ${fileNames}`);
+```
+
+This allows screen reader users to receive confirmation that the upload has completed while keeping the visible completion message available to all users.
 
 ### Drag and Drop
 
@@ -155,6 +186,14 @@ By default, the component allows users to select a single file.
 ```
 
 The selected files are provided through the `onChange` callback as a `FileList` or `null`.
+
+### Single-File Selection Behavior
+
+When `multiple` is not enabled, the component allows one file to be selected.
+
+The component automatically treats the maximum file count as `1` for single-file uploads. A separate `maxFileCount` value is therefore not required when `multiple` is `false`.
+
+When `multiple` is `true`, the number of selectable files can optionally be limited using `maxFileCount`.
 
 ## Multiple File Upload
 
@@ -261,6 +300,23 @@ For production applications, file validation should also consider factors such a
 - Security requirements
 - Server-side validation
 
+### Validation Order
+
+When files are selected, the component performs validation in the following order:
+
+1. Maximum file count validation
+2. Maximum file size validation
+3. Custom `validateFiles` validation
+
+If any validation fails:
+
+- The error message is displayed
+- The invalid selection is cleared
+- `onChange` is called with `null`
+- The files are not passed to the application through `onChange`
+
+The `accept` attribute is handled by the browser as a file-selection hint and is not treated as a security validation mechanism.
+
 ### Maximum File Size
 
 The `maxFileSize` prop specifies the maximum allowed file size in bytes.
@@ -335,11 +391,11 @@ Custom validation is performed after the built-in maximum file count and maximum
 
 Custom validation can be used for application-specific requirements such as:
 
-Filename requirements
-File naming conventions
-Application-specific file types
-Business rules
-Restrictions based on file metadata
+- Filename requirements
+- File naming conventions
+- Application-specific file types
+- Business rules
+- Restrictions based on file metadata
 
 Custom client-side validation should not replace appropriate server-side validation.
 
@@ -436,6 +492,7 @@ fileUploadRef.current?.reset();
 
 ```tsx
 import { useRef } from 'react';
+
 import {
   FileUpload,
   type FileUploadRef,
@@ -466,6 +523,7 @@ The `clear()` method clears the selected files, resets validation errors, and re
 
 ```tsx
 import { useRef, useState } from 'react';
+
 import {
   FileUpload,
   type FileUploadRef,
@@ -503,11 +561,23 @@ export function UploadExample() {
 }
 ```
 
-The `FileUploadRef` interface currently exposes the following method:
+The `FileUploadRef` interface exposes the following methods:
 
 | Method    | Description                                                                                                                    |
 | --------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | `clear()` | Clears the selected files, resets validation errors, calls `onChange` with `null`, and returns focus to the native file input. |
+| `reset()` | Clears the selected files, resets validation errors, and resets the native file input without calling `onChange`.              |
+
+### `clear()` vs. `reset()`
+
+| Method    | Clears files | Clears errors | Calls `onChange(null)` | Returns focus |
+| --------- | ------------ | ------------- | ---------------------- | ------------- |
+| `clear()` | Yes          | Yes           | Yes                    | Yes           |
+| `reset()` | Yes          | Yes           | No                     | No            |
+
+Use `clear()` when the application wants the file selection to be treated as a user-initiated clearing action.
+
+Use `reset()` when the application needs to reset the component internally, such as after a successful upload, without triggering another `onChange` event or moving focus.
 
 ## Required
 
@@ -650,21 +720,22 @@ export function FileUploadExample() {
 
 ## Props
 
-| Prop              | Type                                | Default     | Description                                                                                    |
-| ----------------- | ----------------------------------- | ----------- | ---------------------------------------------------------------------------------------------- |
-| `label`           | `string`                            | —           | Visible label describing the file upload control.                                              |
-| `name`            | `string`                            | —           | Name of the file input.                                                                        |
-| `accept`          | `string`                            | —           | Provides a hint about the file types accepted by the file picker.                              |
-| `multiple`        | `boolean`                           | `false`     | Allows users to select multiple files.                                                         |
-| `required`        | `boolean`                           | `false`     | Indicates that a file must be selected.                                                        |
-| `disabled`        | `boolean`                           | `false`     | Disables the file input.                                                                       |
-| `helperText`      | `string`                            | —           | Additional instructions or information associated with the input.                              |
-| `errorMessage`    | `string`                            | —           | Displays a validation error and marks the input as invalid.                                    |
-| `variant`         | `'default' \| 'dropzone'`           | `'default'` | Controls the file upload presentation. Use `'dropzone'` to enable the drag-and-drop interface. |
-| `maxFileSize`     | `number`                            | —           | Maximum allowed file size in bytes.                                                            |
-| `maxFileCount`    | `number`                            | —           | Maximum number of files that can be selected.                                                  |
-| `showClearButton` | `boolean`                           | `false`     | Displays a button for clearing the selected files.                                             |
-| `onChange`        | `(files: FileList \| null) => void` | —           | Called when files are selected or dropped, or when the selection is cleared.                   |
+| Prop              | Type                                  | Default     | Description                                                                                                     |
+| ----------------- | ------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------- |
+| `label`           | `string`                              | —           | Visible label describing the file upload control.                                                               |
+| `name`            | `string`                              | —           | Name of the file input.                                                                                         |
+| `accept`          | `string`                              | —           | Provides a hint about the file types accepted by the file picker.                                               |
+| `multiple`        | `boolean`                             | `false`     | Allows users to select multiple files.                                                                          |
+| `required`        | `boolean`                             | `false`     | Indicates that a file must be selected.                                                                         |
+| `disabled`        | `boolean`                             | `false`     | Disables the file input.                                                                                        |
+| `helperText`      | `string`                              | —           | Additional instructions or information associated with the input.                                               |
+| `errorMessage`    | `string`                              | —           | Displays a validation error and marks the input as invalid.                                                     |
+| `variant`         | `'default' \| 'dropzone'`             | `'default'` | Controls the file upload presentation. Use `'dropzone'` to enable the drag-and-drop interface.                  |
+| `maxFileSize`     | `number`                              | —           | Maximum allowed file size in bytes.                                                                             |
+| `maxFileCount`    | `number`                              | —           | Maximum number of files that can be selected.                                                                   |
+| `validateFiles`   | `(files: FileList) => string \| null` | —           | Custom validation callback. Returns an error message when the files are invalid, or `null` when they are valid. |
+| `showClearButton` | `boolean`                             | `false`     | Displays a button for clearing the selected files.                                                              |
+| `onChange`        | `(files: FileList \| null) => void`   | —           | Called when files are selected or dropped, or when the selection is cleared.                                    |
 
 ### Ref API
 
@@ -673,6 +744,36 @@ The component supports a ref using the `FileUploadRef` interface.
 | Method  | Type         | Description                                                                                                                    |
 | ------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------ |
 | `clear` | `() => void` | Clears the selected files, resets validation errors, calls `onChange` with `null`, and returns focus to the native file input. |
+| `reset` | `() => void` | Clears the selected files, resets validation errors, and resets the native file input without calling `onChange`.              |
+
+## Upload Handling
+
+The File Upload component is responsible for file selection and client-side validation. It does not perform the actual file upload.
+
+Applications can use the `onChange` callback to start an upload using an API, `fetch`, `XMLHttpRequest`, or another upload mechanism.
+
+For asynchronous uploads, applications should provide appropriate feedback for:
+
+- Uploading progress
+- Upload completion
+- Upload failure
+- Retry actions
+- Cancellation when supported
+
+When an upload completes, applications should provide an accessible status announcement so screen reader users receive the same completion feedback as other users.
+
+## Upload Error Handling
+
+The File Upload component does not manage errors that occur during the actual upload process.
+
+Applications should provide appropriate feedback when an upload fails, including:
+
+- A clear error message
+- An explanation of what went wrong when possible
+- An opportunity to retry the upload when appropriate
+- An accessible status announcement for screen reader users
+
+Upload errors should be distinguished from file-selection and validation errors. Validation errors occur before the files are passed to the application through `onChange`, while upload errors occur after the application has received the selected files and started the upload process.
 
 ## Best Practices
 
@@ -694,6 +795,7 @@ When using the File Upload component:
 - Provide meaningful feedback when a selected file cannot be accepted
 - Use `showClearButton` when users should be able to reset their selection
 - Use the ref `clear()` method when a parent component needs to reset the file input programmatically
+- Use the ref `reset()` method when a parent component needs to reset the native file input after a successful upload without triggering `onChange`
 - Avoid unnecessarily replacing native file input behavior with custom controls
 
 ## Accessibility Checklist
@@ -710,6 +812,7 @@ When implementing a file upload:
 - Provide file count requirements when applicable
 - Associate helper and error text with the input
 - Use clear validation messages
+- Provide an accessible status announcement when an asynchronous upload completes
 - Do not rely solely on drag and drop
 - Ensure clearing the selection returns focus appropriately
 - Validate uploaded files on the server

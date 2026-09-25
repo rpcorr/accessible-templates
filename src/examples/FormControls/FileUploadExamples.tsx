@@ -13,6 +13,7 @@ export function FileUploadExamples() {
   const [uploadedFiles, setUploadedFiles] = useState<File[] | null>(null);
   const [uploadingExample, setUploadingExample] = useState<string | null>(null);
   const [completedExample, setCompletedExample] = useState<string | null>(null);
+  const [uploadStatus, setUploadStatus] = useState('');
 
   const linearFileUploadRef = useRef<FileUploadRef>(null);
   const multipleFileUploadRef = useRef<FileUploadRef>(null);
@@ -200,6 +201,14 @@ export function FileUploadExamples() {
               break;
           }
 
+          const files = uploadedFiles;
+
+          if (files && files.length > 0) {
+            const fileNames = files.map((file) => file.name).join(', ');
+
+            setUploadStatus(`Upload complete: ${fileNames}`);
+          }
+
           setCompletedExample(uploadingExample);
           setIsUploading(false);
         }
@@ -211,31 +220,7 @@ export function FileUploadExamples() {
     return () => {
       window.clearInterval(intervalId);
     };
-  }, [isUploading, uploadingExample]);
-
-  // useEffect(() => {
-  //   if (!isErrorUploading) {
-  //     return;
-  //   }
-
-  //   const intervalId = window.setInterval(() => {
-  //     setErrorUploadProgress((currentProgress) => {
-  //       const nextProgress = Math.min(currentProgress + 10, 60);
-
-  //       if (nextProgress === 60) {
-  //         window.clearInterval(intervalId);
-  //         setIsErrorUploading(false);
-  //         setErrorUploadFailed(true);
-  //       }
-
-  //       return nextProgress;
-  //     });
-  //   }, 200);
-
-  //   return () => {
-  //     window.clearInterval(intervalId);
-  //   };
-  // }, [isErrorUploading]);
+  }, [isUploading, uploadingExample, uploadedFiles]);
 
   useEffect(() => {
     if (!isErrorUploading) {
@@ -277,6 +262,14 @@ export function FileUploadExamples() {
 
   return (
     <div>
+      <div
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        className="visually-hidden"
+      >
+        {uploadStatus}
+      </div>
       <h3>Examples</h3>
 
       <Tabs
@@ -359,7 +352,15 @@ export function FileUploadExamples() {
                     uploadedFiles &&
                     uploadedFiles.length > 0 && (
                       <div>
-                        <p>Upload complete:</p>
+                        <p>
+                          Upload complete:{' '}
+                          {uploadedFiles.map((file, index) => (
+                            <span key={`${file.name}-${file.lastModified}`}>
+                              {index > 0 && ', '}
+                              <strong>{file.name}</strong>
+                            </span>
+                          ))}
+                        </p>
 
                         <ul>
                           {uploadedFiles.map((file) => (
@@ -391,7 +392,15 @@ export function FileUploadExamples() {
                     uploadedFiles &&
                     uploadedFiles.length > 0 && (
                       <>
-                        <p>Upload complete:</p>
+                        <p>
+                          Upload complete:{' '}
+                          {uploadedFiles.map((file, index) => (
+                            <span key={`${file.name}-${file.lastModified}`}>
+                              {index > 0 && ', '}
+                              <strong>{file.name}</strong>
+                            </span>
+                          ))}
+                        </p>
 
                         <ul>
                           {uploadedFiles.map((file) => (
@@ -430,17 +439,15 @@ export function FileUploadExamples() {
                   {completedExample === 'dropzone' &&
                     uploadedFiles &&
                     uploadedFiles.length > 0 && (
-                      <>
-                        <p>Upload complete:</p>
-
-                        <ul>
-                          {uploadedFiles.map((file) => (
-                            <li key={`${file.name}-${file.lastModified}`}>
-                              <strong>{file.name}</strong>
-                            </li>
-                          ))}
-                        </ul>
-                      </>
+                      <p>
+                        Upload complete:{' '}
+                        {uploadedFiles.map((file, index) => (
+                          <span key={`${file.name}-${file.lastModified}`}>
+                            {index > 0 && ', '}
+                            <strong>{file.name}</strong>
+                          </span>
+                        ))}
+                      </p>
                     )}
                 </div>
               </div>
@@ -623,7 +630,7 @@ export function FileUploadExamples() {
                   )}
 
                   {errorUploadCompleted && errorUploadedFile && (
-                    <p role="status">
+                    <p>
                       Upload complete: <strong>{errorUploadedFile.name}</strong>
                     </p>
                   )}
