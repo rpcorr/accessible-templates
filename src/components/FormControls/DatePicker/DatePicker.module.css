@@ -1,0 +1,227 @@
+.datePicker {
+  position: relative;
+  width: 100%;
+}
+
+.label {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-weight: 600;
+}
+
+.required {
+  color: var(--color-danger);
+}
+
+.inputWrapper {
+  display: flex;
+  width: 100%;
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-3);
+  border: 1px solid var(--color-secondary);
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font: inherit;
+}
+
+.input:focus {
+  position: relative;
+  z-index: 1;
+  outline: 3px solid var(--color-focus);
+  outline-offset: 0;
+}
+
+.input:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.input[readonly] {
+  background-color: var(--color-secondary);
+}
+
+.calendarButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 3rem;
+  border: 1px solid var(--color-secondary);
+  border-left: 0;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.calendarButton:hover:not(:disabled) {
+  background-color: var(--color-secondary);
+}
+
+.calendarButton:focus-visible {
+  position: relative;
+  z-index: 1;
+  outline: 3px solid var(--color-focus);
+  outline-offset: 0;
+}
+
+.calendarButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.description {
+  margin-top: var(--space-1);
+  font-size: var(--text-sm);
+}
+
+.error {
+  margin-top: var(--space-1);
+  color: var(--color-danger);
+  font-size: var(--text-sm);
+}
+
+.calendar {
+  width: min(100%, 22rem);
+  margin-top: var(--space-2);
+  padding: var(--space-4);
+  border: 1px solid var(--color-secondary);
+  border-radius: var(--radius-md);
+  background-color: var(--color-background);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 12%);
+}
+
+.calendarHeader {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr 2.5rem;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.monthButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--color-secondary);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.monthButton:hover {
+  background-color: var(--color-secondary);
+}
+
+.monthButton:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.monthHeading {
+  text-align: center;
+  font-weight: 600;
+}
+
+.calendarGrid {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.weekdayRow,
+.weekRow {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: var(--space-1);
+}
+
+.weekday {
+  padding: var(--space-1);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-align: center;
+}
+
+.dateCell {
+  min-width: 0;
+}
+
+.dateButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  padding: var(--space-1);
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.dateButton:hover:not(:disabled) {
+  background-color: var(--color-secondary);
+}
+
+.dateButton:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.dateButton:disabled {
+  color: var(--color-secondary-hover);
+  cursor: not-allowed;
+}
+
+.outsideMonth {
+  color: var(--color-secondary-hover);
+}
+
+.selected {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary);
+  color: var(--color-background);
+  font-weight: 600;
+}
+
+.selected:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+}
+
+.selected:focus-visible {
+  outline-color: var(--color-focus);
+  outline-offset: 2px;
+}
+
+.today {
+  font-weight: 700;
+}
+
+.today:not(.selected) {
+  border-color: var(--color-primary);
+}
+
+@media (max-width: 30rem) {
+  .calendar {
+    padding: var(--space-3);
+  }
+
+  .dateButton {
+    min-width: 2.25rem;
+    min-height: 2.25rem;
+  }
+}

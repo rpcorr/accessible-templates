@@ -122,12 +122,17 @@ export function ComponentPage() {
                 </span>
               </li>
               <li>
-                {' '}
-                <Link to="/form-controls/file-upload">File Upload</Link>{' '}
-                <p>
-                  {' '}
-                  A control for selecting one or more files to upload.{' '}
-                </p>{' '}
+                <Link to="/form-controls/date-picker">Date Picker</Link>
+                <span>
+                  A control that allows users to enter or select a date from a
+                  calendar.
+                </span>
+              </li>
+              <li>
+                <Link to="/form-controls/file-upload">File Upload</Link>
+                <span>
+                  A control for selecting one or more files to upload.
+                </span>
               </li>
               <li>
                 <Link to="/form-controls/number-input">Number Input</Link>

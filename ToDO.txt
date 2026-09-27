@@ -1,22 +1,41 @@
 To do:
 
-Form Controls
- - File Upload
+Order	Component	Why
+2	Time Picker	Builds on form-control and keyboard patterns
+3	File/Drag & Drop improvements	Already complete, so only if additional functionality is needed
+4	Search / Search Combobox	Practical complex interaction pattern
+5	Disclosure	Simpler reusable show/hide pattern
+6	Menu Button	Different semantics from your Dropdown
+7	Context Menu	Advanced keyboard interaction
+8	Toast / Notification	Builds naturally on your Status/Alert work
+9	Popover	Useful overlay pattern distinct from Tooltip/Modal
+10	Carousel	More complex keyboard and announcement behaviour
 
 
-        Later enhancements
-
-        Depending on how much functionality you want the component to support, we can consider:
-
-       
-
-        Custom validation callbacks
 
 
 
+DatePicker
+├── Label
+├── Text input
+├── Calendar button
+└── Calendar
+    ├── Previous month
+    ├── Month/year heading
+    ├── Next month
+    └── Calendar grid
+        ├── Sunday
+        ├── Monday
+        ├── ...
+        └── Saturday
 
- - Date Input
 
-Disclosure
-Toast / Notification
-Skip Link
+Stage 1: component structure, props, input, calendar opening/closing, and basic month navigation.
+
+Stage 2: calendar grid and date calculations.
+
+Stage 3: full keyboard navigation.
+
+Stage 4: accessibility announcements, disabled dates, min/max dates, validation, and focus restoration.
+
+Stage 5: examples and date-picker.md documentation.

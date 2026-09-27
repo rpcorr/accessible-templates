@@ -33,6 +33,7 @@ import { SliderPage } from './pages/FormControls/SliderPage';
 import { SwitchPage } from './pages/FormControls/SwitchPage';
 import { TextareaPage } from './pages/FormControls/TextareaPage';
 import { TextInputPage } from './pages/FormControls/TextInputPage';
+import { DatePickerPage } from './pages/FormControls/DatePickerPage';
 
 import { NotFoundPage } from './pages/NotFoundPage';
 
@@ -79,6 +80,7 @@ function App() {
 
         <Route path="/form-controls/checkbox" element={<CheckboxPage />} />
         <Route path="/form-controls/combobox" element={<ComboboxPage />} />
+        <Route path="/form-controls/date-picker" element={<DatePickerPage />} />
         <Route path="/form-controls/file-upload" element={<FileUploadPage />} />
         <Route
           path="/form-controls/number-input"

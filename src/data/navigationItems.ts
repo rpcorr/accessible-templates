@@ -72,6 +72,11 @@ export const navigationItems: NavigationItem[] = [
             href: '/form-controls/combobox',
           },
           {
+            id: 'datepicker',
+            label: 'Date Picker',
+            href: '/form-controls/date-picker',
+          },
+          {
             id: 'fileupload',
             label: 'File Upload',
             href: '/form-controls/file-upload',

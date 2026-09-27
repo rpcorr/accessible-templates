@@ -20,3 +20,4 @@ export { SliderExamples } from './FormControls/SliderExamples';
 export { TextInputExamples } from './FormControls/TextInputExamples';
 export { TextareaExamples } from './FormControls/TextareaExamples';
 export { NumberInputExamples } from './FormControls/NumberInputExamples';
+export { DatePickerExamples } from './FormControls/DatePickerExamples';
