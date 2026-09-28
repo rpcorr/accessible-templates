@@ -26,6 +26,7 @@ export function NumberInputExamples() {
           description="Enter a quantity between 1 and 10."
           min={1}
           max={10}
+          step={1}
         />
       </div>
 
@@ -97,6 +98,47 @@ export function NumberInputExamples() {
         />
 
         <p aria-live="polite">Current value: {controlledValue || 'empty'}</p>
+      </div>
+
+      <div>
+        <h4>Min and Max</h4>
+
+        <form>
+          <NumberInput
+            label="Quantity"
+            name="quantity"
+            description="Enter a quantity between 1 and 10."
+            min={1}
+            max={10}
+          />
+
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+
+      <div>
+        <h4>Step</h4>
+
+        <NumberInput
+          label="Quantity"
+          name="quantity"
+          description="Enter a quantity in increments of 5."
+          min={0}
+          max={100}
+          step={5}
+        />
+      </div>
+
+      <div>
+        <h4>Decimal Step</h4>
+
+        <NumberInput
+          label="Price"
+          name="price"
+          description="Enter a price in increments of 0.25."
+          min={0}
+          step={0.25}
+        />
       </div>
     </section>
   );

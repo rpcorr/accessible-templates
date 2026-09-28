@@ -90,7 +90,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
         />
 
         {error && (
-          <p id={errorId} className={styles.error}>
+          <p id={errorId} className={styles.error} role="alert">
             {error}
           </p>
         )}
