@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { PaginationExamples } from '../../examples';
+import { PaginationExamples } from './examples/PaginationExamples';
 
 export function PaginationPage() {
   return (

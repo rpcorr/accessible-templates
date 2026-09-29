@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { StatusExamples } from '../../examples';
+import { StatusExamples } from './examples/StatusExamples';
 
 export function StatusPage() {
   return (

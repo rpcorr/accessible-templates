@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { FileUploadExamples } from '../../examples/FormControls/FileUploadExamples';
+import { FileUploadExamples } from './examples/FileUploadExamples';
 
 export function FileUploadPage() {
   return (

@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { TimePickerExamples } from '../../examples';
+import { TimePickerExamples } from './examples/TimePickerExamples';
 
 export function TimePickerPage() {
   return (

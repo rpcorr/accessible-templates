@@ -1,27 +1,25 @@
 To do:
 
-Order	Component	Why
-2	Time Picker	Builds on form-control and keyboard patterns
-3	File/Drag & Drop improvements	Already complete, so only if additional functionality is needed
-4	Search / Search Combobox	Practical complex interaction pattern
-5	Disclosure	Simpler reusable show/hide pattern
-6	Menu Button	Different semantics from your Dropdown
-7	Context Menu	Advanced keyboard interaction
-8	Toast / Notification	Builds naturally on your Status/Alert work
-9	Popover	Useful overlay pattern distinct from Tooltip/Modal
-10	Carousel	More complex keyboard and announcement behaviour
+| Component                    | Why                                                       |
+| ---------------------------- | --------------------------------------------------------- |
+| **Search / Search Combobox** | Complex, practical interaction; builds on Combobox        |
+| **Disclosure**               | General-purpose show/hide pattern distinct from Accordion |
+| **Menu Button**              | Different semantics and keyboard behavior from Dropdown   |
+| **Toast / Notification**     | Temporary dynamic announcements; distinct from Alert      |
+| **Popover**                  | Interactive overlay pattern between Tooltip and Modal     |
+| **Context Menu**             | Advanced menu interaction                                 |
+| **Carousel**                 | Complex keyboard, focus, and announcement behavior        |
+| **Date Range Picker**        | Meaningfully extends Date Picker                          |
 
 
+Better as enhancements/patterns
 
+| Item                           | How I'd handle it                                                                     |
+| ------------------------------ | ------------------------------------------------------------------------------------- |
+| **Autocomplete**               | Enhancement/pattern based on your existing **Combobox** rather than another component |
+| **Fieldset / Form Group**      | Accessibility/form pattern; could be demonstrated with existing form controls         |
+| **Validation / Error Summary** | Cross-component form pattern rather than a standalone control                         |
+| **Password Input**             | Variation of **Text Input**, potentially an example demonstrating show/hide password  |
+| **Color Picker**               | Optional; native `<input type="color">` already provides much of the functionality    |
+| **Textarea enhancements**      | Improve the existing Textarea rather than create another component                    |
 
-
-
-Stage 1: component structure, props, input, calendar opening/closing, and basic month navigation.
-
-Stage 2: calendar grid and date calculations.
-
-Stage 3: full keyboard navigation.
-
-Stage 4: accessibility announcements, disabled dates, min/max dates, validation, and focus restoration.
-
-Stage 5: examples and date-picker.md documentation.

@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { ModalExamples } from '../../examples';
+import { ModalExamples } from './examples/Modals/ModalExamples';
 
 export function ModalPage() {
   return (
