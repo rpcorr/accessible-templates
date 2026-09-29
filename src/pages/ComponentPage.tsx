@@ -148,6 +148,13 @@ export function ComponentPage() {
                 </span>
               </li>
               <li>
+                <Link to="/form-controls/search-combobox">Search Combobox</Link>
+                <span>
+                  A search input that filters and presents matching suggestions
+                  for users to select.
+                </span>
+              </li>
+              <li>
                 <Link to="/form-controls/select">Select</Link>
                 <span>
                   A control that allows users to choose an option from a list.
@@ -184,6 +191,7 @@ export function ComponentPage() {
               </li>
             </ul>
           </section>
+
           <section className={styles.card} aria-labelledby="navigation-heading">
             <h3 id="navigation-heading">Navigation</h3>
             <p>
