@@ -116,6 +116,12 @@ export const navigationItems: NavigationItem[] = [
             label: 'Text Input',
             href: '/form-controls/text-input',
           },
+
+          {
+            id: 'time-picker',
+            label: 'Time Picker',
+            href: '/form-controls/time-picker',
+          },
         ],
       },
       {

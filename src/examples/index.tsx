@@ -21,3 +21,4 @@ export { TextInputExamples } from './FormControls/TextInputExamples';
 export { TextareaExamples } from './FormControls/TextareaExamples';
 export { NumberInputExamples } from './FormControls/NumberInputExamples';
 export { DatePickerExamples } from './FormControls/DatePickerExamples';
+export { TimePickerExamples } from './FormControls/TimePickerExamples';

@@ -176,6 +176,12 @@ export function ComponentPage() {
                   A multi-line input for entering and editing longer text.
                 </span>
               </li>
+              <li>
+                <Link to="/form-controls/time-picker">Time Picker</Link>
+                <span>
+                  A control that allows users to enter or select a time.
+                </span>
+              </li>
             </ul>
           </section>
           <section className={styles.card} aria-labelledby="navigation-heading">

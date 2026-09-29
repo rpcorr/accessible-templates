@@ -15,20 +15,6 @@ Order	Component	Why
 
 
 
-DatePicker
-├── Label
-├── Text input
-├── Calendar button
-└── Calendar
-    ├── Previous month
-    ├── Month/year heading
-    ├── Next month
-    └── Calendar grid
-        ├── Sunday
-        ├── Monday
-        ├── ...
-        └── Saturday
-
 
 Stage 1: component structure, props, input, calendar opening/closing, and basic month navigation.
 
