@@ -2,7 +2,6 @@ To do:
 
 | Component                    | Why                                                       |
 | ---------------------------- | --------------------------------------------------------- |
-| **Search / Search Combobox** | Complex, practical interaction; builds on Combobox        |
 | **Disclosure**               | General-purpose show/hide pattern distinct from Accordion |
 | **Menu Button**              | Different semantics and keyboard behavior from Dropdown   |
 | **Toast / Notification**     | Temporary dynamic announcements; distinct from Alert      |

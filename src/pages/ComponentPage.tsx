@@ -148,6 +148,13 @@ export function ComponentPage() {
                 </span>
               </li>
               <li>
+                <Link to="/form-controls/search-box">Search Box</Link>
+                <span>
+                  A search input that allows users to enter and submit a search
+                  query.
+                </span>
+              </li>
+              <li>
                 <Link to="/form-controls/search-combobox">Search Combobox</Link>
                 <span>
                   A search input that filters and presents matching suggestions

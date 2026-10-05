@@ -92,6 +92,11 @@ export const navigationItems: NavigationItem[] = [
             href: '/form-controls/radio-group',
           },
           {
+            id: 'search-box',
+            label: 'Search Box',
+            href: '/form-controls/search-box',
+          },
+          {
             id: 'search-combobox',
             label: 'Search Combobox',
             href: '/form-controls/search-combobox',

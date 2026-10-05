@@ -36,6 +36,7 @@ import { TextInputPage } from './pages/FormControls/TextInputPage';
 import { DatePickerPage } from './pages/FormControls/DatePickerPage';
 import { TimePickerPage } from './pages/FormControls/TimePickerPage';
 import { SearchComboboxPage } from './pages/FormControls/SearchComboboxPage';
+import { SearchBoxPage } from './pages/FormControls/SearchBoxPage';
 
 import { NotFoundPage } from './pages/NotFoundPage';
 
@@ -94,6 +95,7 @@ function App() {
           element={<SearchComboboxPage />}
         />
         <Route path="/form-controls/select" element={<SelectPage />} />
+        <Route path="/form-controls/search-box" element={<SearchBoxPage />} />
         <Route path="/form-controls/slider" element={<SliderPage />} />
         <Route path="/form-controls/switch" element={<SwitchPage />} />
         <Route path="/form-controls/textarea" element={<TextareaPage />} />
