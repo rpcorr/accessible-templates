@@ -94,14 +94,15 @@ The following components have been completed and are designed with accessibility
 
 ### Content & Feedback
 
-| Component                                                                   | Status   | Accessibility Features                                                                                                                               |
-| --------------------------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Tabs](docs/components/ContentFeedback/tabs.md)                             | Complete | Keyboard navigation, horizontal and vertical orientations, disabled tabs, focus management                                                           |
-| [Accordion](docs/components/ContentFeedback/accordion.md)                   | Complete | Keyboard navigation, expand/collapse, disabled items, focus management, screen reader support                                                        |
-| [Alert](docs/components/ContentFeedback/alert.md)                           | Complete | Semantic HTML, keyboard-accessible dismissal, customizable dismiss label, configurable heading levels, ARIA live-region integration                  |
-| [Status](docs/components/ContentFeedback/status.md)                         | Complete | Polite live region, dynamic updates, aria-atomic, screen reader support                                                                              |
-| [Progress Indicator](docs/components/ContentFeedback/progress-indicator.md) | Complete | ARIA progressbar semantics, determinate and indeterminate states, linear, circular, icon, and fill-container variants, reduced-motion support        |
-| [Loading Spinner](docs/components/ContentFeedback/loading-spinner.md)       | Complete | ARIA status semantics, accessible labels, decorative animation hidden from assistive technology, multiple animation variants, reduced-motion support |
+| Component                                                                   | Status   | Accessibility Features                                                                                                                                   |
+| --------------------------------------------------------------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Tabs](docs/components/ContentFeedback/tabs.md)                             | Complete | Keyboard navigation, horizontal and vertical orientations, disabled tabs, focus management                                                               |
+| [Accordion](docs/components/ContentFeedback/accordion.md)                   | Complete | Keyboard navigation, expand/collapse, disabled items, focus management, screen reader support                                                            |
+| [Alert](docs/components/ContentFeedback/alert.md)                           | Complete | Semantic HTML, keyboard-accessible dismissal, customizable dismiss label, configurable heading levels, ARIA live-region integration                      |
+| [Disclosure](docs/components/ContentFeedback/disclosure.md)                 | Complete | Native button trigger, aria-expanded, aria-controls, keyboard accessibility, controlled and uncontrolled states, disabled state, visible focus indicator |
+| [Status](docs/components/ContentFeedback/status.md)                         | Complete | Polite live region, dynamic updates, aria-atomic, screen reader support                                                                                  |
+| [Progress Indicator](docs/components/ContentFeedback/progress-indicator.md) | Complete | ARIA progressbar semantics, determinate and indeterminate states, linear, circular, icon, and fill-container variants, reduced-motion support            |
+| [Loading Spinner](docs/components/ContentFeedback/loading-spinner.md)       | Complete | ARIA status semantics, accessible labels, decorative animation hidden from assistive technology, multiple animation variants, reduced-motion support     |
 
 ### Form Controls
 

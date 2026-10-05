@@ -36,6 +36,11 @@ export const navigationItems: NavigationItem[] = [
             href: '/content-feedback/alert',
           },
           {
+            id: 'disclosure',
+            label: 'Disclosure',
+            href: '/content-feedback/disclosure',
+          },
+          {
             id: 'loading-spinner',
             label: 'Loading Spinner',
             href: '/content-feedback/loading-spinner',
@@ -126,7 +131,6 @@ export const navigationItems: NavigationItem[] = [
             label: 'Text Input',
             href: '/form-controls/text-input',
           },
-
           {
             id: 'time-picker',
             label: 'Time Picker',

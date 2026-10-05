@@ -18,6 +18,7 @@ import { PaginationPage } from './pages/Navigations/PaginiationPage';
 
 import { AccordionPage } from './pages/ContentFeedback/AccordionPage';
 import { AlertPage } from './pages/ContentFeedback/AlertPage';
+import { DisclosurePage } from './pages/ContentFeedback/DisclosurePage';
 import { LoadingSpinnerPage } from './pages/ContentFeedback/LoadingSpinnerPage';
 import { ProgressIndicatorPage } from './pages/ContentFeedback/ProgressIndicatorPage';
 import { StatusPage } from './pages/ContentFeedback/StatusPage';
@@ -71,6 +72,10 @@ function App() {
         <Route path="/content-feedback/tab" element={<TabsPage />} />
         <Route path="/content-feedback/accordion" element={<AccordionPage />} />
         <Route path="/content-feedback/alert" element={<AlertPage />} />
+        <Route
+          path="/content-feedback/disclosure"
+          element={<DisclosurePage />}
+        />
         <Route path="/content-feedback/status" element={<StatusPage />} />
         <Route
           path="/content-feedback/progress-indicator"

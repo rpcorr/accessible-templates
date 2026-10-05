@@ -64,6 +64,13 @@ export function ComponentPage() {
                 </span>
               </li>
               <li>
+                <Link to="/content-feedback/disclosure">Disclosure</Link>
+                <span>
+                  An interactive control that allows users to show or hide
+                  related content.
+                </span>
+              </li>
+              <li>
                 <Link to="/content-feedback/loading-spinner">
                   Loading Spinner
                 </Link>

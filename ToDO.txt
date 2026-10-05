@@ -2,7 +2,6 @@ To do:
 
 | Component                    | Why                                                       |
 | ---------------------------- | --------------------------------------------------------- |
-| **Disclosure**               | General-purpose show/hide pattern distinct from Accordion |
 | **Menu Button**              | Different semantics and keyboard behavior from Dropdown   |
 | **Toast / Notification**     | Temporary dynamic announcements; distinct from Alert      |
 | **Popover**                  | Interactive overlay pattern between Tooltip and Modal     |
