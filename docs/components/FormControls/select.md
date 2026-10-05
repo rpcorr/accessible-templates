@@ -46,3 +46,8 @@ import { Select } from './components/FormControls/Select';
   ]}
 />;
 ```
+
+## Related Components
+
+- [Combobox](./combobox.md) — Use when users need to type into the control and filter available options.
+- [Search Combobox](./search-combobox.md) — Use when users need a searchable selection experience with typeahead filtering.

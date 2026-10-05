@@ -1,4 +1,3 @@
-````markdown
 # Date Picker
 
 An accessible date picker that allows users to enter a date directly or select a date from a calendar.
@@ -31,7 +30,6 @@ import DatePicker from './DatePicker';
 
 <DatePicker label="Appointment date" name="appointmentDate" />;
 ```
-````
 
 The user can either enter a date directly or open the calendar to select one.
 
@@ -450,3 +448,7 @@ Verify that:
 - Date constraints are applied to both calendar selection and direct date entry.
 - Validation errors are controlled by the consuming application.
 - The component uses native HTML buttons for interactive calendar controls.
+
+## Related Components
+
+- [Text Input](./text-input.md) — Use for general text entry when date-specific calendar functionality is not required.

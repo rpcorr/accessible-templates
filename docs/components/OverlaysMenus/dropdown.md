@@ -55,3 +55,7 @@ Example:
 ```tsx
 <DropdownItem disabled>Rename</DropdownItem>
 ```
+
+## Related Components
+
+- [Menu Button](./menu-button.md) — Use for a single-level popup menu of actions or options.

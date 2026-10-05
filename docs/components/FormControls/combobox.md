@@ -55,3 +55,8 @@ const countryOptions = [
   options={countryOptions}
 />;
 ```
+
+## Related Components
+
+- [Search Combobox](./search-combobox.md) — Use when providing a searchable selection interface with a dedicated search experience.
+- [Select](./select.md) — Use when users should choose from a predefined list without editing the value.
