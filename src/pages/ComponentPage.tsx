@@ -235,6 +235,7 @@ export function ComponentPage() {
               </li>
             </ul>
           </section>
+
           <section
             className={styles.card}
             aria-labelledby="overlays-menus-heading"
@@ -249,6 +250,13 @@ export function ComponentPage() {
                 <Link to="/overlays-menus/dropdown">Dropdown</Link>
                 <span>
                   A menu component for presenting a list of actions or options.
+                </span>
+              </li>
+              <li>
+                <Link to="/overlays-menus/menu-button">Menu Button</Link>
+                <span>
+                  A button that opens a menu of actions with keyboard navigation
+                  and focus management.
                 </span>
               </li>
               <li>

@@ -133,11 +133,12 @@ The following components have been completed and are designed with accessibility
 
 ### Overlays & Menus
 
-| Component                                                     | Status   | Accessibility Features                                                                        |
-| ------------------------------------------------------------- | -------- | --------------------------------------------------------------------------------------------- |
-| [Modal Dialog](docs/components/OverlaysMenus/modal-dialog.md) | Complete | Focus management, focus trap, Escape handling, focus restoration                              |
-| [Dropdown](docs/components/OverlaysMenus/dropdown.md)         | Complete | Keyboard navigation, nested submenus, typeahead, disabled items, separators, focus management |
-| [Tooltip](docs/components/OverlaysMenus/tooltip.md)           | Complete | Keyboard focus support, aria-describedby, Escape dismissal, responsive positioning            |
+| Component                                                     | Status   | Accessibility Features                                                                               |
+| ------------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| [Modal Dialog](docs/components/OverlaysMenus/modal-dialog.md) | Complete | Focus management, focus trap, Escape handling, focus restoration                                     |
+| [Dropdown](docs/components/OverlaysMenus/dropdown.md)         | Complete | Keyboard navigation, nested submenus, typeahead, disabled items, separators, focus management        |
+| [Menu Button](docs/components/OverlaysMenus/menu-button.md)   | Complete | Keyboard navigation, typeahead, disabled items, focus management, Escape handling, focus restoration |
+| [Tooltip](docs/components/OverlaysMenus/tooltip.md)           | Complete | Keyboard focus support, aria-describedby, Escape dismissal, responsive positioning                   |
 
 Each component includes:
 
@@ -184,3 +185,7 @@ Future testing will include:
 ---
 
 The project will continue to expand while maintaining the same accessibility-first development approach, with ongoing improvements to testing, documentation, and component quality.
+
+```
+
+```

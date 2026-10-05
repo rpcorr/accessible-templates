@@ -169,6 +169,11 @@ export const navigationItems: NavigationItem[] = [
             href: '/overlays-menus/dropdown',
           },
           {
+            id: 'menu-button',
+            label: 'Menu Button',
+            href: '/overlays-menus/menu-button',
+          },
+          {
             id: 'modal',
             label: 'Modal Dialog',
             href: '/overlays-menus/modal',

@@ -40,6 +40,7 @@ import { SearchComboboxPage } from './pages/FormControls/SearchComboboxPage';
 import { SearchBoxPage } from './pages/FormControls/SearchBoxPage';
 
 import { NotFoundPage } from './pages/NotFoundPage';
+import { MenuButtonPage } from './pages/OverlaysMenus/MenuButtonPage';
 
 function App() {
   const { pathname } = useLocation();
@@ -64,6 +65,10 @@ function App() {
         <Route path="/overlays-menus/modal" element={<ModalPage />} />
         <Route path="/overlays-menus/dropdown" element={<DropdownPage />} />
         <Route path="/overlays-menus/tooltip" element={<TooltipPage />} />
+        <Route
+          path="/overlays-menus/menu-button"
+          element={<MenuButtonPage />}
+        />
 
         <Route path="/navigations/navigation" element={<NavigationPage />} />
         <Route path="/navigations/breadcrumbs" element={<BreadcrumbsPage />} />
