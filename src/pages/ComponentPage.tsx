@@ -38,6 +38,7 @@ export function ComponentPage() {
               </li>
             </ul>
           </section>
+
           <section
             className={styles.card}
             aria-labelledby="content-feedback-heading"
@@ -96,6 +97,13 @@ export function ComponentPage() {
                 </span>
               </li>
               <li>
+                <Link to="/content-feedback/toast">Toast</Link>
+                <span>
+                  A temporary notification for communicating dynamic information
+                  or feedback without interrupting the user's current task.
+                </span>
+              </li>
+              <li>
                 <Link to="/content-feedback/tab">Tabs</Link>
                 <span>
                   A component for organizing related content into selectable
@@ -104,6 +112,7 @@ export function ComponentPage() {
               </li>
             </ul>
           </section>
+
           <section
             className={styles.card}
             aria-labelledby="form-controls-heading"
