@@ -28,3 +28,7 @@ import { ProgressIndicator } from './components/ProgressIndicator';
 
 <ProgressIndicator value={50} label="Uploading files" showValue />;
 ```
+
+## Related Components
+
+- [Toast](toast.md) — For communicating the completion, success, or failure of an operation represented by a progress indicator.

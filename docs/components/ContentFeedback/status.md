@@ -39,3 +39,8 @@ function Example() {
   return <Status>Changes saved successfully.</Status>;
 }
 ```
+
+## Related Components
+
+- [Alert](alert.md) — For important information that should remain visible to the user.
+- [Toast](toast.md) — For temporary status updates that are announced dynamically and then automatically dismissed or explicitly dismissed.

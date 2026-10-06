@@ -39,3 +39,8 @@ Alerts with titles use a semantic heading element. The heading level can be conf
   Your profile has been updated.
 </Alert>
 ```
+
+## Related Components
+
+- [Status](status.md) — For communicating dynamic status information that does not require user action.
+- [Toast](toast.md) — For temporary notifications that provide brief feedback without interrupting the user's current task.
