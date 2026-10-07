@@ -59,3 +59,4 @@ Example:
 ## Related Components
 
 - [Menu Button](./menu-button.md) — Use for a single-level popup menu of actions or options.
+- [Popover](./popover.md) — Provides contextual information or interactive content that is not limited to menu actions.

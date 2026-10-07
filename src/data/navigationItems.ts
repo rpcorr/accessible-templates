@@ -179,6 +179,11 @@ export const navigationItems: NavigationItem[] = [
             href: '/overlays-menus/modal',
           },
           {
+            id: 'popover',
+            label: 'Popover',
+            href: '/overlays-menus/popover',
+          },
+          {
             id: 'tooltip',
             label: 'Tooltip',
             href: '/overlays-menus/tooltip',

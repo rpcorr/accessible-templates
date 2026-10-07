@@ -47,3 +47,7 @@ When the dialog closes, focus returns to the element that opened it.
   <Button>Confirm</Button>
 </Modal>
 ```
+
+## Related Component
+
+- [Popover](./popover.md) — Provides non-modal contextual information or interactive content without a focus trap.

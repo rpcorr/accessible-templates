@@ -8,6 +8,7 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-5);
   margin-top: var(--space-4);
+  align-items: start;
 }
 
 .card {
@@ -52,6 +53,18 @@
   font-size: var(--text-sm);
 }
 
+/* Form controls contains many components,
+   so use two columns within the card. */
+.card:nth-child(3) .componentList {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* Allow the Form Controls card to use the
+   full width of the page. */
+.card:nth-child(3) {
+  grid-column: 1 / -1;
+}
+
 @media (max-width: 700px) {
   .grid {
     grid-template-columns: 1fr;
@@ -59,5 +72,13 @@
 
   .card {
     padding: var(--space-4);
+  }
+
+  .card:nth-child(3) {
+    grid-column: auto;
+  }
+
+  .card:nth-child(3) .componentList {
+    grid-template-columns: 1fr;
   }
 }

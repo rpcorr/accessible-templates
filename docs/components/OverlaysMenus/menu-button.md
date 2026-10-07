@@ -55,8 +55,6 @@ import { MenuButton } from '../../../components/OverlaysMenus/MenuButton';
 />;
 ```
 
-````
-
 ## Disabled Items
 
 Individual menu items can be disabled using the `disabled` property.
@@ -220,7 +218,7 @@ See the live examples at:
 
 ## Related Components
 
-- [Dropdown](./dropdown.md)
-- [Modal Dialog](./modal-dialog.md)
-- [Tooltip](./tooltip.md)
-````
+- [Dropdown](./dropdown.md) — Provides contextual menus with keyboard navigation, nested submenus, and typeahead support.
+- [Modal Dialog](./modal-dialog.md) — Provides focused interactive content with a focus trap.
+- [Tooltip](./tooltip.md) — Provides brief, supplementary information without interactive content.
+- [Popover](./popover.md) — Provides contextual information or interactive content when a menu of actions is not required.

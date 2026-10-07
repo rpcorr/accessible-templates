@@ -2,7 +2,6 @@ To do:
 
 | Component                    | Why                                                       |
 | ---------------------------- | --------------------------------------------------------- |
-| **Popover**                  | Interactive overlay pattern between Tooltip and Modal     |
 | **Context Menu**             | Advanced menu interaction                                 |
 | **Carousel**                 | Complex keyboard, focus, and announcement behavior        |
 | **Date Range Picker**        | Meaningfully extends Date Picker                          |

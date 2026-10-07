@@ -79,3 +79,7 @@ The tooltip automatically adjusts its position based on available viewport space
   <Button>Very Long Tooltip</Button>
 </Tooltip>
 ```
+
+## Related Component
+
+- [Popover](./popover.md) — Displays contextual information or interactive content without trapping focus.

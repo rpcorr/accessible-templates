@@ -10,8 +10,10 @@ import { navigationItems } from './data/navigationItems';
 
 import { ButtonPage } from './pages/ButtonsActions/ButtonPage';
 
-import { ModalPage } from './pages/OverlaysMenus/ModalPage';
 import { DropdownPage } from './pages/OverlaysMenus/DropdownPage';
+import { MenuButtonPage } from './pages/OverlaysMenus/MenuButtonPage';
+import { ModalPage } from './pages/OverlaysMenus/ModalPage';
+import { PopoverPage } from './pages/OverlaysMenus/PopoverPage';
 import { TooltipPage } from './pages/OverlaysMenus/TooltipPage';
 
 import { BreadcrumbsPage } from './pages/Navigations/BreadcrumbsPage';
@@ -29,21 +31,20 @@ import { ToastPage } from './pages/ContentFeedback/ToastPage';
 
 import { CheckboxPage } from './pages/FormControls/CheckboxPage';
 import { ComboboxPage } from './pages/FormControls/ComboboxPage';
+import { DatePickerPage } from './pages/FormControls/DatePickerPage';
 import { FileUploadPage } from './pages/FormControls/FileUploadPage';
 import { NumberInputPage } from './pages/FormControls/NumberInputPage';
 import { RadioGroupPage } from './pages/FormControls/RadioGroupPage';
+import { SearchBoxPage } from './pages/FormControls/SearchBoxPage';
+import { SearchComboboxPage } from './pages/FormControls/SearchComboboxPage';
 import { SelectPage } from './pages/FormControls/SelectPage';
 import { SliderPage } from './pages/FormControls/SliderPage';
 import { SwitchPage } from './pages/FormControls/SwitchPage';
 import { TextareaPage } from './pages/FormControls/TextareaPage';
 import { TextInputPage } from './pages/FormControls/TextInputPage';
-import { DatePickerPage } from './pages/FormControls/DatePickerPage';
 import { TimePickerPage } from './pages/FormControls/TimePickerPage';
-import { SearchComboboxPage } from './pages/FormControls/SearchComboboxPage';
-import { SearchBoxPage } from './pages/FormControls/SearchBoxPage';
 
 import { NotFoundPage } from './pages/NotFoundPage';
-import { MenuButtonPage } from './pages/OverlaysMenus/MenuButtonPage';
 
 function App() {
   const { pathname } = useLocation();
@@ -69,6 +70,7 @@ function App() {
           <Route path="/overlays-menus/modal" element={<ModalPage />} />
           <Route path="/overlays-menus/dropdown" element={<DropdownPage />} />
           <Route path="/overlays-menus/tooltip" element={<TooltipPage />} />
+          <Route path="/overlays-menus/popover" element={<PopoverPage />} />
           <Route
             path="/overlays-menus/menu-button"
             element={<MenuButtonPage />}
