@@ -276,6 +276,13 @@ export function ComponentPage() {
                 </span>
               </li>
               <li>
+                <Link to="/overlays-menus/popover">Popover</Link>
+                <span>
+                  A non-modal overlay for displaying contextual information,
+                  actions, and interactive content without trapping focus.
+                </span>
+              </li>
+              <li>
                 <Link to="/overlays-menus/tooltip">Tooltip</Link>
                 <span>
                   A component for providing additional contextual information
