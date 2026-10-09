@@ -2,7 +2,6 @@ To do:
 
 | Component                    | Why                                                       |
 | ---------------------------- | --------------------------------------------------------- |
-| **Context Menu**             | Advanced menu interaction                                 |
 | **Carousel**                 | Complex keyboard, focus, and announcement behavior        |
 | **Date Range Picker**        | Meaningfully extends Date Picker                          |
 

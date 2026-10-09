@@ -329,11 +329,22 @@ export default function ContextMenu({
   };
 
   const handleMenuKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    const target = event.target;
+
+    if (!(target instanceof Element)) {
+      return;
+    }
+
+    // Let a nested submenu handle its own keyboard navigation.
+    if (target.closest('[role="menu"]') !== menuRef.current) {
+      return;
+    }
+
     const items = Array.from(
       menuRef.current?.querySelectorAll<HTMLElement>(
         '[role="menuitem"]:not([aria-disabled="true"])',
       ) ?? [],
-    );
+    ).filter((item) => item.closest('[role="menu"]') === menuRef.current);
 
     if (items.length === 0) {
       return;
