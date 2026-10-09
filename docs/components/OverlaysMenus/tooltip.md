@@ -82,4 +82,5 @@ The tooltip automatically adjusts its position based on available viewport space
 
 ## Related Component
 
+- [Modal Dialog](./modal-dialog.md) — Provides focused interactive content with a focus trap when the user's attention is required.
 - [Popover](./popover.md) — Displays contextual information or interactive content without trapping focus.

@@ -164,6 +164,11 @@ export const navigationItems: NavigationItem[] = [
         label: 'Overlays & Menus',
         children: [
           {
+            id: 'context-menu',
+            label: 'Context Menu',
+            href: '/overlays-menus/context-menu',
+          },
+          {
             id: 'dropdown',
             label: 'Dropdown',
             href: '/overlays-menus/dropdown',

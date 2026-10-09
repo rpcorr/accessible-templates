@@ -134,13 +134,14 @@ The following components have been completed and are designed with accessibility
 
 ### Overlays & Menus
 
-| Component                                                     | Status   | Accessibility Features                                                                                                               |
-| ------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| [Modal Dialog](docs/components/OverlaysMenus/modal-dialog.md) | Complete | Focus management, focus trap, Escape handling, focus restoration                                                                     |
-| [Dropdown](docs/components/OverlaysMenus/dropdown.md)         | Complete | Keyboard navigation, nested submenus, typeahead, disabled items, separators, focus management                                        |
-| [Menu Button](docs/components/OverlaysMenus/menu-button.md)   | Complete | Keyboard navigation, typeahead, disabled items, focus management, Escape handling, focus restoration                                 |
-| [Popover](docs/components/OverlaysMenus/popover.md)           | Complete | Interactive content, keyboard and pointer support, Escape and outside-click dismissal, focus restoration, viewport-aware positioning |
-| [Tooltip](docs/components/OverlaysMenus/tooltip.md)           | Complete | Keyboard focus support, aria-describedby, Escape dismissal, responsive positioning                                                   |
+| Component                                                     | Status   | Accessibility Features                                                                                                                        |
+| ------------------------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Context Menu](docs/components/OverlaysMenus/context-menu.md) | Complete | Right-click and keyboard activation, arrow-key navigation, Home/End, typeahead, disabled items, focus restoration, viewport-aware positioning |
+| [Dropdown](docs/components/OverlaysMenus/dropdown.md)         | Complete | Keyboard navigation, nested submenus, typeahead, disabled items, separators, focus management                                                 |
+| [Menu Button](docs/components/OverlaysMenus/menu-button.md)   | Complete | Keyboard navigation, typeahead, disabled items, focus management, Escape handling, focus restoration                                          |
+| [Modal Dialog](docs/components/OverlaysMenus/modal-dialog.md) | Complete | Focus management, focus trap, Escape handling, focus restoration                                                                              |
+| [Popover](docs/components/OverlaysMenus/popover.md)           | Complete | Interactive content, keyboard and pointer support, Escape and outside-click dismissal, focus restoration, viewport-aware positioning          |
+| [Tooltip](docs/components/OverlaysMenus/tooltip.md)           | Complete | Keyboard focus support, aria-describedby, Escape dismissal, responsive positioning                                                            |
 
 Each component includes:
 

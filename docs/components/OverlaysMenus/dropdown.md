@@ -58,5 +58,6 @@ Example:
 
 ## Related Components
 
+- [Context Menu](./context-menu.md) — Provides a menu opened by right-click, the Context Menu key, or `Shift+F10`, with keyboard navigation and typeahead support.
 - [Menu Button](./menu-button.md) — Use for a single-level popup menu of actions or options.
 - [Popover](./popover.md) — Provides contextual information or interactive content that is not limited to menu actions.

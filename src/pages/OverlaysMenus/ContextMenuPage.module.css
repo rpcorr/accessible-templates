@@ -1,0 +1,33 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contextArea {
+  width: min(100%, 40rem);
+  min-height: 12rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 2rem;
+
+  border: 2px dashed var(--color-border, #d1d5db);
+  border-radius: 0.5rem;
+
+  background: var(--color-background-subtle, #f9fafb);
+  text-align: center;
+
+  cursor: context-menu;
+}
+
+.contextArea:focus-visible {
+  outline: 3px solid var(--color-focus, #f59e0b);
+  outline-offset: 3px;
+}
+
+.status {
+  min-height: 1.5rem;
+}

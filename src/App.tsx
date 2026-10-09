@@ -10,6 +10,7 @@ import { navigationItems } from './data/navigationItems';
 
 import { ButtonPage } from './pages/ButtonsActions/ButtonPage';
 
+import { ContextMenuPage } from './pages/OverlaysMenus/ContextMenuPage';
 import { DropdownPage } from './pages/OverlaysMenus/DropdownPage';
 import { MenuButtonPage } from './pages/OverlaysMenus/MenuButtonPage';
 import { ModalPage } from './pages/OverlaysMenus/ModalPage';
@@ -67,10 +68,14 @@ function App() {
 
           <Route path="/buttons-actions/button" element={<ButtonPage />} />
 
-          <Route path="/overlays-menus/modal" element={<ModalPage />} />
+          <Route
+            path="/overlays-menus/context-menu"
+            element={<ContextMenuPage />}
+          />
           <Route path="/overlays-menus/dropdown" element={<DropdownPage />} />
-          <Route path="/overlays-menus/tooltip" element={<TooltipPage />} />
+          <Route path="/overlays-menus/modal" element={<ModalPage />} />
           <Route path="/overlays-menus/popover" element={<PopoverPage />} />
+          <Route path="/overlays-menus/tooltip" element={<TooltipPage />} />
           <Route
             path="/overlays-menus/menu-button"
             element={<MenuButtonPage />}

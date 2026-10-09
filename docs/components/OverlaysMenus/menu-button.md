@@ -219,6 +219,7 @@ See the live examples at:
 ## Related Components
 
 - [Dropdown](./dropdown.md) — Provides contextual menus with keyboard navigation, nested submenus, and typeahead support.
+- [Context Menu](./context-menu.md) — Provides a menu opened by right-click, the Context Menu key, or `Shift+F10`, with keyboard navigation and typeahead support.
 - [Modal Dialog](./modal-dialog.md) — Provides focused interactive content with a focus trap.
-- [Tooltip](./tooltip.md) — Provides brief, supplementary information without interactive content.
 - [Popover](./popover.md) — Provides contextual information or interactive content when a menu of actions is not required.
+- [Tooltip](./tooltip.md) — Provides brief, supplementary information without interactive content.

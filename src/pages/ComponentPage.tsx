@@ -256,6 +256,13 @@ export function ComponentPage() {
             </p>
             <ul className={styles.componentList}>
               <li>
+                <Link to="/overlays-menus/context-menu">Context Menu</Link>
+                <span>
+                  A menu opened by right-click, the Context Menu key, or
+                  Shift+F10, with keyboard navigation and typeahead support.
+                </span>
+              </li>
+              <li>
                 <Link to="/overlays-menus/dropdown">Dropdown</Link>
                 <span>
                   A menu component for presenting a list of actions or options.

@@ -269,8 +269,9 @@ A disabled Popover cannot be opened.
 
 ## Related Components
 
-- [Tooltip](./tooltip.md) — Displays brief, supplementary information that does not contain interactive content.
-- [Modal Dialog](./modal-dialog.md) — Provides focused interactive content with a focus trap when the user's attention is required.
+- [Context Menu](./context-menu.md) — Provides a menu opened by right-click, the Context Menu key, or `Shift+F10`, with keyboard navigation and typeahead support.
 - [Dropdown](./dropdown.md) — Provides contextual menu actions with keyboard navigation, submenus, and typeahead support.
 - [Menu Button](./menu-button.md) — A button that controls a menu of actions with keyboard navigation and focus management.
+- [Modal Dialog](./modal-dialog.md) — Provides focused interactive content with a focus trap when the user's attention is required.
 - [Select](../FormControls/select.md) — A form control for selecting a value from a list of options.
+- [Tooltip](./tooltip.md) — Displays brief, supplementary information that does not contain interactive content.
