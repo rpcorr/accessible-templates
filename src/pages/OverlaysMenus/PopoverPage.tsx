@@ -15,7 +15,7 @@ export function PopoverPage() {
       }
     >
       <p>
-        Accessible non-modal popovers for displaying contextual information,
+        Accessible, non-modal popovers for displaying contextual information,
         actions, and interactive content without trapping keyboard focus.
       </p>
 
@@ -25,27 +25,25 @@ export function PopoverPage() {
         <li>Uses the semantic dialog role for interactive popover content.</li>
         <li>
           Associates the trigger with the popover using
-          <code> aria-controls</code> and <code>aria-expanded</code>.
+          <code> aria-controls</code> and <code> aria-expanded</code>.
         </li>
         <li>Supports keyboard and pointer interaction.</li>
-        <li>Supports closing with the Escape key.</li>
-        <li>Supports closing when the user interacts outside the popover.</li>
+        <li>Closes when the Escape key is pressed.</li>
+        <li>Supports dismissal when the user interacts outside the popover.</li>
         <li>
-          Restores focus to the element that opened the popover when it is
-          dismissed.
+          Returns focus to the trigger when the popover is dismissed using
+          Escape or an action that closes the popover.
         </li>
         <li>
-          Interactive content can trigger actions and close the popover while
-          returning focus to the original trigger.
+          Allows interactive content to perform actions and close the popover.
         </li>
         <li>
-          Does not trap keyboard focus, allowing users to move naturally through
-          the surrounding page.
+          Does not trap keyboard focus, allowing users to navigate the
+          surrounding page.
         </li>
         <li>Supports top, bottom, left, and right placement.</li>
         <li>
-          Adjusts its position to remain within the viewport when space is
-          limited.
+          Adjusts its position to help keep the popover within the viewport.
         </li>
       </ul>
 
@@ -56,11 +54,7 @@ export function PopoverPage() {
         <li>Space activates the popover trigger.</li>
         <li>Tab moves focus through interactive content within the popover.</li>
         <li>Shift + Tab moves focus backward through interactive content.</li>
-        <li>Escape closes the popover.</li>
-        <li>
-          Focus returns to the element that opened the popover when the popover
-          is dismissed.
-        </li>
+        <li>Escape closes the popover and returns focus to the trigger.</li>
         <li>
           Focus is not trapped inside the popover, allowing users to continue
           navigating the page.
