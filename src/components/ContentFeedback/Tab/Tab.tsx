@@ -13,9 +13,14 @@ type Tab = {
 type TabsProps = {
   tabs: Tab[];
   orientation?: TabsOrientation;
+  onTabChange?: (tabId: string) => void;
 };
 
-export function Tabs({ tabs, orientation = 'horizontal' }: TabsProps) {
+export function Tabs({
+  tabs,
+  orientation = 'horizontal',
+  onTabChange,
+}: TabsProps) {
   const [activeTab, setActiveTab] = useState(0);
 
   const tabsId = useId();
@@ -33,9 +38,19 @@ export function Tabs({ tabs, orientation = 'horizontal' }: TabsProps) {
       return;
     }
 
-    setActiveTab(index);
-
+    selectTab(index);
     tabRefs.current[index]?.focus();
+  }
+
+  function selectTab(index: number) {
+    const tab = tabs[index];
+
+    if (!tab || tab.disabled) {
+      return;
+    }
+
+    setActiveTab(index);
+    onTabChange?.(tab.id);
   }
 
   function handleKeyDown(
@@ -154,11 +169,7 @@ export function Tabs({ tabs, orientation = 'horizontal' }: TabsProps) {
               tabIndex={activeTab === index ? 0 : -1}
               disabled={tab.disabled}
               className={styles.tab}
-              onClick={() => {
-                if (!tab.disabled) {
-                  setActiveTab(index);
-                }
-              }}
+              onClick={() => selectTab(index)}
               onKeyDown={(event) => {
                 handleKeyDown(event, index);
               }}

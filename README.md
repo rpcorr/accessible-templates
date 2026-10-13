@@ -126,11 +126,12 @@ The following components have been completed and are designed with accessibility
 
 ### Navigation
 
-| Component                                                | Status   | Accessibility Features                                                                                |
-| -------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------- |
-| [Navigation](docs/components/Navigation/navigation.md)   | Complete | Keyboard navigation, nested submenus, mobile drawer, focus trap, focus management                     |
-| [Breadcrumbs](docs/components/Navigation/breadcrumbs.md) | Complete | Semantic navigation, aria-current, keyboard accessibility, responsive wrapping, decorative separators |
-| [Pagination](docs/components/Navigation/pagination.md)   | Complete | Semantic navigation, aria-current, keyboard accessibility, focus-visible styling, disabled controls   |
+| Component                                                | Status   | Accessibility Features                                                                                                                                       |
+| -------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [Breadcrumbs](docs/components/Navigation/breadcrumbs.md) | Complete | Semantic navigation, `aria-current`, keyboard accessibility, responsive wrapping, decorative separators                                                      |
+| [Carousel](docs/components/Navigations/carousel.md)      | Complete | Semantic carousel region, slide announcements, keyboard-accessible controls, slide indicators, optional looping, automatic rotation with Pause/Play controls |
+| [Navigation](docs/components/Navigation/navigation.md)   | Complete | Keyboard navigation, nested submenus, mobile drawer, focus trap, focus management                                                                            |
+| [Pagination](docs/components/Navigation/pagination.md)   | Complete | Semantic navigation, `aria-current`, keyboard accessibility, focus-visible styling, disabled controls                                                        |
 
 ### Overlays & Menus
 

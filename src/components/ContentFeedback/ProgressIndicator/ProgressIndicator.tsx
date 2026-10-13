@@ -3,6 +3,8 @@ import styles from './ProgressIndicator.module.css';
 
 export type ProgressIndicatorVariant = 'linear' | 'circular' | 'icon' | 'fill';
 
+export type ProgressIndicatorSize = 'default' | 'compact';
+
 export type ProgressIndicatorColour =
   | 'default'
   | 'success'
@@ -19,6 +21,7 @@ interface ProgressIndicatorProps {
   colour?: ProgressIndicatorColour;
   wavy?: boolean;
   icon?: ReactNode;
+  size?: ProgressIndicatorSize;
 }
 
 const ProgressIndicator = ({
@@ -30,6 +33,7 @@ const ProgressIndicator = ({
   colour = 'default',
   wavy = false,
   icon,
+  size = 'default',
 }: ProgressIndicatorProps) => {
   const isDeterminate = value !== undefined;
   const percentage = isDeterminate
@@ -162,7 +166,11 @@ const ProgressIndicator = ({
     );
   }
   return (
-    <div className={styles.container}>
+    <div
+      className={`${styles.container} ${
+        size === 'compact' ? styles.compact : ''
+      }`}
+    >
       {label && (
         <div className={styles.label}>
           <span>{label}</span>

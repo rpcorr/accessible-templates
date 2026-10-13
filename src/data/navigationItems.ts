@@ -148,6 +148,11 @@ export const navigationItems: NavigationItem[] = [
             href: '/navigations/breadcrumbs',
           },
           {
+            id: 'carousel',
+            label: 'Carousel',
+            href: '/navigations/carousel',
+          },
+          {
             id: 'navigation-component',
             label: 'Navigation',
             href: '/navigations/navigation',

@@ -230,6 +230,13 @@ export function ComponentPage() {
                 </span>
               </li>
               <li>
+                <Link to="/navigations/carousel">Carousel</Link>
+                <span>
+                  A component for navigating between slides of content, images,
+                  or cards with accessible controls and screen-reader support.
+                </span>
+              </li>
+              <li>
                 <Link to="/navigations/navigation">Navigation</Link>
                 <span>
                   A component for providing links to pages or sections of an
