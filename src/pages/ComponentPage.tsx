@@ -237,6 +237,16 @@ export function ComponentPage() {
                 </span>
               </li>
               <li>
+                <Link to="/navigations/multi-item-carousel">
+                  Multi-Item Carousel
+                </Link>
+                <span>
+                  A carousel that displays multiple items at once, allowing
+                  users to browse collections of content or cards with
+                  accessible controls.
+                </span>
+              </li>
+              <li>
                 <Link to="/navigations/navigation">Navigation</Link>
                 <span>
                   A component for providing links to pages or sections of an
