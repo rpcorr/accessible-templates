@@ -68,3 +68,10 @@ const items = [
 
 <Accordion items={items} />;
 ```
+
+## Related Components
+
+- **[Carousel](../Navigations/carousel.md):** Presents content in a sequence of slides with previous and next controls and optional slide indicators.
+- **[Disclosure](disclosure.md):** Reveals and hides additional content using an expandable control, typically for a single section.
+- **[Multi-Item Carousel](../Navigations/multi-item-carousel.md):** Displays multiple items in a responsive carousel layout, with item-by-item or page-by-page navigation, optional looping, and a CoverFlow presentation
+- **[Tabs](tabs.md):** Organizes related content into selectable panels, displaying one active panel at a time.

@@ -244,9 +244,10 @@ When a navigation button changes the slide, focus normally remains on that butto
 
 ## Related Components
 
-- **Tabs:** Organizes content into selectable panels.
-- **Pagination:** Supports navigation between separate pages of content.
-- **ProgressIndicator:** Communicates progress through a sequence.
+- **[Multi-Item Carousel](multi-item-carousel.md):** Displays multiple items in a responsive carousel layout, with item-by-item or page-by-page navigation, optional looping, and a CoverFlow presentation.
+- **[Pagination](../Navigation/pagination.md):** Supports navigation between separate pages of content.
+- **[Progress Indicator](../ContentFeedback/progress-indicator.md):** Communicates progress through a sequence.
+- **[Tabs](../ContentFeedback/tabs.md):** Organizes content into selectable panels.
 
 ## Accessibility Goal
 

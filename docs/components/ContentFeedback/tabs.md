@@ -115,3 +115,10 @@ const tabs = [
 
 <Tabs tabs={tabs} />;
 ```
+
+## Related Components
+
+- **[Accordion](accordion.md):** Organizes content into expandable and collapsible sections, allowing users to reveal content as needed.
+- **[Carousel](../Navigations/carousel.md):** Presents content in a sequence of slides with previous and next controls and optional slide indicators.
+- **[Multi-Item Carousel](../Navigations/multi-item-carousel.md):** Displays multiple items in a responsive carousel layout, with item-by-item or page-by-page navigation, optional looping, and a CoverFlow presentation.
+- **[Pagination](../Navigation/pagination.md):** Allows users to navigate between separate pages of content rather than switching between panels on the same page.

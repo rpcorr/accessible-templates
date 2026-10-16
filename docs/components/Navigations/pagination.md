@@ -54,3 +54,9 @@ function Example() {
   );
 }
 ```
+
+## Related Components
+
+- **[Multi-Item Carousel](../Navigations/multi-item-carousel.md):** Displays multiple items in a responsive carousel layout, with item-by-item or page-by-page navigation, optional looping, and a CoverFlow presentation.
+- **[Carousel](../Navigations/carousel.md):** Displays content in a navigable sequence of slides, with optional automatic rotation and Pause/Play controls.
+- **[Progress Indicator](../ContentFeedback/progress-indicator.md):** Communicates progress through a process or sequence rather than allowing users to navigate directly between pages.
