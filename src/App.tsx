@@ -19,6 +19,7 @@ import { TooltipPage } from './pages/OverlaysMenus/TooltipPage';
 
 import { BreadcrumbsPage } from './pages/Navigations/BreadcrumbsPage';
 import { CarouselPage } from './pages/Navigations/CarouselPage';
+import { MultiItemCarouselPage } from './pages/Navigations/MultiItemCarouselPage';
 import { NavigationPage } from './pages/Navigations/NavigationPage';
 import { PaginationPage } from './pages/Navigations/PaginiationPage';
 
@@ -88,6 +89,10 @@ function App() {
             element={<BreadcrumbsPage />}
           />
           <Route path="/navigations/carousel" element={<CarouselPage />} />
+          <Route
+            path="/navigations/multi-item-carousel"
+            element={<MultiItemCarouselPage />}
+          />
           <Route path="/navigations/pagination" element={<PaginationPage />} />
 
           <Route
