@@ -1,8 +1,7 @@
 To do:
 
 | Component                    | Why                                                       |
-| ---------------------------- | --------------------------------------------------------- |
-| **Carousel**                 | Complex keyboard, focus, and announcement behavior        |
+| ---------------------------- | --------------------------------------------------------- |        |
 | **Date Range Picker**        | Meaningfully extends Date Picker                          |
 
 
