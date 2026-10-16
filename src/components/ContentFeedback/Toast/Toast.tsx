@@ -65,6 +65,7 @@ export function Toast({
 
   return (
     <article
+      role={toast.type === 'error' ? 'alert' : 'status'}
       className={`${styles.toast} ${typeClasses[toast.type]}`}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
