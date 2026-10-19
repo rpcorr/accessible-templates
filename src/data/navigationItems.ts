@@ -153,6 +153,11 @@ export const navigationItems: NavigationItem[] = [
             href: '/navigations/carousel',
           },
           {
+            id: 'multi-item-carousel',
+            label: 'Multi-Item Carousel',
+            href: '/navigations/multi-item-carousel',
+          },
+          {
             id: 'navigation-component',
             label: 'Navigation',
             href: '/navigations/navigation',
@@ -161,6 +166,11 @@ export const navigationItems: NavigationItem[] = [
             id: 'pagination',
             label: 'Pagination',
             href: '/navigations/pagination',
+          },
+          {
+            id: 'skip-link',
+            label: 'Skip Link',
+            href: '/navigations/skip-link',
           },
         ],
       },

@@ -22,6 +22,7 @@ import { CarouselPage } from './pages/Navigations/CarouselPage';
 import { MultiItemCarouselPage } from './pages/Navigations/MultiItemCarouselPage';
 import { NavigationPage } from './pages/Navigations/NavigationPage';
 import { PaginationPage } from './pages/Navigations/PaginiationPage';
+import { SkipLinkPage } from './pages/Navigations/SkipLinkPage';
 
 import { AccordionPage } from './pages/ContentFeedback/AccordionPage';
 import { AlertPage } from './pages/ContentFeedback/AlertPage';
@@ -95,6 +96,7 @@ function App() {
             element={<MultiItemCarouselPage />}
           />
           <Route path="/navigations/pagination" element={<PaginationPage />} />
+          <Route path="/navigations/skip-link" element={<SkipLinkPage />} />
 
           <Route
             path="/content-feedback/accordion"

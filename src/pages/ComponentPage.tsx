@@ -268,6 +268,14 @@ export function ComponentPage() {
                   A control for navigating between pages of related content.
                 </span>
               </li>
+              <li>
+                <Link to="/navigations/skip-links">Skip Links</Link>
+                <span>
+                  Keyboard-accessible links that let users bypass repeated
+                  content and jump directly to the main content or another
+                  important page section.
+                </span>
+              </li>
             </ul>
           </section>
 

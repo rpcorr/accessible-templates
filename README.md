@@ -119,6 +119,7 @@ The following components have been implemented with accessibility as a first-cla
 | [Multi-Item Carousel](docs/components/Navigations/multi-item-carousel.md) | Complete | Semantic carousel region, slide position and live announcements, keyboard-accessible controls and indicators, responsive layouts, hidden and inert inactive slides, optional looping, reduced-motion support, CoverFlow presentation, controlled navigation, no automatic rotation |
 | [Navigation](docs/components/Navigation/navigation.md)                    | Complete | Keyboard navigation, nested submenus, mobile drawer, focus trap where appropriate, focus management                                                                                                                                                                                |
 | [Pagination](docs/components/Navigation/pagination.md)                    | Complete | Semantic navigation, `aria-current`, keyboard accessibility, visible focus styling, disabled controls                                                                                                                                                                              |
+| [Skip Link](docs/components/Navigations/skip-link.md)                     | Complete | Keyboard-accessible links to bypass repeated content, skip to main content or the footer, visible focus indicators, screen-reader support, reduced-motion support                                                                                                                  |
 
 ### Overlays & Menus
 

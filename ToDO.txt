@@ -1,7 +1,5 @@
 To do:
 
-1. Skip links
-
 2. Table / Data Table
 Build a strong foundation for displaying structured data, including sorting and accessible headers.
 
