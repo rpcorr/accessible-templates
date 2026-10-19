@@ -190,7 +190,7 @@ const getWeekdayLabels = (): string[] => [
   'Saturday',
 ];
 
-export default function DatePicker({
+export function DatePicker({
   label,
   name,
   value,

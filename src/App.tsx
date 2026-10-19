@@ -35,6 +35,7 @@ import { ToastPage } from './pages/ContentFeedback/ToastPage';
 import { CheckboxPage } from './pages/FormControls/CheckboxPage';
 import { ComboboxPage } from './pages/FormControls/ComboboxPage';
 import { DatePickerPage } from './pages/FormControls/DatePickerPage';
+import { DateRangePickerPage } from './pages/FormControls/DateRangePickerPage';
 import { FileUploadPage } from './pages/FormControls/FileUploadPage';
 import { NumberInputPage } from './pages/FormControls/NumberInputPage';
 import { RadioGroupPage } from './pages/FormControls/RadioGroupPage';
@@ -121,6 +122,10 @@ function App() {
           <Route
             path="/form-controls/date-picker"
             element={<DatePickerPage />}
+          />
+          <Route
+            path="/form-controls/date-range-picker"
+            element={<DateRangePickerPage />}
           />
           <Route
             path="/form-controls/file-upload"

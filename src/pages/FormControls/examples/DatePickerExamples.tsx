@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import DatePicker from '../../../components/FormControls/DatePicker';
+import { DatePicker } from '../../../components/FormControls/DatePickers/DatePicker';
 import { Tabs } from '../../../components/ContentFeedback/Tab';
 
 export function DatePickerExamples() {

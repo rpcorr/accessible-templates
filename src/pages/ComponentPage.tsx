@@ -145,6 +145,15 @@ export function ComponentPage() {
                 </span>
               </li>
               <li>
+                <Link to="/form-controls/date-range-picker">
+                  Date Range Picker
+                </Link>
+                <span>
+                  A control that allows users to enter or select a start date
+                  and end date from a calendar.
+                </span>
+              </li>
+              <li>
                 <Link to="/form-controls/file-upload">File Upload</Link>
                 <span>
                   A control for selecting one or more files to upload.

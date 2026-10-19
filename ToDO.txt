@@ -1,8 +1,32 @@
 To do:
 
-| Component                    | Why                                                       |
-| ---------------------------- | --------------------------------------------------------- |        |
-| **Date Range Picker**        | Meaningfully extends Date Picker                          |
+1. Skip links
+
+2. Table / Data Table
+Build a strong foundation for displaying structured data, including sorting and accessible headers.
+
+3. Multi-step Form / Wizard
+Demonstrate how your existing inputs, validation, status messages, and focus management work together.
+
+
+4. Tree View
+Introduce a distinct, more advanced keyboard interaction pattern that demonstrates your understanding of accessible composite widgets.
+
+
+Templates:
+
+1. Registration form: Text Input, Select, Checkbox, Radio Group, Alert and Button.
+
+2.Search and results page: Search Combobox, Pagination, Breadcrumbs and Status.
+
+3. Financial dashboard: Data Table, Tabs, Progress Indicator and Toast.
+
+
+
+4. Booking form: Date Picker, Date Range Picker, Time Picker and multi-step navigation.
+
+
+5. Settings page: Switch, Disclosure, Radio Group and Button.
 
 
 Better as enhancements/patterns
