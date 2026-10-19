@@ -269,7 +269,7 @@ export function ComponentPage() {
                 </span>
               </li>
               <li>
-                <Link to="/navigations/skip-links">Skip Links</Link>
+                <Link to="/navigations/skip-link">Skip Link</Link>
                 <span>
                   Keyboard-accessible links that let users bypass repeated
                   content and jump directly to the main content or another
