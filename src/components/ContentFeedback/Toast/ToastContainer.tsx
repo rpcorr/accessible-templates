@@ -2,7 +2,7 @@ import { createPortal } from 'react-dom';
 
 import type { ToastItem } from './ToastContext';
 import { Toast } from './Toast';
-import styles from './toast.module.css';
+import styles from './Toast.module.css';
 
 interface ToastContainerProps {
   toasts: ToastItem[];

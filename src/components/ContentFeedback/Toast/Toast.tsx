@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import type { ToastItem } from './ToastContext';
-import styles from './toast.module.css';
+import styles from './Toast.module.css';
 
 interface ToastProps {
   toast: ToastItem;
