@@ -63,6 +63,17 @@ export const navigationItems: NavigationItem[] = [
         ],
       },
       {
+        id: 'data-display',
+        label: 'Data Display',
+        children: [
+          {
+            id: 'table',
+            label: 'Table',
+            href: '/data-display/table',
+          },
+        ],
+      },
+      {
         id: 'form-controls',
         label: 'Form Controls',
         children: [

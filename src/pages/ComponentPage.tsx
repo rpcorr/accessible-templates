@@ -115,6 +115,27 @@ export function ComponentPage() {
 
           <section
             className={styles.card}
+            aria-labelledby="data-display-heading"
+          >
+            <h3 id="data-display-heading">Data Display</h3>
+            <p>
+              Accessible components for presenting structured information in a
+              clear, organized, and usable format.
+            </p>
+            <ul className={styles.componentList}>
+              <li>
+                <Link to="/data-display/table">Table</Link>
+                <span>
+                  An accessible data table for displaying structured
+                  information, with support for sorting, striped rows,
+                  horizontal scrolling, frozen columns, and empty states.
+                </span>
+              </li>
+            </ul>
+          </section>
+
+          <section
+            className={styles.card}
             aria-labelledby="form-controls-heading"
           >
             <h3 id="form-controls-heading">Form Controls</h3>

@@ -90,6 +90,12 @@ The following components have been implemented with accessibility as a first-cla
 | [Loading Spinner](docs/components/ContentFeedback/loading-spinner.md)       | Complete | ARIA status semantics, accessible labels, decorative animation hidden from assistive technology, multiple animation variants, reduced-motion support                                       |
 | [Toast](docs/components/ContentFeedback/toast.md)                           | Complete | Persistent ARIA live regions, polite and assertive announcements, keyboard-accessible actions and dismissal, focus restoration, automatic and persistent dismissal, reduced-motion support |
 
+### Data Display
+
+| Component                                     | Status   | Accessibility Features                                                                                                                                                                                                                                                                                                                                                                      |
+| --------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Table](docs/components/DataDisplay/table.md) | Complete | Semantic table markup, accessible captions (including visually hidden captions), keyboard-accessible sorting, aria-sort support, basic and striped variants, responsive horizontal scrolling with conditional keyboard access, configurable frozen columns with responsive settings, visual frozen-column boundary, custom cell rendering, empty-state messaging, and screen reader support |
+
 ### Form Controls
 
 | Component                                                                              | Status   | Accessibility Features                                                                                                                                                                                                                                                                                                                                                                            |

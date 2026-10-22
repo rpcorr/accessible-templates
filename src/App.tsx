@@ -10,6 +10,8 @@ import { navigationItems } from './data/navigationItems';
 
 import { ButtonPage } from './pages/ButtonsActions/ButtonPage';
 
+import { TablePage } from './pages/DataDisplay/TablePage';
+
 import { ContextMenuPage } from './pages/OverlaysMenus/ContextMenuPage';
 import { DropdownPage } from './pages/OverlaysMenus/DropdownPage';
 import { MenuButtonPage } from './pages/OverlaysMenus/MenuButtonPage';
@@ -71,6 +73,8 @@ function App() {
           <Route path="/components" element={<ComponentPage />} />
 
           <Route path="/buttons-actions/button" element={<ButtonPage />} />
+
+          <Route path="/data-display/table" element={<TablePage />} />
 
           <Route
             path="/overlays-menus/context-menu"
