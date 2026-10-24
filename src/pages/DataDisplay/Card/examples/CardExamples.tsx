@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Card } from '../../../../components/DataDisplay';
 import { Tabs } from '../../../../components/ContentFeedback/Tab';
+import { Badge } from '../../../../components/ContentFeedback/Badge';
 
 import { Switch } from '../../../../components/FormControls/Switch';
 
@@ -96,7 +97,9 @@ export default function CardExamples() {
 
                       <div className={styles.resourceContent}>
                         <p className={styles.resourceCategory}>
-                          Accessibility Guide
+                          <Badge variant="info" size="small">
+                            Accessibility Guide
+                          </Badge>
                         </p>
                         <h5>Getting Started with WCAG 2.2</h5>
                         <p>
@@ -112,7 +115,6 @@ export default function CardExamples() {
 
                 <section>
                   <h4>Featured Content Card</h4>
-
                   <p>
                     Similar to the Product or Resource Card, a featured card
                     combines an image, heading, description, and action link. It
@@ -132,7 +134,9 @@ export default function CardExamples() {
 
                       <div className={styles.featuredContent}>
                         <p className={styles.featuredCategory}>
-                          Featured Resource
+                          <Badge variant="default" size="small">
+                            Featured Resource
+                          </Badge>
                         </p>
 
                         <h5>Building Accessible Websites</h5>
@@ -204,7 +208,9 @@ export default function CardExamples() {
 
                       <div className={styles.eventContent}>
                         <p className={styles.eventCategory}>
-                          Community Workshop
+                          <Badge variant="info" size="small">
+                            Community Workshop
+                          </Badge>
                         </p>
                         <h5>Building More Accessible Websites</h5>
                         <p>
@@ -247,9 +253,9 @@ export default function CardExamples() {
                       header={
                         <div className={styles.notificationHeader}>
                           <h5>Notifications</h5>
-                          <span className={styles.notificationCount}>
+                          <Badge variant="info" size="small">
                             3 new
-                          </span>
+                          </Badge>
                         </div>
                       }
                       footer={<a href="/components">View all notifications</a>}
@@ -397,11 +403,9 @@ export default function CardExamples() {
                           Projects currently in progress across the
                           organization.
                         </p>
-                        <span
-                          className={`${styles.statisticStatus} ${styles.statusOnTrack}`}
-                        >
+                        <Badge variant="success" size="small">
                           On track
-                        </span>
+                        </Badge>
                       </div>
                     </Card>
 
@@ -414,11 +418,9 @@ export default function CardExamples() {
                         <p className={styles.statisticDescription}>
                           Projects requiring attention to meet their deadlines.
                         </p>
-                        <span
-                          className={`${styles.statisticStatus} ${styles.statusAtRisk}`}
-                        >
+                        <Badge variant="warning" size="small">
                           At risk
-                        </span>
+                        </Badge>
                       </div>
                     </Card>
 
@@ -431,11 +433,9 @@ export default function CardExamples() {
                         <p className={styles.statisticDescription}>
                           Projects currently behind their planned schedule.
                         </p>
-                        <span
-                          className={`${styles.statisticStatus} ${styles.statusDelayed}`}
-                        >
+                        <Badge variant="error" size="small">
                           Delayed
-                        </span>
+                        </Badge>
                       </div>
                     </Card>
                   </div>
