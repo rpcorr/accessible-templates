@@ -19,15 +19,20 @@ const ButtonPage = lazy(() =>
   })),
 );
 
+const CardPage = lazy(() =>
+  import('./pages/DataDisplay/CardPage').then((m) => ({ default: m.CardPage })),
+);
+const ListPage = lazy(() =>
+  import('./pages/DataDisplay/ListPage').then((m) => ({
+    default: m.ListPage,
+  })),
+);
+const StatisticPage = lazy(() => import('./pages/DataDisplay/StatisticPage'));
 const TablePage = lazy(() =>
   import('./pages/DataDisplay/TablePage').then((m) => ({
     default: m.TablePage,
   })),
 );
-const CardPage = lazy(() =>
-  import('./pages/DataDisplay/CardPage').then((m) => ({ default: m.CardPage })),
-);
-const StatisticPage = lazy(() => import('./pages/DataDisplay/StatisticPage'));
 
 const ContextMenuPage = lazy(() =>
   import('./pages/OverlaysMenus/ContextMenuPage').then((m) => ({
@@ -235,6 +240,7 @@ function App() {
             <Route path="/buttons-actions/button" element={<ButtonPage />} />
 
             <Route path="/data-display/card" element={<CardPage />} />
+            <Route path="/data-display/list" element={<ListPage />} />
             <Route path="/data-display/statistic" element={<StatisticPage />} />
             <Route path="/data-display/table" element={<TablePage />} />
 

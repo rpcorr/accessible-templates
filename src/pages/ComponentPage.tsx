@@ -141,6 +141,15 @@ export function ComponentPage() {
               </li>
 
               <li>
+                <Link to="/data-display/list">List</Link>
+                <span>
+                  An accessible component for presenting related items in
+                  ordered or unordered lists, with configurable list markers,
+                  custom styling, and support for rich content.
+                </span>
+              </li>
+
+              <li>
                 <Link to="/data-display/statistic">Statistic</Link>
                 <span>
                   A component for presenting key numbers, measurements, and

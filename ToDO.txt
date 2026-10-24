@@ -1,18 +1,14 @@
 To do:
 
-3. List.
+1. Signature field
 
-----------------
+2. Charts (BarChart, PieChart, LineChart, StackedBarChart, AreaChart)
+
+3. Tree View
+Introduce a distinct, more advanced keyboard interaction pattern that demonstrates your understanding of accessible composite widgets.
 
 4. Multi-step Form / Wizard
 Demonstrate how your existing inputs, validation, status messages, and focus management work together.
-
-
-5. Tree View
-Introduce a distinct, more advanced keyboard interaction pattern that demonstrates your understanding of accessible composite widgets.
-
-6. Charts (BarChart, PieChart, LineChart, StackedBarChart, AreaChart)
-
 
 Templates:
 
@@ -22,10 +18,7 @@ Templates:
 
 3. Financial dashboard: Data Table, Tabs, Progress Indicator and Toast.
 
-
-
 4. Booking form: Date Picker, Date Range Picker, Time Picker and multi-step navigation.
-
 
 5. Settings page: Switch, Disclosure, Radio Group and Button.
 

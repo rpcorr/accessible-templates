@@ -73,6 +73,11 @@ export const navigationItems: NavigationItem[] = [
             href: '/data-display/card',
           },
           {
+            id: 'list',
+            label: 'List',
+            href: '/data-display/list',
+          },
+          {
             id: 'statistic',
             label: 'Statistic',
             href: '/data-display/statistic',
