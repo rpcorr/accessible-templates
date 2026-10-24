@@ -65,6 +65,13 @@ export function ComponentPage() {
                 </span>
               </li>
               <li>
+                <Link to="/content-feedback/badge">Badge</Link>
+                <span>
+                  A compact label for identifying categories, statuses, and
+                  other contextual information.
+                </span>
+              </li>
+              <li>
                 <Link to="/content-feedback/disclosure">Disclosure</Link>
                 <span>
                   An interactive control that allows users to show or hide

@@ -1,6 +1,6 @@
 To do:
 
-3.Badge → Statistic → List.
+3. Statistic → List.
 
 ----------------
 
@@ -10,6 +10,8 @@ Demonstrate how your existing inputs, validation, status messages, and focus man
 
 5. Tree View
 Introduce a distinct, more advanced keyboard interaction pattern that demonstrates your understanding of accessible composite widgets.
+
+6. Charts (BarChart, PieChart, LineChart, StackedBarChart, AreaChart)
 
 
 Templates:

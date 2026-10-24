@@ -29,6 +29,7 @@ import { SkipLinkPage } from './pages/Navigations/SkipLinkPage';
 
 import { AccordionPage } from './pages/ContentFeedback/AccordionPage';
 import { AlertPage } from './pages/ContentFeedback/AlertPage';
+import BadgePage from './pages/ContentFeedback/BadgePage';
 import { DisclosurePage } from './pages/ContentFeedback/DisclosurePage';
 import { LoadingSpinnerPage } from './pages/ContentFeedback/LoadingSpinnerPage';
 import { ProgressIndicatorPage } from './pages/ContentFeedback/ProgressIndicatorPage';
@@ -109,6 +110,7 @@ function App() {
             element={<AccordionPage />}
           />
           <Route path="/content-feedback/alert" element={<AlertPage />} />
+          <Route path="/content-feedback/badge" element={<BadgePage />} />
           <Route
             path="/content-feedback/disclosure"
             element={<DisclosurePage />}

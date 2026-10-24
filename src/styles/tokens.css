@@ -23,6 +23,33 @@
   --color-focus: #f59e0b;
 
   /* ======================
+     BADGE COLORS
+  ====================== */
+  --color-badge-default-text: #1e40af;
+  --color-badge-default-background: #dbeafe;
+  --color-badge-default-border: #93c5fd;
+
+  --color-badge-success-text: #166534;
+  --color-badge-success-background: #dcfce7;
+  --color-badge-success-border: #86efac;
+
+  --color-badge-warning-text: #854d0e;
+  --color-badge-warning-background: #fef3c7;
+  --color-badge-warning-border: #fcd34d;
+
+  --color-badge-error-text: #991b1b;
+  --color-badge-error-background: #fee2e2;
+  --color-badge-error-border: #fca5a5;
+
+  --color-badge-info-text: #075985;
+  --color-badge-info-background: #e0f2fe;
+  --color-badge-info-border: #7dd3fc;
+
+  --color-badge-neutral-text: #374151;
+  --color-badge-neutral-background: #f3f4f6;
+  --color-badge-neutral-border: #d1d5db;
+
+  /* ======================
      SPACING
   ====================== */
   --space-1: 4px;
