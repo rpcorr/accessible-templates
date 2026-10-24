@@ -132,20 +132,29 @@ export function ComponentPage() {
 
             <ul className={styles.componentList}>
               <li>
-                <Link to="/data-display/table">Table</Link>
-                <span>
-                  An accessible data table for displaying structured
-                  information, with support for sorting, striped rows,
-                  horizontal scrolling, frozen columns, and empty states.
-                </span>
-              </li>
-
-              <li>
                 <Link to="/data-display/card">Card</Link>
                 <span>
                   A flexible content container for presenting related
                   information, with optional headers and footers, default and
                   elevated variants, and support for custom content.
+                </span>
+              </li>
+
+              <li>
+                <Link to="/data-display/statistic">Statistic</Link>
+                <span>
+                  A component for presenting key numbers, measurements, and
+                  summary information, with optional descriptions and support
+                  for use in cards and dashboards.
+                </span>
+              </li>
+
+              <li>
+                <Link to="/data-display/table">Table</Link>
+                <span>
+                  An accessible data table for displaying structured
+                  information, with support for sorting, striped rows,
+                  horizontal scrolling, frozen columns, and empty states.
                 </span>
               </li>
             </ul>

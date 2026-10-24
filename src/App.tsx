@@ -54,6 +54,7 @@ import { TextInputPage } from './pages/FormControls/TextInputPage';
 import { TimePickerPage } from './pages/FormControls/TimePickerPage';
 
 import { NotFoundPage } from './pages/NotFoundPage';
+import StatisticPage from './pages/DataDisplay/StatisticPage';
 
 function App() {
   const { pathname } = useLocation();
@@ -76,8 +77,9 @@ function App() {
 
           <Route path="/buttons-actions/button" element={<ButtonPage />} />
 
-          <Route path="/data-display/table" element={<TablePage />} />
           <Route path="/data-display/card" element={<CardPage />} />
+          <Route path="/data-display/statistic" element={<StatisticPage />} />
+          <Route path="/data-display/table" element={<TablePage />} />
 
           <Route
             path="/overlays-menus/context-menu"
