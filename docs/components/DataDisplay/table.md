@@ -137,3 +137,12 @@ For columns that need a different value for sorting, use the optional `sortValue
 Missing values represented by `null` or `undefined` remain at the bottom in either sort direction.
 
 When combining sorting with pagination, sort the full dataset before selecting the records for the current page if the intention is to sort across all pages. If only the current page is supplied to the Table, its internal sorting applies only to those supplied records.
+
+## Related Components
+
+- [Card](./card.md) – Presents related information in a flexible, self-contained layout when a table is not the best fit.
+- [Pagination](../Navigations/pagination.md) – Divides large datasets into manageable pages.
+- [Status](../ContentFeedback/status.md) – Communicates the current state of an item in a table.
+- [Badge](../ContentFeedback/badge.md) – Displays compact labels or categories alongside table data.
+- [Progress](../ContentFeedback/progress.md) – Shows progress toward a goal or completion of a task.
+- [Checkbox](../FormControls/checkbox.md) – Allows users to select rows or options when selection is supported by the surrounding interface.

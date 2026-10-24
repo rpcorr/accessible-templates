@@ -62,6 +62,7 @@ export const navigationItems: NavigationItem[] = [
           },
         ],
       },
+
       {
         id: 'data-display',
         label: 'Data Display',
@@ -71,8 +72,14 @@ export const navigationItems: NavigationItem[] = [
             label: 'Table',
             href: '/data-display/table',
           },
+          {
+            id: 'card',
+            label: 'Card',
+            href: '/data-display/card',
+          },
         ],
       },
+
       {
         id: 'form-controls',
         label: 'Form Controls',

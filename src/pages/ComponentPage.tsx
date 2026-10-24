@@ -122,6 +122,7 @@ export function ComponentPage() {
               Accessible components for presenting structured information in a
               clear, organized, and usable format.
             </p>
+
             <ul className={styles.componentList}>
               <li>
                 <Link to="/data-display/table">Table</Link>
@@ -129,6 +130,15 @@ export function ComponentPage() {
                   An accessible data table for displaying structured
                   information, with support for sorting, striped rows,
                   horizontal scrolling, frozen columns, and empty states.
+                </span>
+              </li>
+
+              <li>
+                <Link to="/data-display/card">Card</Link>
+                <span>
+                  A flexible content container for presenting related
+                  information, with optional headers and footers, default and
+                  elevated variants, and support for custom content.
                 </span>
               </li>
             </ul>

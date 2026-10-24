@@ -1,6 +1,8 @@
 To do:
 
-3.Card → Badge → Statistic → List.
+3.Badge → Statistic → List.
+
+----------------
 
 4. Multi-step Form / Wizard
 Demonstrate how your existing inputs, validation, status messages, and focus management work together.
