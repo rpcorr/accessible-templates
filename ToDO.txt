@@ -1,6 +1,6 @@
 To do:
 
-3. Statistic → List.
+3. List.
 
 ----------------
 

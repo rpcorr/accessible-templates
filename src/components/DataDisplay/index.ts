@@ -1,3 +1,5 @@
 export * from './Table';
 export { Card } from './Card';
 export type { CardProps, CardVariant } from './Card';
+export { Statistic } from './Statistic';
+export type { StatisticProps } from './Statistic';

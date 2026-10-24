@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { Statistic } from '../../../../components/DataDisplay/Statistic';
-import { Card } from '../../../../components/DataDisplay/Card';
+import { Card, Statistic } from '../../../../components/DataDisplay';
 
 export const StatisticExamples = () => {
   const [testValue, setTestValue] = useState(92.5);
