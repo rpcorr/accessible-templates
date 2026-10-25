@@ -19,6 +19,11 @@ const ButtonPage = lazy(() =>
   })),
 );
 
+const BarChartPage = lazy(() =>
+  import('./pages/DataDisplay/BarChartPage').then((m) => ({
+    default: m.BarChartPage,
+  })),
+);
 const CardPage = lazy(() =>
   import('./pages/DataDisplay/CardPage').then((m) => ({ default: m.CardPage })),
 );
@@ -245,6 +250,7 @@ function App() {
 
             <Route path="/buttons-actions/button" element={<ButtonPage />} />
 
+            <Route path="/data-display/bar-chart" element={<BarChartPage />} />
             <Route path="/data-display/card" element={<CardPage />} />
             <Route path="/data-display/list" element={<ListPage />} />
             <Route path="/data-display/statistic" element={<StatisticPage />} />
