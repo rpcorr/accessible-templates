@@ -188,6 +188,12 @@ const SelectPage = lazy(() =>
     default: m.SelectPage,
   })),
 );
+
+const SignatureFieldPage = lazy(() =>
+  import('./pages/FormControls/SignatureFieldPage').then((m) => ({
+    default: m.SignatureFieldPage,
+  })),
+);
 const SliderPage = lazy(() =>
   import('./pages/FormControls/SliderPage').then((m) => ({
     default: m.SliderPage,
@@ -328,6 +334,10 @@ function App() {
             <Route
               path="/form-controls/search-box"
               element={<SearchBoxPage />}
+            />
+            <Route
+              path="/form-controls/signature-field"
+              element={<SignatureFieldPage />}
             />
             <Route path="/form-controls/slider" element={<SliderPage />} />
             <Route path="/form-controls/switch" element={<SwitchPage />} />

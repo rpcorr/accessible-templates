@@ -248,6 +248,16 @@ export function ComponentPage() {
                   A control that allows users to choose an option from a list.
                 </span>
               </li>
+
+              <li>
+                <Link to="/form-controls/signature-field">Signature Field</Link>
+                <span>
+                  A control that allows users to draw a signature using a mouse,
+                  finger, or stylus, or enter a typed signature as an
+                  alternative.
+                </span>
+              </li>
+
               <li>
                 <Link to="/form-controls/slider">Slider</Link>
                 <span>

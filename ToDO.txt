@@ -1,13 +1,11 @@
 To do:
 
-1. Signature field
+1. Charts (BarChart, PieChart, LineChart, StackedBarChart, AreaChart)
 
-2. Charts (BarChart, PieChart, LineChart, StackedBarChart, AreaChart)
-
-3. Tree View
+2. Tree View
 Introduce a distinct, more advanced keyboard interaction pattern that demonstrates your understanding of accessible composite widgets.
 
-4. Multi-step Form / Wizard
+3. Multi-step Form / Wizard
 Demonstrate how your existing inputs, validation, status messages, and focus management work together.
 
 Templates:

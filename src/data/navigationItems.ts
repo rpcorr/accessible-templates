@@ -140,6 +140,11 @@ export const navigationItems: NavigationItem[] = [
             href: '/form-controls/select',
           },
           {
+            id: 'signature-field',
+            label: 'Signature Field',
+            href: '/form-controls/signature-field',
+          },
+          {
             id: 'slider',
             label: 'Slider',
             href: '/form-controls/slider',
