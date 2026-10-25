@@ -49,15 +49,35 @@ export default function BarChartExamples() {
 
       <section className="stack">
         <h3>Bar Chart with Grid Lines</h3>
+
         <p>
           Display horizontal grid lines and a numerical axis to help users
           estimate and compare values across categories.
         </p>
+
         <BarChart
           title="Quarterly Revenue"
           description="Revenue totals across four quarters."
           data={quarterlyRevenue}
           valueLabel="revenue"
+          showGridLines
+        />
+      </section>
+
+      <section className="stack">
+        <h3>Horizontal Bar Chart</h3>
+
+        <p>
+          Compare values using horizontal bars, with category labels on the left
+          and numerical values beside each bar.
+        </p>
+
+        <BarChart
+          title="Website Visits by Source"
+          description="Number of visits attributed to each traffic source."
+          data={websiteVisits}
+          valueLabel="visits"
+          orientation="horizontal"
           showGridLines
         />
       </section>

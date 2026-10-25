@@ -1,4 +1,5 @@
 import styles from './BarChart.module.css';
+import type { CSSProperties } from 'react';
 
 export interface BarChartData {
   label: string;
@@ -27,10 +28,15 @@ export interface BarChartProps {
   valueLabel?: string;
 
   /**
-   * Whether to display horizontal grid lines and a numerical axis.
+   * Whether to display grid lines and a numerical axis.
    * Defaults to false.
    */
   showGridLines?: boolean;
+
+  /**
+   * Bar orientation. Defaults to vertical.
+   */
+  orientation?: 'vertical' | 'horizontal';
 
   /**
    * Optional class name for custom styling.
@@ -56,6 +62,7 @@ export const BarChart = ({
   description,
   valueLabel,
   showGridLines = false,
+  orientation = 'vertical',
   className,
 }: BarChartProps) => {
   const titleId = `${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-title`;
@@ -67,14 +74,16 @@ export const BarChart = ({
   const axisMax =
     maxValue > 0 ? Math.ceil(maxValue / interval) * interval : interval;
 
-  const ticks = Array.from(
-    { length: 5 },
-    (_, index) => axisMax - index * (axisMax / 4),
+  const ticks = Array.from({ length: 5 }, (_, index) =>
+    orientation === 'horizontal'
+      ? index * (axisMax / 4)
+      : axisMax - index * (axisMax / 4),
   );
 
   return (
     <figure
       className={`${styles.container}${className ? ` ${className}` : ''}`}
+      data-orientation={orientation}
       aria-labelledby={titleId}
       aria-describedby={description ? descriptionId : undefined}
     >
@@ -118,6 +127,10 @@ export const BarChart = ({
 
               return (
                 <div key={`${item.label}-${index}`} className={styles.barGroup}>
+                  {orientation === 'horizontal' && (
+                    <span className={styles.label}>{item.label}</span>
+                  )}
+
                   <div className={styles.barContainer}>
                     <div className={styles.valueRow}>
                       <span className={styles.value}>
@@ -127,15 +140,32 @@ export const BarChart = ({
                     </div>
 
                     <div className={styles.barArea}>
+                      {/* <div
+                        className={styles.bar}
+                        style={
+                          orientation === 'horizontal'
+                            ? { width: `${percentage}%` }
+                            : { height: `${percentage}%` }
+                        }
+                        role="presentation"
+                      /> */}
                       <div
                         className={styles.bar}
-                        style={{ height: `${percentage}%` }}
+                        style={
+                          orientation === 'horizontal'
+                            ? ({
+                                '--bar-width': `${percentage}%`,
+                              } as CSSProperties)
+                            : { height: `${percentage}%` }
+                        }
                         role="presentation"
                       />
                     </div>
                   </div>
 
-                  <span className={styles.label}>{item.label}</span>
+                  {orientation === 'vertical' && (
+                    <span className={styles.label}>{item.label}</span>
+                  )}
                 </div>
               );
             })}

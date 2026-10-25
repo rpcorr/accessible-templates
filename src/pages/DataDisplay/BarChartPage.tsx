@@ -16,26 +16,33 @@ export function BarChartPage() {
     >
       <p>
         An accessible chart for comparing numerical values across categories.
-        Displays proportional vertical bars with category labels and numerical
-        values, alongside an accessible data table that provides an alternative
-        way to explore the underlying information. Optional horizontal grid
-        lines and a numerical axis help users compare values more precisely.
+        Supports vertical and horizontal bar orientations, with category labels
+        and numerical values. An accessible data table provides an alternative
+        way to explore the underlying information. Optional grid lines and a
+        numerical axis help users compare values more precisely.
       </p>
 
       <div className="stack">
         <h3>Features</h3>
 
         <ul>
-          <li>Displays numerical values as proportional vertical bars.</li>
+          <li>
+            Displays numerical values as proportional vertical or horizontal
+            bars.
+          </li>
           <li>Displays category labels and numerical values.</li>
+          <li>
+            Supports vertical and horizontal orientations through the{' '}
+            <code>orientation</code> prop.
+          </li>
           <li>Supports a required chart title and an optional description.</li>
           <li>
             Supports an optional value label, such as sales, visits, or
             responses.
           </li>
           <li>
-            Supports optional horizontal grid lines and a numerical axis through
-            the <code>showGridLines</code> prop.
+            Supports optional grid lines and a numerical axis through the{' '}
+            <code>showGridLines</code> prop.
           </li>
           <li>
             Supports custom CSS classes through the <code>className</code> prop.
@@ -71,9 +78,9 @@ export function BarChartPage() {
             communicated through bar colour alone.
           </li>
           <li>
-            Treats the grid lines and numerical axis as supplementary visual
-            aids, while preserving the accessible data table as an alternative
-            way to access the chart information.
+            Treats grid lines and the numerical axis as supplementary visual
+            aids, with the accessible data table providing an alternative way to
+            access the chart information.
           </li>
           <li>
             Supports responsive layouts and usability at increased zoom levels.
@@ -87,6 +94,13 @@ export function BarChartPage() {
           distinct categories, such as monthly sales, website visits, or survey
           results. Use a consistent scale and provide clear category labels so
           comparisons are meaningful.
+        </p>
+
+        <p>
+          Use vertical bars for familiar column-style comparisons and horizontal
+          bars when category labels are longer or easier to read in a
+          left-aligned layout. Set the <code>orientation</code> prop to{' '}
+          <code>"vertical"</code> or <code>"horizontal"</code> as appropriate.
         </p>
 
         <p>
@@ -107,9 +121,10 @@ export function BarChartPage() {
         <h3>Examples</h3>
 
         <p>
-          Explore the examples below to see how the Bar Chart handles different
-          datasets, optional descriptions, value labels, zero values, optional
-          grid lines, and responsive layouts.
+          Explore the examples below to see how the Bar Chart handles vertical
+          and horizontal orientations, different datasets, optional
+          descriptions, value labels, zero values, grid lines, and responsive
+          layouts.
         </p>
       </div>
 
