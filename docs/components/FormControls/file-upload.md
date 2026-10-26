@@ -137,7 +137,7 @@ The component does not attempt to announce the physical act of dragging files wi
 
 The native file input provides a visible focus indicator when focused using the keyboard.
 
-Focus styling uses the project's shared focus color to provide a clear visual indication of the active control.
+Focus styling uses the project's shared focus colour to provide a clear visual indication of the active control.
 
 When the programmatic `clear()` method is called, focus is returned to the native file input.
 
