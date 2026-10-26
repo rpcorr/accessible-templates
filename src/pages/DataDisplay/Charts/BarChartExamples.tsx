@@ -1,4 +1,4 @@
-import { BarChart } from '../../../components/DataDisplay/Charts/BarChart/BarChart';
+import { BarChart } from '../../../components/DataDisplay/Charts/BarChart';
 
 const monthlySales = [
   { label: 'January', value: 25 },
