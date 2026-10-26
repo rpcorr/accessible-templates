@@ -132,6 +132,15 @@ export function ComponentPage() {
 
             <ul className={styles.componentList}>
               <li>
+                <Link to="/data-display/bar-chart">Bar Chart</Link>
+                <span>
+                  An accessible chart for comparing numerical values across
+                  categories, with vertical and horizontal orientations,
+                  category labels, numerical values, optional grid lines and a
+                  numerical axis, and an accessible data table.
+                </span>
+              </li>
+              <li>
                 <Link to="/data-display/card">Card</Link>
                 <span>
                   A flexible content container for presenting related
