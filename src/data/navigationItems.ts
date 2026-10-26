@@ -68,6 +68,11 @@ export const navigationItems: NavigationItem[] = [
         label: 'Data Display',
         children: [
           {
+            id: 'bar-chart',
+            label: 'Bar Chart',
+            href: '/data-display/bar-chart',
+          },
+          {
             id: 'card',
             label: 'Card',
             href: '/data-display/card',

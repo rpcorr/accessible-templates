@@ -136,8 +136,10 @@ export function ComponentPage() {
                 <span>
                   An accessible chart for comparing numerical values across
                   categories, with vertical and horizontal orientations,
-                  category labels, numerical values, optional grid lines and a
-                  numerical axis, and an accessible data table.
+                  single-series and grouped bar charts for comparing multiple
+                  datasets, category labels, numerical values, a series legend,
+                  optional grid lines and a numerical axis, and an accessible
+                  data table that supports both single and grouped datasets.
                 </span>
               </li>
               <li>

@@ -14,6 +14,17 @@ const websiteVisits = [
   { label: 'Referral', value: 210 },
 ];
 
+const websiteVisitsByYear = [
+  { label: '2024', values: [520, 390, 240, 150] },
+  { label: '2025', values: [650, 480, 290, 180] },
+  { label: '2026', values: [820, 540, 360, 210] },
+];
+
+const websiteVisitCategories = websiteVisits.map((item) => ({
+  label: item.label,
+  value: 0,
+}));
+
 const surveyResults = [
   { label: 'Very satisfied', value: 42 },
   { label: 'Satisfied', value: 31 },
@@ -78,6 +89,23 @@ export default function BarChartExamples() {
           data={websiteVisits}
           valueLabel="visits"
           orientation="horizontal"
+          showGridLines
+        />
+      </section>
+
+      <section className="stack">
+        <h3>Grouped Bar Chart</h3>
+
+        <p>
+          Compare website visits across two years, with side-by-side bars for
+          each traffic source.
+        </p>
+
+        <BarChart
+          title="Website Visits by Year"
+          description="Compare website traffic sources across 2024, 2025, and 2026."
+          data={websiteVisitCategories}
+          datasets={websiteVisitsByYear}
           showGridLines
         />
       </section>
