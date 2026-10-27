@@ -120,65 +120,77 @@ export function ComponentPage() {
             </ul>
           </section>
 
-          <section
-            className={styles.card}
-            aria-labelledby="data-display-heading"
-          >
-            <h3 id="data-display-heading">Data Display</h3>
-            <p>
-              Accessible components for presenting structured information in a
-              clear, organized, and usable format.
-            </p>
+<section
+  className={styles.card}
+  aria-labelledby="data-display-heading"
+>
+  <h3 id="data-display-heading">Data Display</h3>
+  <p>
+    Accessible components for presenting structured information in a
+    clear, organized, and usable format.
+  </p>
 
-            <ul className={styles.componentList}>
-              <li>
-                <Link to="/data-display/bar-chart">Bar Chart</Link>
-                <span>
-                  An accessible chart for comparing numerical values across
-                  categories, with vertical and horizontal orientations,
-                  single-series and grouped bar charts for comparing multiple
-                  datasets, category labels, numerical values, a series legend,
-                  optional grid lines and a numerical axis, and an accessible
-                  data table that supports both single and grouped datasets.
-                </span>
-              </li>
-              <li>
-                <Link to="/data-display/card">Card</Link>
-                <span>
-                  A flexible content container for presenting related
-                  information, with optional headers and footers, default and
-                  elevated variants, and support for custom content.
-                </span>
-              </li>
+  <ul className={styles.componentList}>
+    <li>
+      <Link to="/data-display/bar-chart">Bar Chart</Link>
+      <span>
+        An accessible chart for comparing numerical values across
+        categories, with vertical and horizontal orientations,
+        single-series and grouped bar charts for comparing multiple
+        datasets, category labels, numerical values, a series legend,
+        optional grid lines and a numerical axis, and an accessible
+        data table that supports both single and grouped datasets.
+      </span>
+    </li>
 
-              <li>
-                <Link to="/data-display/list">List</Link>
-                <span>
-                  An accessible component for presenting related items in
-                  ordered or unordered lists, with configurable list markers,
-                  custom styling, and support for rich content.
-                </span>
-              </li>
+    <li>
+      <Link to="/data-display/pie-chart">Pie Chart</Link>
+      <span>
+        An accessible chart for displaying proportions across
+        categories, with standard and exploded layouts, category
+        labels, numerical values and percentages, an accessible
+        legend, and a semantic data table.
+      </span>
+    </li>
 
-              <li>
-                <Link to="/data-display/statistic">Statistic</Link>
-                <span>
-                  A component for presenting key numbers, measurements, and
-                  summary information, with optional descriptions and support
-                  for use in cards and dashboards.
-                </span>
-              </li>
+    <li>
+      <Link to="/data-display/card">Card</Link>
+      <span>
+        A flexible content container for presenting related
+        information, with optional headers and footers, default and
+        elevated variants, and support for custom content.
+      </span>
+    </li>
 
-              <li>
-                <Link to="/data-display/table">Table</Link>
-                <span>
-                  An accessible data table for displaying structured
-                  information, with support for sorting, striped rows,
-                  horizontal scrolling, frozen columns, and empty states.
-                </span>
-              </li>
-            </ul>
-          </section>
+    <li>
+      <Link to="/data-display/list">List</Link>
+      <span>
+        An accessible component for presenting related items in
+        ordered or unordered lists, with configurable list markers,
+        custom styling, and support for rich content.
+      </span>
+    </li>
+
+    <li>
+      <Link to="/data-display/statistic">Statistic</Link>
+      <span>
+        A component for presenting key numbers, measurements, and
+        summary information, with optional descriptions and support
+        for use in cards and dashboards.
+      </span>
+    </li>
+
+    <li>
+      <Link to="/data-display/table">Table</Link>
+      <span>
+        An accessible data table for displaying structured
+        information, with support for sorting, striped rows,
+        horizontal scrolling, frozen columns, and empty states.
+      </span>
+    </li>
+  </ul>
+</section>
+
 
           <section
             className={styles.card}
