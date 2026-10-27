@@ -1,6 +1,6 @@
 To do:
 
-1. Charts (PieChart, DonoughtChart, LineChart, StackedBarChart, AreaChart)
+1. Charts (DonoughtChart, LineChart, StackedBarChart, AreaChart)
 
 2. Tree View
 Introduce a distinct, more advanced keyboard interaction pattern that demonstrates your understanding of accessible composite widgets.
