@@ -154,6 +154,17 @@ export function ComponentPage() {
               </li>
 
               <li>
+                <Link to="/data-display/line-chart">Line Chart</Link>
+                <span>
+                  An accessible chart for displaying trends and changes in
+                  numerical values over time or across categories, with support
+                  for multiple data series, distinct line styles and markers, a
+                  series legend, axis labels, grid lines, and an accessible data
+                  table.
+                </span>
+              </li>
+
+              <li>
                 <Link to="/data-display/pie-chart">Pie Chart</Link>
                 <span>
                   An accessible chart for displaying proportions across

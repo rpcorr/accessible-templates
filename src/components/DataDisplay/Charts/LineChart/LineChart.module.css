@@ -1,0 +1,254 @@
+.container {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 1.5rem;
+  border: 1px solid var(--color-border, #d1d5db);
+  border-radius: 0.5rem;
+  background-color: var(--color-surface, #ffffff);
+  color: var(--color-text, #111827);
+}
+
+.caption {
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-lg, 1.25rem);
+  font-weight: 700;
+}
+
+.description {
+  margin: 0.5rem 0 0;
+  color: var(--color-text-muted, #595959);
+  line-height: 1.5;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text, #111827);
+  font-size: var(--text-sm, 0.875rem);
+  line-height: 1.4;
+}
+
+.legendSwatch {
+  display: inline-block;
+  flex: 0 0 1.5rem;
+  width: 1.5rem;
+  height: 0.25rem;
+  border-radius: 0.125rem;
+  background-color: var(--color-primary, #2563eb);
+}
+
+.legendSwatch::after {
+  display: block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin: -0.125rem auto 0;
+  border-radius: 50%;
+  background-color: inherit;
+  content: '';
+}
+
+.series1 {
+  --series-color: var(--color-primary, #2563eb);
+}
+
+.series2 {
+  --series-color: var(--color-series-2, #0f766e);
+}
+
+.series3 {
+  --series-color: var(--color-series-3, #9333ea);
+}
+
+.series4 {
+  --series-color: var(--color-series-4, #c2410c);
+}
+
+.series5 {
+  --series-color: var(--color-series-5, #b91c1c);
+}
+
+.legendSwatch.series1,
+.legendSwatch.series2,
+.legendSwatch.series3,
+.legendSwatch.series4,
+.legendSwatch.series5 {
+  background-color: var(--series-color);
+}
+
+.chart {
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+.chartInner {
+  position: relative;
+  width: 100%;
+  min-width: 32rem;
+  height: 20rem;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.gridLine {
+  stroke: var(--color-border, #d1d5db);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.axisLabel {
+  fill: var(--color-text, #111827);
+  font-size: var(--text-md, 1rem);
+}
+
+.xAxisLabel {
+  text-anchor: middle;
+}
+
+.yAxisLabel {
+  text-anchor: end;
+}
+
+.line {
+  fill: none;
+  stroke: var(--series-color, var(--color-primary, #2563eb));
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.marker {
+  fill: var(--color-surface, #ffffff);
+  stroke: var(--series-color, var(--color-primary, #2563eb));
+  stroke-width: 2.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.seriesLine1 {
+  stroke-dasharray: none;
+}
+
+.seriesLine2 {
+  stroke-dasharray: 8 4;
+}
+
+.seriesLine3 {
+  stroke-dasharray: 3 3;
+}
+
+.seriesLine4 {
+  stroke-dasharray: 10 3 2 3;
+}
+
+.seriesLine5 {
+  stroke-dasharray: 2 5;
+}
+
+.dataTable {
+  width: 100%;
+  margin-top: 1rem;
+  border-collapse: collapse;
+  font-size: var(--text-sm, 0.875rem);
+}
+
+.dataTable th,
+.dataTable td {
+  padding: 0.625rem;
+  border: 1px solid var(--color-border, #d1d5db);
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.dataTable th {
+  background-color: var(--color-surface, #f5f5f5);
+  font-weight: 700;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Improve data table readability on tablets and mobile devices */
+@media (max-width: 768px) {
+  .dataTable {
+    font-size: var(--text-md, 1rem);
+  }
+
+  .dataTable th,
+  .dataTable td {
+    padding: 0.75rem;
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .chartInner {
+    min-width: 28rem;
+    height: 18rem;
+  }
+
+  .legend {
+    gap: 0.75rem 1rem;
+  }
+
+  .legendItem {
+    font-size: var(--text-sm, 0.875rem);
+  }
+
+  .line {
+    stroke-width: 2.75;
+  }
+
+  .marker {
+    stroke-width: 2.75;
+  }
+
+  .dataTable th,
+  .dataTable td {
+    padding: 0.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chart,
+  .chartInner,
+  .svg {
+    scroll-behavior: auto;
+    animation: none;
+    transition: none;
+  }
+}

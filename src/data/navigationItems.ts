@@ -82,6 +82,11 @@ export const navigationItems: NavigationItem[] = [
                 href: '/data-display/donut-chart',
               },
               {
+                id: 'line-chart',
+                label: 'Line Chart',
+                href: '/data-display/line-chart',
+              },
+              {
                 id: 'pie-chart',
                 label: 'Pie Chart',
                 href: '/data-display/pie-chart',

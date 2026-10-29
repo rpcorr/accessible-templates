@@ -31,6 +31,12 @@ const DonutChartPage = lazy(() =>
   })),
 );
 
+const LineChartPage = lazy(() =>
+  import('./pages/DataDisplay/LineChartPage').then((m) => ({
+    default: m.LineChartPage,
+  })),
+);
+
 const PieChartPage = lazy(() =>
   import('./pages/DataDisplay/PieChartPage').then((m) => ({
     default: m.PieChartPage,
@@ -267,6 +273,10 @@ function App() {
             <Route
               path="/data-display/donut-chart"
               element={<DonutChartPage />}
+            />
+            <Route
+              path="/data-display/line-chart"
+              element={<LineChartPage />}
             />
             <Route path="/data-display/pie-chart" element={<PieChartPage />} />
             <Route path="/data-display/card" element={<CardPage />} />
