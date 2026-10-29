@@ -175,6 +175,19 @@ export function ComponentPage() {
               </li>
 
               <li>
+                <Link to="/data-display/stacked-bar-chart">
+                  Stacked Bar Chart
+                </Link>
+                <span>
+                  An accessible chart for comparing category totals and
+                  individual contributions using stacked bar segments, with
+                  support for multiple datasets, positive and negative values, a
+                  series legend, optional grid lines, a numerical axis, and an
+                  accessible data table with category values and totals.
+                </span>
+              </li>
+
+              <li>
                 <Link to="/data-display/card">Card</Link>
                 <span>
                   A flexible content container for presenting related

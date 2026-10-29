@@ -43,6 +43,12 @@ const PieChartPage = lazy(() =>
   })),
 );
 
+const StackedBarChartPage = lazy(() =>
+  import('./pages/DataDisplay/StackedBarChartPage').then((m) => ({
+    default: m.StackedBarChartPage,
+  })),
+);
+
 const CardPage = lazy(() =>
   import('./pages/DataDisplay/CardPage').then((m) => ({ default: m.CardPage })),
 );
@@ -279,6 +285,10 @@ function App() {
               element={<LineChartPage />}
             />
             <Route path="/data-display/pie-chart" element={<PieChartPage />} />
+            <Route
+              path="/data-display/stacked-bar-chart"
+              element={<StackedBarChartPage />}
+            />
             <Route path="/data-display/card" element={<CardPage />} />
             <Route path="/data-display/list" element={<ListPage />} />
             <Route path="/data-display/statistic" element={<StatisticPage />} />

@@ -91,6 +91,11 @@ export const navigationItems: NavigationItem[] = [
                 label: 'Pie Chart',
                 href: '/data-display/pie-chart',
               },
+              {
+                id: 'stacked-bar-chart',
+                label: 'Stacked Bar Chart',
+                href: '/data-display/stacked-bar-chart',
+              },
             ],
           },
           {
