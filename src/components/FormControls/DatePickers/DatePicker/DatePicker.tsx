@@ -62,6 +62,18 @@ const parseDate = (value: string): Date | null => {
 const startOfMonth = (date: Date): Date =>
   new Date(date.getFullYear(), date.getMonth(), 1);
 
+const formatMonth = (date: Date): string =>
+  new Intl.DateTimeFormat('en-CA', {
+    month: 'long',
+  }).format(date);
+
+const formatShortMonth = (date: Date): string =>
+  new Intl.DateTimeFormat('en-CA', {
+    month: 'short',
+  }).format(date);
+
+const formatYear = (date: Date): string => String(date.getFullYear());
+
 const formatMonthYear = (date: Date): string =>
   new Intl.DateTimeFormat('en-CA', {
     month: 'long',
@@ -153,6 +165,83 @@ const getInitialInputValue = (
 
 const getMonthDate = (date: Date, monthOffset: number): Date =>
   new Date(date.getFullYear(), date.getMonth() + monthOffset, 1);
+
+/**
+ * Returns the enabled date in a month closest to the preferred day.
+ * Returns null when the month contains no selectable dates.
+ */
+const getEnabledDateInMonth = (
+  month: Date,
+  preferredDay: number,
+  minDate?: Date,
+  maxDate?: Date,
+): Date | null => {
+  const year = month.getFullYear();
+  const monthIndex = month.getMonth();
+  const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+
+  let closestDate: Date | null = null;
+  let smallestDistance = Infinity;
+
+  for (let day = 1; day <= daysInMonth; day += 1) {
+    const candidate = new Date(year, monthIndex, day);
+
+    if (isDateDisabled(candidate, minDate, maxDate)) {
+      continue;
+    }
+
+    const distance = Math.abs(day - preferredDay);
+
+    if (distance < smallestDistance) {
+      closestDate = candidate;
+      smallestDistance = distance;
+    }
+  }
+
+  return closestDate;
+};
+
+/**
+ * Returns the enabled date in a year closest to the preferred month and day.
+ * This also handles dates such as February 29 in non-leap years.
+ */
+const getEnabledDateInYear = (
+  year: number,
+  preferredMonth: number,
+  preferredDay: number,
+  minDate?: Date,
+  maxDate?: Date,
+): Date | null => {
+  const preferredDate = new Date(
+    year,
+    preferredMonth,
+    Math.min(preferredDay, new Date(year, preferredMonth + 1, 0).getDate()),
+  );
+
+  let closestDate: Date | null = null;
+  let smallestDistance = Infinity;
+
+  for (let month = 0; month < 12; month += 1) {
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    for (let day = 1; day <= daysInMonth; day += 1) {
+      const candidate = new Date(year, month, day);
+
+      if (isDateDisabled(candidate, minDate, maxDate)) {
+        continue;
+      }
+
+      const distance = Math.abs(candidate.getTime() - preferredDate.getTime());
+
+      if (distance < smallestDistance) {
+        closestDate = candidate;
+        smallestDistance = distance;
+      }
+    }
+  }
+
+  return closestDate;
+};
 
 const getCalendarDays = (month: Date): Date[] => {
   const firstDayOfMonth = startOfMonth(month);
@@ -249,13 +338,6 @@ export function DatePicker({
       .filter(Boolean)
       .join(' ') || undefined;
 
-  const focusDate = (date: Date, direction: number) => {
-    const enabledDate = findEnabledDate(date, direction, minDate, maxDate);
-
-    setFocusedDate(enabledDate);
-    setVisibleMonth(startOfMonth(enabledDate));
-  };
-
   const moveFocus = (days: number) => {
     setFocusedDate((current) => {
       const direction = days < 0 ? -1 : 1;
@@ -332,38 +414,66 @@ export function DatePicker({
 
   const handlePreviousMonth = () => {
     const previousMonth = getMonthDate(visibleMonth, -1);
-    const targetDate = new Date(
-      previousMonth.getFullYear(),
-      previousMonth.getMonth(),
-      Math.min(
-        focusedDate.getDate(),
-        new Date(
-          previousMonth.getFullYear(),
-          previousMonth.getMonth() + 1,
-          0,
-        ).getDate(),
-      ),
+    const targetDate = getEnabledDateInMonth(
+      previousMonth,
+      focusedDate.getDate(),
+      minDate,
+      maxDate,
     );
 
-    focusDate(targetDate, -1);
+    if (!targetDate) {
+      return;
+    }
+
+    setVisibleMonth(startOfMonth(targetDate));
   };
 
   const handleNextMonth = () => {
     const nextMonth = getMonthDate(visibleMonth, 1);
-    const targetDate = new Date(
-      nextMonth.getFullYear(),
-      nextMonth.getMonth(),
-      Math.min(
-        focusedDate.getDate(),
-        new Date(
-          nextMonth.getFullYear(),
-          nextMonth.getMonth() + 1,
-          0,
-        ).getDate(),
-      ),
+    const targetDate = getEnabledDateInMonth(
+      nextMonth,
+      focusedDate.getDate(),
+      minDate,
+      maxDate,
     );
 
-    focusDate(targetDate, 1);
+    if (!targetDate) {
+      return;
+    }
+
+    setVisibleMonth(startOfMonth(targetDate));
+  };
+
+  const handlePreviousYear = () => {
+    const targetDate = getEnabledDateInYear(
+      visibleMonth.getFullYear() - 1,
+      focusedDate.getMonth(),
+      focusedDate.getDate(),
+      minDate,
+      maxDate,
+    );
+
+    if (!targetDate) {
+      return;
+    }
+
+    setVisibleMonth(startOfMonth(targetDate));
+  };
+
+  const handleNextYear = () => {
+    const targetDate = getEnabledDateInYear(
+      visibleMonth.getFullYear() + 1,
+      focusedDate.getMonth(),
+      focusedDate.getDate(),
+      minDate,
+      maxDate,
+    );
+
+    if (!targetDate) {
+      return;
+    }
+
+    setVisibleMonth(startOfMonth(targetDate));
   };
 
   const handleDateSelect = (date: Date) => {
@@ -498,6 +608,36 @@ export function DatePicker({
     }
   };
 
+  const previousMonthDate = getEnabledDateInMonth(
+    getMonthDate(visibleMonth, -1),
+    focusedDate.getDate(),
+    minDate,
+    maxDate,
+  );
+
+  const nextMonthDate = getEnabledDateInMonth(
+    getMonthDate(visibleMonth, 1),
+    focusedDate.getDate(),
+    minDate,
+    maxDate,
+  );
+
+  const previousYearDate = getEnabledDateInYear(
+    visibleMonth.getFullYear() - 1,
+    focusedDate.getMonth(),
+    focusedDate.getDate(),
+    minDate,
+    maxDate,
+  );
+
+  const nextYearDate = getEnabledDateInYear(
+    visibleMonth.getFullYear() + 1,
+    focusedDate.getMonth(),
+    focusedDate.getDate(),
+    minDate,
+    maxDate,
+  );
+
   const calendarDays = getCalendarDays(visibleMonth);
   const weekdayLabels = getWeekdayLabels();
 
@@ -568,31 +708,74 @@ export function DatePicker({
           onKeyDown={handleCalendarKeyDown}
         >
           <div className={styles.calendarHeader}>
-            <button
-              type="button"
-              className={styles.monthButton}
-              aria-label="Previous month"
-              onClick={handlePreviousMonth}
-            >
-              <span aria-hidden="true">←</span>
-            </button>
+            <div className={styles.headerSection}>
+              <div
+                className={styles.headerValue}
+                aria-live="polite"
+                aria-atomic="true"
+              >
+                <span className={styles.fullMonth}>
+                  {formatMonth(visibleMonth)}
+                </span>
+                <span className={styles.shortMonth}>
+                  {formatShortMonth(visibleMonth)}
+                </span>
+              </div>
 
-            <div
-              className={styles.monthHeading}
-              aria-live="polite"
-              aria-atomic="true"
-            >
-              {formatMonthYear(visibleMonth)}
+              <div className={styles.navigationButtons}>
+                <button
+                  type="button"
+                  className={styles.monthButton}
+                  aria-label="Next month"
+                  disabled={!nextMonthDate}
+                  onClick={handleNextMonth}
+                >
+                  <span aria-hidden="true">↑</span>
+                </button>
+
+                <button
+                  type="button"
+                  className={styles.monthButton}
+                  aria-label="Previous month"
+                  disabled={!previousMonthDate}
+                  onClick={handlePreviousMonth}
+                >
+                  <span aria-hidden="true">↓</span>
+                </button>
+              </div>
             </div>
 
-            <button
-              type="button"
-              className={styles.monthButton}
-              aria-label="Next month"
-              onClick={handleNextMonth}
-            >
-              <span aria-hidden="true">→</span>
-            </button>
+            <div className={styles.headerSection}>
+              <div
+                className={styles.headerValue}
+                aria-live="polite"
+                aria-atomic="true"
+              >
+                {formatYear(visibleMonth)}
+              </div>
+
+              <div className={styles.navigationButtons}>
+                <button
+                  type="button"
+                  className={styles.monthButton}
+                  aria-label="Next year"
+                  disabled={!nextYearDate}
+                  onClick={handleNextYear}
+                >
+                  <span aria-hidden="true">↑</span>
+                </button>
+
+                <button
+                  type="button"
+                  className={styles.monthButton}
+                  aria-label="Previous year"
+                  disabled={!previousYearDate}
+                  onClick={handlePreviousYear}
+                >
+                  <span aria-hidden="true">↓</span>
+                </button>
+              </div>
+            </div>
           </div>
 
           <div

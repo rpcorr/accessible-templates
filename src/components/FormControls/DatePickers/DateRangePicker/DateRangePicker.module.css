@@ -117,7 +117,7 @@
   box-shadow: 0 4px 12px rgb(0 0 0 / 12%);
 }
 
-.calendarHeader {
+/* .calendarHeader {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
@@ -161,6 +161,74 @@
   font-size: 1rem;
   font-weight: 600;
   text-align: center;
+} */
+
+.calendarHeader {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.headerSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 0;
+  gap: var(--space-2);
+}
+
+.headerValue {
+  min-width: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.navigationButtons {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 2px;
+}
+
+.monthButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 1.5rem;
+  padding: 0;
+  border: 1px solid var(--color-secondary);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.monthButton:hover:not(:disabled) {
+  background-color: var(--color-secondary);
+}
+
+.monthButton:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.monthButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.fullMonth {
+  display: inline;
+}
+
+.shortMonth {
+  display: none;
 }
 
 .calendarGrid {
@@ -290,15 +358,34 @@
   }
 
   .calendarHeader {
+    gap: var(--space-2);
+  }
+
+  .headerSection {
     gap: var(--space-1);
   }
 
+  .headerValue {
+    font-size: var(--text-sm);
+  }
+
   .monthButton {
-    padding: var(--space-1);
+    width: 1.75rem;
+    height: 1.4rem;
     font-size: var(--text-sm);
   }
 
   .dateButton {
     min-height: 2.25rem;
+  }
+}
+
+@media (max-width: 20rem) {
+  .fullMonth {
+    display: none;
+  }
+
+  .shortMonth {
+    display: inline;
   }
 }

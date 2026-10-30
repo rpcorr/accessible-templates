@@ -79,6 +79,29 @@ function isAfter(first: Date, second: Date): boolean {
   return normalizeDate(first).getTime() > normalizeDate(second).getTime();
 }
 
+// function formatMonthYear(date: Date): string {
+//   return new Intl.DateTimeFormat('en', {
+//     month: 'long',
+//     year: 'numeric',
+//   }).format(date);
+// }
+
+function formatMonth(date: Date): string {
+  return new Intl.DateTimeFormat('en-CA', {
+    month: 'long',
+  }).format(date);
+}
+
+function formatShortMonth(date: Date): string {
+  return new Intl.DateTimeFormat('en-CA', {
+    month: 'short',
+  }).format(date);
+}
+
+function formatYear(date: Date): string {
+  return String(date.getFullYear());
+}
+
 function formatMonthYear(date: Date): string {
   return new Intl.DateTimeFormat('en', {
     month: 'long',
@@ -253,6 +276,25 @@ export function DateRangePicker({
 
   const nextMonthDisabled =
     maxDate !== undefined && isBefore(normalizeDate(maxDate), nextMonth);
+
+  const previousYear = visibleMonth.getFullYear() - 1;
+  const nextYear = visibleMonth.getFullYear() + 1;
+
+  const previousYearStart = new Date(previousYear, 0, 1);
+  const previousYearEnd = new Date(previousYear, 11, 31);
+
+  const nextYearStart = new Date(nextYear, 0, 1);
+  const nextYearEnd = new Date(nextYear, 11, 31);
+
+  const previousYearDisabled =
+    (minDate !== undefined &&
+      isAfter(normalizeDate(minDate), previousYearEnd)) ||
+    (maxDate !== undefined &&
+      isBefore(normalizeDate(maxDate), previousYearStart));
+
+  const nextYearDisabled =
+    (minDate !== undefined && isAfter(normalizeDate(minDate), nextYearEnd)) ||
+    (maxDate !== undefined && isBefore(normalizeDate(maxDate), nextYearStart));
 
   useEffect(() => {
     if (!isOpen || monthNavigationRef.current) {
@@ -463,23 +505,43 @@ export function DateRangePicker({
     monthNavigationRef.current = true;
 
     setActiveDate((current) => {
-      const next = new Date(
+      const nextMonth = new Date(
         current.getFullYear(),
         current.getMonth() + amount,
         1,
       );
 
       const lastDay = new Date(
-        next.getFullYear(),
-        next.getMonth() + 1,
+        nextMonth.getFullYear(),
+        nextMonth.getMonth() + 1,
         0,
       ).getDate();
 
-      return new Date(
-        next.getFullYear(),
-        next.getMonth(),
+      const candidateDate = new Date(
+        nextMonth.getFullYear(),
+        nextMonth.getMonth(),
         Math.min(current.getDate(), lastDay),
       );
+
+      return clampDateToBounds(candidateDate, minDate, maxDate);
+    });
+  }
+
+  function moveYear(amount: number) {
+    monthNavigationRef.current = true;
+
+    setActiveDate((current) => {
+      const targetYear = current.getFullYear() + amount;
+
+      const lastDay = new Date(targetYear, current.getMonth() + 1, 0).getDate();
+
+      const candidateDate = new Date(
+        targetYear,
+        current.getMonth(),
+        Math.min(current.getDate(), lastDay),
+      );
+
+      return clampDateToBounds(candidateDate, minDate, maxDate);
     });
   }
 
@@ -704,29 +766,77 @@ export function DateRangePicker({
           onKeyDown={handleCalendarKeyDown}
         >
           <div className={styles.calendarHeader}>
-            <button
-              type="button"
-              className={styles.monthButton}
-              aria-label="Previous month"
-              disabled={disabled || readOnly || previousMonthDisabled}
-              onClick={() => moveMonth(-1)}
-            >
-              Previous month
-            </button>
+            {/* Month navigation - left */}
+            <div className={styles.headerSection}>
+              <div
+                className={styles.headerValue}
+                aria-live="polite"
+                aria-atomic="true"
+              >
+                <span className={styles.fullMonth}>
+                  {formatMonth(visibleMonth)}
+                </span>
 
-            <h2 className={styles.monthHeading} aria-live="polite">
-              {formatMonthYear(visibleMonth)}
-            </h2>
+                <span className={styles.shortMonth}>
+                  {formatShortMonth(visibleMonth)}
+                </span>
+              </div>
 
-            <button
-              type="button"
-              className={styles.monthButton}
-              aria-label="Next month"
-              disabled={disabled || readOnly || nextMonthDisabled}
-              onClick={() => moveMonth(1)}
-            >
-              Next month
-            </button>
+              <div className={styles.navigationButtons}>
+                <button
+                  type="button"
+                  className={styles.monthButton}
+                  aria-label="Next month"
+                  disabled={disabled || readOnly || nextMonthDisabled}
+                  onClick={() => moveMonth(1)}
+                >
+                  <span aria-hidden="true">↑</span>
+                </button>
+
+                <button
+                  type="button"
+                  className={styles.monthButton}
+                  aria-label="Previous month"
+                  disabled={disabled || readOnly || previousMonthDisabled}
+                  onClick={() => moveMonth(-1)}
+                >
+                  <span aria-hidden="true">↓</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Year navigation - right */}
+            <div className={styles.headerSection}>
+              <div
+                className={styles.headerValue}
+                aria-live="polite"
+                aria-atomic="true"
+              >
+                {formatYear(visibleMonth)}
+              </div>
+
+              <div className={styles.navigationButtons}>
+                <button
+                  type="button"
+                  className={styles.monthButton}
+                  aria-label="Next year"
+                  disabled={disabled || readOnly || nextYearDisabled}
+                  onClick={() => moveYear(1)}
+                >
+                  <span aria-hidden="true">↑</span>
+                </button>
+
+                <button
+                  type="button"
+                  className={styles.monthButton}
+                  aria-label="Previous year"
+                  disabled={disabled || readOnly || previousYearDisabled}
+                  onClick={() => moveYear(-1)}
+                >
+                  <span aria-hidden="true">↓</span>
+                </button>
+              </div>
+            </div>
           </div>
 
           <div
