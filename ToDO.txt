@@ -1,9 +1,6 @@
 To do:
 
-1. Tree View
-Introduce a distinct, more advanced keyboard interaction pattern that demonstrates your understanding of accessible composite widgets.
-
-2. Multi-step Form / Wizard
+1. Multi-step Form / Wizard
 Demonstrate how your existing inputs, validation, status messages, and focus management work together.
 
 Templates:

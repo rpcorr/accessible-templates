@@ -410,6 +410,15 @@ export function ComponentPage() {
                   important page section.
                 </span>
               </li>
+              <li>
+                <Link to="/navigations/tree-view">Tree View</Link>
+                <span>
+                  A hierarchical navigation component that allows users to
+                  explore expandable and collapsible parent and child items
+                  using keyboard navigation and optional single or multiple
+                  selection.
+                </span>
+              </li>
             </ul>
           </section>
 

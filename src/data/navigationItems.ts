@@ -241,6 +241,11 @@ export const navigationItems: NavigationItem[] = [
             label: 'Skip Link',
             href: '/navigations/skip-link',
           },
+          {
+            id: 'tree-view',
+            label: 'Tree View',
+            href: '/navigations/tree-view',
+          },
         ],
       },
       {

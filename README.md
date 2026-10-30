@@ -137,6 +137,7 @@ The following components have been implemented with accessibility as a first-cla
 | [Navigation](docs/components/Navigation/navigation.md)                    | Complete | Keyboard navigation, nested submenus, mobile drawer, focus trap where appropriate, focus management                                                                                                                                                                                |
 | [Pagination](docs/components/Navigation/pagination.md)                    | Complete | Semantic navigation, `aria-current`, keyboard accessibility, visible focus styling, disabled controls                                                                                                                                                                              |
 | [Skip Link](docs/components/Navigations/skip-link.md)                     | Complete | Keyboard-accessible links to bypass repeated content, skip to main content or the footer, visible focus indicators, screen-reader support, reduced-motion support                                                                                                                  |
+| [Tree View](docs/components/Navigations/tree-view.md)                     | Complete | WAI-ARIA Tree View pattern, hierarchical navigation, expandable and collapsible branches, keyboard navigation, roving tab index, single and multiple selection, disabled items, screen-reader support                                                                              |
 
 ### Overlays & Menus
 

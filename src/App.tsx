@@ -132,6 +132,12 @@ const SkipLinkPage = lazy(() =>
   })),
 );
 
+const TreeViewPage = lazy(() =>
+  import('./pages/Navigations/TreeViewPage').then((m) => ({
+    default: m.TreeViewPage,
+  })),
+);
+
 const AccordionPage = lazy(() =>
   import('./pages/ContentFeedback/AccordionPage').then((m) => ({
     default: m.AccordionPage,
@@ -335,6 +341,7 @@ function App() {
               element={<PaginationPage />}
             />
             <Route path="/navigations/skip-link" element={<SkipLinkPage />} />
+            <Route path="/navigations/tree-view" element={<TreeViewPage />} />
 
             <Route
               path="/content-feedback/accordion"
