@@ -19,6 +19,12 @@ const ButtonPage = lazy(() =>
   })),
 );
 
+const AreaChartPage = lazy(() =>
+  import('./pages/DataDisplay/AreaChartPage').then((m) => ({
+    default: m.AreaChartPage,
+  })),
+);
+
 const BarChartPage = lazy(() =>
   import('./pages/DataDisplay/BarChartPage').then((m) => ({
     default: m.BarChartPage,
@@ -275,6 +281,10 @@ function App() {
 
             <Route path="/buttons-actions/button" element={<ButtonPage />} />
 
+            <Route
+              path="/data-display/area-chart"
+              element={<AreaChartPage />}
+            />
             <Route path="/data-display/bar-chart" element={<BarChartPage />} />
             <Route
               path="/data-display/donut-chart"

@@ -132,6 +132,18 @@ export function ComponentPage() {
 
             <ul className={styles.componentList}>
               <li>
+                <Link to="/data-display/area-chart">Area Chart</Link>
+                <span>
+                  An accessible chart for displaying numerical values and
+                  emphasizing changes in magnitude over time or across
+                  categories using filled areas, with support for multiple
+                  overlapping data series, positive and negative values,
+                  optional grid lines, a series legend, and an accessible data
+                  table.
+                </span>
+              </li>
+
+              <li>
                 <Link to="/data-display/bar-chart">Bar Chart</Link>
                 <span>
                   An accessible chart for comparing numerical values across

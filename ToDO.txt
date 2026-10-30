@@ -1,11 +1,9 @@
 To do:
 
-1. Charts (AreaChart)
-
-2. Tree View
+1. Tree View
 Introduce a distinct, more advanced keyboard interaction pattern that demonstrates your understanding of accessible composite widgets.
 
-3. Multi-step Form / Wizard
+2. Multi-step Form / Wizard
 Demonstrate how your existing inputs, validation, status messages, and focus management work together.
 
 Templates:
