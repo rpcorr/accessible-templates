@@ -1,4 +1,4 @@
-import React, { useId, useRef, useState } from 'react';
+import React, { useEffect, useId, useRef, useState } from 'react';
 import styles from './Tab.module.css';
 
 type TabsOrientation = 'horizontal' | 'vertical';
@@ -22,14 +22,61 @@ export function Tabs({
   onTabChange,
 }: TabsProps) {
   const [activeTab, setActiveTab] = useState(0);
+  const [showRightFade, setShowRightFade] = useState(false);
 
   const tabsId = useId();
 
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const tabListRef = useRef<HTMLDivElement>(null);
 
   const enabledTabIndexes = tabs
     .map((tab, index) => (tab.disabled ? -1 : index))
     .filter((index) => index !== -1);
+
+  useEffect(() => {
+    const tabList = tabListRef.current;
+
+    if (tabList === null || orientation !== 'horizontal') {
+      setShowRightFade(false);
+      return;
+    }
+
+    function updateRightFade(element: HTMLDivElement) {
+      const hasOverflow = element.scrollWidth > element.clientWidth + 1;
+
+      const hasMoreContent =
+        element.scrollLeft + element.clientWidth < element.scrollWidth - 1;
+
+      setShowRightFade(hasOverflow && hasMoreContent);
+    }
+
+    const handleScroll = () => updateRightFade(tabList);
+
+    handleScroll();
+
+    tabList.addEventListener('scroll', handleScroll, {
+      passive: true,
+    });
+
+    window.addEventListener('resize', handleScroll);
+
+    const resizeObserver =
+      typeof ResizeObserver !== 'undefined'
+        ? new ResizeObserver(handleScroll)
+        : null;
+
+    resizeObserver?.observe(tabList);
+
+    Array.from(tabList.children).forEach((child) => {
+      resizeObserver?.observe(child);
+    });
+
+    return () => {
+      tabList.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+      resizeObserver?.disconnect();
+    };
+  }, [orientation, tabs.length]);
 
   function focusTab(index: number) {
     const tab = tabs[index];
@@ -147,37 +194,44 @@ export function Tabs({
       }`}
     >
       <div
-        role="tablist"
-        aria-orientation={orientation}
-        className={styles.tabList}
+        className={`${styles.tabListContainer} ${
+          showRightFade ? styles.showRightFade : ''
+        }`}
       >
-        {tabs.map((tab, index) => {
-          const tabId = `${tabsId}-tab-${tab.id}`;
-          const panelId = `${tabsId}-panel-${tab.id}`;
+        <div
+          ref={tabListRef}
+          role="tablist"
+          aria-orientation={orientation}
+          className={styles.tabList}
+        >
+          {tabs.map((tab, index) => {
+            const tabId = `${tabsId}-tab-${tab.id}`;
+            const panelId = `${tabsId}-panel-${tab.id}`;
 
-          return (
-            <button
-              key={tab.id}
-              ref={(element) => {
-                tabRefs.current[index] = element;
-              }}
-              id={tabId}
-              type="button"
-              role="tab"
-              aria-selected={activeTab === index}
-              aria-controls={panelId}
-              tabIndex={activeTab === index ? 0 : -1}
-              disabled={tab.disabled}
-              className={styles.tab}
-              onClick={() => selectTab(index)}
-              onKeyDown={(event) => {
-                handleKeyDown(event, index);
-              }}
-            >
-              {tab.label}
-            </button>
-          );
-        })}
+            return (
+              <button
+                key={tab.id}
+                ref={(element) => {
+                  tabRefs.current[index] = element;
+                }}
+                id={tabId}
+                type="button"
+                role="tab"
+                aria-selected={activeTab === index}
+                aria-controls={panelId}
+                tabIndex={activeTab === index ? 0 : -1}
+                disabled={tab.disabled}
+                className={styles.tab}
+                onClick={() => selectTab(index)}
+                onKeyDown={(event) => {
+                  handleKeyDown(event, index);
+                }}
+              >
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {tabs.map((tab, index) => {

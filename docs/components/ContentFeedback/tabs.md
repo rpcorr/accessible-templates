@@ -1,6 +1,6 @@
 # Tabs
 
-An accessible tabs component supporting horizontal and vertical orientations, keyboard navigation, disabled tabs, focus management, screen reader support, and responsive behaviour.
+An accessible tabs component supporting horizontal and vertical orientations, keyboard navigation, disabled tabs, focus management, screen reader support, and responsive horizontal scrolling on smaller screens.
 
 ## Features
 
@@ -10,6 +10,10 @@ An accessible tabs component supporting horizontal and vertical orientations, ke
 - Focus management
 - Screen reader support
 - Accessible tab and tab panel relationships
+- Responsive horizontal scrolling on smaller screens
+- Automatic scrolling to bring keyboard-focused tabs into view
+- Visual right-edge gradient and chevron indicator when additional tabs are available
+- Scroll indicator updates as users navigate through the tab list
 - Responsive wrapping at increased browser zoom levels
 - Support for long tab labels and panel content
 - Home and End navigation
@@ -29,6 +33,10 @@ Each tab is associated with its corresponding panel using:
 Disabled tabs remain visible but are excluded from keyboard navigation and cannot be activated.
 
 Tab panels can receive keyboard focus so that screen reader users can access and read their content.
+
+When navigating horizontally with the keyboard, focused tabs are automatically brought into view without requiring users to scroll manually.
+
+The visual scroll indicator is decorative and does not interfere with keyboard navigation or screen reader interaction.
 
 ## Keyboard Support
 
@@ -66,9 +74,20 @@ Disabled tabs:
 
 ## Responsive Behaviour
 
-Tabs are designed to remain usable at increased browser zoom levels.
+Tabs are designed to remain usable across different screen sizes and increased browser zoom levels.
 
-Horizontal tabs wrap when necessary rather than creating unnecessary horizontal page scrolling.
+### Horizontal Tabs
+
+- On larger screens, tabs wrap onto multiple rows when necessary.
+- On smaller screens, tabs remain on a single line and can be scrolled horizontally.
+- A right-edge gradient and chevron indicate when additional tabs are available beyond the visible area.
+- The scroll indicator disappears when all tabs are visible or the end of the tab list is reached.
+- Users can swipe horizontally on touch devices to reach additional tabs.
+- Keyboard navigation automatically scrolls focused tabs into view.
+
+### Vertical Tabs
+
+Vertical tabs maintain the tab list beside the panel while retaining their existing layout.
 
 The component has been tested at:
 
@@ -77,8 +96,6 @@ The component has been tested at:
 - 400% browser zoom
 
 Long tab labels and panel content wrap naturally while maintaining access to the full content.
-
-Vertical tabs maintain the tab list beside the panel while remaining usable at increased zoom levels.
 
 ## Usage
 

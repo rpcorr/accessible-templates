@@ -2,6 +2,15 @@
   width: 100%;
 }
 
+.tabListContainer {
+  min-width: 0;
+}
+
+.horizontal .tabListContainer {
+  position: relative;
+  width: 100%;
+}
+
 .tabList {
   display: flex;
   flex-wrap: wrap;
@@ -16,6 +25,10 @@
   display: flex;
   align-items: flex-start;
   gap: var(--space-4);
+}
+
+.vertical .tabListContainer {
+  flex-shrink: 0;
 }
 
 .vertical .tabList {
@@ -52,4 +65,69 @@
 .vertical .tabPanel {
   margin-top: 0;
   flex: 1;
+}
+
+/* Smaller screens: horizontally scrollable tabs */
+@media (max-width: 40rem) {
+  .horizontal .tabListContainer {
+    overflow: hidden;
+  }
+
+  .horizontal .tabList {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 4px 2px 8px;
+    scroll-padding-inline: 2px;
+    scrollbar-width: thin;
+  }
+
+  .horizontal .tab {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .horizontal .tabList::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .horizontal .tabList::-webkit-scrollbar-thumb {
+    background: var(--color-secondary);
+    border-radius: 4px;
+  }
+
+  /* Right-edge fade when more tabs are available */
+  /* .showRightFade::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 8px;
+    width: 2rem;
+    pointer-events: none;
+    background: linear-gradient(to right, transparent, var(--color-background));
+  } */
+
+  /* Right-edge scroll indicator when more tabs are available */
+  .showRightFade::after {
+    content: '›';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 8px;
+    width: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 0.5rem;
+    box-sizing: border-box;
+    color: var(--color-text);
+    font-size: 1.75rem;
+    font-weight: 600;
+    pointer-events: none;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      var(--color-background) 55%
+    );
+  }
 }

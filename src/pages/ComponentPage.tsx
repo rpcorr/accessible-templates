@@ -113,8 +113,10 @@ export function ComponentPage() {
               <li>
                 <Link to="/content-feedback/tab">Tabs</Link>
                 <span>
-                  A component for organizing related content into selectable
-                  sections.
+                  An accessible component for organizing related content into
+                  selectable sections, with keyboard navigation, horizontal and
+                  vertical orientations, and responsive scrolling on smaller
+                  screens.
                 </span>
               </li>
             </ul>
