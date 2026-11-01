@@ -136,6 +136,11 @@ export const navigationItems: NavigationItem[] = [
             href: '/form-controls/checkbox',
           },
           {
+            id: 'colour-picker',
+            label: 'Colour Picker',
+            href: '/form-controls/colour-picker',
+          },
+          {
             id: 'combobox',
             label: 'Combobox',
             href: '/form-controls/combobox',

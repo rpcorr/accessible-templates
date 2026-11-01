@@ -24,7 +24,6 @@ Better as enhancements/patterns
 | **Fieldset / Form Group**      | Accessibility/form pattern; could be demonstrated with existing form controls         |
 | **Validation / Error Summary** | Cross-component form pattern rather than a standalone control                         |
 | **Password Input**             | Variation of **Text Input**, potentially an example demonstrating show/hide password  |
-| **Color Picker**               | Optional; native `<input type="color">` already provides much of the functionality    |
 | **Textarea enhancements**      | Improve the existing Textarea rather than create another component                    |
 
 

@@ -185,6 +185,12 @@ const CheckboxPage = lazy(() =>
     default: m.CheckboxPage,
   })),
 );
+const ColourPickerPage = lazy(() =>
+  import('./pages/FormControls/ColourPickerPage').then((m) => ({
+    default: m.ColourPickerPage,
+  })),
+);
+
 const ComboboxPage = lazy(() =>
   import('./pages/FormControls/ComboboxPage').then((m) => ({
     default: m.ComboboxPage,
@@ -366,7 +372,12 @@ function App() {
             <Route path="/content-feedback/toast" element={<ToastPage />} />
 
             <Route path="/form-controls/checkbox" element={<CheckboxPage />} />
+            <Route
+              path="/form-controls/colour-picker"
+              element={<ColourPickerPage />}
+            />
             <Route path="/form-controls/combobox" element={<ComboboxPage />} />
+
             <Route
               path="/form-controls/date-picker"
               element={<DatePickerPage />}

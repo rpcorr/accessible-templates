@@ -257,6 +257,13 @@ export function ComponentPage() {
                 </span>
               </li>
               <li>
+                <Link to="/form-controls/colour-picker">Colour Picker</Link>
+                <span>
+                  A control that allows users to select a colour using a native
+                  colour picker or enter a HEX colour value.
+                </span>
+              </li>
+              <li>
                 <Link to="/form-controls/combobox">Combobox</Link>
                 <span>
                   An editable input that allows users to filter and select from
