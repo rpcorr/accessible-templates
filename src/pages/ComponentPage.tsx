@@ -299,6 +299,13 @@ export function ComponentPage() {
                 </span>
               </li>
               <li>
+                <Link to="/form-controls/password-input">Password Input</Link>
+                <span>
+                  A password input that allows users to enter and edit
+                  passwords, with the option to show or hide the entered value.
+                </span>
+              </li>
+              <li>
                 <Link to="/form-controls/radio-group">Radio Group</Link>
                 <span>
                   A group of mutually exclusive options where users can select

@@ -216,6 +216,12 @@ const NumberInputPage = lazy(() =>
     default: m.NumberInputPage,
   })),
 );
+
+const PasswordInputPage = lazy(() =>
+  import('./pages/FormControls/PasswordInputPage').then((m) => ({
+    default: m.PasswordInputPage,
+  })),
+);
 const RadioGroupPage = lazy(() =>
   import('./pages/FormControls/RadioGroupPage').then((m) => ({
     default: m.RadioGroupPage,
@@ -393,6 +399,10 @@ function App() {
             <Route
               path="/form-controls/number-input"
               element={<NumberInputPage />}
+            />
+            <Route
+              path="/form-controls/password-input"
+              element={<PasswordInputPage />}
             />
             <Route
               path="/form-controls/radio-group"

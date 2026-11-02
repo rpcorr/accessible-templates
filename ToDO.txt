@@ -23,7 +23,6 @@ Better as enhancements/patterns
 | **Autocomplete**               | Enhancement/pattern based on your existing **Combobox** rather than another component |
 | **Fieldset / Form Group**      | Accessibility/form pattern; could be demonstrated with existing form controls         |
 | **Validation / Error Summary** | Cross-component form pattern rather than a standalone control                         |
-| **Password Input**             | Variation of **Text Input**, potentially an example demonstrating show/hide password  |
 | **Textarea enhancements**      | Improve the existing Textarea rather than create another component                    |
 
 
@@ -31,3 +30,7 @@ Better as enhancements/patterns
 ideas:
 
 Notification Center: "You have 3 new messages." → remains available until the user reviews them.
+
+more advanced:
+
+add password-strength indicators, password requirements checklists, or confirmation-password

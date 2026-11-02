@@ -161,6 +161,11 @@ export const navigationItems: NavigationItem[] = [
             href: '/form-controls/number-input',
           },
           {
+            id: 'password-input',
+            label: 'Password Input',
+            href: '/form-controls/password-input',
+          },
+          {
             id: 'radio-group',
             label: 'Radio Group',
             href: '/form-controls/radio-group',
