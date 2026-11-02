@@ -94,8 +94,8 @@ describe('StackedBarChart', () => {
       />,
     );
 
-    expect(screen.getByText('Desktop')).toBeInTheDocument();
-    expect(screen.getByText('Mobile')).toBeInTheDocument();
+    expect(screen.getAllByText('Desktop')).toHaveLength(2);
+    expect(screen.getAllByText('Mobile')).toHaveLength(2);
   });
 
   it('renders multiple datasets in the accessible table', () => {
@@ -115,9 +115,9 @@ describe('StackedBarChart', () => {
     expect(within(table).getByText('February')).toBeInTheDocument();
     expect(within(table).getByText('March')).toBeInTheDocument();
 
-    expect(within(table).getByText('20')).toBeInTheDocument();
+    expect(within(table).getAllByText('20')).toHaveLength(2);
     expect(within(table).getByText('10')).toBeInTheDocument();
-    expect(within(table).getByText('25')).toBeInTheDocument();
+    expect(within(table).getAllByText('25')).toHaveLength(2);
   });
 
   it('renders a zero value correctly', () => {
@@ -157,11 +157,9 @@ describe('StackedBarChart', () => {
   it('shows an empty state when no data is provided', () => {
     render(<StackedBarChart title="Empty Chart" data={[]} />);
 
-    expect(
-      screen.getByRole('status', {
-        name: /no valid numerical data to display/i,
-      }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('status')).toHaveTextContent(
+      'No valid numerical data to display.',
+    );
   });
 
   it('applies a custom class name', () => {

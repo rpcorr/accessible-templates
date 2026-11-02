@@ -178,7 +178,7 @@ export const AreaChart = ({
   datasets,
   description,
   valueLabel,
-  showGridLines = false,
+  showGridLines = true,
   className,
 }: AreaChartProps) => {
   const uniqueId = useId();

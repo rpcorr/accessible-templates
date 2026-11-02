@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/vitest';
 import { AreaChart } from './AreaChart';
 
 describe('AreaChart', () => {
@@ -28,7 +28,9 @@ describe('AreaChart', () => {
     );
 
     expect(
-      screen.getByText('Sales figures for the first quarter.'),
+      screen.getByText('Sales figures for the first quarter.', {
+        selector: 'p',
+      }),
     ).toBeInTheDocument();
   });
 
