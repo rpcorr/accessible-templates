@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { DisclosureExamples } from './examples/DisclosureExamples';
+import { DisclosureExamples } from '../../components/ContentFeedback/Disclosure/Examples/DisclosureExamples';
 
 export function DisclosurePage() {
   return (

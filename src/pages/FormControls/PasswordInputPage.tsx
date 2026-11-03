@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { PasswordInputExamples } from './examples/PasswordInputExamples';
+import { PasswordInputExamples } from '../../components/FormControls/PasswordInput/Examples/PasswordInputExamples';
 
 export function PasswordInputPage() {
   return (

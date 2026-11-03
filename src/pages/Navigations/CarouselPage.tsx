@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { CarouselExamples } from './examples/CarouselExamples';
+import { CarouselExamples } from '../../components/Navigations/Carousel/Examples/CarouselExamples';
 
 export function CarouselPage() {
   return (

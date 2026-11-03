@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { SelectExamples } from './examples/SelectExamples';
+import { SelectExamples } from '../../components/FormControls/Select/Examples/SelectExamples';
 
 export function SelectPage() {
   return (

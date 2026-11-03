@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { PopoverExamples } from './examples/PopoverExamples';
+import { PopoverExamples } from '../../components/OverlaysMenus/Popover/Examples/PopoverExamples';
 
 export function PopoverPage() {
   return (

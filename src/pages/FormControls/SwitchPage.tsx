@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { SwitchExamples } from './examples/SwitchExamples';
+import { SwitchExamples } from '../../components/FormControls/Switch/Examples/SwitchExamples';
 
 export function SwitchPage() {
   return (

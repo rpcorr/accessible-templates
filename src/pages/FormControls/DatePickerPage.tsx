@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { DatePickerExamples } from './examples/DatePickerExamples';
+import { DatePickerExamples } from '../../components/FormControls/DatePickers/DatePicker/Examples/DatePickerExamples';
 
 export function DatePickerPage() {
   return (

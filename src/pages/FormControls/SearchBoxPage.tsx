@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { SearchBoxExamples } from './examples/SearchBoxExamples';
+import { SearchBoxExamples } from '../../components/FormControls/SearchBox/Examples/SearchBoxExamples';
 
 export function SearchBoxPage() {
   return (

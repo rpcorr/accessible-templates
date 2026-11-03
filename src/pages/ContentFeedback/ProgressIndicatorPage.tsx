@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import ProgressIndicatorExamples from './examples/ProgressIndicatorExamples';
+import ProgressIndicatorExamples from '../../components/ContentFeedback/ProgressIndicator/Examples/ProgressIndicatorExamples';
 
 export function ProgressIndicatorPage() {
   return (

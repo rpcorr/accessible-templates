@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { MenuButtonExamples } from './examples/MenuButtonExamples';
+import { MenuButtonExamples } from '../../components/OverlaysMenus/MenuButton/Examples/MenuButtonExamples';
 
 export function MenuButtonPage() {
   return (

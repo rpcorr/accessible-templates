@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { TreeViewExamples } from './examples/TreeViewExamples';
+import { TreeViewExamples } from '../../components/Navigations/TreeView/Examples/TreeViewExamples';
 
 export function TreeViewPage() {
   return (

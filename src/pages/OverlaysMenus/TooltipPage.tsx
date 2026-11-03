@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { TooltipExamples } from './examples/TooltipExamples';
+import { TooltipExamples } from '../../components/OverlaysMenus/Tooltip/Examples/TooltipExamples';
 
 export function TooltipPage() {
   return (

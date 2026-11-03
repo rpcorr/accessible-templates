@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import AlertExamples from './examples/AlertExamples';
+import AlertExamples from '../../components/ContentFeedback/Alert/Examples/AlertExamples';
 
 export function AlertPage() {
   return (

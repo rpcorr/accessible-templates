@@ -104,19 +104,19 @@ export function ComponentPage() {
                 </span>
               </li>
               <li>
-                <Link to="/content-feedback/toast">Toast</Link>
-                <span>
-                  A temporary notification for communicating dynamic information
-                  or feedback without interrupting the user's current task.
-                </span>
-              </li>
-              <li>
                 <Link to="/content-feedback/tab">Tabs</Link>
                 <span>
                   An accessible component for organizing related content into
                   selectable sections, with keyboard navigation, horizontal and
                   vertical orientations, and responsive scrolling on smaller
                   screens.
+                </span>
+              </li>
+              <li>
+                <Link to="/content-feedback/toast">Toast</Link>
+                <span>
+                  A temporary notification for communicating dynamic information
+                  or feedback without interrupting the user's current task.
                 </span>
               </li>
             </ul>

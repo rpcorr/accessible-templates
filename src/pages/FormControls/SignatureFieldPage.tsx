@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { SignatureExamples } from './examples/SignatureExamples';
+import { SignatureExamples } from '../../components/FormControls/SignatureField/Examples/SignatureExamples';
 
 export function SignatureFieldPage() {
   return (

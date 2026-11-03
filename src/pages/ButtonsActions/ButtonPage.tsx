@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { ButtonExamples } from './examples/ButtonExamples';
+import { ButtonExamples } from '../../components/ButtonsActions/Button/Examples/ButtonExamples';
 
 export function ButtonPage() {
   return (

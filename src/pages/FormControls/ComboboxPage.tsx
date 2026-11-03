@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { ComboboxExamples } from './examples/ComboboxExamples';
+import { ComboboxExamples } from '../../components/FormControls/Combobox/Examples/ComboboxExamples';
 
 export function ComboboxPage() {
   return (

@@ -1,6 +1,6 @@
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import BarChartExamples from './Charts/BarChartExamples';
+import BarChartExamples from '../../components/DataDisplay/Charts/BarChart/Examples/BarChartExamples';
 
 export function BarChartPage() {
   return (

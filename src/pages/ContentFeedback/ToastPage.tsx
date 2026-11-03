@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { ToastExamples } from './examples/ToastExamples';
+import { ToastExamples } from '../../components/ContentFeedback/Toast/Examples/ToastExamples';
 
 export function ToastPage() {
   return (

@@ -1,6 +1,6 @@
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import PieChartExamples from './Charts/PieChartExamples';
+import PieChartExamples from '../../components/DataDisplay/Charts/PieChart/Examples/PieChartExamples';
 
 export function PieChartPage() {
   return (

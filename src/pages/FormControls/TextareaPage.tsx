@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { TextareaExamples } from './examples/TextareaExamples';
+import { TextareaExamples } from '../../components/FormControls/Textarea/Examples/TextareaExamples';
 
 export function TextareaPage() {
   return (

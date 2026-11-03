@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { SkipLinkExamples } from './examples/SkipLinkExamples';
+import { SkipLinkExamples } from '../../components/Navigations/SkipLink/Examples/SkipLinkExamples';
 
 export function SkipLinkPage() {
   return (

@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { ColourPickerExamples } from './examples/ColourPickerExamples';
+import { ColourPickerExamples } from '../../components/FormControls/ColourPicker/Examples/ColourPickerExamples';
 
 export function ColourPickerPage() {
   return (

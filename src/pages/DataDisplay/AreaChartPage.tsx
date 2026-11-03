@@ -1,6 +1,6 @@
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import AreaChartExamples from './Charts/AreaChartExamples';
+import AreaChartExamples from '../../components/DataDisplay/Charts/AreaChart/Examples/AreaChartExamples';
 
 export function AreaChartPage() {
   return (

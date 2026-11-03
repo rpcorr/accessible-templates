@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import BadgeExamples from './examples/BadgeExamples';
+import BadgeExamples from '../../components/ContentFeedback/Badge/Examples/BadgeExamples';
 
 export function BadgePage() {
   return (

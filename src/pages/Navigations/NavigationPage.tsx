@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { NavigationExamples } from './examples/NavigationExamples';
+import { NavigationExamples } from '../../components/Navigations/Navigation/Examples/NavigationExamples';
 export function NavigationPage() {
   return (
     <PageLayout

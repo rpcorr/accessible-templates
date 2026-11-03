@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { SliderExamples } from './examples/SliderExamples';
+import { SliderExamples } from '../../components/FormControls/Slider/Examples/SliderExamples';
 
 export function SliderPage() {
   return (

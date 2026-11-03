@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { SearchComboboxExamples } from './examples/SearchComboboxExamples';
+import { SearchComboboxExamples } from '../../components/FormControls/SearchCombox/Examples/SearchComboboxExamples';
 
 export function SearchComboboxPage() {
   return (

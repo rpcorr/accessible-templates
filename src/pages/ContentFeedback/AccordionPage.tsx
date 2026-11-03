@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { AccordionExamples } from './examples/AccordionExamples';
+import { AccordionExamples } from '../../components/ContentFeedback/Accordion/Examples/AccordionExamples';
 
 export function AccordionPage() {
   return (

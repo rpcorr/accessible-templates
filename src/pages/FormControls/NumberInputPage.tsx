@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { NumberInputExamples } from './examples/NumberInputExamples';
+import { NumberInputExamples } from '../../components/FormControls/NumberInput/Examples/NumberInputExamples';
 
 export function NumberInputPage() {
   return (

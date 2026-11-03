@@ -1,6 +1,6 @@
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import LineChartExamples from './Charts/LineChartExamples';
+import LineChartExamples from '../../components/DataDisplay/Charts/LineChart/Examples/LineChartExamples';
 
 export function LineChartPage() {
   return (

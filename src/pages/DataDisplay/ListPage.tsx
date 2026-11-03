@@ -1,6 +1,6 @@
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import ListExamples from './List/examples/ListExamples';
+import ListExamples from '../../components/DataDisplay/List/Examples/ListExamples';
 
 export function ListPage() {
   return (

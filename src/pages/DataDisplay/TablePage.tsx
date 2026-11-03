@@ -1,6 +1,6 @@
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import TableExamples from './Table/examples/TableExamples';
+import TableExamples from '../../components/DataDisplay/Table/Examples/TableExamples';
 
 export function TablePage() {
   return (

@@ -1,6 +1,6 @@
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import CardExamples from './Card/examples/CardExamples';
+import CardExamples from '../../components/DataDisplay/Card/Examples/CardExamples';
 
 export function CardPage() {
   return (

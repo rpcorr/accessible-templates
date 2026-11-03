@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import StatisticExamples from './Statistic/examples/StatisticExamples';
+import StatisticExamples from '../../components/DataDisplay/Statistic/Examples/StatisticExamples';
 
 export function StatisticPage() {
   return (

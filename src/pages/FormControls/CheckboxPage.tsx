@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { CheckboxExamples } from './examples/CheckboxExamples';
+import { CheckboxExamples } from '../../components/FormControls/Checkbox/Examples/CheckboxExamples';
 
 export function CheckboxPage() {
   return (

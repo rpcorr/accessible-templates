@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { RadioGroupExamples } from './examples/RadioGroupExamples';
+import { RadioGroupExamples } from '../../components/FormControls/RadioGroup/Examples/RadioGroupExamples';
 
 export function RadioGroupPage() {
   return (

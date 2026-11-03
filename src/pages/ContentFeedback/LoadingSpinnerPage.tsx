@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { LoadingSpinnerExamples } from './examples/LoadingSpinnerExamples';
+import { LoadingSpinnerExamples } from '../../components/ContentFeedback/LoadingSpinner/Examples/LoadingSpinnerExamples';
 
 export function LoadingSpinnerPage() {
   return (

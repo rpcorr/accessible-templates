@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { DropdownExamples } from './examples/DropdownExamples';
+import { DropdownExamples } from '../../components/OverlaysMenus/Dropdown/Examples/DropdownExamples';
 
 export function DropdownPage() {
   return (

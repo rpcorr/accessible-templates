@@ -1,6 +1,6 @@
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import DonutChartExamples from './Charts/DonutChartExamples';
+import DonutChartExamples from '../../components/DataDisplay/Charts/DonutChart/Examples/DonutChartExamples';
 
 export function DonutChartPage() {
   return (

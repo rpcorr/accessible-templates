@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import StackedBarChartExamples from './Charts/StackedBarChartExamples';
+import StackedBarChartExamples from '../../components/DataDisplay/Charts/StackedBarChart/Examples/StackedBarChartExamples';
 
 export function StackedBarChartPage() {
   return (
