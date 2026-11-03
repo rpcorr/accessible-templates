@@ -1,6 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
-import { MultiItemCarouselExamples } from '../../components/Navigations/MultiItemCarousel/Examples/MultiItemCarouselExamples';
+import { MultiItemCarouselExamples } from '../../components/Navigations/Carousels/MultiItemCarousel/Examples/MultiItemCarouselExamples';
 
 export function MultiItemCarouselPage() {
   return (

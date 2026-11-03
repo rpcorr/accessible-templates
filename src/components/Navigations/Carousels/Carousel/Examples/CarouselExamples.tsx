@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { Carousel, type CarouselSlide } from '..';
-import { Tabs } from '../../../ContentFeedback/Tab';
-import { ProgressIndicator } from '../../../ContentFeedback/ProgressIndicator';
+import { Tabs } from '../../../../ContentFeedback/Tab';
+import { ProgressIndicator } from '../../../../ContentFeedback/ProgressIndicator';
 
 const slides: CarouselSlide[] = [
   {

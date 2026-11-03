@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { CSSProperties } from 'react';
 
 import { MultiItemCarousel, type MultiItemCarouselItem } from '..';
-import { Tabs } from '../../../ContentFeedback/Tab';
+import { Tabs } from '../../../../ContentFeedback/Tab';
 
 const resourceItems: MultiItemCarouselItem[] = [
   {
