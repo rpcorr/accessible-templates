@@ -20,7 +20,6 @@ Better as enhancements/patterns
 
 | Item                           | How I'd handle it                                                                     |
 | ------------------------------ | ------------------------------------------------------------------------------------- |
-| **Autocomplete**               | Enhancement/pattern based on your existing **Combobox** rather than another component |
 | **Fieldset / Form Group**      | Accessibility/form pattern; could be demonstrated with existing form controls         |
 | **Validation / Error Summary** | Cross-component form pattern rather than a standalone control                         |
 | **Textarea enhancements**      | Improve the existing Textarea rather than create another component                    |

@@ -26,6 +26,7 @@ type ComboboxProps = {
   description?: string;
   required?: boolean;
   disabled?: boolean;
+  inlineCompletion?: boolean;
 };
 
 export function Combobox({
@@ -40,6 +41,7 @@ export function Combobox({
   description,
   required = false,
   disabled = false,
+  inlineCompletion = false,
 }: ComboboxProps) {
   const generatedId = useId();
   const inputId = id ?? generatedId;
@@ -55,6 +57,7 @@ export function Combobox({
 
   const wrapperRef = useRef<HTMLDivElement>(null);
   const optionRefs = useRef<Array<HTMLLIElement | null>>([]);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const currentValue = value ?? internalValue;
 
@@ -63,6 +66,21 @@ export function Combobox({
   );
 
   const enabledOptions = filteredOptions.filter((option) => !option.disabled);
+
+  const inlineOption =
+    inlineCompletion &&
+    isOpen &&
+    hasTyped &&
+    activeIndex === -1 &&
+    currentValue.length > 0
+      ? enabledOptions.find(
+          (option) =>
+            option.label.toLowerCase().startsWith(currentValue.toLowerCase()) &&
+            option.label.length > currentValue.length,
+        )
+      : undefined;
+
+  const displayValue = inlineOption?.label ?? currentValue;
 
   const activeOption =
     activeIndex >= 0 ? enabledOptions[activeIndex] : undefined;
@@ -83,9 +101,11 @@ export function Combobox({
 
     const activeElement = optionRefs.current[activeOptionIndex];
 
-    activeElement?.scrollIntoView({
-      block: 'nearest',
-    });
+    if (typeof activeElement?.scrollIntoView === 'function') {
+      activeElement.scrollIntoView({
+        block: 'nearest',
+      });
+    }
   }, [activeOptionIndex]);
 
   useEffect(() => {
@@ -121,6 +141,22 @@ export function Combobox({
       window.clearTimeout(timeoutId);
     };
   }, [currentValue, filteredOptions.length, hasTyped, isOpen]);
+
+  useEffect(() => {
+    const inlineOptionLabel = inlineOption?.label;
+
+    if (inlineOptionLabel === undefined) {
+      return;
+    }
+
+    const input = inputRef.current;
+
+    if (!input) {
+      return;
+    }
+
+    input.setSelectionRange(currentValue.length, inlineOptionLabel.length);
+  }, [currentValue, inlineOption?.label]);
 
   function updateValue(nextValue: string) {
     if (value === undefined) {
@@ -199,6 +235,24 @@ export function Combobox({
         break;
       }
 
+      case 'ArrowRight': {
+        if (
+          inlineOption &&
+          event.currentTarget.selectionStart === currentValue.length &&
+          event.currentTarget.selectionEnd === inlineOption.label.length
+        ) {
+          event.preventDefault();
+
+          updateValue(inlineOption.label);
+          setIsOpen(false);
+          setActiveIndex(-1);
+          setHasTyped(false);
+          setStatusMessage('');
+        }
+
+        break;
+      }
+
       case 'Enter': {
         if (!isOpen || activeIndex < 0) {
           return;
@@ -249,16 +303,17 @@ export function Combobox({
 
       <div className={styles.comboboxWrapper}>
         <input
+          ref={inputRef}
           id={inputId}
           name={name}
           type="text"
           role="combobox"
           className={styles.input}
-          value={currentValue}
+          value={displayValue}
           placeholder={placeholder}
           disabled={disabled}
           required={required}
-          aria-autocomplete="list"
+          aria-autocomplete={inlineCompletion ? 'both' : 'list'}
           aria-controls={listboxId}
           aria-expanded={isOpen}
           aria-activedescendant={activeOptionId}
