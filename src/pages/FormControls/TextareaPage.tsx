@@ -60,8 +60,8 @@ export function TextareaPage() {
 
         <p>
           The Textarea supports native <code>minLength</code> and{' '}
-          <code>maxLength</code> constraints and can display an accessible error
-          message when validation fails.
+          <code>maxLength</code> constraints. It can also display a custom error
+          message associated with the textarea when validation fails.
         </p>
 
         <h3>Character Count</h3>
@@ -86,6 +86,13 @@ export function TextareaPage() {
           prop. When enabled, the textarea expands as content is entered and
           shrinks when content is removed. Manual resizing is disabled while
           automatic resizing is active.
+        </p>
+
+        <p>
+          An optional <code>maxAutoResizeHeight</code> prop sets the maximum
+          height in pixels. When the content exceeds this limit, the textarea
+          stops expanding and enables vertical scrolling so users can continue
+          entering and reviewing their text.
         </p>
 
         <h3>Keyboard Support</h3>

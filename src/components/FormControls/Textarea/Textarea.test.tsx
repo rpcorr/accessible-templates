@@ -5,6 +5,13 @@ import { Textarea } from '.';
 import styles from './Textarea.module.css';
 
 describe('Textarea', () => {
+  function mockScrollHeight(textarea: HTMLTextAreaElement, height: number) {
+    Object.defineProperty(textarea, 'scrollHeight', {
+      configurable: true,
+      get: () => height,
+    });
+  }
+
   // Rendering
   it('renders the textarea with its label', () => {
     render(<Textarea label="Message" />);
@@ -80,7 +87,7 @@ describe('Textarea', () => {
       />,
     );
 
-    const textarea = screen.getByRole('textbox');
+    const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
 
     expect(textarea).toHaveValue('Controlled message');
 
@@ -114,7 +121,7 @@ describe('Textarea', () => {
       />,
     );
 
-    const textarea = screen.getByRole('textbox');
+    const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
     const description = screen.getByText('Provide additional information.');
 
     expect(textarea.getAttribute('aria-describedby')).toContain(description.id);
@@ -144,7 +151,7 @@ describe('Textarea', () => {
       <Textarea label="Message" id="message" error="Please enter a message." />,
     );
 
-    const textarea = screen.getByRole('textbox');
+    const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
     const error = screen.getByText('Please enter a message.');
 
     expect(textarea.getAttribute('aria-describedby')).toContain(error.id);
@@ -160,7 +167,7 @@ describe('Textarea', () => {
       />,
     );
 
-    const textarea = screen.getByRole('textbox');
+    const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
     const describedBy = textarea.getAttribute('aria-describedby');
 
     expect(describedBy).toContain('message-description');
@@ -201,7 +208,7 @@ describe('Textarea', () => {
   it('supports maxLength and minLength', () => {
     render(<Textarea label="Message" minLength={10} maxLength={200} />);
 
-    const textarea = screen.getByRole('textbox');
+    const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
 
     expect(textarea).toHaveAttribute('minLength', '10');
     expect(textarea).toHaveAttribute('maxLength', '200');
@@ -210,7 +217,7 @@ describe('Textarea', () => {
   it('supports name and autoComplete', () => {
     render(<Textarea label="Message" name="message" autoComplete="off" />);
 
-    const textarea = screen.getByRole('textbox');
+    const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
 
     expect(textarea).toHaveAttribute('name', 'message');
     expect(textarea).toHaveAttribute('autocomplete', 'off');
@@ -325,7 +332,7 @@ describe('Textarea', () => {
       />,
     );
 
-    const textarea = screen.getByRole('textbox');
+    const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
 
     expect(textarea.getAttribute('aria-describedby')).toContain(
       'message-character-count',
@@ -338,5 +345,140 @@ describe('Textarea', () => {
     const counter = screen.getByText('0 / 200 characters');
 
     expect(counter).not.toHaveAttribute('aria-live');
+  });
+
+  // Auto-resizing
+  it('applies automatic resizing when enabled', () => {
+    render(<Textarea label="Message" autoResize />);
+
+    const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
+
+    mockScrollHeight(textarea, 100);
+
+    fireEvent.change(textarea, {
+      target: { value: 'Hello world' },
+    });
+
+    expect(textarea.style.height).toBe('100px');
+    expect(textarea.style.overflowY).toBe('hidden');
+  });
+
+  it('does not apply automatic resizing by default', () => {
+    render(<Textarea label="Message" />);
+
+    const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
+
+    fireEvent.change(textarea, {
+      target: { value: 'Hello world' },
+    });
+
+    expect(textarea.style.height).toBe('');
+    expect(textarea.style.overflowY).toBe('');
+  });
+
+  it('limits the textarea height to maxAutoResizeHeight', () => {
+    render(<Textarea label="Message" autoResize maxAutoResizeHeight={240} />);
+
+    const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
+
+    mockScrollHeight(textarea, 300);
+
+    fireEvent.change(textarea, {
+      target: { value: 'A long message' },
+    });
+
+    expect(textarea.style.height).toBe('240px');
+  });
+
+  it('enables vertical scrolling when the maximum height is reached', () => {
+    render(<Textarea label="Message" autoResize maxAutoResizeHeight={240} />);
+
+    const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
+
+    mockScrollHeight(textarea, 300);
+
+    fireEvent.change(textarea, {
+      target: { value: 'A long message' },
+    });
+
+    expect(textarea.style.overflowY).toBe('auto');
+  });
+
+  it('keeps vertical scrolling hidden when content fits within the maximum height', () => {
+    render(<Textarea label="Message" autoResize maxAutoResizeHeight={240} />);
+
+    const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
+
+    mockScrollHeight(textarea, 100);
+
+    fireEvent.change(textarea, {
+      target: { value: 'A short message' },
+    });
+
+    expect(textarea.style.height).toBe('100px');
+    expect(textarea.style.overflowY).toBe('hidden');
+  });
+
+  it('shrinks the textarea when content is removed', () => {
+    render(<Textarea label="Message" autoResize maxAutoResizeHeight={240} />);
+
+    const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
+
+    let scrollHeight = 300;
+
+    Object.defineProperty(textarea, 'scrollHeight', {
+      configurable: true,
+      get: () => scrollHeight,
+    });
+
+    fireEvent.change(textarea, {
+      target: { value: 'A very long message' },
+    });
+
+    expect(textarea.style.height).toBe('240px');
+    expect(textarea.style.overflowY).toBe('auto');
+
+    scrollHeight = 80;
+
+    fireEvent.change(textarea, {
+      target: { value: 'Short' },
+    });
+
+    expect(textarea.style.height).toBe('80px');
+    expect(textarea.style.overflowY).toBe('hidden');
+  });
+
+  it('supports automatic resizing without a maximum height', () => {
+    render(<Textarea label="Message" autoResize />);
+
+    const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
+
+    mockScrollHeight(textarea, 300);
+
+    fireEvent.change(textarea, {
+      target: { value: 'A long message' },
+    });
+
+    expect(textarea.style.height).toBe('300px');
+    expect(textarea.style.overflowY).toBe('hidden');
+  });
+
+  it('clears automatic resizing styles when autoResize is disabled', () => {
+    const { rerender } = render(<Textarea label="Message" autoResize />);
+
+    const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
+
+    mockScrollHeight(textarea, 100);
+
+    fireEvent.change(textarea, {
+      target: { value: 'Hello world' },
+    });
+
+    expect(textarea.style.height).toBe('100px');
+
+    rerender(<Textarea label="Message" autoResize={false} />);
+
+    expect(textarea.style.height).toBe('');
+    expect(textarea.style.overflowY).toBe('');
   });
 });

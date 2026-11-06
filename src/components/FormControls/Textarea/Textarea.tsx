@@ -27,6 +27,7 @@ type TextareaProps = {
   autoComplete?: string;
   showCharacterCount?: boolean;
   autoResize?: boolean;
+  maxAutoResizeHeight?: number;
 };
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
@@ -50,6 +51,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       autoComplete,
       showCharacterCount = false,
       autoResize = false,
+      maxAutoResizeHeight,
     },
     ref,
   ) => {
@@ -84,6 +86,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
 
       if (!autoResize) {
         textarea.style.height = '';
+        textarea.style.overflowY = '';
         return;
       }
 
@@ -91,12 +94,28 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       textarea.style.height = 'auto';
 
       const computedStyle = window.getComputedStyle(textarea);
-      const borderHeight =
-        parseFloat(computedStyle.borderTopWidth) +
-        parseFloat(computedStyle.borderBottomWidth);
 
-      textarea.style.height = `${textarea.scrollHeight + borderHeight}px`;
-    }, [autoResize, currentValue]);
+      const borderHeight =
+        (parseFloat(computedStyle.borderTopWidth) || 0) +
+        (parseFloat(computedStyle.borderBottomWidth) || 0);
+
+      const contentHeight = textarea.scrollHeight + borderHeight;
+
+      const hasMaximumHeight =
+        maxAutoResizeHeight !== undefined && maxAutoResizeHeight > 0;
+
+      const targetHeight = hasMaximumHeight
+        ? Math.min(contentHeight, maxAutoResizeHeight)
+        : contentHeight;
+
+      textarea.style.height = `${targetHeight}px`;
+
+      // Allow scrolling when the maximum height is reached.
+      textarea.style.overflowY =
+        hasMaximumHeight && contentHeight > maxAutoResizeHeight
+          ? 'auto'
+          : 'hidden';
+    }, [autoResize, currentValue, maxAutoResizeHeight]);
 
     function setTextareaRef(node: HTMLTextAreaElement | null) {
       textareaRef.current = node;

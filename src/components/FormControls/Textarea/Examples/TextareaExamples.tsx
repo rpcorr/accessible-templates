@@ -144,10 +144,11 @@ export function TextareaExamples() {
 
               <Textarea
                 label="Comments"
-                description="Start typing to see the textarea expand automatically."
+                description="The textarea expands as you type, up to a maximum height of 240 pixels."
                 placeholder="Enter your comments..."
                 autoResize
                 rows={2}
+                maxAutoResizeHeight={240}
                 maxLength={500}
                 showCharacterCount
               />

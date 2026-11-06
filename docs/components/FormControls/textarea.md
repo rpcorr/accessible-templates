@@ -4,39 +4,41 @@ An accessible textarea component for multi-line text input, designed with semant
 
 ## Features
 
-- Uses a native `<textarea>` element
-- Keyboard accessible
-- Supports accessible labels
-- Supports required, disabled, and read-only states
-- Supports placeholder text
-- Supports validation and error messaging
-- Supports helper and description text
-- Supports minimum and maximum character limits
-- Provides an optional character counter when `showCharacterCount` is enabled and `maxLength` is provided
-- Updates the character count as users type
-- Supports optional automatic height adjustment through the `autoResize` prop
-- Automatically expands as content is entered and shrinks when content is removed
-- Retains native vertical resizing when automatic resizing is disabled
-- Supports controlled and uncontrolled usage
-- Supports custom row heights
-- Forwards refs to the native textarea element
-- Responsive across different screen sizes
+- Uses a native `<textarea>` element.
+- Keyboard accessible.
+- Supports accessible labels.
+- Supports required, disabled, and read-only states.
+- Supports placeholder text.
+- Supports validation and error messaging.
+- Supports helper and description text.
+- Supports minimum and maximum character limits.
+- Provides an optional character counter when `showCharacterCount` is enabled and `maxLength` is provided.
+- Updates the character count as users type.
+- Supports optional automatic height adjustment through the `autoResize` prop.
+- Automatically expands as content is entered and shrinks when content is removed.
+- Supports an optional maximum height through `maxAutoResizeHeight`.
+- Enables vertical scrolling when content exceeds the configured maximum height.
+- Retains native vertical resizing when automatic resizing is disabled.
+- Supports controlled and uncontrolled usage.
+- Supports custom row heights.
+- Forwards refs to the native textarea element.
+- Responsive across different screen sizes.
 
 ## Accessibility
 
 The Textarea component:
 
-- Uses the native `<textarea>` element
-- Supports accessible labeling through an associated `<label>`
-- Provides a visible focus indicator
-- Supports required, disabled, and read-only states
-- Associates description, error, and character count text with the textarea using `aria-describedby` where applicable
-- Uses `aria-invalid` when an error is present
-- Preserves native keyboard interaction
-- Uses native HTML character limits through `maxLength` and `minLength`
-- Makes the initial character count available to screen-reader users
-- Avoids continuous live announcements when the character count changes, reducing unnecessary interruptions for screen-reader users
-- Supports assistive technology through semantic HTML and ARIA attributes where required
+- Uses the native `<textarea>` element.
+- Supports accessible labeling through an associated `<label>`.
+- Provides a visible focus indicator.
+- Supports required, disabled, and read-only states.
+- Associates description, error, and character count text with the textarea using `aria-describedby` where applicable.
+- Uses `aria-invalid` when an error is present.
+- Preserves native keyboard interaction.
+- Uses native HTML character limits through `maxLength` and `minLength`.
+- Makes the initial character count available to screen-reader users when the textarea receives focus.
+- Avoids continuous live announcements when the character count changes, reducing unnecessary interruptions for screen-reader users.
+- Supports assistive technology through semantic HTML and ARIA attributes where required.
 
 ## Usage
 
@@ -86,6 +88,25 @@ When enabled:
 - The textarea shrinks when content is removed.
 - The initial height is based on the configured `rows` value and existing content.
 - Manual resizing is disabled while automatic resizing is active.
+
+### Maximum Height
+
+Use `maxAutoResizeHeight` to limit how tall the textarea can grow. The value is specified in pixels.
+
+```tsx
+<Textarea
+  id="feedback"
+  label="Feedback"
+  name="feedback"
+  rows={2}
+  autoResize
+  maxAutoResizeHeight={240}
+/>
+```
+
+When the content exceeds the maximum height, the textarea stops expanding and enables vertical scrolling so users can continue entering and reviewing their text.
+
+When `maxAutoResizeHeight` is omitted, the textarea continues expanding to accommodate its content without a configured maximum.
 
 When `autoResize` is omitted or set to `false`, the textarea retains its default behaviour and allows native vertical resizing.
 
