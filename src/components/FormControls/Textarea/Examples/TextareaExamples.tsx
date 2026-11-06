@@ -105,6 +105,23 @@ export function TextareaExamples() {
           ),
         },
         {
+          id: 'character-count',
+          label: 'Character Count',
+          content: (
+            <div className="stack">
+              <h4>Character Counter</h4>
+
+              <Textarea
+                label="Biography"
+                description="Tell us a little about yourself."
+                maxLength={200}
+                showCharacterCount
+                placeholder="Enter your biography..."
+              />
+            </div>
+          ),
+        },
+        {
           id: 'controlled',
           label: 'Controlled',
           content: (
@@ -114,6 +131,26 @@ export function TextareaExamples() {
               <Textarea label="Message" value={message} onChange={setMessage} />
 
               <p>Current value: {message || 'Nothing entered'}</p>
+            </div>
+          ),
+        },
+
+        {
+          id: 'auto-resize',
+          label: 'Auto Resize',
+          content: (
+            <div className="stack">
+              <h4>Automatically Resizing Textarea</h4>
+
+              <Textarea
+                label="Comments"
+                description="Start typing to see the textarea expand automatically."
+                placeholder="Enter your comments..."
+                autoResize
+                rows={2}
+                maxLength={500}
+                showCharacterCount
+              />
             </div>
           ),
         },

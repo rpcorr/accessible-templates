@@ -1,4 +1,11 @@
-import { forwardRef, useId, type ChangeEvent } from 'react';
+import {
+  forwardRef,
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ChangeEvent,
+} from 'react';
 import styles from './Textarea.module.css';
 
 type TextareaProps = {
@@ -18,6 +25,8 @@ type TextareaProps = {
   maxLength?: number;
   minLength?: number;
   autoComplete?: string;
+  showCharacterCount?: boolean;
+  autoResize?: boolean;
 };
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
@@ -39,21 +48,74 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       maxLength,
       minLength,
       autoComplete,
+      showCharacterCount = false,
+      autoResize = false,
     },
     ref,
   ) => {
     const generatedId = useId();
     const textareaId = id ?? generatedId;
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+    const [uncontrolledValue, setUncontrolledValue] = useState(
+      defaultValue ?? '',
+    );
+
+    const currentValue = value ?? uncontrolledValue;
+    const characterCount = currentValue.length;
 
     const descriptionId = description ? `${textareaId}-description` : undefined;
 
     const errorId = error ? `${textareaId}-error` : undefined;
 
+    const characterCountId =
+      showCharacterCount && maxLength !== undefined
+        ? `${textareaId}-character-count`
+        : undefined;
+
     const describedBy =
-      [descriptionId, errorId].filter(Boolean).join(' ') || undefined;
+      [descriptionId, errorId, characterCountId].filter(Boolean).join(' ') ||
+      undefined;
+
+    useLayoutEffect(() => {
+      const textarea = textareaRef.current;
+
+      if (!textarea) return;
+
+      if (!autoResize) {
+        textarea.style.height = '';
+        return;
+      }
+
+      // Reset the height so the textarea can shrink as well as grow.
+      textarea.style.height = 'auto';
+
+      const computedStyle = window.getComputedStyle(textarea);
+      const borderHeight =
+        parseFloat(computedStyle.borderTopWidth) +
+        parseFloat(computedStyle.borderBottomWidth);
+
+      textarea.style.height = `${textarea.scrollHeight + borderHeight}px`;
+    }, [autoResize, currentValue]);
+
+    function setTextareaRef(node: HTMLTextAreaElement | null) {
+      textareaRef.current = node;
+
+      if (typeof ref === 'function') {
+        ref(node);
+      } else if (ref) {
+        ref.current = node;
+      }
+    }
 
     function handleChange(event: ChangeEvent<HTMLTextAreaElement>) {
-      onChange?.(event.target.value);
+      const newValue = event.target.value;
+
+      if (value === undefined) {
+        setUncontrolledValue(newValue);
+      }
+
+      onChange?.(newValue);
     }
 
     return (
@@ -69,10 +131,12 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         )}
 
         <textarea
-          ref={ref}
+          ref={setTextareaRef}
           id={textareaId}
           name={name}
-          className={styles.textarea}
+          className={`${styles.textarea} ${
+            autoResize ? styles.autoResize : ''
+          }`}
           value={value}
           defaultValue={value === undefined ? defaultValue : undefined}
           placeholder={placeholder}
@@ -87,6 +151,12 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           aria-invalid={error ? true : undefined}
           onChange={handleChange}
         />
+
+        {showCharacterCount && maxLength !== undefined && (
+          <p id={characterCountId} className={styles.characterCount}>
+            {characterCount} / {maxLength} characters
+          </p>
+        )}
 
         {error && (
           <p id={errorId} className={styles.error}>
