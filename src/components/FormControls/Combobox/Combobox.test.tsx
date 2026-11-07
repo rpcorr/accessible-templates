@@ -4,10 +4,10 @@ import { useState } from 'react';
 import { Combobox } from './Combobox';
 
 const countryOptions = [
-  { value: 'Canada', label: 'Canada' },
-  { value: 'United States', label: 'United States' },
-  { value: 'Mexico', label: 'Mexico' },
-  { value: 'Ireland', label: 'Ireland' },
+  { value: 'ca', label: 'Canada' },
+  { value: 'us', label: 'United States' },
+  { value: 'mx', label: 'Mexico' },
+  { value: 'ie', label: 'Ireland' },
 ];
 
 describe('Combobox', () => {
@@ -58,35 +58,38 @@ describe('Combobox', () => {
 
     const input = screen.getByRole('combobox');
 
-    expect(input).toHaveAttribute(
-      'aria-describedby',
-      expect.stringContaining(''),
-    );
-
-    expect(input.getAttribute('aria-describedby')).toBeTruthy();
+    expect(input).toHaveAttribute('aria-describedby');
   });
 
   it('supports a custom ID and name', () => {
-    render(
+    const { container } = render(
       <Combobox
         id="country"
         name="country"
         label="Choose a country"
+        defaultValue="ca"
         options={countryOptions}
       />,
     );
 
-    expect(screen.getByRole('combobox')).toHaveAttribute('id', 'country');
-    expect(screen.getByRole('combobox')).toHaveAttribute('name', 'country');
+    const input = screen.getByRole('combobox');
+    const hiddenInput = container.querySelector<HTMLInputElement>(
+      'input[type="hidden"]',
+    );
+
+    expect(input).toHaveAttribute('id', 'country');
+    expect(input).not.toHaveAttribute('name');
+    expect(hiddenInput).toHaveAttribute('name', 'country');
+    expect(hiddenInput).toHaveValue('ca');
   });
 
   // Default and controlled values
 
-  it('renders a default value', () => {
+  it('renders the label matching the default selected value', () => {
     render(
       <Combobox
         label="Choose a country"
-        defaultValue="Canada"
+        defaultValue="ca"
         options={countryOptions}
       />,
     );
@@ -94,9 +97,9 @@ describe('Combobox', () => {
     expect(screen.getByRole('combobox')).toHaveValue('Canada');
   });
 
-  it('supports controlled values', () => {
+  it('supports controlled selected values', () => {
     function ControlledCombobox() {
-      const [selectedCountry, setSelectedCountry] = useState('Canada');
+      const [selectedCountry, setSelectedCountry] = useState('ca');
 
       return (
         <Combobox
@@ -112,12 +115,39 @@ describe('Combobox', () => {
 
     const input = screen.getByRole('combobox');
 
-    fireEvent.change(input, { target: { value: 'Mexico' } });
+    expect(input).toHaveValue('Canada');
+
+    fireEvent.change(input, { target: { value: 'Mex' } });
+
+    expect(input).toHaveValue('Mex');
+
+    fireEvent.click(screen.getByRole('option', { name: 'Mexico' }));
 
     expect(input).toHaveValue('Mexico');
   });
 
-  it('calls onChange when the input value changes', () => {
+  it('calls onInputChange when the user types', () => {
+    const handleInputChange = vi.fn();
+    const handleChange = vi.fn();
+
+    render(
+      <Combobox
+        label="Choose a country"
+        options={countryOptions}
+        onInputChange={handleInputChange}
+        onChange={handleChange}
+      />,
+    );
+
+    fireEvent.change(screen.getByRole('combobox'), {
+      target: { value: 'Can' },
+    });
+
+    expect(handleInputChange).toHaveBeenCalledWith('Can');
+    expect(handleChange).not.toHaveBeenCalled();
+  });
+
+  it('does not call onChange when the user types an unmatched value', () => {
     const handleChange = vi.fn();
 
     render(
@@ -129,10 +159,10 @@ describe('Combobox', () => {
     );
 
     fireEvent.change(screen.getByRole('combobox'), {
-      target: { value: 'Canada' },
+      target: { value: 'XYZ' },
     });
 
-    expect(handleChange).toHaveBeenCalledWith('Canada');
+    expect(handleChange).not.toHaveBeenCalled();
   });
 
   // Filtering
@@ -184,26 +214,28 @@ describe('Combobox', () => {
   it('announces no results after a short delay', () => {
     vi.useFakeTimers();
 
-    render(<Combobox label="Choose a country" options={countryOptions} />);
+    try {
+      render(<Combobox label="Choose a country" options={countryOptions} />);
 
-    fireEvent.change(screen.getByRole('combobox'), {
-      target: { value: 'XYZ' },
-    });
+      fireEvent.change(screen.getByRole('combobox'), {
+        target: { value: 'XYZ' },
+      });
 
-    expect(screen.getByRole('status')).toBeEmptyDOMElement();
+      expect(screen.getByRole('status')).toBeEmptyDOMElement();
 
-    act(() => {
-      vi.advanceTimersByTime(1000);
-    });
+      act(() => {
+        vi.advanceTimersByTime(1000);
+      });
 
-    expect(screen.getByRole('status')).toHaveTextContent('No options found.');
-
-    vi.useRealTimers();
+      expect(screen.getByRole('status')).toHaveTextContent('No options found.');
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   // Selection
 
-  it('selects an option when clicked', () => {
+  it('selects an option when clicked using its stored value', () => {
     const handleChange = vi.fn();
 
     render(
@@ -218,7 +250,7 @@ describe('Combobox', () => {
 
     fireEvent.click(screen.getByRole('option', { name: 'Canada' }));
 
-    expect(handleChange).toHaveBeenCalledWith('Canada');
+    expect(handleChange).toHaveBeenCalledWith('ca');
     expect(screen.getByRole('combobox')).toHaveValue('Canada');
     expect(screen.getByRole('combobox')).toHaveAttribute(
       'aria-expanded',
@@ -243,8 +275,49 @@ describe('Combobox', () => {
     fireEvent.keyDown(input, { key: 'ArrowDown' });
     fireEvent.keyDown(input, { key: 'Enter' });
 
-    expect(handleChange).toHaveBeenLastCalledWith('Canada');
+    expect(handleChange).toHaveBeenLastCalledWith('ca');
     expect(input).toHaveValue('Canada');
+  });
+
+  it('submits the stored value instead of the displayed label', () => {
+    const { container } = render(
+      <Combobox
+        label="Choose a country"
+        name="country"
+        defaultValue="ca"
+        options={countryOptions}
+      />,
+    );
+
+    const hiddenInput = container.querySelector<HTMLInputElement>(
+      'input[type="hidden"]',
+    );
+
+    expect(screen.getByRole('combobox')).toHaveValue('Canada');
+    expect(hiddenInput).toHaveValue('ca');
+  });
+
+  it('does not submit a previously selected value after the user types', () => {
+    const { container } = render(
+      <Combobox
+        label="Choose a country"
+        name="country"
+        defaultValue="ca"
+        options={countryOptions}
+      />,
+    );
+
+    const input = screen.getByRole('combobox');
+    const hiddenInput = container.querySelector<HTMLInputElement>(
+      'input[type="hidden"]',
+    );
+
+    expect(hiddenInput).toHaveValue('ca');
+
+    fireEvent.change(input, { target: { value: 'Mex' } });
+
+    expect(input).toHaveValue('Mex');
+    expect(hiddenInput).toHaveValue('');
   });
 
   // Disabled options and states
@@ -254,8 +327,8 @@ describe('Combobox', () => {
       <Combobox
         label="Choose a country"
         options={[
-          { value: 'Canada', label: 'Canada' },
-          { value: 'Mexico', label: 'Mexico', disabled: true },
+          { value: 'ca', label: 'Canada' },
+          { value: 'mx', label: 'Mexico', disabled: true },
         ]}
       />,
     );
@@ -272,9 +345,9 @@ describe('Combobox', () => {
       <Combobox
         label="Choose a country"
         options={[
-          { value: 'Canada', label: 'Canada' },
-          { value: 'Mexico', label: 'Mexico', disabled: true },
-          { value: 'Ireland', label: 'Ireland' },
+          { value: 'ca', label: 'Canada' },
+          { value: 'mx', label: 'Mexico', disabled: true },
+          { value: 'ie', label: 'Ireland' },
         ]}
       />,
     );
@@ -469,7 +542,7 @@ describe('Combobox', () => {
     fireEvent.change(input, { target: { value: 'Can' } });
     fireEvent.keyDown(input, { key: 'ArrowRight' });
 
-    expect(handleChange).toHaveBeenLastCalledWith('Canada');
+    expect(handleChange).toHaveBeenLastCalledWith('ca');
     expect(input).toHaveValue('Canada');
     expect(input).toHaveAttribute('aria-expanded', 'false');
   });
@@ -479,8 +552,8 @@ describe('Combobox', () => {
       <Combobox
         label="Choose a country"
         options={[
-          { value: 'Canada', label: 'Canada', disabled: true },
-          { value: 'Canary Islands', label: 'Canary Islands' },
+          { value: 'ca', label: 'Canada', disabled: true },
+          { value: 'ci', label: 'Canary Islands' },
         ]}
         inlineCompletion
       />,
@@ -513,7 +586,46 @@ describe('Combobox', () => {
 
     fireEvent.keyDown(input, { key: 'ArrowRight' });
 
-    expect(handleChange).toHaveBeenLastCalledWith('Can');
+    expect(handleChange).not.toHaveBeenCalled();
     expect(input).toHaveAttribute('aria-expanded', 'true');
+  });
+
+  it('rejects typed text when no option has been selected', () => {
+    render(<Combobox label="Country" options={countryOptions} required />);
+
+    const input = screen.getByRole('combobox', { name: 'Country' });
+
+    fireEvent.change(input, {
+      target: { value: 'Canada' },
+    });
+
+    expect(input).toBeInvalid();
+    expect(input).toHaveAttribute('required');
+    expect(input).toHaveValue('Canada');
+    expect(input).toHaveProperty(
+      'validationMessage',
+      'Please select an option from the list.',
+    );
+  });
+
+  it('accepts a valid option selection for a required field', () => {
+    render(<Combobox label="Country" options={countryOptions} required />);
+
+    const input = screen.getByRole('combobox', { name: 'Country' });
+
+    fireEvent.focus(input);
+    fireEvent.click(screen.getByRole('option', { name: 'Canada' }));
+
+    expect(input).toBeValid();
+    expect(input).toHaveValue('Canada');
+    expect(input).toHaveProperty('validationMessage', '');
+  });
+
+  it('rejects an empty required field', () => {
+    render(<Combobox label="Country" options={countryOptions} required />);
+
+    const input = screen.getByRole('combobox', { name: 'Country' });
+
+    expect(input).toBeInvalid();
   });
 });

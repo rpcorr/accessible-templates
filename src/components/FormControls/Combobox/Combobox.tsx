@@ -22,6 +22,7 @@ type ComboboxProps = {
   value?: string;
   defaultValue?: string;
   onChange?: (value: string) => void;
+  onInputChange?: (inputValue: string) => void;
   placeholder?: string;
   description?: string;
   required?: boolean;
@@ -37,6 +38,7 @@ export function Combobox({
   value,
   defaultValue = '',
   onChange,
+  onInputChange,
   placeholder,
   description,
   required = false,
@@ -50,6 +52,9 @@ export function Combobox({
   const statusId = `${inputId}-status`;
 
   const [internalValue, setInternalValue] = useState(defaultValue);
+  const [inputValue, setInputValue] = useState(() => {
+    return options.find((option) => option.value === defaultValue)?.label ?? '';
+  });
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const [hasTyped, setHasTyped] = useState(false);
@@ -59,10 +64,20 @@ export function Combobox({
   const optionRefs = useRef<Array<HTMLLIElement | null>>([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const currentValue = value ?? internalValue;
+  const selectedValue = value ?? internalValue;
+
+  const selectedOption = options.find(
+    (option) => option.value === selectedValue,
+  );
+
+  const isSelectionValid = Boolean(selectedOption) && !hasTyped;
+
+  const currentInputValue = hasTyped
+    ? inputValue
+    : (selectedOption?.label ?? '');
 
   const filteredOptions = options.filter((option) =>
-    option.label.toLowerCase().includes(currentValue.toLowerCase()),
+    option.label.toLowerCase().includes(currentInputValue.toLowerCase()),
   );
 
   const enabledOptions = filteredOptions.filter((option) => !option.disabled);
@@ -72,15 +87,17 @@ export function Combobox({
     isOpen &&
     hasTyped &&
     activeIndex === -1 &&
-    currentValue.length > 0
+    currentInputValue.length > 0
       ? enabledOptions.find(
           (option) =>
-            option.label.toLowerCase().startsWith(currentValue.toLowerCase()) &&
-            option.label.length > currentValue.length,
+            option.label
+              .toLowerCase()
+              .startsWith(currentInputValue.toLowerCase()) &&
+            option.label.length > currentInputValue.length,
         )
       : undefined;
 
-  const displayValue = inlineOption?.label ?? currentValue;
+  const displayValue = inlineOption?.label ?? currentInputValue;
 
   const activeOption =
     activeIndex >= 0 ? enabledOptions[activeIndex] : undefined;
@@ -116,7 +133,6 @@ export function Combobox({
       ) {
         setIsOpen(false);
         setActiveIndex(-1);
-        setHasTyped(false);
         setStatusMessage('');
       }
     }
@@ -140,7 +156,7 @@ export function Combobox({
     return () => {
       window.clearTimeout(timeoutId);
     };
-  }, [currentValue, filteredOptions.length, hasTyped, isOpen]);
+  }, [currentInputValue, filteredOptions.length, hasTyped, isOpen]);
 
   useEffect(() => {
     const inlineOptionLabel = inlineOption?.label;
@@ -155,8 +171,22 @@ export function Combobox({
       return;
     }
 
-    input.setSelectionRange(currentValue.length, inlineOptionLabel.length);
-  }, [currentValue, inlineOption?.label]);
+    input.setSelectionRange(currentInputValue.length, inlineOptionLabel.length);
+  }, [currentInputValue, inlineOption?.label]);
+
+  useEffect(() => {
+    const input = inputRef.current;
+
+    if (!input) {
+      return;
+    }
+
+    input.setCustomValidity(
+      required && !isSelectionValid
+        ? 'Please select an option from the list.'
+        : '',
+    );
+  }, [required, isSelectionValid]);
 
   function updateValue(nextValue: string) {
     if (value === undefined) {
@@ -167,7 +197,11 @@ export function Combobox({
   }
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    updateValue(event.target.value);
+    const nextInputValue = event.target.value;
+
+    setInputValue(nextInputValue);
+    onInputChange?.(nextInputValue);
+
     setIsOpen(true);
     setActiveIndex(-1);
     setHasTyped(true);
@@ -179,7 +213,9 @@ export function Combobox({
       return;
     }
 
+    setInputValue(option.label);
     updateValue(option.value);
+
     setIsOpen(false);
     setActiveIndex(-1);
     setHasTyped(false);
@@ -238,16 +274,11 @@ export function Combobox({
       case 'ArrowRight': {
         if (
           inlineOption &&
-          event.currentTarget.selectionStart === currentValue.length &&
+          event.currentTarget.selectionStart === currentInputValue.length &&
           event.currentTarget.selectionEnd === inlineOption.label.length
         ) {
           event.preventDefault();
-
-          updateValue(inlineOption.label);
-          setIsOpen(false);
-          setActiveIndex(-1);
-          setHasTyped(false);
-          setStatusMessage('');
+          handleSelect(inlineOption);
         }
 
         break;
@@ -272,7 +303,6 @@ export function Combobox({
           event.preventDefault();
           setIsOpen(false);
           setActiveIndex(-1);
-          setHasTyped(false);
           setStatusMessage('');
         }
 
@@ -282,7 +312,6 @@ export function Combobox({
       case 'Tab': {
         setIsOpen(false);
         setActiveIndex(-1);
-        setHasTyped(false);
         setStatusMessage('');
         break;
       }
@@ -305,7 +334,6 @@ export function Combobox({
         <input
           ref={inputRef}
           id={inputId}
-          name={name}
           type="text"
           role="combobox"
           className={styles.input}
@@ -327,6 +355,15 @@ export function Combobox({
           }}
           onKeyDown={handleKeyDown}
         />
+
+        {name && (
+          <input
+            type="hidden"
+            name={name}
+            value={hasTyped || !selectedOption ? '' : selectedValue}
+            disabled={disabled}
+          />
+        )}
 
         <div
           id={statusId}
@@ -354,7 +391,9 @@ export function Combobox({
                         optionRefs.current[index] = element;
                       }}
                       role="option"
-                      aria-selected={currentValue === option.value}
+                      aria-selected={
+                        !hasTyped && selectedValue === option.value
+                      }
                       aria-disabled={option.disabled || undefined}
                       className={`${styles.option} ${
                         isActive ? styles.active : ''
