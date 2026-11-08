@@ -30,7 +30,7 @@ When filtering produces no matching options, a polite live region announces **"N
 
 ### Inline Autocomplete
 
-Inline autocomplete is an optional enhancement enabled through the `inlineCompletion` prop. As users type, the component suggests the remainder of the first matching enabled option's label directly in the input. The suggested text is highlighted to distinguish it from the text entered by the user.
+Inline autocomplete is an optional enhancement enabled through the `inlineCompletion` prop. As users type, the component suggests the remainder of the first matching enabled option's label directly in the input. The suggested completion is visually distinguished from the text entered by the user.
 
 Users can accept the suggested completion by pressing `Arrow Right`. Accepting an inline completion updates the input value to the completed option label.
 
