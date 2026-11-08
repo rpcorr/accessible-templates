@@ -19,6 +19,10 @@ export function PaginationPage() {
         with support for previous and next controls, page selection, current
         page indication, long page ranges, and visual variants.
       </p>
+      <p>
+        <strong>Accessibility target:</strong> Designed and tested with WCAG 2.2
+        Level AA accessibility requirements in mind.
+      </p>
 
       <h3>Accessibility</h3>
 

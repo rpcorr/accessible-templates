@@ -20,6 +20,11 @@ export function RadioGroupPage() {
         displayed vertically or horizontally.
       </p>
 
+      <p>
+        <strong>Accessibility target:</strong> Designed and tested with WCAG 2.2
+        Level AA accessibility requirements in mind.
+      </p>
+
       <h3>Accessibility</h3>
       <p>
         The Radio Group uses native radio inputs grouped with a shared&nbsp;

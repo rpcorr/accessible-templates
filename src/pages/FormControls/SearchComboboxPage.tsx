@@ -21,6 +21,11 @@ export function SearchComboboxPage() {
           results and select an available option using the keyboard or mouse.
         </p>
 
+        <p>
+          <strong>Accessibility target:</strong> Designed and tested with WCAG
+          2.2 Level AA accessibility requirements in mind.
+        </p>
+
         <h3>Choosing the Right Component</h3>
 
         <p>

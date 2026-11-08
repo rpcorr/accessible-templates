@@ -23,6 +23,11 @@ export function ProgressIndicatorPage() {
         wavy leading edge for linear and fill progress.
       </p>
 
+      <p>
+        <strong>Accessibility target:</strong> Designed and tested with WCAG 2.2
+        Level AA accessibility requirements in mind.
+      </p>
+
       <div className="stack">
         <h3>Accessibility</h3>
 

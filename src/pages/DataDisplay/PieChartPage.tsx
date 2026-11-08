@@ -21,6 +21,11 @@ export function PieChartPage() {
         an alternative way to explore the underlying information.
       </p>
 
+      <p>
+        <strong>Accessibility target:</strong> Designed and tested with WCAG 2.2
+        Level AA accessibility requirements in mind.
+      </p>
+
       <div className="stack">
         <h3>Features</h3>
 

@@ -21,6 +21,11 @@ export function SignatureFieldPage() {
         signatures, and restoring saved drawn signatures.
       </p>
 
+      <p>
+        <strong>Accessibility target:</strong> Designed and tested with WCAG 2.2
+        Level AA accessibility requirements in mind.
+      </p>
+
       <h3>Accessibility</h3>
 
       <p>
