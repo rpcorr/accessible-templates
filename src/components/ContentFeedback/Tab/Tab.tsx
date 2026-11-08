@@ -28,6 +28,7 @@ export function Tabs({
 
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const tabListRef = useRef<HTMLDivElement>(null);
+  const isProgrammaticScroll = useRef(false);
 
   const enabledTabIndexes = tabs
     .map((tab, index) => (tab.disabled ? -1 : index))
@@ -50,7 +51,13 @@ export function Tabs({
       setShowRightFade(hasOverflow && hasMoreContent);
     }
 
-    const handleScroll = () => updateRightFade(tabList);
+    const handleScroll = () => {
+      if (isProgrammaticScroll.current) {
+        return;
+      }
+
+      updateRightFade(tabList);
+    };
 
     handleScroll();
 
@@ -102,19 +109,45 @@ export function Tabs({
     const tabListRect = tabList.getBoundingClientRect();
     const tabRect = tab.getBoundingClientRect();
 
+    let scrollAmount = 0;
+
     // Tab extends beyond the right edge
     if (tabRect.right > tabListRect.right) {
-      tabList.scrollBy({
-        left: tabRect.right - tabListRect.right,
-        behavior: 'smooth',
-      });
+      scrollAmount = tabRect.right - tabListRect.right;
+    } else if (tabRect.left < tabListRect.left) {
+      scrollAmount = tabRect.left - tabListRect.left;
     }
 
-    // Tab extends beyond the left edge
-    if (tabRect.left < tabListRect.left) {
+    if (scrollAmount !== 0) {
+      isProgrammaticScroll.current = true;
+
       tabList.scrollBy({
-        left: tabRect.left - tabListRect.left,
+        left: scrollAmount,
         behavior: 'smooth',
+      });
+
+      const handleScrollEnd = () => {
+        isProgrammaticScroll.current = false;
+
+        const lastTab = tabRefs.current[tabs.length - 1];
+
+        if (lastTab) {
+          const listRect = tabList.getBoundingClientRect();
+          const lastTabRect = lastTab.getBoundingClientRect();
+
+          // Hide the indicator when the last tab is fully visible.
+          const isLastTabVisible = lastTabRect.right <= listRect.right + 1;
+
+          if (isLastTabVisible) {
+            setShowRightFade(false);
+          } else {
+            updateFadeAfterScroll();
+          }
+        }
+      };
+
+      tabList.addEventListener('scrollend', handleScrollEnd, {
+        once: true,
       });
     }
   }
@@ -215,6 +248,19 @@ export function Tabs({
       enabledTabIndexes.length;
 
     return enabledTabIndexes[nextPosition];
+  }
+
+  function updateFadeAfterScroll() {
+    const tabList = tabListRef.current;
+
+    if (!tabList) {
+      return;
+    }
+
+    const hasMoreContent =
+      tabList.scrollLeft + tabList.clientWidth < tabList.scrollWidth - 1;
+
+    setShowRightFade(hasMoreContent);
   }
 
   return (
