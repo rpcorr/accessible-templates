@@ -87,6 +87,36 @@ export function Tabs({
 
     selectTab(index);
     tabRefs.current[index]?.focus();
+
+    scrollTabIntoView(index);
+  }
+
+  function scrollTabIntoView(index: number) {
+    const tabList = tabListRef.current;
+    const tab = tabRefs.current[index];
+
+    if (!tabList || !tab) {
+      return;
+    }
+
+    const tabListRect = tabList.getBoundingClientRect();
+    const tabRect = tab.getBoundingClientRect();
+
+    // Tab extends beyond the right edge
+    if (tabRect.right > tabListRect.right) {
+      tabList.scrollBy({
+        left: tabRect.right - tabListRect.right,
+        behavior: 'smooth',
+      });
+    }
+
+    // Tab extends beyond the left edge
+    if (tabRect.left < tabListRect.left) {
+      tabList.scrollBy({
+        left: tabRect.left - tabListRect.left,
+        behavior: 'smooth',
+      });
+    }
   }
 
   function selectTab(index: number) {
@@ -222,7 +252,10 @@ export function Tabs({
                 tabIndex={activeTab === index ? 0 : -1}
                 disabled={tab.disabled}
                 className={styles.tab}
-                onClick={() => selectTab(index)}
+                onClick={() => {
+                  selectTab(index);
+                  scrollTabIntoView(index);
+                }}
                 onKeyDown={(event) => {
                   handleKeyDown(event, index);
                 }}
