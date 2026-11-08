@@ -111,44 +111,50 @@ export function Tabs({
 
     let scrollAmount = 0;
 
-    // Tab extends beyond the right edge
     if (tabRect.right > tabListRect.right) {
       scrollAmount = tabRect.right - tabListRect.right;
     } else if (tabRect.left < tabListRect.left) {
       scrollAmount = tabRect.left - tabListRect.left;
     }
 
+    function checkLastTabVisibility() {
+      const lastTab = tabRefs.current[tabs.length - 1];
+
+      if (!lastTab || !tabList) {
+        return;
+      }
+
+      const listRect = tabList.getBoundingClientRect();
+      const lastTabRect = lastTab.getBoundingClientRect();
+
+      const isLastTabVisible = lastTabRect.right <= listRect.right + 1;
+
+      if (isLastTabVisible) {
+        setShowRightFade(false);
+      } else {
+        updateFadeAfterScroll();
+      }
+    }
+
     if (scrollAmount !== 0) {
       isProgrammaticScroll.current = true;
+
+      tabList.addEventListener(
+        'scrollend',
+        () => {
+          isProgrammaticScroll.current = false;
+          checkLastTabVisibility();
+        },
+        { once: true },
+      );
 
       tabList.scrollBy({
         left: scrollAmount,
         behavior: 'smooth',
       });
-
-      const handleScrollEnd = () => {
-        isProgrammaticScroll.current = false;
-
-        const lastTab = tabRefs.current[tabs.length - 1];
-
-        if (lastTab) {
-          const listRect = tabList.getBoundingClientRect();
-          const lastTabRect = lastTab.getBoundingClientRect();
-
-          // Hide the indicator when the last tab is fully visible.
-          const isLastTabVisible = lastTabRect.right <= listRect.right + 1;
-
-          if (isLastTabVisible) {
-            setShowRightFade(false);
-          } else {
-            updateFadeAfterScroll();
-          }
-        }
-      };
-
-      tabList.addEventListener('scrollend', handleScrollEnd, {
-        once: true,
-      });
+    } else {
+      // Also check when no scrolling is necessary.
+      checkLastTabVisibility();
     }
   }
 
