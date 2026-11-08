@@ -1,5 +1,6 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
+import { Tabs } from '../../components/ContentFeedback/Tab';
 import { ComboboxExamples } from '../../components/FormControls/Combobox/Examples/ComboboxExamples';
 import { AutocompleteExamples } from '../../components/FormControls/Combobox/Examples/AutocompleteExample';
 
@@ -105,11 +106,20 @@ export function ComboboxPage() {
 
         <h3>Examples</h3>
 
-        <ComboboxExamples />
-
-        <h3>Autocomplete Examples</h3>
-
-        <AutocompleteExamples />
+        <Tabs
+          tabs={[
+            {
+              id: 'combobox',
+              label: 'Combobox',
+              content: <ComboboxExamples />,
+            },
+            {
+              id: 'autocomplete',
+              label: 'Autocomplete',
+              content: <AutocompleteExamples />,
+            },
+          ]}
+        />
       </main>
     </PageLayout>
   );
