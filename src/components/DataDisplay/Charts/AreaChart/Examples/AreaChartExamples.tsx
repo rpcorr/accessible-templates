@@ -1,58 +1,13 @@
 import { AreaChart } from '..';
 
-const monthlyVisitors = [
-  { label: 'January', value: 120 },
-  { label: 'February', value: 150 },
-  { label: 'March', value: 135 },
-  { label: 'April', value: 180 },
-  { label: 'May', value: 210 },
-  { label: 'June', value: 195 },
-];
-
-const quarterlyRevenue = [
-  { label: 'Q1', value: 120 },
-  { label: 'Q2', value: 180 },
-  { label: 'Q3', value: 150 },
-  { label: 'Q4', value: 240 },
-];
-
-const websiteVisitsByYear = [
-  { label: '2024', values: [520, 390, 240, 150] },
-  { label: '2025', values: [650, 480, 290, 180] },
-  { label: '2026', values: [820, 540, 360, 210] },
-];
-
-const websiteVisitCategories = [
-  { label: 'January', value: 0 },
-  { label: 'February', value: 0 },
-  { label: 'March', value: 0 },
-  { label: 'April', value: 0 },
-];
-
-const profitAndLoss = [
-  { label: 'January', value: 20 },
-  { label: 'February', value: -10 },
-  { label: 'March', value: 15 },
-  { label: 'April', value: -5 },
-  { label: 'May', value: 30 },
-  { label: 'June', value: 25 },
-];
-
-const conversionRates = [
-  { label: 'January', value: 2.4 },
-  { label: 'February', value: 2.8 },
-  { label: 'March', value: 2.6 },
-  { label: 'April', value: 3.1 },
-  { label: 'May', value: 3.5 },
-  { label: 'June', value: 3.8 },
-];
-
-const monthlyRegistrations = [
-  { label: 'January', value: 12 },
-  { label: 'February', value: 0 },
-  { label: 'March', value: 18 },
-  { label: 'April', value: 7 },
-];
+import {
+  conversionRates,
+  monthlyProfitAndLoss,
+  monthlyRegistrations,
+  monthlyVisitors,
+  quarterlyRevenue,
+  websiteVisitsByYear,
+} from '../../../../../data/chartExampleData';
 
 export default function AreaChartExamples() {
   return (
@@ -103,7 +58,7 @@ export default function AreaChartExamples() {
         <AreaChart
           title="Website Visits by Year"
           description="Compare website visits across three years over four months."
-          data={websiteVisitCategories}
+          data={monthlyVisitors}
           datasets={websiteVisitsByYear}
           showGridLines
         />
@@ -120,7 +75,7 @@ export default function AreaChartExamples() {
         <AreaChart
           title="Monthly Profit and Loss"
           description="Monthly financial results, including profitable and loss-making periods."
-          data={profitAndLoss}
+          data={monthlyProfitAndLoss}
           valueLabel="dollars"
           showGridLines
         />

@@ -1,64 +1,15 @@
 import { StackedBarChart } from '..';
-
-const monthlySales = [
-  { label: 'January', value: 25 },
-  { label: 'February', value: 40 },
-  { label: 'March', value: 65 },
-  { label: 'April', value: 50 },
-];
-
-const websiteVisitCategories = [
-  { label: 'Organic Search', value: 0 },
-  { label: 'Direct', value: 0 },
-  { label: 'Social Media', value: 0 },
-  { label: 'Referral', value: 0 },
-];
-
-const websiteVisitsByDevice = [
-  { label: 'Desktop', values: [520, 390, 240, 150] },
-  { label: 'Mobile', values: [650, 480, 290, 180] },
-  { label: 'Tablet', values: [120, 90, 60, 35] },
-];
-
-const quarterlyRevenueCategories = [
-  { label: 'Q1', value: 0 },
-  { label: 'Q2', value: 0 },
-  { label: 'Q3', value: 0 },
-  { label: 'Q4', value: 0 },
-];
-
-const quarterlyRevenueByProduct = [
-  { label: 'Product A', values: [120, 180, 150, 240] },
-  { label: 'Product B', values: [80, 110, 130, 160] },
-  { label: 'Product C', values: [40, 60, 50, 90] },
-];
-
-const surveyCategories = [
-  { label: 'Very satisfied', value: 0 },
-  { label: 'Satisfied', value: 0 },
-  { label: 'Neutral', value: 0 },
-  { label: 'Dissatisfied', value: 0 },
-];
-
-const surveyResultsByAge = [
-  { label: '18–34', values: [42, 31, 18, 9] },
-  { label: '35–54', values: [35, 38, 20, 12] },
-  { label: '55+', values: [28, 34, 24, 14] },
-];
-
-const monthlyProfitLoss = [
-  { label: 'January', value: 30 },
-  { label: 'February', value: -10 },
-  { label: 'March', value: 45 },
-  { label: 'April', value: -15 },
-];
-
-const monthlyRegistrations = [
-  { label: 'January', value: 12 },
-  { label: 'February', value: 0 },
-  { label: 'March', value: 18 },
-  { label: 'April', value: 7 },
-];
+import {
+  monthlyProfitAndLoss,
+  monthlyRegistrations,
+  monthlySales,
+  quarterlyRevenueByProduct,
+  quarterlyRevenueCategories,
+  surveyResults,
+  surveyResultsByAge,
+  websiteVisitsByDevice,
+  websiteTrafficSources,
+} from '../../../../../data/chartExampleData';
 
 export default function StackedBarChartExamples() {
   return (
@@ -91,7 +42,7 @@ export default function StackedBarChartExamples() {
         <StackedBarChart
           title="Website Visits by Device"
           description="Website visits by traffic source, broken down by device type."
-          data={websiteVisitCategories}
+          data={websiteTrafficSources}
           datasets={websiteVisitsByDevice}
           showGridLines
         />
@@ -126,7 +77,7 @@ export default function StackedBarChartExamples() {
         <StackedBarChart
           title="Customer Satisfaction by Age Group"
           description="Survey responses grouped by satisfaction level and age group."
-          data={surveyCategories}
+          data={surveyResults}
           datasets={surveyResultsByAge}
           showGridLines
         />
@@ -143,7 +94,7 @@ export default function StackedBarChartExamples() {
         <StackedBarChart
           title="Monthly Profit and Loss"
           description="Monthly profit and loss values, including negative results."
-          data={monthlyProfitLoss}
+          data={monthlyProfitAndLoss}
           valueLabel="amount"
           showGridLines
         />

@@ -1,47 +1,14 @@
 import { PieChart } from '..';
-
-const deviceUsage = [
-  { label: 'Desktop', value: 48 },
-  { label: 'Mobile', value: 38 },
-  { label: 'Tablet', value: 14 },
-];
-
-const budgetAllocation = [
-  { label: 'Housing', value: 1450 },
-  { label: 'Food', value: 620 },
-  { label: 'Transportation', value: 380 },
-  { label: 'Utilities', value: 250 },
-  { label: 'Entertainment', value: 300 },
-];
-
-const projectStatus = [
-  { label: 'Completed', value: 56 },
-  { label: 'In Progress', value: 28 },
-  { label: 'Not Started', value: 16 },
-];
-
-const newsletterSources = [
-  { label: 'Website Signup', value: 420 },
-  { label: 'Social Media', value: 275 },
-  { label: 'Email Referral', value: 190 },
-  { label: 'Events', value: 115 },
-];
-
-const surveyResponses = [
-  { label: 'Excellent', value: 45 },
-  { label: 'Good', value: 32 },
-  { label: 'Fair', value: 17 },
-  { label: 'Poor', value: 6 },
-];
-
-const singleCategory = [{ label: 'Successful Payments', value: 100 }];
-
-const zeroValues = [
-  { label: 'Email', value: 24 },
-  { label: 'Phone', value: 0 },
-  { label: 'Live Chat', value: 18 },
-  { label: 'In Person', value: 0 },
-];
+import {
+  monthlyBudgetBreakdown,
+  deviceUsage,
+  projectStatus,
+  projectHealthStatus,
+  newsletterSources,
+  surveyResults,
+  singleCategoryData,
+  supportRequestsByChannel,
+} from '../../../../../data/chartExampleData';
 
 export default function PieChartExamples() {
   return (
@@ -73,7 +40,7 @@ export default function PieChartExamples() {
         <PieChart
           title="Monthly Household Budget"
           description="Monthly spending by household expense category."
-          data={budgetAllocation}
+          data={monthlyBudgetBreakdown}
           valueLabel="amount"
         />
       </section>
@@ -89,7 +56,7 @@ export default function PieChartExamples() {
         <PieChart
           title="Monthly Household Budget"
           description="Monthly spending by household expense category."
-          data={budgetAllocation}
+          data={monthlyBudgetBreakdown}
           valueLabel="amount"
           exploded
         />
@@ -138,7 +105,7 @@ export default function PieChartExamples() {
         <PieChart
           title="Service Satisfaction"
           description="Distribution of customer ratings from a recent survey."
-          data={surveyResponses}
+          data={surveyResults}
           valueLabel="responses"
         />
       </section>
@@ -154,7 +121,7 @@ export default function PieChartExamples() {
         <PieChart
           title="Successful Payments"
           description="All recorded payments were successful."
-          data={singleCategory}
+          data={singleCategoryData}
           valueLabel="payments"
         />
       </section>
@@ -170,7 +137,7 @@ export default function PieChartExamples() {
         <PieChart
           title="Support Requests by Channel"
           description="Number of requests received through each support channel."
-          data={zeroValues}
+          data={supportRequestsByChannel}
           valueLabel="requests"
         />
       </section>
@@ -185,11 +152,7 @@ export default function PieChartExamples() {
 
         <PieChart
           title="Project Status Overview"
-          data={[
-            { label: 'On Track', value: 72 },
-            { label: 'At Risk', value: 18 },
-            { label: 'Delayed', value: 10 },
-          ]}
+          data={projectHealthStatus}
           valueLabel="projects"
         />
       </section>

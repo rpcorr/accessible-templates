@@ -39,7 +39,7 @@ export interface DonutChartData {
 Example data:
 
 ```tsx
-const browserData = [
+const browserUsage = [
   { label: 'Chrome', value: 62 },
   { label: 'Safari', value: 20 },
   { label: 'Firefox', value: 8 },
@@ -77,7 +77,7 @@ export function Example() {
 Set `exploded` to separate the segments slightly when additional visual distinction is helpful.
 
 ```tsx
-<DonutChart title="Browser Usage" data={browserData} exploded />
+<DonutChart title="Browser Usage" data={browserUsage} exploded />
 ```
 
 ### Custom Styling

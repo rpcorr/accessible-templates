@@ -132,7 +132,7 @@ const websiteVisits = [
 Use `datasets` to compare multiple series within each category. Each series is displayed using a distinct colour, and a legend identifies the series.
 
 ```tsx
-const websiteVisitCategories = [
+const monthlyVisitorCategories = [
   { label: 'Organic Search', value: 0 },
   { label: 'Direct', value: 0 },
   { label: 'Social Media', value: 0 },
@@ -147,7 +147,7 @@ const websiteVisitsByYear = [
 <BarChart
   title="Website Visits by Year"
   description="Compare website traffic sources between 2025 and 2026."
-  data={websiteVisitCategories}
+  data={monthlyVisitorCategories}
   datasets={websiteVisitsByYear}
   showGridLines
 />;

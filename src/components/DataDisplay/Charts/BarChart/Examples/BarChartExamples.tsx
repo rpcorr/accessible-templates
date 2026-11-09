@@ -1,43 +1,12 @@
 import { BarChart } from '..';
 
-const monthlySales = [
-  { label: 'January', value: 25 },
-  { label: 'February', value: 40 },
-  { label: 'March', value: 65 },
-  { label: 'April', value: 50 },
-];
-
-const websiteVisits = [
-  { label: 'Organic Search', value: 820 },
-  { label: 'Direct', value: 540 },
-  { label: 'Social Media', value: 360 },
-  { label: 'Referral', value: 210 },
-];
-
-const websiteVisitsByYear = [
-  { label: '2024', values: [520, 390, 240, 150] },
-  { label: '2025', values: [650, 480, 290, 180] },
-  { label: '2026', values: [820, 540, 360, 210] },
-];
-
-const websiteVisitCategories = websiteVisits.map((item) => ({
-  label: item.label,
-  value: 0,
-}));
-
-const surveyResults = [
-  { label: 'Very satisfied', value: 42 },
-  { label: 'Satisfied', value: 31 },
-  { label: 'Neutral', value: 18 },
-  { label: 'Dissatisfied', value: 9 },
-];
-
-const quarterlyRevenue = [
-  { label: 'Q1', value: 120 },
-  { label: 'Q2', value: 180 },
-  { label: 'Q3', value: 150 },
-  { label: 'Q4', value: 240 },
-];
+import {
+  monthlySales,
+  surveyResults,
+  quarterlyRevenue,
+  websiteTrafficSources,
+  websiteVisitsByYear,
+} from '../../../../../data/chartExampleData';
 
 export default function BarChartExamples() {
   return (
@@ -86,7 +55,7 @@ export default function BarChartExamples() {
         <BarChart
           title="Website Visits by Source"
           description="Number of visits attributed to each traffic source."
-          data={websiteVisits}
+          data={websiteTrafficSources}
           valueLabel="visits"
           orientation="horizontal"
           showGridLines
@@ -104,7 +73,7 @@ export default function BarChartExamples() {
         <BarChart
           title="Website Visits by Year"
           description="Compare website traffic sources across 2024, 2025, and 2026."
-          data={websiteVisitCategories}
+          data={websiteTrafficSources}
           datasets={websiteVisitsByYear}
           showGridLines
         />
@@ -120,7 +89,7 @@ export default function BarChartExamples() {
         <BarChart
           title="Website Visits by Source"
           description="Number of visits attributed to each traffic source."
-          data={websiteVisits}
+          data={websiteTrafficSources}
           valueLabel="visits"
         />
       </section>
