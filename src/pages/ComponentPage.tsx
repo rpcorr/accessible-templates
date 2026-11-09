@@ -489,14 +489,19 @@ export function ComponentPage() {
           />
 
           <div className="stack">
-            <h2>Filter by category</h2>
+            <h2 id="category-filter-heading">Filter by category</h2>
 
             <div
               className={`${styles.filterListContainer} ${
                 showRightFade ? styles.showRightFade : ''
               }`}
             >
-              <div className={styles.filters} ref={filterListRef}>
+              <div
+                className={styles.filters}
+                ref={filterListRef}
+                role="group"
+                aria-labelledby="category-filter-heading"
+              >
                 <button
                   type="button"
                   aria-pressed={selectedCategories.length === 0}
