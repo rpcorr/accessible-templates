@@ -32,6 +32,37 @@ This project focuses on building reusable React components with accessibility tr
 
 ---
 
+## 📁 Project Structure
+
+The project is organized to keep reusable components, example data, and documentation separate and easy to maintain.
+
+```text
+src/
+├── components/
+│   ├── ButtonsActions/
+│   ├── ContentFeedback/
+│   ├── DataDisplay/
+│   ├── FormControls/
+│   └── Navigations/
+├── data/
+│   └── *ExampleData.ts
+└── ...
+
+docs/
+└── components/
+    ├── ButtonsActions/
+    ├── ContentFeedback/
+    ├── DataDisplay/
+    ├── FormControls/
+    └── Navigations/
+```
+
+- **`src/components/`** – Reusable UI components, organized by category. Component examples are kept in their respective `Examples/` folders.
+- **`src/data/`** – Shared static data and configuration used by component examples.
+- **`docs/components/`** – Component documentation, including usage guidance, examples, and accessibility information.
+
+---
+
 ## 🎯 Project Goals
 
 This project is designed to:
