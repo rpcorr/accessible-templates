@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { ColourPickerExamples } from '../../components/FormControls/ColourPicker/Examples/ColourPickerExamples';
 
 export function ColourPickerPage() {
   return (
-    <PageLayout
-      title="Colour Picker"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Colour Picker</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Colour Picker">
       <p>
         An accessible colour picker component that allows users to select a
         colour using the browser's native colour selection interface or enter a

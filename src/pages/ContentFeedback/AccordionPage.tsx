@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { AccordionExamples } from '../../components/ContentFeedback/Accordion/Examples/AccordionExamples';
 
 export function AccordionPage() {
   return (
-    <PageLayout
-      title="Accordion"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Accordion</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Accordion">
       <p>
         An accessible accordion component supporting expandable content,
         multiple open sections, disabled items, keyboard interaction, and screen

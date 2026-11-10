@@ -1,19 +1,9 @@
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import PieChartExamples from '../../components/DataDisplay/Charts/PieChart/Examples/PieChartExamples';
 
 export function PieChartPage() {
   return (
-    <PageLayout
-      title="Pie Chart"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Pie Chart</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Pie Chart">
       <p>
         An accessible chart for visualizing how individual categories contribute
         to a whole. Displays category values and percentages through

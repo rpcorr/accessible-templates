@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { TimePickerExamples } from '../../components/FormControls/TimePicker/Examples/TimePickerExamples';
 
 export function TimePickerPage() {
   return (
-    <PageLayout
-      title="Time Picker"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Time Picker</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Time Picker">
       <main className="stack">
         <p>
           An accessible time picker that allows users to enter a time directly

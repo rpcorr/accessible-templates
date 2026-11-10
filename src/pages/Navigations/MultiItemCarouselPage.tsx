@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { MultiItemCarouselExamples } from '../../components/Navigations/Carousels/MultiItemCarousel/Examples/MultiItemCarouselExamples';
 
 export function MultiItemCarouselPage() {
   return (
-    <PageLayout
-      title="Multi-Item Carousel"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Multi-Item Carousel</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Multi-Item Carousel">
       <p>
         An accessible, reusable carousel for displaying content, images, and
         cards. Supports responsive multi-item layouts, a CoverFlow presentation,

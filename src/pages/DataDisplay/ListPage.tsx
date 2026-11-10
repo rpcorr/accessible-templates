@@ -1,19 +1,9 @@
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import ListExamples from '../../components/DataDisplay/List/Examples/ListExamples';
 
 export function ListPage() {
   return (
-    <PageLayout
-      title="List"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>List</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="List">
       <p>
         An accessible component for presenting related items in an ordered or
         unordered list. Supports configurable list markers, custom styling, and

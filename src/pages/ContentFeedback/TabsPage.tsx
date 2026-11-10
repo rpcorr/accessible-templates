@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { TabsExamples } from '../../components/ContentFeedback/Tab/Examples/TabExamples';
 
 export function TabsPage() {
   return (
-    <PageLayout
-      title="Tab"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Tab</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Tab">
       <p>
         Accessible tabs supporting horizontal and vertical orientations,
         keyboard navigation, disabled tabs, focus management, and responsive

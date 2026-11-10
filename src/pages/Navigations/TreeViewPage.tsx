@@ -1,19 +1,10 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
+
 import { TreeViewExamples } from '../../components/Navigations/TreeView/Examples/TreeViewExamples';
 
 export function TreeViewPage() {
   return (
-    <PageLayout
-      title="Tree View"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Tree View</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Tree View">
       <p>
         The Tree View component provides an accessible way to display and
         navigate hierarchical information. It supports expandable and

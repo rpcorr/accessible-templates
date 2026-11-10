@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import BadgeExamples from '../../components/ContentFeedback/Badge/Examples/BadgeExamples';
 
 export function BadgePage() {
   return (
-    <PageLayout
-      title="Badge"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Badge</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Badge">
       <p>
         An accessible Badge component for displaying compact labels that
         identify categories, statuses, and other contextual information. Badges

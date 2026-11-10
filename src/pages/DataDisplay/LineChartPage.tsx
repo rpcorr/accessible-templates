@@ -1,19 +1,9 @@
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import LineChartExamples from '../../components/DataDisplay/Charts/LineChart/Examples/LineChartExamples';
 
 export function LineChartPage() {
   return (
-    <PageLayout
-      title="Line Chart"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Line Chart</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Line Chart">
       <p>
         An accessible chart for displaying numerical values and identifying
         trends over time or across an ordered sequence. Supports multiple data

@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import StatisticExamples from '../../components/DataDisplay/Statistic/Examples/StatisticExamples';
 
 export function StatisticPage() {
   return (
-    <PageLayout
-      title="Statistic"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Statistic</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Statistic">
       <p>
         An accessible Statistic component for presenting key numbers,
         measurements, and summary information. Statistics can be used

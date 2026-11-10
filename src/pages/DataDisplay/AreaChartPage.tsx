@@ -1,19 +1,9 @@
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import AreaChartExamples from '../../components/DataDisplay/Charts/AreaChart/Examples/AreaChartExamples';
 
 export function AreaChartPage() {
   return (
-    <PageLayout
-      title="Area Chart"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Area Chart</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Area Chart">
       <p>
         An accessible chart for displaying numerical values and emphasizing
         changes in magnitude over time or across an ordered sequence using

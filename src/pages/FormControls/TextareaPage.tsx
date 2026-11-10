@@ -1,19 +1,10 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
+
 import { TextareaExamples } from '../../components/FormControls/Textarea/Examples/TextareaExamples';
 
 export function TextareaPage() {
   return (
-    <PageLayout
-      title="Textarea"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Textarea</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Textarea">
       <main className="stack">
         <p>
           An accessible multi-line text input that allows users to enter and

@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import ProgressIndicatorExamples from '../../components/ContentFeedback/ProgressIndicator/Examples/ProgressIndicatorExamples';
 
 export function ProgressIndicatorPage() {
   return (
-    <PageLayout
-      title="Progress Indicator"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Progress Indicator</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Progress Indicator">
       <p>
         An accessible progress indicator for communicating the progress of
         ongoing operations, with support for determinate and indeterminate

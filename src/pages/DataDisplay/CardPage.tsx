@@ -1,19 +1,9 @@
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import CardExamples from '../../components/DataDisplay/Card/Examples/CardExamples';
 
 export function CardPage() {
   return (
-    <PageLayout
-      title="Card"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Card</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Card">
       <p>
         An accessible, flexible content container for presenting related
         information. Supports optional headers and footers, default and elevated

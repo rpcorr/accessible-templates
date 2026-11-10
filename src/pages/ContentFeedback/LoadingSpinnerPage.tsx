@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { LoadingSpinnerExamples } from '../../components/ContentFeedback/LoadingSpinner/Examples/LoadingSpinnerExamples';
 
 export function LoadingSpinnerPage() {
   return (
-    <PageLayout
-      title="Loading Spinner"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Loading Spinner</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Loading Spinner">
       <p>
         An accessible loading indicator for communicating that an operation is
         currently in progress when the amount of progress cannot be determined.

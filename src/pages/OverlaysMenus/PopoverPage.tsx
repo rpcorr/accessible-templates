@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { PopoverExamples } from '../../components/OverlaysMenus/Popover/Examples/PopoverExamples';
 
 export function PopoverPage() {
   return (
-    <PageLayout
-      title="Popover"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Popover</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Popover">
       <p>
         Accessible, non-modal popovers for displaying contextual information,
         actions, and interactive content without trapping keyboard focus.

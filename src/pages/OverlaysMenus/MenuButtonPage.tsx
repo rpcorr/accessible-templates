@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { MenuButtonExamples } from '../../components/OverlaysMenus/MenuButton/Examples/MenuButtonExamples';
 
 export function MenuButtonPage() {
   return (
-    <PageLayout
-      title="Menu Button"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Menu Button</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Menu Button">
       <p>
         Accessible menu buttons with keyboard navigation, typeahead support,
         focus management, Escape key handling, and support for disabled menu

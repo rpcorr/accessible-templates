@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { RadioGroupExamples } from '../../components/FormControls/RadioGroup/Examples/RadioGroupExamples';
 
 export function RadioGroupPage() {
   return (
-    <PageLayout
-      title="Radio Group"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Radio Group</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Radio Group">
       <p>
         An accessible radio group component for allowing users to select one
         option from a set of mutually exclusive choices. Radio groups can be

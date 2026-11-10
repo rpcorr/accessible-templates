@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { DropdownExamples } from '../../components/OverlaysMenus/Dropdown/Examples/DropdownExamples';
 
 export function DropdownPage() {
   return (
-    <PageLayout
-      title="Dropdown"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Dropdown</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Dropdown">
       <p>
         Accessible dropdown menus with keyboard navigation, nested submenus,
         typeahead support, focus management, and responsive behaviour.

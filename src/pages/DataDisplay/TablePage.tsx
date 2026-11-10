@@ -1,19 +1,9 @@
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import TableExamples from '../../components/DataDisplay/Table/Examples/TableExamples';
 
 export function TablePage() {
   return (
-    <PageLayout
-      title="Table"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Table</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Table">
       <p>
         An accessible, semantic data table for displaying structured
         information. Supports sortable columns, basic and striped visual

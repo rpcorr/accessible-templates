@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { CarouselExamples } from '../../components/Navigations/Carousels/Carousel/Examples/CarouselExamples';
 
 export function CarouselPage() {
   return (
-    <PageLayout
-      title="Carousel"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Carousel</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Carousel">
       <p>
         An accessible, reusable carousel for presenting content, images, and
         cards one slide at a time, with Previous and Next controls and direct

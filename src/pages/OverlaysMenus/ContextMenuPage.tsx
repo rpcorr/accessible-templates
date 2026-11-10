@@ -2,7 +2,6 @@ import type { ComponentType, ReactNode } from 'react';
 import { useState } from 'react';
 
 import { PageLayout } from '../../components';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import {
   ContextMenu,
   ContextMenuItem,
@@ -33,16 +32,7 @@ export function ContextMenuPage() {
   };
 
   return (
-    <PageLayout
-      title="Context Menu"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Context Menu</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Context Menu">
       <section
         className={styles.section}
         aria-labelledby="context-menu-heading"

@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { PasswordInputExamples } from '../../components/FormControls/PasswordInput/Examples/PasswordInputExamples';
 
 export function PasswordInputPage() {
   return (
-    <PageLayout
-      title="Password Input"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Password Input</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Password Input">
       <main className="stack">
         <p>
           An accessible password input that allows users to enter and edit

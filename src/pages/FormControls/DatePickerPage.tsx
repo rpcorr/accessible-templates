@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { DatePickerExamples } from '../../components/FormControls/DatePickers/DatePicker/Examples/DatePickerExamples';
 
 export function DatePickerPage() {
   return (
-    <PageLayout
-      title="Date Picker"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Date Picker</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Date Picker">
       <main className="stack">
         <p>
           An accessible date picker that allows users to enter a date directly

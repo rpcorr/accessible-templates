@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router';
 import { PageLayout } from '../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../components/Navigations/Breadcrumbs';
 import { SearchBox } from '../components/FormControls/SearchBox/SearchBox';
 import styles from './ComponentPage.module.css';
 
@@ -465,15 +464,7 @@ export function ComponentPage() {
   }
 
   return (
-    <PageLayout
-      title="Components"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem current>Components</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Components" showCurrentBreadcrumb={false}>
       <main className="stack">
         <p className={styles.intro}>
           Explore the accessible UI components available in the Accessible

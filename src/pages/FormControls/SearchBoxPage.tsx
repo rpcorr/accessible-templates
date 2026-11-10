@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { SearchBoxExamples } from '../../components/FormControls/SearchBox/Examples/SearchBoxExamples';
 
 export function SearchBoxPage() {
   return (
-    <PageLayout
-      title="Search Box"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Search Box</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Search Box">
       <main className="stack">
         <p>
           An accessible search field that allows users to enter a search query

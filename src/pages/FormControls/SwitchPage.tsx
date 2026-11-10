@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { SwitchExamples } from '../../components/FormControls/Switch/Examples/SwitchExamples';
 
 export function SwitchPage() {
   return (
-    <PageLayout
-      title="Switch"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Switch</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Switch">
       <main className="stack">
         <p>
           An accessible switch component that allows users to toggle a setting

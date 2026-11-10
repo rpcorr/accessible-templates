@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { SkipLinkExamples } from '../../components/Navigations/SkipLink/Examples/SkipLinkExamples';
 
 export function SkipLinkPage() {
   return (
-    <PageLayout
-      title="Skip Link"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Skip Link</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Skip Link">
       <p>
         A reusable skip links component that allows keyboard users to bypass
         repeated content, such as site headers and navigation, and move directly

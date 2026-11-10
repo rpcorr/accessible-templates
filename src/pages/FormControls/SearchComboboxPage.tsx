@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { SearchComboboxExamples } from '../../components/FormControls/SearchCombox/Examples/SearchComboboxExamples';
 
 export function SearchComboboxPage() {
   return (
-    <PageLayout
-      title="Search Combobox"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Search Combobox</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Search Combobox">
       <main className="stack">
         <p>
           An accessible search combobox that allows users to enter a search

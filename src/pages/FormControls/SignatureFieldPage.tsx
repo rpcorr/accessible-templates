@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { SignatureExamples } from '../../components/FormControls/SignatureField/Examples/SignatureExamples';
 
 export function SignatureFieldPage() {
   return (
-    <PageLayout
-      title="Signature Field"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Signature Field</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Signature Field">
       <p>
         The Signature Field allows users to provide a signature by drawing with
         a mouse, finger, or stylus, or by entering a typed signature as an

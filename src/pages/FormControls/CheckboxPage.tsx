@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { CheckboxExamples } from '../../components/FormControls/Checkbox/Examples/CheckboxExamples';
 
 export function CheckboxPage() {
   return (
-    <PageLayout
-      title="Checkbox"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Checkbox</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Checkbox">
       <p>
         An accessible checkbox component for allowing users to select one or
         more options from a set of choices.

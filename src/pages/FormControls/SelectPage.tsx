@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { SelectExamples } from '../../components/FormControls/Select/Examples/SelectExamples';
 
 export function SelectPage() {
   return (
-    <PageLayout
-      title="Select"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Select</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Select">
       <p>
         An accessible select component for allowing users to choose one or
         multiple options from a list of choices. The component uses a native

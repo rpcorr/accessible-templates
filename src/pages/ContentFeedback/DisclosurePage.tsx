@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { DisclosureExamples } from '../../components/ContentFeedback/Disclosure/Examples/DisclosureExamples';
 
 export function DisclosurePage() {
   return (
-    <PageLayout
-      title="Disclosure"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Disclosure</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Disclosure">
       <main className="stack">
         <p>
           A Disclosure is an interactive control that allows users to show or

@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { DateRangePickerExamples } from '../../components/FormControls/DatePickers/DateRangePicker/Examples/DateRangePickerExamples';
 
 export function DateRangePickerPage() {
   return (
-    <PageLayout
-      title="Date Range Picker"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Date Range Picker</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Date Range Picker">
       <main className="stack">
         <p>
           An accessible date range picker that allows users to enter or select a

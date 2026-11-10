@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { NumberInputExamples } from '../../components/FormControls/NumberInput/Examples/NumberInputExamples';
 
 export function NumberInputPage() {
   return (
-    <PageLayout
-      title="Number Input"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Number Input</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Number Input">
       <main className="stack">
         <p>
           An accessible number input component that allows users to enter and

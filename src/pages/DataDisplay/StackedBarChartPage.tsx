@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import StackedBarChartExamples from '../../components/DataDisplay/Charts/StackedBarChart/Examples/StackedBarChartExamples';
 
 export function StackedBarChartPage() {
   return (
-    <PageLayout
-      title="Stacked Bar Chart"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Stacked Bar Chart</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Stacked Bar Chart">
       <p>
         An accessible chart for comparing numerical values across categories
         using stacked bar segments. Supports single-series and multiple-dataset

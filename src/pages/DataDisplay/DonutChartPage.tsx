@@ -1,19 +1,9 @@
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import DonutChartExamples from '../../components/DataDisplay/Charts/DonutChart/Examples/DonutChartExamples';
 
 export function DonutChartPage() {
   return (
-    <PageLayout
-      title="Donut Chart"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Donut Chart</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Donut Chart">
       <p>
         An accessible chart for visualizing how individual categories contribute
         to a whole. Displays category values and percentages through

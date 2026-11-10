@@ -1,19 +1,9 @@
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import BarChartExamples from '../../components/DataDisplay/Charts/BarChart/Examples/BarChartExamples';
 
 export function BarChartPage() {
   return (
-    <PageLayout
-      title="Bar Chart"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Bar Chart</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Bar Chart">
       <p>
         An accessible chart for comparing numerical values across categories.
         Supports vertical and horizontal bar orientations, with category labels

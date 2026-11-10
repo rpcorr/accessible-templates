@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { ToastExamples } from '../../components/ContentFeedback/Toast/Examples/ToastExamples';
 
 export function ToastPage() {
   return (
-    <PageLayout
-      title="Toast"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Toast</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Toast">
       <main className="stack">
         <p>
           A toast is a temporary notification used to communicate dynamic

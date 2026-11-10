@@ -1,19 +1,9 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { BreadcrumbItem } from '../../components/Navigations/Breadcrumbs';
 import { PaginationExamples } from '../../components/Navigations/Pagination/Examples/PaginationExamples';
 
 export function PaginationPage() {
   return (
-    <PageLayout
-      title="Pagination"
-      breadcrumbs={
-        <>
-          <BreadcrumbItem href="/">Home</BreadcrumbItem>
-          <BreadcrumbItem href="/components">Components</BreadcrumbItem>
-          <BreadcrumbItem current>Pagination</BreadcrumbItem>
-        </>
-      }
-    >
+    <PageLayout title="Pagination">
       <p>
         A reusable pagination component for navigating between pages of content,
         with support for previous and next controls, page selection, current
