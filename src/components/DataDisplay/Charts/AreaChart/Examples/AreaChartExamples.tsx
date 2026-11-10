@@ -2,10 +2,12 @@ import { AreaChart } from '..';
 
 import {
   conversionRates,
+  monthlyEngagement,
   monthlyProfitAndLoss,
   monthlyRegistrations,
   monthlyVisitors,
   quarterlyRevenue,
+  tasksCompleted,
   websiteVisitsByYear,
 } from '../../../../../data/chartExampleData';
 
@@ -122,16 +124,7 @@ export default function AreaChartExamples() {
           sufficient context.
         </p>
 
-        <AreaChart
-          title="Tasks Completed"
-          data={[
-            { label: 'Monday', value: 8 },
-            { label: 'Tuesday', value: 12 },
-            { label: 'Wednesday', value: 10 },
-            { label: 'Thursday', value: 9 },
-            { label: 'Friday', value: 14 },
-          ]}
-        />
+        <AreaChart title="Tasks Completed" data={tasksCompleted} />
       </section>
 
       <section className="stack">
@@ -146,13 +139,7 @@ export default function AreaChartExamples() {
         <AreaChart
           title="Monthly Engagement"
           description="Engagement measurements with one unavailable data point."
-          data={[
-            { label: 'January', value: 45 },
-            { label: 'February', value: 52 },
-            { label: 'March', value: Number.NaN },
-            { label: 'April', value: 61 },
-            { label: 'May', value: 68 },
-          ]}
+          data={monthlyEngagement}
           valueLabel="points"
         />
       </section>

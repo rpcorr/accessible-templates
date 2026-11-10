@@ -1,4 +1,8 @@
 import { SkipLink } from '../SkipLink';
+import {
+  footerSkipLinks,
+  mainContentSkipLinks,
+} from '../../../../data/skipLinkExampleData';
 
 export function SkipLinkExamples() {
   return (
@@ -14,13 +18,10 @@ export function SkipLinkExamples() {
       </p>
 
       <SkipLink
-        links={[
-          {
-            label: 'Skip to main content',
-            href: '#main-content',
-            position: 'center',
-          },
-        ]}
+        links={mainContentSkipLinks.map(({ position, ...link }) => ({
+          ...link,
+          ...(position === 'center' || position === 'left' ? { position } : {}),
+        }))}
       />
 
       <header>
@@ -60,14 +61,10 @@ export function SkipLinkExamples() {
       </main>
 
       <SkipLink
-        links={[
-          {
-            label: 'Skip to footer',
-            href: '#example-footer',
-            position: 'left',
-            positionBelowPrevious: true,
-          },
-        ]}
+        links={footerSkipLinks.map(({ position, ...link }) => ({
+          ...link,
+          ...(position === 'center' || position === 'left' ? { position } : {}),
+        }))}
       />
 
       <footer id="example-footer" tabIndex={-1}>

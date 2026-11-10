@@ -1,268 +1,43 @@
 import { useEffect, useState } from 'react';
 
-import { Table, type TableColumn, type TableVariant } from '..';
-import { Pagination } from '../../../Navigations/Pagination/Pagination';
-import { SearchBox } from '../../../FormControls/SearchBox/SearchBox';
+import { Table, type TableVariant } from '..';
 import { Tabs } from '../../../ContentFeedback/Tab';
+import { SearchBox } from '../../../FormControls/SearchBox/SearchBox';
+import { Pagination } from '../../../Navigations/Pagination/Pagination';
 
-interface Student {
-  id: number;
-  name: string;
-  program: string;
-  average: number | null;
-  startDate: string;
-}
-
-interface FinancialRecord {
-  id: number;
-  department: string;
-  revenue: number;
-  expenses: number;
-  profitMargin: number;
-}
-
-const financialRecords: FinancialRecord[] = [
-  {
-    id: 1,
-    department: 'Technology',
-    revenue: 425000,
-    expenses: 287000,
-    profitMargin: 32.5,
-  },
-  {
-    id: 2,
-    department: 'Marketing',
-    revenue: 185000,
-    expenses: 142000,
-    profitMargin: 23.2,
-  },
-  {
-    id: 3,
-    department: 'Operations',
-    revenue: 310000,
-    expenses: 248000,
-    profitMargin: 20,
-  },
-  {
-    id: 4,
-    department: 'Finance',
-    revenue: 265000,
-    expenses: 198000,
-    profitMargin: 25.3,
-  },
-  {
-    id: 5,
-    department: 'Sales',
-    revenue: 520000,
-    expenses: 364000,
-    profitMargin: 30,
-  },
-];
-
-const students: Student[] = [
-  {
-    id: 1,
-    name: 'Stephanie',
-    program: 'Business',
-    average: 95,
-    startDate: '2023-09-05',
-  },
-  {
-    id: 2,
-    name: 'Alex',
-    program: 'Computer Science',
-    average: 89,
-    startDate: '2024-09-03',
-  },
-  {
-    id: 3,
-    name: 'Jordan',
-    program: 'Accounting',
-    average: 92,
-    startDate: '2023-09-05',
-  },
-  {
-    id: 4,
-    name: 'Morgan',
-    program: 'Marketing',
-    average: 87,
-    startDate: '2025-09-02',
-  },
-  {
-    id: 5,
-    name: 'Taylor',
-    program: 'Finance',
-    average: 91,
-    startDate: '2024-09-03',
-  },
-  {
-    id: 6,
-    name: 'Casey',
-    program: 'Accounting',
-    average: null,
-    startDate: '2025-09-02',
-  },
-];
-
-const paginatedStudentsData: Student[] = [
-  ...students,
-  {
-    id: 7,
-    name: 'Riley',
-    program: 'Business',
-    average: 90,
-    startDate: '2024-09-03',
-  },
-  {
-    id: 8,
-    name: 'Jamie',
-    program: 'Finance',
-    average: 88,
-    startDate: '2025-09-02',
-  },
-  {
-    id: 9,
-    name: 'Avery',
-    program: 'Marketing',
-    average: 93,
-    startDate: '2023-09-05',
-  },
-  {
-    id: 10,
-    name: 'Drew',
-    program: 'Computer Science',
-    average: 86,
-    startDate: '2024-09-03',
-  },
-  {
-    id: 11,
-    name: 'Quinn',
-    program: 'Business',
-    average: 91,
-    startDate: '2025-09-02',
-  },
-  {
-    id: 12,
-    name: 'Reese',
-    program: 'Finance',
-    average: 85,
-    startDate: '2023-09-05',
-  },
-];
-
-const studentColumns: TableColumn<Student>[] = [
-  {
-    key: 'name',
-    header: 'Student',
-    sortable: true,
-  },
-  {
-    key: 'program',
-    header: 'Program',
-    sortable: true,
-  },
-  {
-    key: 'average',
-    header: 'Average',
-    sortable: true,
-    align: 'right',
-    render: (student) =>
-      student.average == null ? '—' : `${student.average}%`,
-  },
-  {
-    key: 'startDate',
-    header: 'Start date',
-    sortable: true,
-    sortValue: (student) => student.startDate,
-    render: (student) =>
-      new Date(`${student.startDate}T12:00:00`).toLocaleDateString('en-CA', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        timeZone: 'UTC',
-      }),
-  },
-];
-
-const unsortableColumns: TableColumn<Student>[] = [
-  {
-    key: 'name',
-    header: 'Student',
-  },
-  {
-    key: 'program',
-    header: 'Program',
-  },
-  {
-    key: 'average',
-    header: 'Average',
-    align: 'right',
-    render: (student) =>
-      student.average == null ? '—' : `${student.average}%`,
-  },
-];
-
-const currencyFormatter = new Intl.NumberFormat('en-CA', {
-  style: 'currency',
-  currency: 'CAD',
-  maximumFractionDigits: 0,
-});
-
-const financialColumns: TableColumn<FinancialRecord>[] = [
-  {
-    key: 'department',
-    header: 'Department',
-    sortable: true,
-  },
-  {
-    key: 'revenue',
-    header: 'Revenue',
-    sortable: true,
-    align: 'right',
-    render: (record) => currencyFormatter.format(record.revenue),
-  },
-  {
-    key: 'expenses',
-    header: 'Expenses',
-    sortable: true,
-    align: 'right',
-    render: (record) => currencyFormatter.format(record.expenses),
-  },
-  {
-    key: 'profitMargin',
-    header: 'Profit margin',
-    sortable: true,
-    align: 'right',
-    render: (record) => `${record.profitMargin.toFixed(1)}%`,
-  },
-];
+import {
+  financialColumns,
+  financialRecords,
+  filterStudents,
+  paginatedStudentsData,
+  studentColumns,
+  students,
+  tableExamplePageSize,
+  unsortableColumns,
+  type Student,
+} from '../../../../data/tableExampleData';
 
 export default function TableExamples() {
+  // Table variant example
   const [variant, setVariant] = useState<TableVariant>('basic');
 
   // Pagination example
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 5;
 
-  const totalPages = Math.ceil(paginatedStudentsData.length / pageSize);
+  const totalPages = Math.ceil(
+    paginatedStudentsData.length / tableExamplePageSize,
+  );
 
   const paginatedStudents = paginatedStudentsData.slice(
-    (currentPage - 1) * pageSize,
-    currentPage * pageSize,
+    (currentPage - 1) * tableExamplePageSize,
+    currentPage * tableExamplePageSize,
   );
 
   // Filtering example
   const [studentSearch, setStudentSearch] = useState('');
   const [announcedCount, setAnnouncedCount] = useState(students.length);
 
-  const filteredStudents = students.filter((student) => {
-    const searchTerm = studentSearch.trim().toLowerCase();
-
-    return (
-      student.name.toLowerCase().includes(searchTerm) ||
-      student.program.toLowerCase().includes(searchTerm)
-    );
-  });
+  const filteredStudents = filterStudents(students, studentSearch);
 
   useEffect(() => {
     const timeoutId = window.setTimeout(() => {
@@ -281,16 +56,10 @@ export default function TableExamples() {
     direction: 'ascending' | 'descending';
   } | null>(null);
 
-  const combinedPageSize = 5;
-
-  const filteredCombinedStudents = paginatedStudentsData.filter((student) => {
-    const searchTerm = combinedSearch.trim().toLowerCase();
-
-    return (
-      student.name.toLowerCase().includes(searchTerm) ||
-      student.program.toLowerCase().includes(searchTerm)
-    );
-  });
+  const filteredCombinedStudents = filterStudents(
+    paginatedStudentsData,
+    combinedSearch,
+  );
 
   const sortedCombinedStudents = [...filteredCombinedStudents].sort(
     (first, second) => {
@@ -336,13 +105,12 @@ export default function TableExamples() {
 
   const combinedTotalPages = Math.max(
     1,
-    Math.ceil(sortedCombinedStudents.length / combinedPageSize),
+    Math.ceil(sortedCombinedStudents.length / tableExamplePageSize),
   );
 
-  // Paginate the globally sorted results, not just the filtered results.
   const paginatedCombinedStudents = sortedCombinedStudents.slice(
-    (combinedPage - 1) * combinedPageSize,
-    combinedPage * combinedPageSize,
+    (combinedPage - 1) * tableExamplePageSize,
+    combinedPage * tableExamplePageSize,
   );
 
   const tabs = [
@@ -526,9 +294,12 @@ export default function TableExamples() {
           />
 
           <p aria-live="polite" aria-atomic="true">
-            Showing {(currentPage - 1) * pageSize + 1} to{' '}
-            {Math.min(currentPage * pageSize, paginatedStudentsData.length)} of{' '}
-            {paginatedStudentsData.length} students.
+            Showing {(currentPage - 1) * tableExamplePageSize + 1} to{' '}
+            {Math.min(
+              currentPage * tableExamplePageSize,
+              paginatedStudentsData.length,
+            )}{' '}
+            of {paginatedStudentsData.length} students.
           </p>
 
           <Pagination
@@ -584,8 +355,8 @@ export default function TableExamples() {
             <p aria-live="polite" aria-atomic="true">
               {sortedCombinedStudents.length === 0
                 ? 'No students found.'
-                : `Showing ${(combinedPage - 1) * combinedPageSize + 1} to ${Math.min(
-                    combinedPage * combinedPageSize,
+                : `Showing ${(combinedPage - 1) * tableExamplePageSize + 1} to ${Math.min(
+                    combinedPage * tableExamplePageSize,
                     sortedCombinedStudents.length,
                   )} of ${sortedCombinedStudents.length} matching students.`}
             </p>

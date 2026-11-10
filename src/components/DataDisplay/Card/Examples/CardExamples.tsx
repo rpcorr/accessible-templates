@@ -2,10 +2,15 @@ import { useState } from 'react';
 import { Card } from '../..';
 import { Tabs } from '../../../ContentFeedback/Tab';
 import { Badge } from '../../../ContentFeedback/Badge';
-
 import { Switch } from '../../../FormControls/Switch';
 
 import styles from '../../../../components/DataDisplay/Card/Card.module.css';
+
+import {
+  notifications,
+  recentActivities,
+  statisticsCards,
+} from '../../../../data/cardExampleData';
 
 export default function CardExamples() {
   const [emailNotifications, setEmailNotifications] = useState(true);
@@ -261,40 +266,29 @@ export default function CardExamples() {
                       footer={<a href="/components">View all notifications</a>}
                     >
                       <ul className={styles.notificationList}>
-                        <li>
-                          <span
-                            className={`${styles.notificationIndicator} ${styles.notificationInfo}`}
-                            aria-hidden="true"
-                          />
-                          <div className={styles.notificationContent}>
-                            <h6>Accessibility review completed</h6>
-                            <p>The latest component review is ready to read.</p>
-                            <a href="/components">Read review</a>
-                          </div>
-                        </li>
+                        {notifications.map((notification) => (
+                          <li key={notification.id}>
+                            <span
+                              className={`${styles.notificationIndicator} ${
+                                styles[
+                                  `notification${notification.variant.charAt(0).toUpperCase()}${notification.variant.slice(1)}`
+                                ]
+                              }`}
+                              aria-hidden="true"
+                            />
 
-                        <li>
-                          <span
-                            className={`${styles.notificationIndicator} ${styles.notificationWarning}`}
-                            aria-hidden="true"
-                          />
-                          <div className={styles.notificationContent}>
-                            <h6>Action required</h6>
-                            <p>Two outstanding items need your attention.</p>
-                            <a href="/data-display/card">Review items</a>
-                          </div>
-                        </li>
+                            <div className={styles.notificationContent}>
+                              <h6>{notification.title}</h6>
+                              <p>{notification.description}</p>
 
-                        <li>
-                          <span
-                            className={`${styles.notificationIndicator} ${styles.notificationSuccess}`}
-                            aria-hidden="true"
-                          />
-                          <div className={styles.notificationContent}>
-                            <h6>Changes saved</h6>
-                            <p>Your latest updates were saved successfully.</p>
-                          </div>
-                        </li>
+                              {notification.linkLabel && (
+                                <a href={notification.href}>
+                                  {notification.linkLabel}
+                                </a>
+                              )}
+                            </div>
+                          </li>
+                        ))}
                       </ul>
                     </Card>
                   </div>
@@ -313,47 +307,21 @@ export default function CardExamples() {
                       footer={<a href="/components">View all activity</a>}
                     >
                       <ol className={styles.activityList}>
-                        <li>
-                          <span
-                            className={styles.activityMarker}
-                            aria-hidden="true"
-                          />
-                          <div className={styles.activityContent}>
-                            <h6>Profile updated</h6>
-                            <p>Contact information was updated.</p>
-                            <time dateTime="2026-10-23T09:15">
-                              Today, 9:15 AM
-                            </time>
-                          </div>
-                        </li>
-
-                        <li>
-                          <span
-                            className={styles.activityMarker}
-                            aria-hidden="true"
-                          />
-                          <div className={styles.activityContent}>
-                            <h6>Document uploaded</h6>
-                            <p>Accessibility audit report was added.</p>
-                            <time dateTime="2026-10-22T14:30">
-                              Yesterday, 2:30 PM
-                            </time>
-                          </div>
-                        </li>
-
-                        <li>
-                          <span
-                            className={styles.activityMarker}
-                            aria-hidden="true"
-                          />
-                          <div className={styles.activityContent}>
-                            <h6>Project milestone completed</h6>
-                            <p>Initial component review was completed.</p>
-                            <time dateTime="2026-10-21T11:00">
-                              October 21, 11:00 AM
-                            </time>
-                          </div>
-                        </li>
+                        {recentActivities.map((activity) => (
+                          <li key={activity.id}>
+                            <span
+                              className={styles.activityMarker}
+                              aria-hidden="true"
+                            />
+                            <div className={styles.activityContent}>
+                              <h6>{activity.title}</h6>
+                              <p>{activity.description}</p>
+                              <time dateTime={activity.dateTime}>
+                                {activity.dateLabel}
+                              </time>
+                            </div>
+                          </li>
+                        ))}
                       </ol>
                     </Card>
                   </div>
@@ -393,51 +361,27 @@ export default function CardExamples() {
                   </p>
 
                   <div className={styles.statisticsGrid}>
-                    <Card variant="elevated">
-                      <div className={styles.statistic}>
-                        <h5 className={styles.statisticLabel}>
-                          Active Projects
-                        </h5>
-                        <p className={styles.statisticValue}>24</p>
-                        <p className={styles.statisticDescription}>
-                          Projects currently in progress across the
-                          organization.
-                        </p>
-                        <Badge variant="success" size="small">
-                          On track
-                        </Badge>
-                      </div>
-                    </Card>
+                    {statisticsCards.map((statistic) => (
+                      <Card key={statistic.id} variant="elevated">
+                        <div className={styles.statistic}>
+                          <h5 className={styles.statisticLabel}>
+                            {statistic.label}
+                          </h5>
 
-                    <Card variant="elevated">
-                      <div className={styles.statistic}>
-                        <h5 className={styles.statisticLabel}>
-                          Projects at Risk
-                        </h5>
-                        <p className={styles.statisticValue}>6</p>
-                        <p className={styles.statisticDescription}>
-                          Projects requiring attention to meet their deadlines.
-                        </p>
-                        <Badge variant="warning" size="small">
-                          At risk
-                        </Badge>
-                      </div>
-                    </Card>
+                          <p className={styles.statisticValue}>
+                            {statistic.value}
+                          </p>
 
-                    <Card variant="elevated">
-                      <div className={styles.statistic}>
-                        <h5 className={styles.statisticLabel}>
-                          Delayed Projects
-                        </h5>
-                        <p className={styles.statisticValue}>3</p>
-                        <p className={styles.statisticDescription}>
-                          Projects currently behind their planned schedule.
-                        </p>
-                        <Badge variant="error" size="small">
-                          Delayed
-                        </Badge>
-                      </div>
-                    </Card>
+                          <p className={styles.statisticDescription}>
+                            {statistic.description}
+                          </p>
+
+                          <Badge variant={statistic.variant} size="small">
+                            {statistic.status}
+                          </Badge>
+                        </div>
+                      </Card>
+                    ))}
                   </div>
                 </section>
               </div>

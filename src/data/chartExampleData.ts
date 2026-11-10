@@ -35,6 +35,14 @@ export const conversionRates = [
   { label: 'June', value: 3.8 },
 ];
 
+export const monthlyEngagement = [
+  { label: 'January', value: 45 },
+  { label: 'February', value: 52 },
+  { label: 'March', value: Number.NaN },
+  { label: 'April', value: 61 },
+  { label: 'May', value: 68 },
+];
+
 export const monthlyRegistrations = [
   { label: 'January', value: 12 },
   { label: 'February', value: 0 },
