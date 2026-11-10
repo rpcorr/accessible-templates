@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Link } from 'react-router';
+import { Link, useSearchParams } from 'react-router';
 import { PageLayout } from '../components/PageLayout/PageLayout';
 import { SearchBox } from '../components/FormControls/SearchBox/SearchBox';
 import styles from './ComponentPage.module.css';
@@ -375,9 +375,13 @@ const categories = componentGroups.map((group) => group.category);
 
 export function ComponentPage() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategories, setSelectedCategories] = useState<
-    ComponentCategory[]
-  >([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const selectedCategories = searchParams
+    .getAll('category')
+    .filter((category): category is ComponentCategory =>
+      categories.includes(category as ComponentCategory),
+    );
   const [showRightFade, setShowRightFade] = useState(false);
   const filterListRef = useRef<HTMLDivElement>(null);
 
@@ -450,17 +454,31 @@ export function ComponentPage() {
     };
   }, []);
 
+  function updateCategories(nextCategories: ComponentCategory[]) {
+    setSearchParams((currentParams) => {
+      const nextParams = new URLSearchParams(currentParams);
+
+      nextParams.delete('category');
+
+      nextCategories.forEach((category) => {
+        nextParams.append('category', category);
+      });
+
+      return nextParams;
+    });
+  }
+
   function toggleCategory(category: ComponentCategory) {
-    setSelectedCategories((current) =>
-      current.includes(category)
-        ? current.filter((item) => item !== category)
-        : [...current, category],
+    updateCategories(
+      selectedCategories.includes(category)
+        ? selectedCategories.filter((item) => item !== category)
+        : [...selectedCategories, category],
     );
   }
 
   function clearFilters() {
     setSearchQuery('');
-    setSelectedCategories([]);
+    updateCategories([]);
   }
 
   return (
@@ -496,7 +514,7 @@ export function ComponentPage() {
                 <button
                   type="button"
                   aria-pressed={selectedCategories.length === 0}
-                  onClick={() => setSelectedCategories([])}
+                  onClick={() => updateCategories([])}
                 >
                   All
                 </button>
