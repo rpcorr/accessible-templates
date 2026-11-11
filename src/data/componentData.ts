@@ -59,7 +59,7 @@ export const componentGroups: ComponentGroup[] = [
         name: 'Countdown Timer',
         path: '/content-feedback/countdown-timer',
         description:
-          'A timer that displays the remaining days, hours, minutes, and seconds until a specified date and time.',
+          'A countdown timer that displays the remaining days, hours, minutes, and seconds, with screen reader announcements for the start, periodic updates, and completion.',
       },
       {
         name: 'Disclosure',

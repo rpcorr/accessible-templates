@@ -36,6 +36,11 @@ export const navigationItems: NavigationItem[] = [
             href: '/content-feedback/alert',
           },
           {
+            id: 'countdown-timer',
+            label: 'Countdown Timer',
+            href: '/content-feedback/countdown-timer',
+          },
+          {
             id: 'disclosure',
             label: 'Disclosure',
             href: '/content-feedback/disclosure',
