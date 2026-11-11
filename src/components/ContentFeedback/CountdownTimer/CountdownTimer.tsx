@@ -105,7 +105,7 @@ function CountdownTimerDisplay({
 
   return (
     <section className={styles.countdown} aria-labelledby={headingId}>
-      <h2 id={headingId}>{label}</h2>
+      <h5 id={headingId}>{label}</h5>
 
       {timeRemaining.isComplete ? (
         <p>{completionMessage}</p>
