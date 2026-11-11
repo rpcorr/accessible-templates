@@ -1,10 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { Link, useSearchParams } from 'react-router';
-import { PageLayout } from '../components/PageLayout/PageLayout';
-import { SearchBox } from '../components/FormControls/SearchBox/SearchBox';
-import styles from './ComponentPage.module.css';
-
-type ComponentCategory =
+export type ComponentCategory =
   | 'Buttons & Actions'
   | 'Content & Feedback'
   | 'Data Display'
@@ -12,19 +6,19 @@ type ComponentCategory =
   | 'Navigation'
   | 'Overlays & Menus';
 
-type ComponentItem = {
+export type ComponentItem = {
   name: string;
   path: string;
   description: string;
 };
 
-type ComponentGroup = {
+export type ComponentGroup = {
   category: ComponentCategory;
   description: string;
   components: ComponentItem[];
 };
 
-const componentGroups: ComponentGroup[] = [
+export const componentGroups: ComponentGroup[] = [
   {
     category: 'Buttons & Actions',
     description:
@@ -60,6 +54,12 @@ const componentGroups: ComponentGroup[] = [
         path: '/content-feedback/badge',
         description:
           'A compact label for identifying categories, statuses, and other contextual information.',
+      },
+      {
+        name: 'Countdown Timer',
+        path: '/content-feedback/countdown-timer',
+        description:
+          'A timer that displays the remaining days, hours, minutes, and seconds until a specified date and time.',
       },
       {
         name: 'Disclosure',
@@ -371,220 +371,4 @@ const componentGroups: ComponentGroup[] = [
   },
 ];
 
-const categories = componentGroups.map((group) => group.category);
-
-export function ComponentPage() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const selectedCategories = searchParams
-    .getAll('category')
-    .filter((category): category is ComponentCategory =>
-      categories.includes(category as ComponentCategory),
-    );
-  const [showRightFade, setShowRightFade] = useState(false);
-  const filterListRef = useRef<HTMLDivElement>(null);
-
-  const filteredGroups = useMemo(() => {
-    const normalizedQuery = searchQuery.trim().toLowerCase();
-
-    return componentGroups
-      .filter(
-        (group) =>
-          selectedCategories.length === 0 ||
-          selectedCategories.includes(group.category),
-      )
-      .map((group) => ({
-        ...group,
-        components: group.components.filter((component) => {
-          const searchableText =
-            `${component.name} ${component.description}`.toLowerCase();
-
-          return searchableText.includes(normalizedQuery);
-        }),
-      }))
-      .filter((group) => group.components.length > 0);
-  }, [searchQuery, selectedCategories]);
-
-  const resultCount = filteredGroups.reduce(
-    (total, group) => total + group.components.length,
-    0,
-  );
-
-  useEffect(() => {
-    const filterList = filterListRef.current;
-
-    if (!filterList) {
-      return;
-    }
-
-    function updateRightIndicator() {
-      const hasOverflow = filterList!.scrollWidth > filterList!.clientWidth + 1;
-
-      const hasMoreContent =
-        filterList!.scrollLeft + filterList!.clientWidth <
-        filterList!.scrollWidth - 1;
-
-      setShowRightFade(hasOverflow && hasMoreContent);
-    }
-
-    filterList.addEventListener('scroll', updateRightIndicator, {
-      passive: true,
-    });
-
-    window.addEventListener('resize', updateRightIndicator);
-
-    const resizeObserver =
-      typeof ResizeObserver !== 'undefined'
-        ? new ResizeObserver(updateRightIndicator)
-        : null;
-
-    resizeObserver?.observe(filterList);
-
-    Array.from(filterList.children).forEach((child) => {
-      resizeObserver?.observe(child);
-    });
-
-    updateRightIndicator();
-
-    return () => {
-      filterList.removeEventListener('scroll', updateRightIndicator);
-      window.removeEventListener('resize', updateRightIndicator);
-      resizeObserver?.disconnect();
-    };
-  }, []);
-
-  function updateCategories(nextCategories: ComponentCategory[]) {
-    setSearchParams((currentParams) => {
-      const nextParams = new URLSearchParams(currentParams);
-
-      nextParams.delete('category');
-
-      nextCategories.forEach((category) => {
-        nextParams.append('category', category);
-      });
-
-      return nextParams;
-    });
-  }
-
-  function toggleCategory(category: ComponentCategory) {
-    updateCategories(
-      selectedCategories.includes(category)
-        ? selectedCategories.filter((item) => item !== category)
-        : [...selectedCategories, category],
-    );
-  }
-
-  function clearFilters() {
-    setSearchQuery('');
-    updateCategories([]);
-  }
-
-  return (
-    <PageLayout title="Components" showCurrentBreadcrumb={false}>
-      <main className="stack">
-        <p className={styles.intro}>
-          Explore the accessible UI components available in the Accessible
-          Templates project.
-        </p>
-
-        <section aria-label="Search and filter components" className="stack">
-          <SearchBox
-            label="Search components"
-            placeholder="Search by component name or description"
-            value={searchQuery}
-            onChange={setSearchQuery}
-          />
-
-          <div className="stack">
-            <h2 id="category-filter-heading">Filter by category</h2>
-
-            <div
-              className={`${styles.filterListContainer} ${
-                showRightFade ? styles.showRightFade : ''
-              }`}
-            >
-              <div
-                className={styles.filters}
-                ref={filterListRef}
-                role="group"
-                aria-labelledby="category-filter-heading"
-              >
-                <button
-                  type="button"
-                  aria-pressed={selectedCategories.length === 0}
-                  onClick={() => updateCategories([])}
-                >
-                  All
-                </button>
-
-                {categories.map((category) => (
-                  <button
-                    key={category}
-                    type="button"
-                    aria-pressed={selectedCategories.includes(category)}
-                    onClick={() => toggleCategory(category)}
-                  >
-                    {category}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.filterSummary}>
-            <p aria-live="polite" aria-atomic="true">
-              {resultCount === 1
-                ? 'Showing 1 component'
-                : `Showing ${resultCount} components`}
-            </p>
-
-            {(searchQuery || selectedCategories.length > 0) && (
-              <button type="button" onClick={clearFilters}>
-                Clear filters
-              </button>
-            )}
-          </div>
-        </section>
-
-        {filteredGroups.length > 0 ? (
-          <div className={styles.grid}>
-            {filteredGroups.map((group) => (
-              <section
-                key={group.category}
-                className={styles.card}
-                aria-labelledby={`${group.category
-                  .toLowerCase()
-                  .replace(/[^a-z0-9]+/g, '-')}-heading`}
-              >
-                <h3
-                  id={`${group.category
-                    .toLowerCase()
-                    .replace(/[^a-z0-9]+/g, '-')}-heading`}
-                >
-                  {group.category}
-                </h3>
-
-                <p>{group.description}</p>
-
-                <ul className={styles.componentList}>
-                  {group.components.map((component) => (
-                    <li key={component.path}>
-                      <Link to={component.path}>{component.name}</Link>
-                      <span>{component.description}</span>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            ))}
-          </div>
-        ) : (
-          <p role="status">
-            No components found. Try a different search term or category.
-          </p>
-        )}
-      </main>
-    </PageLayout>
-  );
-}
+export const categories = componentGroups.map((group) => group.category);

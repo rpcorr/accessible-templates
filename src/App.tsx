@@ -10,7 +10,9 @@ const HomePage = lazy(() =>
   import('./pages/HomePage').then((m) => ({ default: m.HomePage })),
 );
 const ComponentPage = lazy(() =>
-  import('./pages/ComponentPage').then((m) => ({ default: m.ComponentPage })),
+  import('./pages/ComponentPage/ComponentPage').then((m) => ({
+    default: m.ComponentPage,
+  })),
 );
 
 const ButtonPage = lazy(() =>
@@ -148,7 +150,18 @@ const AlertPage = lazy(() =>
     default: m.AlertPage,
   })),
 );
-const BadgePage = lazy(() => import('./pages/ContentFeedback/BadgePage'));
+
+const BadgePage = lazy(() =>
+  import('./pages/ContentFeedback/BadgePage').then((m) => ({
+    default: m.BadgePage,
+  })),
+);
+
+const CountdownTimerPage = lazy(() =>
+  import('./pages/ContentFeedback/CountdownTimerPage').then((m) => ({
+    default: m.CountdownTimerPage,
+  })),
+);
 const DisclosurePage = lazy(() =>
   import('./pages/ContentFeedback/DisclosurePage').then((m) => ({
     default: m.DisclosurePage,
@@ -361,6 +374,10 @@ function App() {
             />
             <Route path="/content-feedback/alert" element={<AlertPage />} />
             <Route path="/content-feedback/badge" element={<BadgePage />} />
+            <Route
+              path="/content-feedback/countdown-timer"
+              element={<CountdownTimerPage />}
+            />
             <Route
               path="/content-feedback/disclosure"
               element={<DisclosurePage />}
