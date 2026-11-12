@@ -19,6 +19,17 @@ export function CountdownTimerExamples() {
           />
         </div>
       ))}
+
+      <div>
+        <h4>Flip Countdown Timer</h4>
+
+        <CountdownTimer
+          targetDate={new Date(exampleStartTime + 10 * 60 * 1000)}
+          label="Time until the flip countdown ends"
+          completionMessage="The flip countdown has ended."
+          variant="flip"
+        />
+      </div>
     </section>
   );
 }

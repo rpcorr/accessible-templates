@@ -1,11 +1,13 @@
 import { useEffect, useId, useState } from 'react';
 import { getTimeRemaining, type CountdownTime } from './countdownUtils';
+import { FlipCountdownDisplay } from './FlipCountdownDisplay';
 import styles from './CountdownTimer.module.css';
 
 export type CountdownTimerProps = {
   targetDate: string | Date;
   label?: string;
   completionMessage?: string;
+  variant?: 'standard' | 'flip';
 };
 
 export function CountdownTimer(props: CountdownTimerProps) {
@@ -33,6 +35,7 @@ function CountdownTimerDisplay({
   targetDate,
   label = 'Time remaining',
   completionMessage = 'The countdown has ended.',
+  variant = 'standard',
 }: CountdownTimerProps) {
   const [timeRemaining, setTimeRemaining] = useState<CountdownTime | null>(() =>
     getTimeRemaining(targetDate),
@@ -109,6 +112,8 @@ function CountdownTimerDisplay({
 
       {timeRemaining.isComplete ? (
         <p>{completionMessage}</p>
+      ) : variant === 'flip' ? (
+        <FlipCountdownDisplay timeRemaining={timeRemaining} />
       ) : (
         <div className={styles.timeUnits} role="timer">
           {[
