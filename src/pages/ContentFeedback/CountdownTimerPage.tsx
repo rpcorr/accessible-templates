@@ -6,8 +6,9 @@ export function CountdownTimerPage() {
     <PageLayout title="Countdown Timer">
       <p>
         An accessible countdown timer that displays the remaining days, hours,
-        minutes, and seconds until a specified date and time. Supports custom
-        labels and completion messages.
+        minutes, and seconds until a specified date and time. Supports standard
+        and animated flip timer displays, custom labels, and completion
+        messages.
       </p>
 
       <p>
@@ -35,6 +36,19 @@ export function CountdownTimerPage() {
           When the countdown reaches zero, the live region announces the
           completion message. The timer also displays the completion message
           visually while preserving the section's accessible name and heading.
+        </p>
+
+        <p>
+          The flip timer uses animated digit cards to create a flip-clock
+          effect. Its visual digits are hidden from screen readers to avoid
+          duplicate or unnecessary announcements. Screen reader users receive
+          countdown information through the separate live region.
+        </p>
+
+        <p>
+          The flip animation respects the user's reduced-motion preferences.
+          When reduced motion is enabled, the animation is disabled while the
+          countdown continues updating normally.
         </p>
 
         <h3>Keyboard Support</h3>

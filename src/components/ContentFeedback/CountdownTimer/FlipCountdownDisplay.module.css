@@ -1,0 +1,130 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.containerSegment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-width: 0;
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.segment {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-1);
+}
+
+.segmentTitle {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.flipCard {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  border-radius: 0.1em;
+  background-color: var(--color-surface);
+  box-shadow: 0 2px 3px rgb(0 0 0 / 20%);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  box-sizing: border-box;
+  perspective: 1000px;
+}
+
+.top,
+.bottom,
+.topFlip,
+.bottomFlip {
+  display: block;
+  height: 0.75em;
+  line-height: 1;
+  padding: 0.25em;
+  overflow: hidden;
+}
+
+.top,
+.topFlip {
+  background-color: var(--color-surface);
+  border-bottom: 1px solid rgb(0 0 0 / 10%);
+  border-radius: 0.1em 0.1em 0 0;
+  color: var(--color-text);
+}
+
+.bottom,
+.bottomFlip {
+  display: flex;
+  align-items: flex-end;
+  background-color: #fff;
+  border-radius: 0 0 0.1em 0.1em;
+  color: var(--color-text);
+}
+
+.topFlip {
+  position: absolute;
+  z-index: 2;
+  inset: 0 0 auto;
+  transform-origin: bottom;
+  animation: flipTop 250ms ease-in forwards;
+  backface-visibility: hidden;
+}
+
+.bottomFlip {
+  position: absolute;
+  z-index: 1;
+  inset: auto 0 0;
+  transform: rotateX(90deg);
+  transform-origin: top;
+  animation: flipBottom 250ms ease-out 250ms forwards;
+  backface-visibility: hidden;
+}
+
+@keyframes flipTop {
+  to {
+    transform: rotateX(90deg);
+  }
+}
+
+@keyframes flipBottom {
+  to {
+    transform: rotateX(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    gap: var(--space-2);
+  }
+
+  .containerSegment {
+    padding: var(--space-2);
+  }
+
+  .flipCard {
+    font-size: 1.5rem;
+  }
+
+  .segmentTitle {
+    font-size: 0.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topFlip,
+  .bottomFlip {
+    animation: none;
+    transform: none;
+  }
+}
