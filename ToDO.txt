@@ -1,8 +1,5 @@
 To do:
 
-1. Multi-step Form / Wizard
-Demonstrate how your existing inputs, validation, status messages, and focus management work together.
-
 Templates:
 
 1. Registration form: Text Input, Select, Checkbox, Radio Group, Alert and Button.

@@ -166,6 +166,11 @@ export const navigationItems: NavigationItem[] = [
             href: '/form-controls/number-input',
           },
           {
+            id: 'multi-step-form',
+            label: 'Multi-Step Form',
+            href: '/form-controls/multi-step-form',
+          },
+          {
             id: 'password-input',
             label: 'Password Input',
             href: '/form-controls/password-input',
@@ -222,6 +227,7 @@ export const navigationItems: NavigationItem[] = [
           },
         ],
       },
+
       {
         id: 'navigation',
         label: 'Navigations',

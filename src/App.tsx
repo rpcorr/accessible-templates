@@ -224,6 +224,13 @@ const FileUploadPage = lazy(() =>
     default: m.FileUploadPage,
   })),
 );
+
+const MultiStepFormPage = lazy(() =>
+  import('./pages/FormControls/MultiStepFormPage').then((m) => ({
+    default: m.MultiStepFormPage,
+  })),
+);
+
 const NumberInputPage = lazy(() =>
   import('./pages/FormControls/NumberInputPage').then((m) => ({
     default: m.NumberInputPage,
@@ -413,6 +420,12 @@ function App() {
               path="/form-controls/file-upload"
               element={<FileUploadPage />}
             />
+
+            <Route
+              path="/form-controls/multi-step-form"
+              element={<MultiStepFormPage />}
+            />
+
             <Route
               path="/form-controls/number-input"
               element={<NumberInputPage />}

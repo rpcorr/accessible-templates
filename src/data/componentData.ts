@@ -206,6 +206,13 @@ export const componentGroups: ComponentGroup[] = [
         path: '/form-controls/file-upload',
         description: 'A control for selecting one or more files to upload.',
       },
+
+      {
+        name: 'Multi-Step Form',
+        path: '/form-controls/multi-step-form',
+        description:
+          'A form that guides users through a series of steps to collect information, with validation and review before submission.',
+      },
       {
         name: 'Number Input',
         path: '/form-controls/number-input',
