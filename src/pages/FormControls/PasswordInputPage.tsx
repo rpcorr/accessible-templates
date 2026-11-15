@@ -10,7 +10,8 @@ export function PasswordInputPage() {
           passwords, with the option to show or hide the entered value. The
           Password Input uses the native HTML <code>&lt;input&gt;</code> element
           and supports controlled and uncontrolled values, descriptions, error
-          messages, validation constraints, and common form states.
+          messages, validation constraints, common form states, password
+          requirements, and password strength estimation.
         </p>
 
         <p>
@@ -52,6 +53,41 @@ export function PasswordInputPage() {
           The Password Input allows users to toggle between a masked password
           and visible text using the Show/Hide button. Changing visibility
           preserves the entered password value.
+        </p>
+
+        <h3>Password Requirements</h3>
+
+        <p>
+          An optional password requirements checklist allows developers to
+          define custom password rules using validation functions. Each
+          requirement displays whether it has been met.
+        </p>
+
+        <p>
+          The checklist updates as the user enters a password. A screen-reader
+          announcement communicates the overall progress and changes to
+          individual requirements after the user pauses typing.
+        </p>
+
+        <h3>Password Strength</h3>
+
+        <p>
+          An optional password strength indicator estimates password strength
+          using the zxcvbn password estimation library. It provides five
+          strength levels: Very weak, Weak, Fair, Strong, and Very strong.
+        </p>
+
+        <p>
+          The strength indicator includes a visual meter and a text label so
+          that strength information is not communicated through colour alone. A
+          screen-reader announcement communicates changes in the estimated
+          strength after the user pauses typing.
+        </p>
+
+        <p>
+          Password strength is an estimate rather than a guarantee of password
+          security. Developers should choose appropriate password requirements
+          for their application.
         </p>
 
         <h3>States</h3>

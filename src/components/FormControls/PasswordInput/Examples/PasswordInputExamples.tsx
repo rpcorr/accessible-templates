@@ -28,6 +28,7 @@ const passwordRequirements: PasswordRequirement[] = [
 export function PasswordInputExamples() {
   const [password, setPassword] = useState('');
   const [requirementsPassword, setRequirementsPassword] = useState('');
+  const [strengthPassword, setStrengthPassword] = useState('');
 
   return (
     <Tabs
@@ -152,6 +153,26 @@ export function PasswordInputExamples() {
                 value={requirementsPassword}
                 onChange={setRequirementsPassword}
                 requirements={passwordRequirements}
+                autoComplete="new-password"
+              />
+            </div>
+          ),
+        },
+
+        {
+          id: 'strength',
+          label: 'Password Strength',
+          content: (
+            <div className="stack">
+              <h4>Password Strength Indicator</h4>
+
+              <p>Enter a password to see an estimated strength rating.</p>
+
+              <PasswordInput
+                label="Create a password"
+                value={strengthPassword}
+                onChange={setStrengthPassword}
+                showStrength
                 autoComplete="new-password"
               />
             </div>

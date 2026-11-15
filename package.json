@@ -12,6 +12,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@zxcvbn-ts/core": "^4.3.0",
+    "@zxcvbn-ts/language-common": "^4.2.0",
+    "@zxcvbn-ts/language-en": "^4.1.2",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-router": "^7.18.2"

@@ -7,6 +7,10 @@ import {
   type ChangeEvent,
   type MouseEvent,
 } from 'react';
+import {
+  getPasswordStrength,
+  type PasswordStrengthScore,
+} from './passwordStrength';
 import styles from './PasswordInput.module.css';
 
 export type PasswordRequirement = {
@@ -32,7 +36,16 @@ type PasswordInputProps = {
   minLength?: number;
   autoComplete?: string;
   requirements?: PasswordRequirement[];
+  showStrength?: boolean;
 };
+
+const strengthLabels = [
+  'Very weak',
+  'Weak',
+  'Fair',
+  'Strong',
+  'Very strong',
+] as const;
 
 export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
   (
@@ -53,6 +66,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
       minLength,
       autoComplete = 'current-password',
       requirements,
+      showStrength = false,
     },
     ref,
   ) => {
@@ -63,6 +77,9 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
     const [internalValue, setInternalValue] = useState(defaultValue ?? '');
 
     const currentValue = value !== undefined ? value : internalValue;
+
+    const [strengthScore, setStrengthScore] =
+      useState<PasswordStrengthScore | null>(null);
 
     function getRequirementsDescription(password: string) {
       if (!requirements || requirements.length === 0) {
@@ -90,6 +107,14 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
     const announcementTimer = useRef<ReturnType<typeof setTimeout> | null>(
       null,
     );
+
+    const [strengthAnnouncement, setStrengthAnnouncement] = useState('');
+
+    const lastAnnouncedStrength = useRef<PasswordStrengthScore | null>(null);
+
+    const strengthAnnouncementTimer = useRef<ReturnType<
+      typeof setTimeout
+    > | null>(null);
 
     const descriptionId = description ? `${inputId}-description` : undefined;
 
@@ -187,6 +212,75 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
       };
     }, []);
 
+    useEffect(() => {
+      if (!showStrength) {
+        setStrengthScore(null);
+        return;
+      }
+
+      if (!currentValue) {
+        setStrengthScore(null);
+        return;
+      }
+
+      let isCurrent = true;
+
+      getPasswordStrength(currentValue)
+        .then((score) => {
+          if (isCurrent) {
+            setStrengthScore(score);
+          }
+        })
+        .catch(() => {
+          if (isCurrent) {
+            setStrengthScore(null);
+          }
+        });
+
+      return () => {
+        isCurrent = false;
+      };
+    }, [currentValue, showStrength]);
+
+    useEffect(() => {
+      if (!showStrength || strengthScore === null) {
+        lastAnnouncedStrength.current = null;
+        setStrengthAnnouncement('');
+        return;
+      }
+
+      if (lastAnnouncedStrength.current === null) {
+        lastAnnouncedStrength.current = strengthScore;
+        return;
+      }
+
+      if (lastAnnouncedStrength.current === strengthScore) {
+        return;
+      }
+
+      if (strengthAnnouncementTimer.current !== null) {
+        clearTimeout(strengthAnnouncementTimer.current);
+      }
+
+      setStrengthAnnouncement('');
+
+      strengthAnnouncementTimer.current = setTimeout(() => {
+        setStrengthAnnouncement(
+          `Password strength: ${strengthLabels[strengthScore]}.`,
+        );
+
+        lastAnnouncedStrength.current = strengthScore;
+        strengthAnnouncementTimer.current = null;
+      }, 800);
+
+      return () => {
+        if (strengthAnnouncementTimer.current !== null) {
+          clearTimeout(strengthAnnouncementTimer.current);
+          strengthAnnouncementTimer.current = null;
+        }
+      };
+    }, [strengthScore, showStrength]);
+
     function handleChange(event: ChangeEvent<HTMLInputElement>) {
       const newValue = event.target.value;
 
@@ -200,6 +294,9 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
     function handleToggleMouseDown(event: MouseEvent<HTMLButtonElement>) {
       event.preventDefault();
     }
+
+    const strengthLabel =
+      strengthScore !== null ? strengthLabels[strengthScore] : '';
 
     return (
       <div className={styles.container}>
@@ -298,6 +395,35 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
               {requirementsAnnouncement}
             </p>
           </div>
+        )}
+
+        {showStrength && currentValue && strengthScore !== null && (
+          <div className={styles.strength}>
+            <p className={styles.strengthLabel}>
+              Password strength: <strong>{strengthLabel}</strong>
+            </p>
+
+            <div
+              className={styles.strengthMeter}
+              role="meter"
+              aria-label="Password strength"
+              aria-valuemin={0}
+              aria-valuemax={4}
+              aria-valuenow={strengthScore}
+              aria-valuetext={strengthLabel}
+            >
+              <span
+                className={styles.strengthMeterFill}
+                data-strength={strengthScore}
+              />
+            </div>
+          </div>
+        )}
+
+        {showStrength && (
+          <p className={styles.strengthAnnouncement} role="status">
+            {strengthAnnouncement}
+          </p>
         )}
 
         {error && (
