@@ -62,6 +62,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     const [uncontrolledValue, setUncontrolledValue] = useState(
       defaultValue ?? '',
     );
+    const [limitAnnouncement, setLimitAnnouncement] = useState('');
 
     const currentValue = value ?? uncontrolledValue;
     const characterCount = currentValue.length;
@@ -130,6 +131,14 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     function handleChange(event: ChangeEvent<HTMLTextAreaElement>) {
       const newValue = event.target.value;
 
+      if (maxLength !== undefined && newValue.length === maxLength) {
+        setLimitAnnouncement(
+          `Maximum character limit of ${maxLength} reached.`,
+        );
+      } else {
+        setLimitAnnouncement('');
+      }
+
       if (value === undefined) {
         setUncontrolledValue(newValue);
       }
@@ -170,6 +179,15 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           aria-invalid={error ? true : undefined}
           onChange={handleChange}
         />
+
+        <p
+          className={styles.screenReaderOnly}
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          {limitAnnouncement}
+        </p>
 
         {showCharacterCount && maxLength !== undefined && (
           <p id={characterCountId} className={styles.characterCount}>

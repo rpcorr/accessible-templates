@@ -1,71 +1,80 @@
-TO DO:
+# TO DO:
 
-Accessible Templates – Planned Templates
+## Accessible Templates – Planned Templates
 
-1. Registration Form
-Components: Text Input, Select, Checkbox, Radio Group, Alert and Button.
+### 1. Registration Form
 
-Demonstrates:
+**Components:** Text Input, Password Input, Select, Checkbox, Radio Group, Alert and Button.
+
+**Demonstrates:**
 - Collecting personal information through different form controls.
 - Required fields and form validation.
-- Displaying accessible error messages and feedback.
+- Creating a password with configurable requirements and a strength indicator.
+- Confirming a password by comparing the password and confirmation fields.
+- Displaying accessible error messages when passwords do not match and providing clear form feedback.
 - Grouping related choices using radio buttons and checkboxes.
 - Submitting a form with clear user feedback.
 
-2. Search and Results Page
-Components: Search Combobox, Pagination, Breadcrumbs and Status.
+### 2. Search and Results Page
 
-Demonstrates:
+**Components:** Search Combobox, Pagination, Breadcrumbs and Status.
+
+**Demonstrates:**
 - Searching and filtering content using an interactive search field.
 - Displaying search results across multiple pages.
 - Providing clear navigation through breadcrumbs.
 - Communicating result status, such as loading, no results or completed searches.
 - Maintaining keyboard accessibility throughout the search experience.
 
-3. Financial Dashboard
-Components: Data Table, Tabs, Progress Indicator and Toast.
+### 3. Financial Dashboard
 
-Demonstrates:
+**Components:** Data Table, Tabs, Progress Indicator and Toast.
+
+**Demonstrates:**
 - Presenting financial information in an organized data table.
 - Grouping dashboard information into separate tabbed sections.
 - Displaying financial goals, budgets or savings progress.
 - Providing temporary feedback for completed actions.
 - Making financial information easier to scan and understand.
 
-4. Booking Form
-Components: Date Picker, Date Range Picker, Time Picker and Multi-Step Form.
+### 4. Booking Form
 
-Demonstrates:
+**Components:** Date Picker, Date Range Picker, Time Picker and Multi-Step Form.
+
+**Demonstrates:**
 - Selecting individual dates and date ranges.
 - Choosing available appointment or booking times.
 - Guiding users through a multi-step booking process.
 - Validating booking information before proceeding.
 - Reviewing booking details before final submission.
 
-5. Settings Page
-Components: Switch, Disclosure, Radio Group and Button.
+### 5. Settings Page
 
-Demonstrates:
+**Components:** Switch, Disclosure, Radio Group and Button.
+
+**Demonstrates:**
 - Managing account and application preferences.
 - Enabling and disabling settings using switches.
 - Expanding and collapsing additional settings information.
 - Selecting one option from a group of preferences.
 - Saving changes with clear keyboard and screen-reader feedback.
 
-6. Contact and Support Form
-Components: Text Input, Textarea, Select, File Upload, Alert and Button.
+### 6. Contact and Support Form
 
-Demonstrates:
+**Components:** Text Input, Textarea, Select, File Upload, Alert and Button.
+
+**Demonstrates:**
 - Collecting contact information and support requests.
 - Providing multiple ways to describe an issue.
 - Allowing users to attach supporting documents or images.
 - Validating required fields and uploaded files.
 - Displaying accessible error messages and submission confirmation.
 
-7. Job Application Form
-Components: Multi-Step Form, Text Input, Select, File Upload, Checkbox and Progress Indicator.
+### 7. Job Application Form
 
-Demonstrates:
+**Components:** Multi-Step Form, Text Input, Select, File Upload, Checkbox and Progress Indicator.
+
+**Demonstrates:**
 - Collecting applicant information across multiple steps.
 - Organizing employment history, qualifications and skills.
 - Uploading a resume and supporting documents.
@@ -73,10 +82,11 @@ Demonstrates:
 - Reviewing application details before final submission.
 - Communicating progress and step changes to screen readers.
 
-8. User Profile and Account Page
-Components: Text Input, Password Input, Date Picker, Colour Picker, Switch and Button.
+### 8. User Profile and Account Page
 
-Demonstrates:
+**Components:** Text Input, Password Input, Date Picker, Colour Picker, Switch and Button.
+
+**Demonstrates:**
 - Viewing and editing personal account information.
 - Updating password information with show/hide functionality.
 - Selecting a date, such as a preferred notification date.
@@ -84,11 +94,11 @@ Demonstrates:
 - Managing account preferences and notification settings.
 - Saving profile changes with accessible feedback.
 
+### 9. User Management Dashboard
 
-9. User Management Dashboard
-Components: Data Table, Search Box, Select, Checkbox, Pagination, Modal and Toast.
+**Components:** Data Table, Search Box, Select, Checkbox, Pagination, Modal and Toast.
 
-Demonstrates:
+**Demonstrates:**
 - Displaying and managing user records.
 - Searching and filtering users.
 - Selecting individual or multiple records.
@@ -96,11 +106,11 @@ Demonstrates:
 - Navigating through larger datasets using pagination.
 - Confirming actions and communicating results through toast notifications.
 
+### 10. Events Listing and Registration
 
-10. Events Listing and Registration
-Components: Search Combobox, Date Picker, Card, Accordion, Pagination, Badge and Button.
+**Components:** Search Combobox, Date Picker, Card, Accordion, Pagination, Badge and Button.
 
-Demonstrates:
+**Demonstrates:**
 - Searching and browsing available events.
 - Filtering events by date.
 - Displaying event information in organized cards.
@@ -109,11 +119,11 @@ Demonstrates:
 - Navigating through multiple pages of events.
 - Providing a clear registration action.
 
+### 11. Notification Center
 
-11. Notification Center
-Components: Badge, Tabs, Card, Button, Pagination and Alert.
+**Components:** Badge, Tabs, Card, Button, Pagination and Alert.
 
-Demonstrates:
+**Demonstrates:**
 - Displaying unread and read notifications.
 - Showing the number of unread notifications.
 - Organizing notifications into categories, such as All, Unread and Archived.
@@ -123,17 +133,11 @@ Demonstrates:
 - Displaying notification details, including timestamps and message descriptions.
 - Communicating notification updates accessibly to keyboard and screen-reader users.
 
-Better as enhancements/patterns
+---
 
-| Item                           | How I'd handle it                                                                     |
-| ------------------------------ | ------------------------------------------------------------------------------------- |
-| **Fieldset / Form Group**      | Accessibility/form pattern; could be demonstrated with existing form controls         |
-| **Validation / Error Summary** | Cross-component form pattern rather than a standalone control                         |
-| **Textarea enhancements**      | Improve the existing Textarea rather than create another component                    |
-
-
-
-
-more advanced:
-
-add  confirmation-password
+1. Form Patterns & Enhancements
+Keep your existing three items:
+Pattern	Implementation	Status
+Fieldset / Form Group	Group related form controls using semantic <fieldset> and <legend> elements, with appropriate accessible labelling. Demonstrate in Registration and Job Application Forms.	Planned
+Validation / Error Summary	Provide form-level validation, an accessible error summary, links to invalid fields, and associated inline error messages. Demonstrate in Registration and Job Application Forms.	Planned
+Confirm Password	Compare password and confirmation fields, provide accessible mismatch feedback, and prevent submission until both values match. Demonstrate in Registration Form using two Password Input components.	Planned

@@ -347,6 +347,49 @@ describe('Textarea', () => {
     expect(counter).not.toHaveAttribute('aria-live');
   });
 
+  it('renders an accessible status region for the character limit announcement', () => {
+    render(<Textarea label="Message" maxLength={10} />);
+
+    const status = screen.getByRole('status');
+
+    expect(status).toHaveAttribute('aria-live', 'polite');
+    expect(status).toHaveAttribute('aria-atomic', 'true');
+  });
+
+  it('announces when the maximum character limit is reached', () => {
+    render(<Textarea label="Message" maxLength={10} />);
+
+    const textarea = screen.getByRole('textbox');
+
+    fireEvent.change(textarea, {
+      target: { value: '1234567890' },
+    });
+
+    expect(screen.getByRole('status')).toHaveTextContent(
+      'Maximum character limit of 10 reached.',
+    );
+  });
+
+  it('clears the character limit announcement when the text is shortened', () => {
+    render(<Textarea label="Message" maxLength={10} />);
+
+    const textarea = screen.getByRole('textbox');
+
+    fireEvent.change(textarea, {
+      target: { value: '1234567890' },
+    });
+
+    expect(screen.getByRole('status')).toHaveTextContent(
+      'Maximum character limit of 10 reached.',
+    );
+
+    fireEvent.change(textarea, {
+      target: { value: '12345' },
+    });
+
+    expect(screen.getByRole('status')).toBeEmptyDOMElement();
+  });
+
   // Auto-resizing
   it('applies automatic resizing when enabled', () => {
     render(<Textarea label="Message" autoResize />);

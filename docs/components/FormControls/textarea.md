@@ -12,6 +12,7 @@ An accessible textarea component for multi-line text input, designed with semant
 - Supports validation and error messaging.
 - Supports helper and description text.
 - Supports minimum and maximum character limits.
+- Announces when the maximum character limit is reached through an accessible status message.
 - Provides an optional character counter when `showCharacterCount` is enabled and `maxLength` is provided.
 - Updates the character count as users type.
 - Supports optional automatic height adjustment through the `autoResize` prop.
@@ -38,6 +39,7 @@ The Textarea component:
 - Uses native HTML character limits through `maxLength` and `minLength`.
 - Makes the initial character count available to screen-reader users when the textarea receives focus.
 - Avoids continuous live announcements when the character count changes, reducing unnecessary interruptions for screen-reader users.
+- Announces when the maximum character limit is reached without announcing on every keystroke.
 - Supports assistive technology through semantic HTML and ARIA attributes where required.
 
 ## Usage
@@ -66,6 +68,8 @@ Enable the optional character counter by setting `showCharacterCount` and provid
 The counter displays the current character count and maximum character limit. It updates as the user types and is associated with the textarea for assistive technology.
 
 The initial character count is available to screen-reader users when the textarea receives focus. The counter does not use continuous live announcements.
+
+When the maximum character limit is reached, an accessible status message announces this information to screen-reader users. The browser prevents additional characters from being entered once the limit is reached.
 
 ## Auto-Resizing
 

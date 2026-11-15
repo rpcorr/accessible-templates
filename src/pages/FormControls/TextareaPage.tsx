@@ -45,6 +45,13 @@ export function TextareaPage() {
           types, helping to avoid unnecessary interruptions.
         </p>
 
+        <p>
+          When the maximum character limit is reached, an accessible status
+          message announces this information to screen-reader users. The
+          announcement occurs when the limit is reached rather than on every
+          keystroke.
+        </p>
+
         <h3>States</h3>
 
         <p>
@@ -58,6 +65,12 @@ export function TextareaPage() {
           The Textarea supports native <code>minLength</code> and{' '}
           <code>maxLength</code> constraints. It can also display a custom error
           message associated with the textarea when validation fails.
+        </p>
+
+        <p>
+          When <code>maxLength</code> is reached, the browser prevents
+          additional characters from being entered. The component also provides
+          an accessible announcement when the maximum length is reached.
         </p>
 
         <h3>Character Count</h3>
