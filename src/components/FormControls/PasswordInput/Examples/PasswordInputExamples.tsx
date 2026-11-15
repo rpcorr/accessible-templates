@@ -1,9 +1,33 @@
 import { useState } from 'react';
 import { Tabs } from '../../../ContentFeedback/Tab';
-import { PasswordInput } from '..';
+import { PasswordInput, type PasswordRequirement } from '..';
+
+const passwordRequirements: PasswordRequirement[] = [
+  {
+    id: 'length',
+    label: 'At least 12 characters',
+    validate: (password) => password.length >= 12,
+  },
+  {
+    id: 'uppercase',
+    label: 'At least one uppercase letter',
+    validate: (password) => /[A-Z]/.test(password),
+  },
+  {
+    id: 'number',
+    label: 'At least one number',
+    validate: (password) => /\d/.test(password),
+  },
+  {
+    id: 'special',
+    label: 'At least one special character',
+    validate: (password) => /[^A-Za-z0-9]/.test(password),
+  },
+];
 
 export function PasswordInputExamples() {
   const [password, setPassword] = useState('');
+  const [requirementsPassword, setRequirementsPassword] = useState('');
 
   return (
     <Tabs
@@ -111,6 +135,25 @@ export function PasswordInputExamples() {
               />
 
               <p>Password length: {password.length}</p>
+            </div>
+          ),
+        },
+        {
+          id: 'requirements',
+          label: 'Password Requirements',
+          content: (
+            <div className="stack">
+              <h4>Password Requirements Checklist</h4>
+
+              <p>Your password must meet all the following requirements.</p>
+
+              <PasswordInput
+                label="Create a password"
+                value={requirementsPassword}
+                onChange={setRequirementsPassword}
+                requirements={passwordRequirements}
+                autoComplete="new-password"
+              />
             </div>
           ),
         },
