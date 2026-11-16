@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 
 import styles from './RegistrationFormExamples.module.css';
 import { Alert } from '../../components/ContentFeedback/Alert';
@@ -67,6 +67,14 @@ export function RegistrationFormExample() {
     setSubmitted(true);
   };
 
+  const confirmPasswordRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (passwordError) {
+      confirmPasswordRef.current?.focus();
+    }
+  }, [passwordError]);
+
   return (
     <section className={styles.container}>
       <div role="status" aria-live="polite" aria-atomic="true">
@@ -78,13 +86,13 @@ export function RegistrationFormExample() {
       </div>
 
       {!submitted && (
-        <form onSubmit={handleSubmit}>
+        <form aria-labelledby="registration-form-title" onSubmit={handleSubmit}>
           <header className={styles.header}>
-            <h2>Create an account</h2>
+            <h2 id="registration-form-title">Create an account</h2>
             <p>Complete the form below to register.</p>
           </header>
-          <div className={styles.fieldGroup}>
-            <h3>Personal information</h3>
+          <fieldset className={styles.fieldGroup}>
+            <legend>Personal information</legend>
 
             <TextInput
               id="firstName"
@@ -116,10 +124,10 @@ export function RegistrationFormExample() {
               autoComplete="email"
               required
             />
-          </div>
+          </fieldset>
 
-          <div className={styles.fieldGroup}>
-            <h3>Password</h3>
+          <fieldset className={styles.fieldGroup}>
+            <legend>Password</legend>
 
             <PasswordInput
               id="password"
@@ -134,6 +142,7 @@ export function RegistrationFormExample() {
             />
 
             <PasswordInput
+              ref={confirmPasswordRef}
               id="confirmPassword"
               name="confirmPassword"
               label="Confirm password"
@@ -145,7 +154,7 @@ export function RegistrationFormExample() {
               required
               error={passwordError}
             />
-          </div>
+          </fieldset>
 
           <Button type="submit">Create account</Button>
         </form>
