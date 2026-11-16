@@ -55,16 +55,20 @@ export function RegistrationFormExample() {
     }
 
     setPasswordError('');
+
+    // Clear the form fields.
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
+
+    // Display the success message and hide the form.
     setSubmitted(true);
   };
 
   return (
     <section className={styles.container}>
-      <header className={styles.header}>
-        <h2>Create an account</h2>
-        <p>Complete the form below to register.</p>
-      </header>
-
       <div role="status" aria-live="polite" aria-atomic="true">
         {submitted && (
           <Alert variant="success" title="Registration successful">
@@ -73,73 +77,79 @@ export function RegistrationFormExample() {
         )}
       </div>
 
-      <form onSubmit={handleSubmit}>
-        <div className={styles.fieldGroup}>
-          <h3>Personal information</h3>
+      {!submitted && (
+        <form onSubmit={handleSubmit}>
+          <header className={styles.header}>
+            <h2>Create an account</h2>
+            <p>Complete the form below to register.</p>
+          </header>
+          <div className={styles.fieldGroup}>
+            <h3>Personal information</h3>
 
-          <TextInput
-            id="firstName"
-            name="firstName"
-            label="First name"
-            value={firstName}
-            onChange={setFirstName}
-            autoComplete="given-name"
-            required
-          />
+            <TextInput
+              id="firstName"
+              name="firstName"
+              label="First name"
+              value={firstName}
+              onChange={setFirstName}
+              autoComplete="given-name"
+              required
+            />
 
-          <TextInput
-            id="lastName"
-            name="lastName"
-            label="Last name"
-            value={lastName}
-            onChange={setLastName}
-            autoComplete="family-name"
-            required
-          />
+            <TextInput
+              id="lastName"
+              name="lastName"
+              label="Last name"
+              value={lastName}
+              onChange={setLastName}
+              autoComplete="family-name"
+              required
+            />
 
-          <TextInput
-            id="email"
-            name="email"
-            label="Email address"
-            type="email"
-            value={email}
-            onChange={setEmail}
-            autoComplete="email"
-            required
-          />
-        </div>
+            <TextInput
+              id="email"
+              name="email"
+              label="Email address"
+              type="email"
+              value={email}
+              onChange={setEmail}
+              autoComplete="email"
+              required
+            />
+          </div>
 
-        <div className={styles.fieldGroup}>
-          <h3>Password</h3>
+          <div className={styles.fieldGroup}>
+            <h3>Password</h3>
 
-          <PasswordInput
-            id="password"
-            name="password"
-            label="Password"
-            value={password}
-            onChange={setPassword}
-            autoComplete="new-password"
-            required
-            requirements={passwordRequirements}
-            showStrength
-          />
+            <PasswordInput
+              id="password"
+              name="password"
+              label="Password"
+              value={password}
+              onChange={setPassword}
+              autoComplete="new-password"
+              required
+              requirements={passwordRequirements}
+              showStrength
+            />
 
-          <PasswordInput
-            id="confirmPassword"
-            name="confirmPassword"
-            label="Confirm password"
-            value={confirmPassword}
-            onChange={(value: string) => {
-              setConfirmPassword(value);
-            }}
-            autoComplete="new-password"
-            required
-            error={passwordError}
-          />
-        </div>
+            <PasswordInput
+              id="confirmPassword"
+              name="confirmPassword"
+              label="Confirm password"
+              value={confirmPassword}
+              onChange={(value: string) => {
+                setConfirmPassword(value);
+              }}
+              autoComplete="new-password"
+              required
+              error={passwordError}
+            />
+          </div>
 
-        <Button type="submit">Create account</Button>
-      </form>
+          <Button type="submit">Create account</Button>
+        </form>
+      )}
     </section>
   );
 }
