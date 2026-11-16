@@ -39,11 +39,14 @@ export function RegistrationFormPage() {
             fields.
           </li>
           <li>
-            Providing accessible error messages when passwords do not match and
-            clear feedback when the form is submitted.
+            Providing accessible validation errors and moving focus to the
+            Confirm password field when passwords do not match.
           </li>
-          <li>Grouping related choices using radio buttons and checkboxes.</li>
-          <li>Submitting a form and displaying confirmation feedback.</li>
+          <li>Grouping related form fields using fieldsets and legends.</li>
+          <li>
+            Clearing and hiding the form after successful submission and
+            announcing confirmation feedback to screen-reader users.
+          </li>
         </ul>
       </div>
 
