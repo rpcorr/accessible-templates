@@ -307,4 +307,15 @@ export const navigationItems: NavigationItem[] = [
       },
     ],
   },
+  {
+    id: 'templates',
+    label: 'Templates',
+    children: [
+      {
+        id: 'registration-form',
+        label: 'Registration Form',
+        href: '/templates/registration-form',
+      },
+    ],
+  },
 ];

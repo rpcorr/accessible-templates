@@ -297,6 +297,14 @@ const TimePickerPage = lazy(() =>
 const NotFoundPage = lazy(() =>
   import('./pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage })),
 );
+
+// Templates
+const RegistrationFormPage = lazy(() =>
+  import('./templates/RegistrationForm/RegistrationForm').then((m) => ({
+    default: m.RegistrationFormPage,
+  })),
+);
+
 function App() {
   const { pathname } = useLocation();
 
@@ -316,6 +324,8 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/components" element={<ComponentPage />} />
+
+            {/* Components */}
 
             <Route path="/buttons-actions/button" element={<ButtonPage />} />
 
@@ -461,6 +471,13 @@ function App() {
             <Route
               path="/form-controls/time-picker"
               element={<TimePickerPage />}
+            />
+
+            {/* Templates */}
+
+            <Route
+              path="/templates/registration-form"
+              element={<RegistrationFormPage />}
             />
 
             <Route path="*" element={<NotFoundPage />} />
