@@ -300,7 +300,10 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 
     return (
       <div className={styles.container}>
-        <label htmlFor={inputId} className={styles.label}>
+        <label
+          htmlFor={inputId}
+          className={error ? styles.labelError : undefined}
+        >
           {label}
         </label>
 

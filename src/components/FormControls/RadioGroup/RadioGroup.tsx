@@ -8,19 +8,23 @@ type RadioOption = {
 };
 
 type RadioGroupProps = {
+  id?: string;
   label: string;
   options: RadioOption[];
   name?: string;
   value?: string;
+
   defaultValue?: string;
   onChange?: (value: string) => void;
   required?: boolean;
   disabled?: boolean;
   description?: string;
   orientation?: 'vertical' | 'horizontal';
+  error?: string;
 };
 
 export function RadioGroup({
+  id,
   label,
   options,
   name,
@@ -31,15 +35,20 @@ export function RadioGroup({
   disabled = false,
   description,
   orientation = 'vertical',
+  error,
 }: RadioGroupProps) {
   const generatedId = useId();
   const groupName = name ?? generatedId;
   const descriptionId = description ? `${generatedId}-description` : undefined;
+  const errorId = error ? `${generatedId}-error` : undefined;
 
   return (
     <fieldset
+      id={id}
       className={styles.group}
-      aria-describedby={descriptionId}
+      aria-describedby={
+        [descriptionId, errorId].filter(Boolean).join(' ') || undefined
+      }
       disabled={disabled}
     >
       <legend className={styles.legend}>{label}</legend>
@@ -59,6 +68,7 @@ export function RadioGroup({
           <label key={option.value} className={styles.option}>
             <input
               type="radio"
+              className={error ? styles.inputError : undefined}
               name={groupName}
               value={option.value}
               checked={value !== undefined ? value === option.value : undefined}
@@ -77,6 +87,11 @@ export function RadioGroup({
           </label>
         ))}
       </div>
+      {error && (
+        <p id={errorId} className={styles.error}>
+          {error}
+        </p>
+      )}
     </fieldset>
   );
 }

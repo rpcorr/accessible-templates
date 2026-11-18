@@ -58,7 +58,10 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
 
     return (
       <div className={styles.container}>
-        <label htmlFor={inputId} className={styles.label}>
+        <label
+          htmlFor={inputId}
+          className={error ? styles.labelError : undefined}
+        >
           {label}
         </label>
 

@@ -8,6 +8,10 @@
   font-weight: 600;
 }
 
+.labelError {
+  color: var(--color-danger);
+}
+
 .description {
   margin: 0;
   font-size: 0.875rem;
@@ -22,6 +26,10 @@
   background: inherit;
   color: inherit;
   font: inherit;
+}
+
+.input[aria-invalid='true'] {
+  border-color: var(--color-danger);
 }
 
 .input:focus-visible {

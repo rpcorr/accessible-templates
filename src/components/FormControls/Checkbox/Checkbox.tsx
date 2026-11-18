@@ -4,14 +4,19 @@ import styles from './Checkbox.module.css';
 type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label: string;
   description?: string;
+  error?: string;
   indeterminate?: boolean;
 };
 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
-  ({ label, description, id, indeterminate = false, ...props }, ref) => {
+  ({ label, description, error, id, indeterminate = false, ...props }, ref) => {
     const generatedId = useId();
     const checkboxId = id ?? generatedId;
     const descriptionId = description ? `${checkboxId}-description` : undefined;
+    const errorId = error ? `${checkboxId}-error` : undefined;
+
+    const describedBy =
+      [descriptionId, errorId].filter(Boolean).join(' ') || undefined;
 
     const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -39,11 +44,18 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
             ref={setRefs}
             id={checkboxId}
             type="checkbox"
-            className={styles.checkbox}
-            aria-describedby={descriptionId}
+            className={`${styles.checkbox} ${error ? styles.inputError : ''}`}
+            aria-describedby={describedBy}
+            aria-invalid={error ? true : undefined}
           />
           <span>{label}</span>
         </label>
+
+        {error && (
+          <p id={errorId} className={styles.error}>
+            {error}
+          </p>
+        )}
 
         {description && (
           <span id={descriptionId} className={styles.description}>

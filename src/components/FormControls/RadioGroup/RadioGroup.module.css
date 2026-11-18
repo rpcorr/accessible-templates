@@ -60,8 +60,27 @@
   cursor: not-allowed;
 }
 
+/* .group[aria-invalid='true'] {
+  border: 1px solid var(--color-danger);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+} */
+
 .description {
   margin: 0;
 
   font-size: 0.875rem;
+}
+
+.error {
+  margin: 0;
+  color: var(--color-danger);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.inputError {
+  accent-color: var(--color-danger);
+  outline: 2px solid var(--color-danger);
+  outline-offset: 2px;
 }

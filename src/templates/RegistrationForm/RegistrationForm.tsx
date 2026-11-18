@@ -1,5 +1,5 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import RegistrationFormExample from './RegistrationFormExamples';
+import { RegistrationFormExample } from './RegistrationFormExamples';
 
 export function RegistrationFormPage() {
   return (
