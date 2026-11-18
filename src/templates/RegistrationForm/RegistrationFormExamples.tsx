@@ -8,34 +8,12 @@ import { PasswordInput } from '../../components/FormControls/PasswordInput';
 import { RadioGroup } from '../../components/FormControls/RadioGroup';
 import { Select } from '../../components/FormControls/Select';
 import { TextInput } from '../../components/FormControls/TextInput';
-
-const passwordRequirements = [
-  {
-    id: 'length',
-    label: 'At least 12 characters',
-    validate: (password: string) => password.length >= 12,
-  },
-  {
-    id: 'uppercase',
-    label: 'At least one uppercase letter',
-    validate: (password: string) => /[A-Z]/.test(password),
-  },
-  {
-    id: 'lowercase',
-    label: 'At least one lowercase letter',
-    validate: (password: string) => /[a-z]/.test(password),
-  },
-  {
-    id: 'number',
-    label: 'At least one number',
-    validate: (password: string) => /\d/.test(password),
-  },
-  {
-    id: 'special',
-    label: 'At least one special character',
-    validate: (password: string) => /[^A-Za-z0-9]/.test(password),
-  },
-];
+import {
+  passwordRequirements,
+  validateRegistrationForm,
+  type RegistrationFormErrors,
+  type RegistrationFormValues,
+} from './registrationFormValidation';
 
 const countryOptions = [
   { value: 'canada', label: 'Canada' },
@@ -53,19 +31,19 @@ const accountTypeOptions = [
 export function RegistrationFormExample() {
   const [submitted, setSubmitted] = useState(false);
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
+  const [formValues, setFormValues] = useState<RegistrationFormValues>({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    country: '',
+    accountType: '',
+    termsAccepted: false,
+  });
 
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<RegistrationFormErrors>({});
 
-  const [country, setCountry] = useState('');
-  const [accountType, setAccountType] = useState('');
-  const [termsAccepted, setTermsAccepted] = useState(false);
-
-  const confirmPasswordRef = useRef<HTMLInputElement>(null);
   const errorSummaryRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -77,7 +55,7 @@ export function RegistrationFormExample() {
     }
   }, [errors]);
 
-  const clearFieldError = (field: string) => {
+  const clearFieldError = (field: keyof RegistrationFormValues) => {
     setErrors((previous) => {
       if (!previous[field]) return previous;
 
@@ -91,47 +69,7 @@ export function RegistrationFormExample() {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const newErrors: Record<string, string> = {};
-
-    if (!firstName.trim()) {
-      newErrors.firstName = 'Enter your first name.';
-    }
-
-    if (!lastName.trim()) {
-      newErrors.lastName = 'Enter your last name.';
-    }
-
-    if (!email.trim()) {
-      newErrors.email = 'Enter your email address.';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      newErrors.email = 'Enter a valid email address.';
-    }
-
-    const passwordMeetsRequirements = passwordRequirements.every(
-      (requirement) => requirement.validate(password),
-    );
-
-    if (!passwordMeetsRequirements) {
-      newErrors.password = 'Your password does not meet all the requirements.';
-    }
-
-    if (!confirmPassword) {
-      newErrors.confirmPassword = 'Confirm your password.';
-    } else if (password !== confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match.';
-    }
-
-    if (!country) {
-      newErrors.country = 'Select your country.';
-    }
-
-    if (!accountType) {
-      newErrors.accountType = 'Select an account type.';
-    }
-
-    if (!termsAccepted) {
-      newErrors.termsAccepted = 'You must agree to the terms and conditions.';
-    }
+    const newErrors = validateRegistrationForm(formValues);
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -142,14 +80,16 @@ export function RegistrationFormExample() {
     setErrors({});
 
     // Clear the form fields.
-    setFirstName('');
-    setLastName('');
-    setEmail('');
-    setPassword('');
-    setConfirmPassword('');
-    setCountry('');
-    setAccountType('');
-    setTermsAccepted(false);
+    setFormValues({
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      country: '',
+      accountType: '',
+      termsAccepted: false,
+    });
 
     // Display the success message and hide the form.
     setSubmitted(true);
@@ -210,9 +150,12 @@ export function RegistrationFormExample() {
                 id="firstName"
                 name="firstName"
                 label="First name"
-                value={firstName}
+                value={formValues.firstName}
                 onChange={(value) => {
-                  setFirstName(value);
+                  setFormValues((previous) => ({
+                    ...previous,
+                    firstName: value,
+                  }));
                   clearFieldError('firstName');
                 }}
                 autoComplete="given-name"
@@ -224,9 +167,12 @@ export function RegistrationFormExample() {
                 id="lastName"
                 name="lastName"
                 label="Last name"
-                value={lastName}
+                value={formValues.lastName}
                 onChange={(value) => {
-                  setLastName(value);
+                  setFormValues((previous) => ({
+                    ...previous,
+                    lastName: value,
+                  }));
                   clearFieldError('lastName');
                 }}
                 autoComplete="family-name"
@@ -239,9 +185,12 @@ export function RegistrationFormExample() {
                 name="email"
                 label="Email address"
                 type="email"
-                value={email}
+                value={formValues.email}
                 onChange={(value) => {
-                  setEmail(value);
+                  setFormValues((previous) => ({
+                    ...previous,
+                    email: value,
+                  }));
                   clearFieldError('email');
                 }}
                 autoComplete="email"
@@ -257,9 +206,12 @@ export function RegistrationFormExample() {
                 id="password"
                 name="password"
                 label="Password"
-                value={password}
+                value={formValues.password}
                 onChange={(value) => {
-                  setPassword(value);
+                  setFormValues((previous) => ({
+                    ...previous,
+                    password: value,
+                  }));
                   clearFieldError('password');
                 }}
                 autoComplete="new-password"
@@ -270,13 +222,15 @@ export function RegistrationFormExample() {
               />
 
               <PasswordInput
-                ref={confirmPasswordRef}
                 id="confirmPassword"
                 name="confirmPassword"
                 label="Confirm password"
-                value={confirmPassword}
+                value={formValues.confirmPassword}
                 onChange={(value) => {
-                  setConfirmPassword(value);
+                  setFormValues((previous) => ({
+                    ...previous,
+                    confirmPassword: value,
+                  }));
                   clearFieldError('confirmPassword');
                 }}
                 autoComplete="new-password"
@@ -293,9 +247,12 @@ export function RegistrationFormExample() {
                 name="country"
                 label="Country"
                 options={countryOptions}
-                value={country}
+                value={formValues.country}
                 onChange={(value) => {
-                  setCountry(value);
+                  setFormValues((previous) => ({
+                    ...previous,
+                    country: value,
+                  }));
                   clearFieldError('country');
                 }}
                 placeholder="Select a country"
@@ -308,9 +265,12 @@ export function RegistrationFormExample() {
                 name="accountType"
                 label="Account type"
                 options={accountTypeOptions}
-                value={accountType}
+                value={formValues.accountType}
                 onChange={(value) => {
-                  setAccountType(value);
+                  setFormValues((previous) => ({
+                    ...previous,
+                    accountType: value,
+                  }));
                   clearFieldError('accountType');
                 }}
                 required
@@ -321,9 +281,12 @@ export function RegistrationFormExample() {
                 id="termsAccepted"
                 name="termsAccepted"
                 label="I agree to the terms and conditions"
-                checked={termsAccepted}
+                checked={formValues.termsAccepted}
                 onChange={(event) => {
-                  setTermsAccepted(event.target.checked);
+                  setFormValues((previous) => ({
+                    ...previous,
+                    termsAccepted: event.target.checked,
+                  }));
                   clearFieldError('termsAccepted');
                 }}
                 required

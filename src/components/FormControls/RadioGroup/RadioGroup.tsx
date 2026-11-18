@@ -71,10 +71,9 @@ export function RadioGroup({
               className={error ? styles.inputError : undefined}
               name={groupName}
               value={option.value}
-              checked={value !== undefined ? value === option.value : undefined}
-              defaultChecked={
-                value === undefined && defaultValue === option.value
-              }
+              {...(value !== undefined
+                ? { checked: value === option.value }
+                : { defaultChecked: defaultValue === option.value })}
               disabled={disabled || option.disabled}
               required={required}
               onChange={(event) => {
