@@ -1,5 +1,17 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
 import { RegistrationFormExample } from './RegistrationFormExamples';
+import type { RegistrationFormConfig } from './registrationFormValidation';
+
+const basicRegistrationConfig: RegistrationFormConfig = {
+  firstName: { enabled: true, required: true },
+  lastName: { enabled: true, required: true },
+  email: { enabled: true, required: true },
+  password: { enabled: true, required: true },
+  confirmPassword: { enabled: true, required: true },
+  country: { enabled: false, required: false },
+  accountType: { enabled: false, required: false },
+  termsAccepted: { enabled: true, required: true },
+};
 
 export function RegistrationFormPage() {
   return (
@@ -62,9 +74,19 @@ export function RegistrationFormPage() {
         </ul>
       </div>
 
-      <h3>Example</h3>
+      <h3>Full Registration Form Example</h3>
 
       <RegistrationFormExample />
+
+      <h3>Basic Registration Form Example</h3>
+
+      <p>
+        A simplified registration form that collects essential personal
+        information, account credentials, and agreement to the terms and
+        conditions.
+      </p>
+
+      <RegistrationFormExample config={basicRegistrationConfig} />
     </PageLayout>
   );
 }

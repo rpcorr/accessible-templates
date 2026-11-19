@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type FormEvent } from 'react';
+import { useEffect, useId, useRef, useState, type FormEvent } from 'react';
 
 import styles from './RegistrationFormExamples.module.css';
 import { Alert } from '../../components/ContentFeedback/Alert';
@@ -39,6 +39,8 @@ const initialFormValues: RegistrationFormValues = {
 export function RegistrationFormExample({
   config = defaultRegistrationFormConfig,
 }: RegistrationFormExampleProps) {
+  const idPrefix = useId().replace(/:/g, '');
+
   const [submitted, setSubmitted] = useState(false);
 
   const [formValues, setFormValues] =
@@ -141,14 +143,14 @@ export function RegistrationFormExample({
         <>
           {Object.keys(errors).length > 0 && (
             <div
-              id="registration-error-summary"
+              id={`${idPrefix}-error-summary`}
               ref={errorSummaryRef}
               className={styles.errorSummary}
               role="alert"
               tabIndex={-1}
-              aria-labelledby="error-summary-title"
+              aria-labelledby={`${idPrefix}-error-summary-title`}
             >
-              <h3 id="error-summary-title">
+              <h3 id={`${idPrefix}-error-summary-title`}>
                 There is a problem submitting the form
               </h3>
 
@@ -157,7 +159,7 @@ export function RegistrationFormExample({
               <ul>
                 {Object.entries(errors).map(([field, message]) => (
                   <li key={field}>
-                    <a href={`#${field}`}>{message}</a>
+                    <a href={`#${idPrefix}-${field}`}>{message}</a>
                   </li>
                 ))}
               </ul>
@@ -166,12 +168,14 @@ export function RegistrationFormExample({
 
           <form
             className={styles.form}
-            aria-labelledby="registration-form-title"
+            aria-labelledby={`${idPrefix}-registration-form-title`}
             noValidate
             onSubmit={handleSubmit}
           >
             <header className={styles.header}>
-              <h2 id="registration-form-title">Create an account</h2>
+              <h2 id={`${idPrefix}-registration-form-title`}>
+                Create an account
+              </h2>
               <p>Complete the form below to register.</p>
             </header>
 
@@ -183,7 +187,7 @@ export function RegistrationFormExample({
 
                 {config.firstName.enabled && (
                   <TextInput
-                    id="firstName"
+                    id={`${idPrefix}-firstName`}
                     name="firstName"
                     label="First name"
                     value={formValues.firstName}
@@ -196,7 +200,7 @@ export function RegistrationFormExample({
 
                 {config.lastName.enabled && (
                   <TextInput
-                    id="lastName"
+                    id={`${idPrefix}-lastName`}
                     name="lastName"
                     label="Last name"
                     value={formValues.lastName}
@@ -209,7 +213,7 @@ export function RegistrationFormExample({
 
                 {config.email.enabled && (
                   <TextInput
-                    id="email"
+                    id={`${idPrefix}-email`}
                     name="email"
                     label="Email address"
                     type="email"
@@ -229,7 +233,7 @@ export function RegistrationFormExample({
 
                 {config.password.enabled && (
                   <PasswordInput
-                    id="password"
+                    id={`${idPrefix}-password`}
                     name="password"
                     label="Password"
                     value={formValues.password}
@@ -244,7 +248,7 @@ export function RegistrationFormExample({
 
                 {config.confirmPassword.enabled && (
                   <PasswordInput
-                    id="confirmPassword"
+                    id={`${idPrefix}-confirmPassword`}
                     name="confirmPassword"
                     label="Confirm password"
                     value={formValues.confirmPassword}
@@ -267,7 +271,7 @@ export function RegistrationFormExample({
 
                 {config.country.enabled && (
                   <Select
-                    id="country"
+                    id={`${idPrefix}-country`}
                     name="country"
                     label="Country"
                     options={countryOptions}
@@ -281,7 +285,7 @@ export function RegistrationFormExample({
 
                 {config.accountType.enabled && (
                   <RadioGroup
-                    id="accountType"
+                    id={`${idPrefix}-accountType`}
                     name="accountType"
                     label="Account type"
                     options={accountTypeOptions}
@@ -294,7 +298,7 @@ export function RegistrationFormExample({
 
                 {config.termsAccepted.enabled && (
                   <Checkbox
-                    id="termsAccepted"
+                    id={`${idPrefix}-termsAccepted`}
                     name="termsAccepted"
                     label="I agree to the terms and conditions"
                     checked={formValues.termsAccepted}
