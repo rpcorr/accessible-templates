@@ -5,9 +5,10 @@ export function RegistrationFormPage() {
   return (
     <PageLayout title="Registration Form">
       <p>
-        An example registration form that brings together accessible form
-        controls to collect personal information, validate user input, and
-        provide clear feedback.
+        An example registration form that combines accessible form controls to
+        collect personal information, validate user input, and provide clear
+        feedback. The form includes configurable fields, password requirements,
+        and account preferences.
       </p>
 
       <p>
@@ -23,15 +24,25 @@ export function RegistrationFormPage() {
           Button.
         </p>
 
+        <h3>Data sources</h3>
+
+        <p>
+          Country and account type options are provided through a separate data
+          file and imported into the registration form.
+        </p>
+
         <h3>Demonstrates</h3>
 
         <ul>
           <li>
             Collecting personal information using different form controls.
           </li>
-          <li>Identifying required fields and validating form input.</li>
           <li>
-            Creating a password with configurable requirements and a strength
+            Configuring field visibility and required settings independently.
+          </li>
+          <li>Validating form input when the user submits the form.</li>
+          <li>
+            Creating a password with defined requirements and a strength
             indicator.
           </li>
           <li>
@@ -39,13 +50,13 @@ export function RegistrationFormPage() {
             fields.
           </li>
           <li>
-            Providing accessible validation errors and moving focus to the
-            Confirm password field when passwords do not match.
+            Providing an accessible error summary with links to invalid fields
+            and moving focus to the summary after unsuccessful submission.
           </li>
           <li>Grouping related form fields using fieldsets and legends.</li>
           <li>
             Clearing and hiding the form after successful submission and
-            announcing confirmation feedback to screen-reader users.
+            announcing confirmation feedback to screen reader users.
           </li>
         </ul>
       </div>

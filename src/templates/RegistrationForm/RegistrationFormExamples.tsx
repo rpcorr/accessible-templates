@@ -9,49 +9,57 @@ import { RadioGroup } from '../../components/FormControls/RadioGroup';
 import { Select } from '../../components/FormControls/Select';
 import { TextInput } from '../../components/FormControls/TextInput';
 import {
+  defaultRegistrationFormConfig,
   passwordRequirements,
   validateRegistrationForm,
+  type RegistrationFormConfig,
   type RegistrationFormErrors,
   type RegistrationFormValues,
 } from './registrationFormValidation';
+import {
+  accountTypeOptions,
+  countryOptions,
+} from '../../data/registrationFormExampleData';
 
-const countryOptions = [
-  { value: 'canada', label: 'Canada' },
-  { value: 'united-states', label: 'United States' },
-  { value: 'united-kingdom', label: 'United Kingdom' },
-  { value: 'australia', label: 'Australia' },
-  { value: 'other', label: 'Other' },
-];
+type RegistrationFormExampleProps = {
+  config?: RegistrationFormConfig;
+};
 
-const accountTypeOptions = [
-  { value: 'personal', label: 'Personal' },
-  { value: 'business', label: 'Business' },
-];
+const initialFormValues: RegistrationFormValues = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+  country: '',
+  accountType: '',
+  termsAccepted: false,
+};
 
-export function RegistrationFormExample() {
+export function RegistrationFormExample({
+  config = defaultRegistrationFormConfig,
+}: RegistrationFormExampleProps) {
   const [submitted, setSubmitted] = useState(false);
 
-  const [formValues, setFormValues] = useState<RegistrationFormValues>({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    country: '',
-    accountType: '',
-    termsAccepted: false,
-  });
+  const [formValues, setFormValues] =
+    useState<RegistrationFormValues>(initialFormValues);
 
   const [errors, setErrors] = useState<RegistrationFormErrors>({});
+
+  const shouldFocusErrorSummaryRef = useRef(false);
 
   const errorSummaryRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (Object.keys(errors).length > 0) {
+    if (shouldFocusErrorSummaryRef.current && Object.keys(errors).length > 0) {
+      errorSummaryRef.current?.focus({ preventScroll: true });
+
       errorSummaryRef.current?.scrollIntoView({
         behavior: 'smooth',
         block: 'start',
       });
+
+      shouldFocusErrorSummaryRef.current = false;
     }
   }, [errors]);
 
@@ -66,30 +74,54 @@ export function RegistrationFormExample() {
     });
   };
 
+  const updateField = <K extends keyof RegistrationFormValues>(
+    field: K,
+    value: RegistrationFormValues[K],
+  ) => {
+    setFormValues((previous) => ({
+      ...previous,
+      [field]: value,
+    }));
+
+    clearFieldError(field);
+  };
+
+  const updatePasswordField = (
+    field: 'password' | 'confirmPassword',
+    value: string,
+  ) => {
+    setFormValues((previous) => ({
+      ...previous,
+      [field]: value,
+    }));
+
+    setErrors((previous) => {
+      const updatedErrors = { ...previous };
+
+      delete updatedErrors[field];
+      delete updatedErrors.confirmPassword;
+
+      return updatedErrors;
+    });
+  };
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const newErrors = validateRegistrationForm(formValues);
+    const newErrors = validateRegistrationForm(formValues, config);
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       setSubmitted(false);
+      shouldFocusErrorSummaryRef.current = true;
       return;
     }
 
     setErrors({});
+    shouldFocusErrorSummaryRef.current = false;
 
     // Clear the form fields.
-    setFormValues({
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      country: '',
-      accountType: '',
-      termsAccepted: false,
-    });
+    setFormValues(initialFormValues);
 
     // Display the success message and hide the form.
     setSubmitted(true);
@@ -143,156 +175,138 @@ export function RegistrationFormExample() {
               <p>Complete the form below to register.</p>
             </header>
 
-            <fieldset className={styles.fieldGroup}>
-              <legend>Personal information</legend>
+            {(config.firstName.enabled ||
+              config.lastName.enabled ||
+              config.email.enabled) && (
+              <fieldset className={styles.fieldGroup}>
+                <legend>Personal information</legend>
 
-              <TextInput
-                id="firstName"
-                name="firstName"
-                label="First name"
-                value={formValues.firstName}
-                onChange={(value) => {
-                  setFormValues((previous) => ({
-                    ...previous,
-                    firstName: value,
-                  }));
-                  clearFieldError('firstName');
-                }}
-                autoComplete="given-name"
-                required
-                error={errors.firstName}
-              />
+                {config.firstName.enabled && (
+                  <TextInput
+                    id="firstName"
+                    name="firstName"
+                    label="First name"
+                    value={formValues.firstName}
+                    onChange={(value) => updateField('firstName', value)}
+                    autoComplete="given-name"
+                    required={config.firstName.required}
+                    error={errors.firstName}
+                  />
+                )}
 
-              <TextInput
-                id="lastName"
-                name="lastName"
-                label="Last name"
-                value={formValues.lastName}
-                onChange={(value) => {
-                  setFormValues((previous) => ({
-                    ...previous,
-                    lastName: value,
-                  }));
-                  clearFieldError('lastName');
-                }}
-                autoComplete="family-name"
-                required
-                error={errors.lastName}
-              />
+                {config.lastName.enabled && (
+                  <TextInput
+                    id="lastName"
+                    name="lastName"
+                    label="Last name"
+                    value={formValues.lastName}
+                    onChange={(value) => updateField('lastName', value)}
+                    autoComplete="family-name"
+                    required={config.lastName.required}
+                    error={errors.lastName}
+                  />
+                )}
 
-              <TextInput
-                id="email"
-                name="email"
-                label="Email address"
-                type="email"
-                value={formValues.email}
-                onChange={(value) => {
-                  setFormValues((previous) => ({
-                    ...previous,
-                    email: value,
-                  }));
-                  clearFieldError('email');
-                }}
-                autoComplete="email"
-                required
-                error={errors.email}
-              />
-            </fieldset>
+                {config.email.enabled && (
+                  <TextInput
+                    id="email"
+                    name="email"
+                    label="Email address"
+                    type="email"
+                    value={formValues.email}
+                    onChange={(value) => updateField('email', value)}
+                    autoComplete="email"
+                    required={config.email.required}
+                    error={errors.email}
+                  />
+                )}
+              </fieldset>
+            )}
 
-            <fieldset className={styles.fieldGroup}>
-              <legend>Account security</legend>
+            {(config.password.enabled || config.confirmPassword.enabled) && (
+              <fieldset className={styles.fieldGroup}>
+                <legend>Account security</legend>
 
-              <PasswordInput
-                id="password"
-                name="password"
-                label="Password"
-                value={formValues.password}
-                onChange={(value) => {
-                  setFormValues((previous) => ({
-                    ...previous,
-                    password: value,
-                  }));
-                  clearFieldError('password');
-                }}
-                autoComplete="new-password"
-                error={errors.password}
-                required
-                requirements={passwordRequirements}
-                showStrength
-              />
+                {config.password.enabled && (
+                  <PasswordInput
+                    id="password"
+                    name="password"
+                    label="Password"
+                    value={formValues.password}
+                    onChange={(value) => updatePasswordField('password', value)}
+                    autoComplete="new-password"
+                    error={errors.password}
+                    required={config.password.required}
+                    requirements={passwordRequirements}
+                    showStrength
+                  />
+                )}
 
-              <PasswordInput
-                id="confirmPassword"
-                name="confirmPassword"
-                label="Confirm password"
-                value={formValues.confirmPassword}
-                onChange={(value) => {
-                  setFormValues((previous) => ({
-                    ...previous,
-                    confirmPassword: value,
-                  }));
-                  clearFieldError('confirmPassword');
-                }}
-                autoComplete="new-password"
-                required
-                error={errors.confirmPassword}
-              />
-            </fieldset>
+                {config.confirmPassword.enabled && (
+                  <PasswordInput
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    label="Confirm password"
+                    value={formValues.confirmPassword}
+                    onChange={(value) =>
+                      updatePasswordField('confirmPassword', value)
+                    }
+                    autoComplete="new-password"
+                    required={config.confirmPassword.required}
+                    error={errors.confirmPassword}
+                  />
+                )}
+              </fieldset>
+            )}
 
-            <fieldset className={styles.fieldGroup}>
-              <legend>Account preferences</legend>
+            {(config.country.enabled ||
+              config.accountType.enabled ||
+              config.termsAccepted.enabled) && (
+              <fieldset className={styles.fieldGroup}>
+                <legend>Account preferences</legend>
 
-              <Select
-                id="country"
-                name="country"
-                label="Country"
-                options={countryOptions}
-                value={formValues.country}
-                onChange={(value) => {
-                  setFormValues((previous) => ({
-                    ...previous,
-                    country: value,
-                  }));
-                  clearFieldError('country');
-                }}
-                placeholder="Select a country"
-                required
-                error={errors.country}
-              />
+                {config.country.enabled && (
+                  <Select
+                    id="country"
+                    name="country"
+                    label="Country"
+                    options={countryOptions}
+                    value={formValues.country}
+                    onChange={(value) => updateField('country', value)}
+                    placeholder="Select a country"
+                    required={config.country.required}
+                    error={errors.country}
+                  />
+                )}
 
-              <RadioGroup
-                id="accountType"
-                name="accountType"
-                label="Account type"
-                options={accountTypeOptions}
-                value={formValues.accountType}
-                onChange={(value) => {
-                  setFormValues((previous) => ({
-                    ...previous,
-                    accountType: value,
-                  }));
-                  clearFieldError('accountType');
-                }}
-                required
-                error={errors.accountType}
-              />
+                {config.accountType.enabled && (
+                  <RadioGroup
+                    id="accountType"
+                    name="accountType"
+                    label="Account type"
+                    options={accountTypeOptions}
+                    value={formValues.accountType}
+                    onChange={(value) => updateField('accountType', value)}
+                    required={config.accountType.required}
+                    error={errors.accountType}
+                  />
+                )}
 
-              <Checkbox
-                id="termsAccepted"
-                name="termsAccepted"
-                label="I agree to the terms and conditions"
-                checked={formValues.termsAccepted}
-                onChange={(event) => {
-                  setFormValues((previous) => ({
-                    ...previous,
-                    termsAccepted: event.target.checked,
-                  }));
-                  clearFieldError('termsAccepted');
-                }}
-                required
-                error={errors.termsAccepted}
-              />
-            </fieldset>
+                {config.termsAccepted.enabled && (
+                  <Checkbox
+                    id="termsAccepted"
+                    name="termsAccepted"
+                    label="I agree to the terms and conditions"
+                    checked={formValues.termsAccepted}
+                    onChange={(event) =>
+                      updateField('termsAccepted', event.target.checked)
+                    }
+                    required={config.termsAccepted.required}
+                    error={errors.termsAccepted}
+                  />
+                )}
+              </fieldset>
+            )}
 
             <Button type="submit">Create account</Button>
           </form>

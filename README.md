@@ -34,7 +34,7 @@ This project focuses on building reusable React components with accessibility tr
 
 ## 📁 Project Structure
 
-The project is organized to keep reusable components, example data, and documentation separate and easy to maintain.
+The project is organized to keep reusable components, templates, example data, and documentation separate and easy to maintain.
 
 ```text
 src/
@@ -44,22 +44,28 @@ src/
 │   ├── DataDisplay/
 │   ├── FormControls/
 │   └── Navigations/
+├── templates/
+│   └── RegistrationForm/
 ├── data/
 │   └── *ExampleData.ts
 └── ...
 
 docs/
-└── components/
-    ├── ButtonsActions/
-    ├── ContentFeedback/
-    ├── DataDisplay/
-    ├── FormControls/
-    └── Navigations/
+├── components/
+│   ├── ButtonsActions/
+│   ├── ContentFeedback/
+│   ├── DataDisplay/
+│   ├── FormControls/
+│   └── Navigations/
+└── templates/
+    └── FormTemplates/
 ```
 
 - **`src/components/`** – Reusable UI components, organized by category. Component examples are kept in their respective `Examples/` folders.
+- **`src/templates/`** – Complete interface templates that combine reusable components into practical examples.
 - **`src/data/`** – Shared static data and configuration used by component examples.
 - **`docs/components/`** – Component documentation, including usage guidance, examples, and accessibility information.
+- **`docs/templates/`** – Template documentation, covering complete interface patterns that combine reusable components into practical examples.
 
 ---
 
@@ -184,6 +190,15 @@ The following components have been implemented with accessibility as a first-cla
 | [Modal Dialog](docs/components/OverlaysMenus/modal-dialog.md) | Complete | Focus management, focus trap, Escape handling, focus restoration                                                                                                                |
 | [Popover](docs/components/OverlaysMenus/popover.md)           | Complete | Interactive content, keyboard and pointer support, Escape and outside-click dismissal, focus restoration, viewport-aware positioning                                            |
 | [Tooltip](docs/components/OverlaysMenus/tooltip.md)           | Complete | Keyboard focus support, `aria-describedby`, Escape dismissal, responsive positioning                                                                                            |
+
+### Templates
+
+The following templates demonstrate how reusable components can be combined
+to create accessible interface patterns.
+
+| Template                                                              | Status   | Accessibility Features                                                                                                                                             |
+| --------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [Registration Form](docs/templates/FormTemplates/RegistrationForm.md) | Complete | Configurable fields, client-side validation, password requirements, accessible error summary, focus management, keyboard accessibility, and screen reader feedback |
 
 Each component aims to include:
 

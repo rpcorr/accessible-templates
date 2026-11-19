@@ -37,52 +37,134 @@ export type RegistrationFormValues = {
   termsAccepted: boolean;
 };
 
+export type RegistrationFormConfig = {
+  firstName: {
+    enabled: boolean;
+    required: boolean;
+  };
+  lastName: {
+    enabled: boolean;
+    required: boolean;
+  };
+  email: {
+    enabled: boolean;
+    required: boolean;
+  };
+  password: {
+    enabled: boolean;
+    required: boolean;
+  };
+  confirmPassword: {
+    enabled: boolean;
+    required: boolean;
+  };
+  country: {
+    enabled: boolean;
+    required: boolean;
+  };
+  accountType: {
+    enabled: boolean;
+    required: boolean;
+  };
+  termsAccepted: {
+    enabled: boolean;
+    required: boolean;
+  };
+};
+
+export const defaultRegistrationFormConfig: RegistrationFormConfig = {
+  firstName: { enabled: true, required: true },
+  lastName: { enabled: true, required: true },
+  email: { enabled: true, required: true },
+  password: { enabled: true, required: true },
+  confirmPassword: { enabled: true, required: true },
+  country: { enabled: true, required: true },
+  accountType: { enabled: true, required: true },
+  termsAccepted: { enabled: true, required: true },
+};
+
 export type RegistrationFormErrors = Partial<
   Record<keyof RegistrationFormValues, string>
 >;
 
 export function validateRegistrationForm(
   values: RegistrationFormValues,
+  config: RegistrationFormConfig = defaultRegistrationFormConfig,
 ): RegistrationFormErrors {
   const errors: RegistrationFormErrors = {};
 
-  if (!values.firstName.trim()) {
-    errors.firstName = 'Enter your first name.';
+  if (config.firstName.enabled && config.firstName.required) {
+    if (!values.firstName.trim()) {
+      errors.firstName = 'Enter your first name.';
+    }
   }
 
-  if (!values.lastName.trim()) {
-    errors.lastName = 'Enter your last name.';
+  if (config.lastName.enabled && config.lastName.required) {
+    if (!values.lastName.trim()) {
+      errors.lastName = 'Enter your last name.';
+    }
   }
 
-  if (!values.email.trim()) {
-    errors.email = 'Enter your email address.';
-  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) {
-    errors.email = 'Enter a valid email address.';
+  if (config.email.enabled) {
+    if (config.email.required && !values.email.trim()) {
+      errors.email = 'Enter your email address.';
+    } else if (
+      values.email.trim() &&
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)
+    ) {
+      errors.email = 'Enter a valid email address.';
+    }
   }
 
-  const passwordMeetsRequirements = passwordRequirements.every((requirement) =>
-    requirement.validate(values.password),
-  );
+  if (config.password.enabled) {
+    const passwordIsEmpty = !values.password;
+    const passwordMeetsRequirements = passwordRequirements.every(
+      (requirement) => requirement.validate(values.password),
+    );
 
-  if (!passwordMeetsRequirements) {
-    errors.password = 'Your password does not meet all the requirements.';
+    if (
+      (config.password.required && passwordIsEmpty) ||
+      (!passwordIsEmpty && !passwordMeetsRequirements)
+    ) {
+      errors.password =
+        config.password.required && passwordIsEmpty
+          ? 'Enter your password.'
+          : 'Your password does not meet all the requirements.';
+    }
   }
 
-  if (!values.confirmPassword) {
-    errors.confirmPassword = 'Confirm your password.';
-  } else if (values.password !== values.confirmPassword) {
-    errors.confirmPassword = 'Passwords do not match.';
+  if (config.confirmPassword.enabled) {
+    if (
+      (config.confirmPassword.required || values.password) &&
+      !values.confirmPassword
+    ) {
+      errors.confirmPassword = 'Confirm your password.';
+    } else if (
+      values.password &&
+      values.confirmPassword &&
+      values.password !== values.confirmPassword
+    ) {
+      errors.confirmPassword = 'Passwords do not match.';
+    }
   }
 
-  if (!values.country) {
+  if (config.country.enabled && config.country.required && !values.country) {
     errors.country = 'Select your country.';
   }
 
-  if (!values.accountType) {
+  if (
+    config.accountType.enabled &&
+    config.accountType.required &&
+    !values.accountType
+  ) {
     errors.accountType = 'Select an account type.';
   }
 
-  if (!values.termsAccepted) {
+  if (
+    config.termsAccepted.enabled &&
+    config.termsAccepted.required &&
+    !values.termsAccepted
+  ) {
     errors.termsAccepted = 'You must agree to the terms and conditions.';
   }
 
