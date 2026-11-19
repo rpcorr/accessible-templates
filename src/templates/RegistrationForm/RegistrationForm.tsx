@@ -8,7 +8,7 @@ export function RegistrationFormPage() {
         An example registration form that combines accessible form controls to
         collect personal information, validate user input, and provide clear
         feedback. The form includes configurable fields, password requirements,
-        and account preferences.
+        account preferences, and accessible validation.
       </p>
 
       <p>
@@ -42,7 +42,7 @@ export function RegistrationFormPage() {
           </li>
           <li>Validating form input when the user submits the form.</li>
           <li>
-            Creating a password with defined requirements and a strength
+            Creating a password with configurable requirements and a strength
             indicator.
           </li>
           <li>
@@ -53,10 +53,11 @@ export function RegistrationFormPage() {
             Providing an accessible error summary with links to invalid fields
             and moving focus to the summary after unsuccessful submission.
           </li>
+          <li>Clearing field errors when users correct their input.</li>
           <li>Grouping related form fields using fieldsets and legends.</li>
           <li>
-            Clearing and hiding the form after successful submission and
-            announcing confirmation feedback to screen reader users.
+            Resetting the form after successful submission and announcing
+            confirmation feedback to screen reader users.
           </li>
         </ul>
       </div>
