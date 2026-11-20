@@ -26,6 +26,18 @@ export const passwordRequirements = [
   },
 ];
 
+export type AdditionalRegistrationField = {
+  id: string;
+  name: string;
+  label: string;
+  type: 'text' | 'email' | 'tel' | 'select' | 'checkbox';
+  required: boolean;
+  options?: {
+    label: string;
+    value: string;
+  }[];
+};
+
 export type RegistrationFormValues = {
   firstName: string;
   lastName: string;
@@ -35,6 +47,7 @@ export type RegistrationFormValues = {
   country: string;
   accountType: string;
   termsAccepted: boolean;
+  additionalFields: Record<string, string | boolean>;
 };
 
 export type RegistrationFormConfig = {
@@ -70,6 +83,7 @@ export type RegistrationFormConfig = {
     enabled: boolean;
     required: boolean;
   };
+  additionalFields?: AdditionalRegistrationField[];
 };
 
 export const defaultRegistrationFormConfig: RegistrationFormConfig = {
@@ -81,11 +95,14 @@ export const defaultRegistrationFormConfig: RegistrationFormConfig = {
   country: { enabled: true, required: true },
   accountType: { enabled: true, required: true },
   termsAccepted: { enabled: true, required: true },
+  additionalFields: [],
 };
 
 export type RegistrationFormErrors = Partial<
-  Record<keyof RegistrationFormValues, string>
->;
+  Record<keyof Omit<RegistrationFormValues, 'additionalFields'>, string>
+> & {
+  additionalFields?: Record<string, string>;
+};
 
 export function validateRegistrationForm(
   values: RegistrationFormValues,
@@ -166,6 +183,46 @@ export function validateRegistrationForm(
     !values.termsAccepted
   ) {
     errors.termsAccepted = 'You must agree to the terms and conditions.';
+  }
+
+  if (config.additionalFields) {
+    for (const field of config.additionalFields) {
+      const value = values.additionalFields[field.name];
+
+      if (field.required) {
+        if (field.type === 'checkbox' && value !== true) {
+          errors.additionalFields ??= {};
+          errors.additionalFields[field.name] =
+            `You must check ${field.label.toLowerCase()}.`;
+        } else if (
+          field.type === 'select' &&
+          (typeof value !== 'string' || !value)
+        ) {
+          errors.additionalFields ??= {};
+          errors.additionalFields[field.name] =
+            `Select ${field.label.toLowerCase()}.`;
+        } else if (
+          field.type !== 'checkbox' &&
+          field.type !== 'select' &&
+          (typeof value !== 'string' || !value.trim())
+        ) {
+          errors.additionalFields ??= {};
+          errors.additionalFields[field.name] =
+            `Enter ${field.label.toLowerCase()}.`;
+        }
+      }
+
+      if (
+        field.type === 'email' &&
+        typeof value === 'string' &&
+        value.trim() &&
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())
+      ) {
+        errors.additionalFields ??= {};
+        errors.additionalFields[field.name] =
+          `Enter a valid ${field.label.toLowerCase()}.`;
+      }
+    }
   }
 
   return errors;

@@ -12,6 +12,7 @@ import {
   defaultRegistrationFormConfig,
   passwordRequirements,
   validateRegistrationForm,
+  type AdditionalRegistrationField,
   type RegistrationFormConfig,
   type RegistrationFormErrors,
   type RegistrationFormValues,
@@ -34,7 +35,70 @@ const initialFormValues: RegistrationFormValues = {
   country: '',
   accountType: '',
   termsAccepted: false,
+  additionalFields: {},
 };
+
+type AdditionalFieldRendererProps = {
+  field: AdditionalRegistrationField;
+  idPrefix: string;
+  value: string | boolean | undefined;
+  error: string | undefined;
+  onChange: (name: string, value: string | boolean) => void;
+};
+
+function AdditionalFieldRenderer({
+  field,
+  idPrefix,
+  value,
+  error,
+  onChange,
+}: AdditionalFieldRendererProps) {
+  const id = `${idPrefix}-${field.id}`;
+
+  switch (field.type) {
+    case 'select':
+      return (
+        <Select
+          id={id}
+          name={field.name}
+          label={field.label}
+          options={field.options ?? []}
+          value={typeof value === 'string' ? value : ''}
+          onChange={(newValue) => onChange(field.name, newValue)}
+          placeholder={`Select ${field.label.toLowerCase()}`}
+          required={field.required}
+          error={error}
+        />
+      );
+
+    case 'checkbox':
+      return (
+        <Checkbox
+          id={id}
+          name={field.name}
+          label={field.label}
+          checked={value === true}
+          onChange={(event) => onChange(field.name, event.target.checked)}
+          required={field.required}
+          error={error}
+        />
+      );
+
+    default:
+      return (
+        <TextInput
+          id={id}
+          name={field.name}
+          label={field.label}
+          type={field.type}
+          value={typeof value === 'string' ? value : ''}
+          onChange={(newValue) => onChange(field.name, newValue)}
+          required={field.required}
+          error={error}
+        />
+      );
+  }
+}
 
 export function RegistrationFormExample({
   config = defaultRegistrationFormConfig,
@@ -65,7 +129,9 @@ export function RegistrationFormExample({
     }
   }, [errors]);
 
-  const clearFieldError = (field: keyof RegistrationFormValues) => {
+  const clearFieldError = (
+    field: Exclude<keyof RegistrationFormValues, 'additionalFields'>,
+  ) => {
     setErrors((previous) => {
       if (!previous[field]) return previous;
 
@@ -76,7 +142,9 @@ export function RegistrationFormExample({
     });
   };
 
-  const updateField = <K extends keyof RegistrationFormValues>(
+  const updateField = <
+    K extends Exclude<keyof RegistrationFormValues, 'additionalFields'>,
+  >(
     field: K,
     value: RegistrationFormValues[K],
   ) => {
@@ -86,6 +154,37 @@ export function RegistrationFormExample({
     }));
 
     clearFieldError(field);
+  };
+
+  const updateAdditionalField = (name: string, value: string | boolean) => {
+    setFormValues((previous) => ({
+      ...previous,
+      additionalFields: {
+        ...previous.additionalFields,
+        [name]: value,
+      },
+    }));
+
+    setErrors((previous) => {
+      if (!previous.additionalFields?.[name]) return previous;
+
+      const updatedAdditionalErrors = {
+        ...previous.additionalFields,
+      };
+
+      delete updatedAdditionalErrors[name];
+
+      const updatedErrors: RegistrationFormErrors = {
+        ...previous,
+        additionalFields: updatedAdditionalErrors,
+      };
+
+      if (Object.keys(updatedAdditionalErrors).length === 0) {
+        delete updatedErrors.additionalFields;
+      }
+
+      return updatedErrors;
+    });
   };
 
   const updatePasswordField = (
@@ -157,11 +256,38 @@ export function RegistrationFormExample({
               <p>Please correct the following errors:</p>
 
               <ul>
-                {Object.entries(errors).map(([field, message]) => (
-                  <li key={field}>
-                    <a href={`#${idPrefix}-${field}`}>{message}</a>
-                  </li>
-                ))}
+                {Object.entries(errors).flatMap(([field, message]) => {
+                  if (
+                    field === 'additionalFields' &&
+                    typeof message === 'object'
+                  ) {
+                    return Object.entries(message).map(
+                      ([name, errorMessage]) => (
+                        <li key={`additional-${name}`}>
+                          <a
+                            href={`#${idPrefix}-${
+                              config.additionalFields?.find(
+                                (field) => field.name === name,
+                              )?.id ?? name
+                            }`}
+                          >
+                            {errorMessage}
+                          </a>
+                        </li>
+                      ),
+                    );
+                  }
+
+                  if (typeof message === 'string') {
+                    return (
+                      <li key={field}>
+                        <a href={`#${idPrefix}-${field}`}>{message}</a>
+                      </li>
+                    );
+                  }
+
+                  return [];
+                })}
               </ul>
             </div>
           )}
@@ -312,6 +438,22 @@ export function RegistrationFormExample({
               </fieldset>
             )}
 
+            {config.additionalFields && config.additionalFields.length > 0 && (
+              <fieldset className={styles.fieldGroup}>
+                <legend>Additional information</legend>
+
+                {config.additionalFields.map((field) => (
+                  <AdditionalFieldRenderer
+                    key={field.id}
+                    field={field}
+                    idPrefix={idPrefix}
+                    value={formValues.additionalFields[field.name]}
+                    error={errors.additionalFields?.[field.name]}
+                    onChange={updateAdditionalField}
+                  />
+                ))}
+              </fieldset>
+            )}
             <Button type="submit">Create account</Button>
           </form>
         </>

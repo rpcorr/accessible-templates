@@ -13,6 +13,51 @@ const basicRegistrationConfig: RegistrationFormConfig = {
   termsAccepted: { enabled: true, required: true },
 };
 
+const extendedRegistrationConfig: RegistrationFormConfig = {
+  firstName: { enabled: true, required: true },
+  lastName: { enabled: true, required: true },
+  email: { enabled: true, required: true },
+  password: { enabled: true, required: true },
+  confirmPassword: { enabled: true, required: true },
+  country: { enabled: true, required: true },
+  accountType: { enabled: true, required: true },
+  termsAccepted: { enabled: true, required: true },
+  additionalFields: [
+    {
+      id: 'phone',
+      name: 'phone',
+      label: 'Phone number',
+      type: 'tel',
+      required: false,
+    },
+    {
+      id: 'company',
+      name: 'company',
+      label: 'Company name',
+      type: 'text',
+      required: false,
+    },
+    {
+      id: 'contact-method',
+      name: 'contactMethod',
+      label: 'Preferred contact method',
+      type: 'select',
+      required: true,
+      options: [
+        { label: 'Email', value: 'email' },
+        { label: 'Phone', value: 'phone' },
+      ],
+    },
+    {
+      id: 'newsletter',
+      name: 'newsletter',
+      label: 'Subscribe to the newsletter',
+      type: 'checkbox',
+      required: false,
+    },
+  ],
+};
+
 export function RegistrationFormPage() {
   return (
     <PageLayout title="Registration Form">
@@ -52,6 +97,10 @@ export function RegistrationFormPage() {
           <li>
             Configuring field visibility and required settings independently.
           </li>
+          <li>
+            Adding custom text, email, telephone, select, and checkbox fields
+            through configuration.
+          </li>
           <li>Validating form input when the user submits the form.</li>
           <li>
             Creating a password with configurable requirements and a strength
@@ -76,7 +125,7 @@ export function RegistrationFormPage() {
 
       <h3>Full Registration Form Example</h3>
 
-      <RegistrationFormExample />
+      <RegistrationFormExample config={extendedRegistrationConfig} />
 
       <h3>Basic Registration Form Example</h3>
 
