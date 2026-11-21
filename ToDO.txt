@@ -2,19 +2,6 @@
 
 ## Accessible Templates – Planned Templates
 
-### 1. Registration Form
-
-**Components:** Text Input, Password Input, Select, Checkbox, Radio Group, Alert and Button.
-
-**Demonstrates:**
-- Collecting personal information through different form controls.
-- Required fields and form validation.
-- Creating a password with configurable requirements and a strength indicator.
-- Confirming a password by comparing the password and confirmation fields.
-- Displaying accessible error messages when passwords do not match and providing clear form feedback.
-- Grouping related choices using radio buttons and checkboxes.
-- Submitting a form with clear user feedback.
-
 ### 2. Search and Results Page
 
 **Components:** Search Combobox, Pagination, Breadcrumbs and Status.

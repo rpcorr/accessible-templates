@@ -11,8 +11,8 @@ export function RegistrationFormPage() {
       <p>
         An example registration form that combines accessible form controls to
         collect personal information, validate user input, and provide clear
-        feedback. The form includes configurable fields, password requirements,
-        account preferences, and accessible validation.
+        feedback. The form is configuration-driven, allowing fields, field
+        groups, validation rules, and password requirements to be customized.
       </p>
 
       <p>
@@ -24,7 +24,7 @@ export function RegistrationFormPage() {
         <h3>Components</h3>
 
         <p>
-          Text Input, Password Input, Select, Checkbox, Radio Group, Alert and
+          Text Input, Password Input, Select, Checkbox, Textarea, Alert and
           Button.
         </p>
 
@@ -42,11 +42,16 @@ export function RegistrationFormPage() {
             Collecting personal information using different form controls.
           </li>
           <li>
-            Configuring field visibility and required settings independently.
+            Configuring field types, visibility, required settings, and field
+            groups independently.
           </li>
           <li>
-            Adding custom text, email, telephone, select, and checkbox fields
-            through configuration.
+            Adding custom text, email, telephone, select, checkbox, and textarea
+            fields through configuration.
+          </li>
+          <li>
+            Applying configurable minimum and maximum character limits to
+            supported text fields.
           </li>
           <li>Validating form input when the user submits the form.</li>
           <li>
