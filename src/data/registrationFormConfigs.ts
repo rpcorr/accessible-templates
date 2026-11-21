@@ -60,33 +60,7 @@ export const basicRegistrationConfig: RegistrationFormConfig = {
 
 export const extendedRegistrationConfig: RegistrationFormConfig = {
   fields: [
-    {
-      id: 'first-name',
-      name: 'firstName',
-      label: 'First name',
-      type: 'text',
-      required: true,
-      group: 'Personal information',
-      autoComplete: 'given-name',
-    },
-    {
-      id: 'last-name',
-      name: 'lastName',
-      label: 'Last name',
-      type: 'text',
-      required: true,
-      group: 'Personal information',
-      autoComplete: 'family-name',
-    },
-    {
-      id: 'email',
-      name: 'email',
-      label: 'Email address',
-      type: 'email',
-      required: true,
-      group: 'Personal information',
-      autoComplete: 'email',
-    },
+    ...basicRegistrationConfig.fields,
     {
       id: 'phone',
       name: 'phone',
@@ -104,25 +78,6 @@ export const extendedRegistrationConfig: RegistrationFormConfig = {
       required: false,
       group: 'Personal information',
       autoComplete: 'organization',
-    },
-    {
-      id: 'password',
-      name: 'password',
-      label: 'Password',
-      type: 'password',
-      required: true,
-      group: 'Account security',
-      autoComplete: 'new-password',
-    },
-    {
-      id: 'confirm-password',
-      name: 'confirmPassword',
-      label: 'Confirm password',
-      type: 'password',
-      required: true,
-      group: 'Account security',
-      autoComplete: 'new-password',
-      matches: 'password',
     },
     {
       id: 'country',
@@ -160,13 +115,6 @@ export const extendedRegistrationConfig: RegistrationFormConfig = {
         { label: 'Email', value: 'email' },
         { label: 'Phone', value: 'phone' },
       ],
-    },
-    {
-      id: 'terms-accepted',
-      name: 'termsAccepted',
-      label: 'I agree to the terms and conditions',
-      type: 'checkbox',
-      required: true,
     },
     {
       id: 'newsletter',
