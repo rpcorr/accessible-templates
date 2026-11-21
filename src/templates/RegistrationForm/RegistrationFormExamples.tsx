@@ -107,6 +107,13 @@ function FieldRenderer({
           placeholder={field.placeholder}
           rows={field.rows}
           maxLength={field.maxLength}
+          minLength={field.minLength}
+          description={field.description}
+          disabled={field.disabled}
+          readOnly={field.readOnly}
+          showCharacterCount={field.showCharacterCount}
+          autoResize={field.autoResize}
+          maxAutoResizeHeight={field.maxAutoResizeHeight}
           required={field.required}
           error={error}
         />

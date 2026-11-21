@@ -279,6 +279,324 @@ describe('RegistrationFormExample', () => {
     ).not.toBeInTheDocument();
   });
 
+  it('allows an enabled optional textarea to remain empty', () => {
+    const config = createConfig({
+      id: 'message',
+      name: 'message',
+      label: 'Message',
+      type: 'textarea',
+    });
+
+    const errors = validateRegistrationForm({ message: '' }, config);
+
+    expect(errors.message).toBeUndefined();
+  });
+
+  it('requires a value in a required textarea field', () => {
+    const config = createConfig({
+      id: 'message',
+      name: 'message',
+      label: 'Message',
+      type: 'textarea',
+      required: true,
+    });
+
+    const errors = validateRegistrationForm({ message: '' }, config);
+
+    expect(errors.message).toBe('Enter message.');
+  });
+
+  it('accepts textarea content within the configured maximum length', () => {
+    const config = createConfig({
+      id: 'message',
+      name: 'message',
+      label: 'Message',
+      type: 'textarea',
+      maxLength: 100,
+    });
+
+    const errors = validateRegistrationForm(
+      { message: 'This is a test message.' },
+      config,
+    );
+
+    expect(errors.message).toBeUndefined();
+  });
+
+  it('rejects textarea content exceeding the configured maximum length', () => {
+    const config = createConfig({
+      id: 'message',
+      name: 'message',
+      label: 'Message',
+      type: 'textarea',
+      maxLength: 10,
+    });
+
+    const errors = validateRegistrationForm(
+      { message: 'This message is too long.' },
+      config,
+    );
+
+    expect(errors.message).toBe('Message must be 10 characters or fewer.');
+  });
+
+  it('applies the configured maximum length to a textarea field', () => {
+    const config = createConfig({
+      id: 'message',
+      name: 'message',
+      label: 'Message',
+      type: 'textarea',
+      maxLength: 100,
+    });
+
+    render(<RegistrationFormExample config={config} />);
+
+    expect(screen.getByLabelText('Message')).toHaveAttribute(
+      'maxLength',
+      '100',
+    );
+  });
+
+  it('applies the configured number of rows to a textarea field', () => {
+    const config = createConfig({
+      id: 'message',
+      name: 'message',
+      label: 'Message',
+      type: 'textarea',
+      rows: 6,
+    });
+
+    render(<RegistrationFormExample config={config} />);
+
+    expect(screen.getByLabelText('Message')).toHaveAttribute('rows', '6');
+  });
+
+  it('applies the configured placeholder to a textarea field', () => {
+    const config = createConfig({
+      id: 'message',
+      name: 'message',
+      label: 'Message',
+      type: 'textarea',
+      placeholder: 'Enter your message here',
+    });
+
+    render(<RegistrationFormExample config={config} />);
+
+    expect(screen.getByLabelText('Message')).toHaveAttribute(
+      'placeholder',
+      'Enter your message here',
+    );
+  });
+
+  it('disables a textarea when configured as disabled', () => {
+    const config = createConfig({
+      id: 'message',
+      name: 'message',
+      label: 'Message',
+      type: 'textarea',
+      disabled: true,
+    });
+
+    render(<RegistrationFormExample config={config} />);
+
+    expect(screen.getByLabelText('Message')).toBeDisabled();
+  });
+
+  it('renders a textarea as read-only when configured as read-only', () => {
+    const config = createConfig({
+      id: 'message',
+      name: 'message',
+      label: 'Message',
+      type: 'textarea',
+      readOnly: true,
+    });
+
+    render(<RegistrationFormExample config={config} />);
+
+    expect(screen.getByLabelText('Message')).toHaveAttribute('readOnly');
+  });
+
+  it('applies the configured minimum length to a textarea field', () => {
+    const config = createConfig({
+      id: 'message',
+      name: 'message',
+      label: 'Message',
+      type: 'textarea',
+      minLength: 10,
+    });
+
+    render(<RegistrationFormExample config={config} />);
+
+    expect(screen.getByLabelText('Message')).toHaveAttribute('minLength', '10');
+  });
+
+  it('renders the configured description for a textarea field', () => {
+    const config = createConfig({
+      id: 'message',
+      name: 'message',
+      label: 'Message',
+      type: 'textarea',
+      description: 'Please provide details about your request.',
+    });
+
+    render(<RegistrationFormExample config={config} />);
+
+    expect(
+      screen.getByText('Please provide details about your request.'),
+    ).toBeInTheDocument();
+
+    const textarea = screen.getByLabelText('Message');
+    const descriptionId = textarea.getAttribute('aria-describedby');
+
+    expect(descriptionId).toBeTruthy();
+    expect(document.getElementById(descriptionId!)).toHaveTextContent(
+      'Please provide details about your request.',
+    );
+  });
+
+  it('shows the character count when configured for a textarea field', () => {
+    const config = createConfig({
+      id: 'message',
+      name: 'message',
+      label: 'Message',
+      type: 'textarea',
+      maxLength: 100,
+      showCharacterCount: true,
+    });
+
+    render(<RegistrationFormExample config={config} />);
+
+    expect(screen.getByText('0 / 100 characters')).toBeInTheDocument();
+  });
+
+  it('applies auto-resize styling when configured for a textarea field', () => {
+    const config = createConfig({
+      id: 'message',
+      name: 'message',
+      label: 'Message',
+      type: 'textarea',
+      autoResize: true,
+    });
+
+    render(<RegistrationFormExample config={config} />);
+
+    expect(screen.getByLabelText('Message').className).toContain('autoResize');
+  });
+
+  it('passes the configured maximum auto-resize height to a textarea field', () => {
+    const config = createConfig({
+      id: 'message',
+      name: 'message',
+      label: 'Message',
+      type: 'textarea',
+      autoResize: true,
+      maxAutoResizeHeight: 300,
+    });
+
+    render(<RegistrationFormExample config={config} />);
+
+    const textarea = screen.getByLabelText('Message');
+
+    Object.defineProperty(textarea, 'scrollHeight', {
+      configurable: true,
+      value: 400,
+    });
+
+    fireEvent.change(textarea, {
+      target: { value: 'A message that requires more space.' },
+    });
+
+    expect(textarea.style.height).toBe('300px');
+  });
+
+  it('allows vertical scrolling when the maximum auto-resize height is reached', () => {
+    const config = createConfig({
+      id: 'message',
+      name: 'message',
+      label: 'Message',
+      type: 'textarea',
+      autoResize: true,
+      maxAutoResizeHeight: 300,
+    });
+
+    render(<RegistrationFormExample config={config} />);
+
+    const textarea = screen.getByLabelText('Message');
+
+    Object.defineProperty(textarea, 'scrollHeight', {
+      configurable: true,
+      value: 400,
+    });
+
+    fireEvent.change(textarea, {
+      target: { value: 'A message that requires more space.' },
+    });
+
+    expect(textarea.style.height).toBe('300px');
+    expect(textarea.style.overflowY).toBe('auto');
+  });
+
+  it('hides vertical scrolling when content fits within the maximum auto-resize height', () => {
+    const config = createConfig({
+      id: 'message',
+      name: 'message',
+      label: 'Message',
+      type: 'textarea',
+      autoResize: true,
+      maxAutoResizeHeight: 300,
+    });
+
+    render(<RegistrationFormExample config={config} />);
+
+    const textarea = screen.getByLabelText('Message');
+
+    Object.defineProperty(textarea, 'scrollHeight', {
+      configurable: true,
+      value: 100,
+    });
+
+    fireEvent.change(textarea, {
+      target: { value: 'A short message.' },
+    });
+
+    expect(textarea.style.height).toBe('100px');
+    expect(textarea.style.overflowY).toBe('hidden');
+  });
+
+  it('does not apply auto-resize styling when disabled', () => {
+    const config = createConfig({
+      id: 'message',
+      name: 'message',
+      label: 'Message',
+      type: 'textarea',
+      autoResize: false,
+    });
+
+    render(<RegistrationFormExample config={config} />);
+
+    expect(screen.getByLabelText('Message').className).not.toContain(
+      'autoResize',
+    );
+  });
+
+  it('does not apply the maximum auto-resize height when auto-resize is disabled', () => {
+    const config = createConfig({
+      id: 'message',
+      name: 'message',
+      label: 'Message',
+      type: 'textarea',
+      autoResize: false,
+      maxAutoResizeHeight: 300,
+    });
+
+    render(<RegistrationFormExample config={config} />);
+
+    const textarea = screen.getByLabelText('Message');
+
+    expect(textarea.style.height).toBe('');
+    expect(textarea.style.overflowY).toBe('');
+  });
+
   it('allows an enabled optional email field to remain empty', () => {
     render(
       <RegistrationFormExample

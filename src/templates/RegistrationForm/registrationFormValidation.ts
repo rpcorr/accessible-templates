@@ -53,6 +53,13 @@ export type RegistrationField = {
   placeholder?: string;
   rows?: number;
   maxLength?: number;
+  minLength?: number;
+  description?: string;
+  disabled?: boolean;
+  readOnly?: boolean;
+  showCharacterCount?: boolean;
+  autoResize?: boolean;
+  maxAutoResizeHeight?: number;
   autoComplete?: string;
   matches?: string;
   passwordRequirements?: PasswordRequirement[];
@@ -118,6 +125,16 @@ export function validateRegistrationForm(
       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())
     ) {
       errors[field.name] = `Enter a valid ${field.label.toLowerCase()}.`;
+    }
+
+    if (
+      field.type === 'textarea' &&
+      typeof value === 'string' &&
+      field.maxLength !== undefined &&
+      value.length > field.maxLength
+    ) {
+      errors[field.name] =
+        `${field.label} must be ${field.maxLength} characters or fewer.`;
     }
 
     if (
