@@ -129,6 +129,8 @@ function FieldRenderer({
           value={typeof value === 'string' ? value : ''}
           onChange={(newValue) => onChange(field.name, newValue)}
           placeholder={field.placeholder}
+          maxLength={field.maxLength}
+          minLength={field.minLength}
           autoComplete={field.autoComplete}
           required={field.required}
           error={error}

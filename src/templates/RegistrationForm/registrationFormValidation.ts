@@ -77,6 +77,8 @@ export const defaultRegistrationFormConfig: RegistrationFormConfig = {
 
 export type RegistrationFormErrors = Record<string, string>;
 
+const lengthLimitedFieldTypes = new Set(['text', 'email', 'tel', 'textarea']);
+
 export function validateRegistrationForm(
   values: RegistrationFormValues,
   config: RegistrationFormConfig = defaultRegistrationFormConfig,
@@ -127,25 +129,18 @@ export function validateRegistrationForm(
       errors[field.name] = `Enter a valid ${field.label.toLowerCase()}.`;
     }
 
-    if (
-      field.type === 'textarea' &&
-      typeof value === 'string' &&
-      field.maxLength !== undefined &&
-      value.length > field.maxLength
-    ) {
-      errors[field.name] =
-        `${field.label} must be ${field.maxLength} characters or fewer.`;
-    }
-
-    if (
-      field.type === 'textarea' &&
-      typeof value === 'string' &&
-      value.length > 0 &&
-      field.minLength !== undefined &&
-      value.length < field.minLength
-    ) {
-      errors[field.name] =
-        `${field.label} must be at least ${field.minLength} characters.`;
+    if (lengthLimitedFieldTypes.has(field.type) && typeof value === 'string') {
+      if (field.maxLength !== undefined && value.length > field.maxLength) {
+        errors[field.name] =
+          `${field.label} must be ${field.maxLength} characters or fewer.`;
+      } else if (
+        value.length > 0 &&
+        field.minLength !== undefined &&
+        value.length < field.minLength
+      ) {
+        errors[field.name] =
+          `${field.label} must be at least ${field.minLength} characters.`;
+      }
     }
 
     if (
