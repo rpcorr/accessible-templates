@@ -323,6 +323,63 @@ describe('RegistrationFormExample', () => {
     expect(errors.message).toBeUndefined();
   });
 
+  it('rejects textarea content below the configured minimum length', () => {
+    const config = createConfig({
+      id: 'message',
+      name: 'message',
+      label: 'Message',
+      type: 'textarea',
+      minLength: 10,
+    });
+
+    const errors = validateRegistrationForm({ message: 'Too short' }, config);
+
+    expect(errors.message).toBe('Message must be at least 10 characters.');
+  });
+
+  it('accepts textarea content meeting the configured minimum length', () => {
+    const config = createConfig({
+      id: 'message',
+      name: 'message',
+      label: 'Message',
+      type: 'textarea',
+      minLength: 10,
+    });
+
+    const errors = validateRegistrationForm({ message: 'Exactly ten' }, config);
+
+    expect(errors.message).toBeUndefined();
+  });
+
+  it('allows an empty optional textarea with a configured minimum length', () => {
+    const config = createConfig({
+      id: 'message',
+      name: 'message',
+      label: 'Message',
+      type: 'textarea',
+      minLength: 10,
+    });
+
+    const errors = validateRegistrationForm({ message: '' }, config);
+
+    expect(errors.message).toBeUndefined();
+  });
+
+  it('shows the required-field error for an empty required textarea with a minimum length', () => {
+    const config = createConfig({
+      id: 'message',
+      name: 'message',
+      label: 'Message',
+      type: 'textarea',
+      required: true,
+      minLength: 10,
+    });
+
+    const errors = validateRegistrationForm({ message: '' }, config);
+
+    expect(errors.message).toBe('Enter message.');
+  });
+
   it('rejects textarea content exceeding the configured maximum length', () => {
     const config = createConfig({
       id: 'message',

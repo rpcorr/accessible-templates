@@ -138,6 +138,17 @@ export function validateRegistrationForm(
     }
 
     if (
+      field.type === 'textarea' &&
+      typeof value === 'string' &&
+      value.length > 0 &&
+      field.minLength !== undefined &&
+      value.length < field.minLength
+    ) {
+      errors[field.name] =
+        `${field.label} must be at least ${field.minLength} characters.`;
+    }
+
+    if (
       field.type === 'password' &&
       typeof value === 'string' &&
       value.trim()
