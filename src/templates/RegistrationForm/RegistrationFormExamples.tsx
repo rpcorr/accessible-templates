@@ -91,8 +91,12 @@ function FieldRenderer({
           autoComplete={field.autoComplete}
           required={field.required}
           error={error}
-          requirements={field.passwordRequirements ?? passwordRequirements}
-          showStrength
+          requirements={
+            field.matches
+              ? undefined
+              : (field.passwordRequirements ?? passwordRequirements)
+          }
+          showStrength={!field.matches}
         />
       );
 
