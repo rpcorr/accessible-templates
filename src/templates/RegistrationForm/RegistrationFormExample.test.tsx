@@ -1,10 +1,24 @@
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import {
+  basicRegistrationConfig,
+  extendedRegistrationConfig,
+} from '../../data/registrationFormConfigs';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { RegistrationFormExample } from './RegistrationFormExamples';
+import type {
+  RegistrationField,
+  RegistrationFormConfig,
+} from './registrationFormValidation';
+
+const createConfig = (
+  ...fields: RegistrationField[]
+): RegistrationFormConfig => ({
+  fields,
+});
 
 describe('RegistrationFormExample', () => {
   it('renders the registration form with its fields and submit button', () => {
-    render(<RegistrationFormExample />);
+    render(<RegistrationFormExample config={basicRegistrationConfig} />);
 
     expect(
       screen.getByRole('heading', { name: 'Create an account' }),
@@ -24,10 +38,11 @@ describe('RegistrationFormExample', () => {
     expect(screen.getByLabelText('Confirm password')).toBeInTheDocument();
 
     expect(
-      screen.getByRole('combobox', { name: 'Country' }),
+      screen.getByRole('group', { name: 'Personal information' }),
     ).toBeInTheDocument();
+
     expect(
-      screen.getByRole('group', { name: 'Account type' }),
+      screen.getByRole('group', { name: 'Account security' }),
     ).toBeInTheDocument();
 
     expect(
@@ -38,6 +53,34 @@ describe('RegistrationFormExample', () => {
 
     expect(
       screen.getByRole('button', { name: 'Create account' }),
+    ).toBeInTheDocument();
+  });
+
+  it('renders the additional fields supplied by the extended configuration', () => {
+    render(<RegistrationFormExample config={extendedRegistrationConfig} />);
+
+    expect(
+      screen.getByRole('textbox', { name: 'Phone number' }),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByRole('textbox', { name: 'Company name' }),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByRole('combobox', { name: 'Country' }),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByRole('combobox', { name: 'Account type' }),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByRole('combobox', { name: 'Preferred contact method' }),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByRole('checkbox', { name: 'Subscribe to the newsletter' }),
     ).toBeInTheDocument();
   });
 
@@ -62,15 +105,15 @@ describe('RegistrationFormExample', () => {
     expect(screen.getByRole('alert')).toBeInTheDocument();
     expect(screen.getByRole('alert')).toHaveFocus();
 
-    expect(screen.getAllByText('Enter your first name.')).toHaveLength(2);
-    expect(screen.getAllByText('Enter your last name.')).toHaveLength(2);
-    expect(screen.getAllByText('Enter your email address.')).toHaveLength(2);
-    expect(screen.getAllByText('Enter your password.')).toHaveLength(2);
-    expect(screen.getAllByText('Confirm your password.')).toHaveLength(2);
-    expect(screen.getAllByText('Select your country.')).toHaveLength(2);
-    expect(screen.getAllByText('Select an account type.')).toHaveLength(2);
+    expect(screen.getAllByText('Enter first name.')).toHaveLength(2);
+    expect(screen.getAllByText('Enter last name.')).toHaveLength(2);
+    expect(screen.getAllByText('Enter email address.')).toHaveLength(2);
+    expect(screen.getAllByText('Enter password.')).toHaveLength(2);
+    expect(screen.getAllByText('Enter confirm password.')).toHaveLength(2);
     expect(
-      screen.getAllByText('You must agree to the terms and conditions.'),
+      screen.getAllByText(
+        'You must check i agree to the terms and conditions.',
+      ),
     ).toHaveLength(2);
 
     expect(scrollIntoView).toHaveBeenCalled();
@@ -79,16 +122,41 @@ describe('RegistrationFormExample', () => {
   it('hides fields excluded by the configuration', () => {
     render(
       <RegistrationFormExample
-        config={{
-          firstName: { enabled: true, required: true },
-          lastName: { enabled: false, required: false },
-          email: { enabled: true, required: true },
-          password: { enabled: true, required: true },
-          confirmPassword: { enabled: true, required: true },
-          country: { enabled: false, required: false },
-          accountType: { enabled: false, required: false },
-          termsAccepted: { enabled: false, required: false },
-        }}
+        config={createConfig(
+          {
+            id: 'first-name',
+            name: 'firstName',
+            label: 'First name',
+            type: 'text',
+            required: true,
+            group: 'Personal information',
+          },
+          {
+            id: 'email',
+            name: 'email',
+            label: 'Email address',
+            type: 'email',
+            required: true,
+            group: 'Personal information',
+          },
+          {
+            id: 'password',
+            name: 'password',
+            label: 'Password',
+            type: 'password',
+            required: true,
+            group: 'Account security',
+          },
+          {
+            id: 'confirm-password',
+            name: 'confirmPassword',
+            label: 'Confirm password',
+            type: 'password',
+            required: true,
+            group: 'Account security',
+            matches: 'password',
+          },
+        )}
       />,
     );
 
@@ -107,7 +175,7 @@ describe('RegistrationFormExample', () => {
     expect(screen.queryByLabelText('Country')).not.toBeInTheDocument();
 
     expect(
-      screen.queryByRole('group', { name: 'Account type' }),
+      screen.queryByRole('combobox', { name: 'Account type' }),
     ).not.toBeInTheDocument();
 
     expect(
@@ -120,41 +188,30 @@ describe('RegistrationFormExample', () => {
   it('does not validate fields excluded by the configuration', () => {
     render(
       <RegistrationFormExample
-        config={{
-          firstName: { enabled: true, required: true },
-          lastName: { enabled: false, required: false },
-          email: { enabled: false, required: false },
-          password: { enabled: false, required: false },
-          confirmPassword: { enabled: false, required: false },
-          country: { enabled: false, required: false },
-          accountType: { enabled: false, required: false },
-          termsAccepted: { enabled: false, required: false },
-        }}
+        config={createConfig({
+          id: 'first-name',
+          name: 'firstName',
+          label: 'First name',
+          type: 'text',
+          required: true,
+        })}
       />,
     );
 
     fireEvent.click(screen.getByRole('button', { name: 'Create account' }));
 
-    expect(screen.getAllByText('Enter your first name.')).toHaveLength(2);
+    expect(screen.getAllByText('Enter first name.')).toHaveLength(2);
 
     expect(screen.queryByText('Enter your last name.')).not.toBeInTheDocument();
-
     expect(
       screen.queryByText('Enter your email address.'),
     ).not.toBeInTheDocument();
-
     expect(screen.queryByText('Enter your password.')).not.toBeInTheDocument();
-
     expect(
       screen.queryByText('Confirm your password.'),
     ).not.toBeInTheDocument();
-
     expect(screen.queryByText('Select your country.')).not.toBeInTheDocument();
-
-    expect(
-      screen.queryByText('Select an account type.'),
-    ).not.toBeInTheDocument();
-
+    expect(screen.queryByText('Select account type.')).not.toBeInTheDocument();
     expect(
       screen.queryByText('You must agree to the terms and conditions.'),
     ).not.toBeInTheDocument();
@@ -163,22 +220,23 @@ describe('RegistrationFormExample', () => {
   it('does not render fieldsets when all their fields are disabled', () => {
     render(
       <RegistrationFormExample
-        config={{
-          firstName: { enabled: false, required: false },
-          lastName: { enabled: false, required: false },
-          email: { enabled: false, required: false },
-          password: { enabled: false, required: false },
-          confirmPassword: { enabled: false, required: false },
-          country: { enabled: true, required: true },
-          accountType: { enabled: false, required: false },
-          termsAccepted: { enabled: false, required: false },
-        }}
+        config={createConfig({
+          id: 'country',
+          name: 'country',
+          label: 'Country',
+          type: 'select',
+          required: true,
+          options: [
+            { label: 'Canada', value: 'canada' },
+            { label: 'United States', value: 'united-states' },
+          ],
+        })}
       />,
     );
 
     expect(
-      screen.getByRole('group', { name: 'Account preferences' }),
-    ).toBeInTheDocument();
+      screen.queryByRole('group', { name: 'Account preferences' }),
+    ).not.toBeInTheDocument();
 
     expect(
       screen.queryByRole('group', { name: 'Personal information' }),
@@ -192,22 +250,17 @@ describe('RegistrationFormExample', () => {
   it('allows enabled optional fields to remain empty', () => {
     render(
       <RegistrationFormExample
-        config={{
-          firstName: { enabled: true, required: false },
-          lastName: { enabled: false, required: false },
-          email: { enabled: false, required: false },
-          password: { enabled: false, required: false },
-          confirmPassword: { enabled: false, required: false },
-          country: { enabled: false, required: false },
-          accountType: { enabled: false, required: false },
-          termsAccepted: { enabled: false, required: false },
-        }}
+        config={createConfig({
+          id: 'first-name',
+          name: 'firstName',
+          label: 'First name',
+          type: 'text',
+          required: false,
+        })}
       />,
     );
 
-    const firstName = screen.getByRole('textbox', {
-      name: 'First name',
-    });
+    const firstName = screen.getByRole('textbox', { name: 'First name' });
 
     expect(firstName).toBeInTheDocument();
     expect(firstName).not.toBeRequired();
@@ -228,22 +281,17 @@ describe('RegistrationFormExample', () => {
   it('allows an enabled optional email field to remain empty', () => {
     render(
       <RegistrationFormExample
-        config={{
-          firstName: { enabled: false, required: false },
-          lastName: { enabled: false, required: false },
-          email: { enabled: true, required: false },
-          password: { enabled: false, required: false },
-          confirmPassword: { enabled: false, required: false },
-          country: { enabled: false, required: false },
-          accountType: { enabled: false, required: false },
-          termsAccepted: { enabled: false, required: false },
-        }}
+        config={createConfig({
+          id: 'email',
+          name: 'email',
+          label: 'Email address',
+          type: 'email',
+          required: false,
+        })}
       />,
     );
 
-    const email = screen.getByRole('textbox', {
-      name: 'Email address',
-    });
+    const email = screen.getByRole('textbox', { name: 'Email address' });
 
     expect(email).toBeInTheDocument();
     expect(email).not.toBeRequired();
@@ -262,22 +310,17 @@ describe('RegistrationFormExample', () => {
   it('validates the format of an enabled optional email field', () => {
     render(
       <RegistrationFormExample
-        config={{
-          firstName: { enabled: false, required: false },
-          lastName: { enabled: false, required: false },
-          email: { enabled: true, required: false },
-          password: { enabled: false, required: false },
-          confirmPassword: { enabled: false, required: false },
-          country: { enabled: false, required: false },
-          accountType: { enabled: false, required: false },
-          termsAccepted: { enabled: false, required: false },
-        }}
+        config={createConfig({
+          id: 'email',
+          name: 'email',
+          label: 'Email address',
+          type: 'email',
+          required: false,
+        })}
       />,
     );
 
-    const email = screen.getByRole('textbox', {
-      name: 'Email address',
-    });
+    const email = screen.getByRole('textbox', { name: 'Email address' });
 
     expect(email).not.toBeRequired();
 
@@ -293,16 +336,13 @@ describe('RegistrationFormExample', () => {
   it('allows an enabled optional password field to remain empty', () => {
     render(
       <RegistrationFormExample
-        config={{
-          firstName: { enabled: false, required: false },
-          lastName: { enabled: false, required: false },
-          email: { enabled: false, required: false },
-          password: { enabled: true, required: false },
-          confirmPassword: { enabled: false, required: false },
-          country: { enabled: false, required: false },
-          accountType: { enabled: false, required: false },
-          termsAccepted: { enabled: false, required: false },
-        }}
+        config={createConfig({
+          id: 'password',
+          name: 'password',
+          label: 'Password',
+          type: 'password',
+          required: false,
+        })}
       />,
     );
 
@@ -323,18 +363,60 @@ describe('RegistrationFormExample', () => {
   it('validates the requirements of an enabled optional password field', () => {
     render(
       <RegistrationFormExample
-        config={{
-          firstName: { enabled: false, required: false },
-          lastName: { enabled: false, required: false },
-          email: { enabled: false, required: false },
-          password: { enabled: true, required: false },
-          confirmPassword: { enabled: false, required: false },
-          country: { enabled: false, required: false },
-          accountType: { enabled: false, required: false },
-          termsAccepted: { enabled: false, required: false },
-        }}
+        config={createConfig({
+          id: 'password',
+          name: 'password',
+          label: 'Password',
+          type: 'password',
+          required: false,
+        })}
       />,
     );
+
+    const password = screen.getByLabelText('Password');
+
+    fireEvent.change(password, {
+      target: { value: 'weak' },
+    });
+
+    fireEvent.click(screen.getByRole('button', { name: 'Create account' }));
+
+    expect(
+      screen.getAllByText('Your password does not meet all the requirements.'),
+    ).toHaveLength(2);
+  });
+
+  it('uses custom password requirements supplied by the configuration', () => {
+    render(
+      <RegistrationFormExample
+        config={createConfig({
+          id: 'password',
+          name: 'password',
+          label: 'Password',
+          type: 'password',
+          required: false,
+          passwordRequirements: [
+            {
+              id: 'length',
+              label: 'At least 8 characters',
+              validate: (password) => password.length >= 8,
+            },
+            {
+              id: 'number',
+              label: 'At least one number',
+              validate: (password) => /\d/.test(password),
+            },
+          ],
+        })}
+      />,
+    );
+
+    expect(screen.getByText('At least 8 characters')).toBeInTheDocument();
+    expect(screen.getByText('At least one number')).toBeInTheDocument();
+
+    expect(
+      screen.queryByText('At least 12 characters'),
+    ).not.toBeInTheDocument();
 
     const password = screen.getByLabelText('Password');
 
@@ -352,16 +434,23 @@ describe('RegistrationFormExample', () => {
   it('requires password confirmation when an optional password is entered', () => {
     render(
       <RegistrationFormExample
-        config={{
-          firstName: { enabled: false, required: false },
-          lastName: { enabled: false, required: false },
-          email: { enabled: false, required: false },
-          password: { enabled: true, required: false },
-          confirmPassword: { enabled: true, required: false },
-          country: { enabled: false, required: false },
-          accountType: { enabled: false, required: false },
-          termsAccepted: { enabled: false, required: false },
-        }}
+        config={createConfig(
+          {
+            id: 'password',
+            name: 'password',
+            label: 'Password',
+            type: 'password',
+            required: false,
+          },
+          {
+            id: 'confirm-password',
+            name: 'confirmPassword',
+            label: 'Confirm password',
+            type: 'password',
+            required: false,
+            matches: 'password',
+          },
+        )}
       />,
     );
 
@@ -377,16 +466,23 @@ describe('RegistrationFormExample', () => {
   it('rejects mismatched passwords when confirmation is optional', () => {
     render(
       <RegistrationFormExample
-        config={{
-          firstName: { enabled: false, required: false },
-          lastName: { enabled: false, required: false },
-          email: { enabled: false, required: false },
-          password: { enabled: true, required: false },
-          confirmPassword: { enabled: true, required: false },
-          country: { enabled: false, required: false },
-          accountType: { enabled: false, required: false },
-          termsAccepted: { enabled: false, required: false },
-        }}
+        config={createConfig(
+          {
+            id: 'password',
+            name: 'password',
+            label: 'Password',
+            type: 'password',
+            required: false,
+          },
+          {
+            id: 'confirm-password',
+            name: 'confirmPassword',
+            label: 'Confirm password',
+            type: 'password',
+            required: false,
+            matches: 'password',
+          },
+        )}
       />,
     );
 
@@ -400,22 +496,31 @@ describe('RegistrationFormExample', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Create account' }));
 
-    expect(screen.getAllByText('Passwords do not match.')).toHaveLength(2);
+    expect(
+      screen.getAllByText('Confirm password does not match.'),
+    ).toHaveLength(2);
   });
 
   it('accepts matching passwords when both fields are optional', () => {
     render(
       <RegistrationFormExample
-        config={{
-          firstName: { enabled: false, required: false },
-          lastName: { enabled: false, required: false },
-          email: { enabled: false, required: false },
-          password: { enabled: true, required: false },
-          confirmPassword: { enabled: true, required: false },
-          country: { enabled: false, required: false },
-          accountType: { enabled: false, required: false },
-          termsAccepted: { enabled: false, required: false },
-        }}
+        config={createConfig(
+          {
+            id: 'password',
+            name: 'password',
+            label: 'Password',
+            type: 'password',
+            required: false,
+          },
+          {
+            id: 'confirm-password',
+            name: 'confirmPassword',
+            label: 'Confirm password',
+            type: 'password',
+            required: false,
+            matches: 'password',
+          },
+        )}
       />,
     );
 
@@ -437,16 +542,17 @@ describe('RegistrationFormExample', () => {
   it('allows an enabled optional country field to remain empty', () => {
     render(
       <RegistrationFormExample
-        config={{
-          firstName: { enabled: false, required: false },
-          lastName: { enabled: false, required: false },
-          email: { enabled: false, required: false },
-          password: { enabled: false, required: false },
-          confirmPassword: { enabled: false, required: false },
-          country: { enabled: true, required: false },
-          accountType: { enabled: false, required: false },
-          termsAccepted: { enabled: false, required: false },
-        }}
+        config={createConfig({
+          id: 'country',
+          name: 'country',
+          label: 'Country',
+          type: 'select',
+          required: false,
+          options: [
+            { label: 'Canada', value: 'canada' },
+            { label: 'United States', value: 'united-states' },
+          ],
+        })}
       />,
     );
 
@@ -464,21 +570,22 @@ describe('RegistrationFormExample', () => {
   it('allows an enabled optional account type to remain unselected', () => {
     render(
       <RegistrationFormExample
-        config={{
-          firstName: { enabled: false, required: false },
-          lastName: { enabled: false, required: false },
-          email: { enabled: false, required: false },
-          password: { enabled: false, required: false },
-          confirmPassword: { enabled: false, required: false },
-          country: { enabled: false, required: false },
-          accountType: { enabled: true, required: false },
-          termsAccepted: { enabled: false, required: false },
-        }}
+        config={createConfig({
+          id: 'account-type',
+          name: 'accountType',
+          label: 'Account type',
+          type: 'select',
+          required: false,
+          options: [
+            { label: 'Personal', value: 'personal' },
+            { label: 'Business', value: 'business' },
+          ],
+        })}
       />,
     );
 
     expect(
-      screen.getByRole('group', { name: 'Account type' }),
+      screen.getByRole('combobox', { name: 'Account type' }),
     ).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole('button', { name: 'Create account' }));
@@ -491,16 +598,13 @@ describe('RegistrationFormExample', () => {
   it('allows an enabled optional terms checkbox to remain unchecked', () => {
     render(
       <RegistrationFormExample
-        config={{
-          firstName: { enabled: false, required: false },
-          lastName: { enabled: false, required: false },
-          email: { enabled: false, required: false },
-          password: { enabled: false, required: false },
-          confirmPassword: { enabled: false, required: false },
-          country: { enabled: false, required: false },
-          accountType: { enabled: false, required: false },
-          termsAccepted: { enabled: true, required: false },
-        }}
+        config={createConfig({
+          id: 'terms-accepted',
+          name: 'termsAccepted',
+          label: 'I agree to the terms and conditions',
+          type: 'checkbox',
+          required: false,
+        })}
       />,
     );
 
@@ -521,16 +625,29 @@ describe('RegistrationFormExample', () => {
   it('reflects required settings on text fields', () => {
     render(
       <RegistrationFormExample
-        config={{
-          firstName: { enabled: true, required: true },
-          lastName: { enabled: true, required: false },
-          email: { enabled: true, required: true },
-          password: { enabled: false, required: false },
-          confirmPassword: { enabled: false, required: false },
-          country: { enabled: false, required: false },
-          accountType: { enabled: false, required: false },
-          termsAccepted: { enabled: false, required: false },
-        }}
+        config={createConfig(
+          {
+            id: 'first-name',
+            name: 'firstName',
+            label: 'First name',
+            type: 'text',
+            required: true,
+          },
+          {
+            id: 'last-name',
+            name: 'lastName',
+            label: 'Last name',
+            type: 'text',
+            required: false,
+          },
+          {
+            id: 'email',
+            name: 'email',
+            label: 'Email address',
+            type: 'email',
+            required: true,
+          },
+        )}
       />,
     );
 
@@ -546,16 +663,23 @@ describe('RegistrationFormExample', () => {
   it('reflects required settings on password fields', () => {
     render(
       <RegistrationFormExample
-        config={{
-          firstName: { enabled: false, required: false },
-          lastName: { enabled: false, required: false },
-          email: { enabled: false, required: false },
-          password: { enabled: true, required: true },
-          confirmPassword: { enabled: true, required: false },
-          country: { enabled: false, required: false },
-          accountType: { enabled: false, required: false },
-          termsAccepted: { enabled: false, required: false },
-        }}
+        config={createConfig(
+          {
+            id: 'password',
+            name: 'password',
+            label: 'Password',
+            type: 'password',
+            required: true,
+          },
+          {
+            id: 'confirm-password',
+            name: 'confirmPassword',
+            label: 'Confirm password',
+            type: 'password',
+            required: false,
+            matches: 'password',
+          },
+        )}
       />,
     );
 
@@ -566,31 +690,44 @@ describe('RegistrationFormExample', () => {
   it('reflects required settings on selection controls and checkbox', () => {
     render(
       <RegistrationFormExample
-        config={{
-          firstName: { enabled: false, required: false },
-          lastName: { enabled: false, required: false },
-          email: { enabled: false, required: false },
-          password: { enabled: false, required: false },
-          confirmPassword: { enabled: false, required: false },
-          country: { enabled: true, required: true },
-          accountType: { enabled: true, required: true },
-          termsAccepted: { enabled: true, required: true },
-        }}
+        config={createConfig(
+          {
+            id: 'country',
+            name: 'country',
+            label: 'Country',
+            type: 'select',
+            required: true,
+            options: [
+              { label: 'Canada', value: 'canada' },
+              { label: 'United States', value: 'united-states' },
+            ],
+          },
+          {
+            id: 'account-type',
+            name: 'accountType',
+            label: 'Account type',
+            type: 'select',
+            required: true,
+            options: [
+              { label: 'Personal', value: 'personal' },
+              { label: 'Business', value: 'business' },
+            ],
+          },
+          {
+            id: 'terms-accepted',
+            name: 'termsAccepted',
+            label: 'I agree to the terms and conditions',
+            type: 'checkbox',
+            required: true,
+          },
+        )}
       />,
     );
 
     expect(screen.getByRole('combobox', { name: 'Country' })).toBeRequired();
-
-    const accountType = screen.getByRole('group', { name: 'Account type' });
-    expect(accountType).toBeInTheDocument();
-
-    const accountTypeRadios = within(accountType).getAllByRole('radio');
-
-    expect(accountTypeRadios.length).toBeGreaterThan(0);
-
-    accountTypeRadios.forEach((radio) => {
-      expect(radio).toBeRequired();
-    });
+    expect(
+      screen.getByRole('combobox', { name: 'Account type' }),
+    ).toBeRequired();
 
     expect(
       screen.getByRole('checkbox', {
@@ -602,16 +739,23 @@ describe('RegistrationFormExample', () => {
   it('clears the confirmation error when the password is changed to match', () => {
     render(
       <RegistrationFormExample
-        config={{
-          firstName: { enabled: false, required: false },
-          lastName: { enabled: false, required: false },
-          email: { enabled: false, required: false },
-          password: { enabled: true, required: false },
-          confirmPassword: { enabled: true, required: false },
-          country: { enabled: false, required: false },
-          accountType: { enabled: false, required: false },
-          termsAccepted: { enabled: false, required: false },
-        }}
+        config={createConfig(
+          {
+            id: 'password',
+            name: 'password',
+            label: 'Password',
+            type: 'password',
+            required: false,
+          },
+          {
+            id: 'confirm-password',
+            name: 'confirmPassword',
+            label: 'Confirm password',
+            type: 'password',
+            required: false,
+            matches: 'password',
+          },
+        )}
       />,
     );
 
@@ -625,30 +769,39 @@ describe('RegistrationFormExample', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Create account' }));
 
-    expect(screen.getAllByText('Passwords do not match.')).toHaveLength(2);
+    expect(
+      screen.getAllByText('Confirm password does not match.'),
+    ).toHaveLength(2);
 
     fireEvent.change(screen.getByLabelText('Password'), {
       target: { value: 'DifferentPassword123!' },
     });
 
     expect(
-      screen.queryByText('Passwords do not match.'),
+      screen.queryByText('Confirm password does not match.'),
     ).not.toBeInTheDocument();
   });
 
   it('clears the confirmation error when the confirmation is changed to match', () => {
     render(
       <RegistrationFormExample
-        config={{
-          firstName: { enabled: false, required: false },
-          lastName: { enabled: false, required: false },
-          email: { enabled: false, required: false },
-          password: { enabled: true, required: false },
-          confirmPassword: { enabled: true, required: false },
-          country: { enabled: false, required: false },
-          accountType: { enabled: false, required: false },
-          termsAccepted: { enabled: false, required: false },
-        }}
+        config={createConfig(
+          {
+            id: 'password',
+            name: 'password',
+            label: 'Password',
+            type: 'password',
+            required: false,
+          },
+          {
+            id: 'confirm-password',
+            name: 'confirmPassword',
+            label: 'Confirm password',
+            type: 'password',
+            required: false,
+            matches: 'password',
+          },
+        )}
       />,
     );
 
@@ -662,14 +815,16 @@ describe('RegistrationFormExample', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Create account' }));
 
-    expect(screen.getAllByText('Passwords do not match.')).toHaveLength(2);
+    expect(
+      screen.getAllByText('Confirm password does not match.'),
+    ).toHaveLength(2);
 
     fireEvent.change(screen.getByLabelText('Confirm password'), {
       target: { value: 'StrongPassword123!' },
     });
 
     expect(
-      screen.queryByText('Passwords do not match.'),
+      screen.queryByText('Confirm password does not match.'),
     ).not.toBeInTheDocument();
   });
 
