@@ -85,9 +85,11 @@ export function validateRegistrationForm(
         continue;
       }
 
-      if (field.type === 'select' && (typeof value !== 'string' || !value)) {
-        errors[field.name] = `Select ${field.label.toLowerCase()}.`;
-        continue;
+      if (field.type === 'select') {
+        if (typeof value !== 'string' || !value.trim()) {
+          errors[field.name] = `Select ${field.label.toLowerCase()}.`;
+          continue;
+        }
       }
 
       if (
@@ -97,6 +99,16 @@ export function validateRegistrationForm(
         errors[field.name] = `Enter ${field.label.toLowerCase()}.`;
         continue;
       }
+    }
+
+    if (
+      field.type === 'select' &&
+      typeof value === 'string' &&
+      value.trim() &&
+      !field.options?.some((option) => option.value === value)
+    ) {
+      errors[field.name] = `Select a valid ${field.label.toLowerCase()}.`;
+      continue;
     }
 
     if (

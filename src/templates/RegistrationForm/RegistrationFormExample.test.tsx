@@ -5,9 +5,10 @@ import {
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { RegistrationFormExample } from './RegistrationFormExamples';
-import type {
-  RegistrationField,
-  RegistrationFormConfig,
+import {
+  validateRegistrationForm,
+  type RegistrationField,
+  type RegistrationFormConfig,
 } from './registrationFormValidation';
 
 const createConfig = (
@@ -593,6 +594,41 @@ describe('RegistrationFormExample', () => {
     expect(
       screen.getByRole('heading', { name: 'Registration successful' }),
     ).toBeInTheDocument();
+  });
+
+  it('rejects a select value that is not in the configured options', () => {
+    const config = createConfig({
+      id: 'country',
+      name: 'country',
+      label: 'Country',
+      type: 'select',
+      required: true,
+      options: [
+        { label: 'Canada', value: 'canada' },
+        { label: 'United States', value: 'united-states' },
+      ],
+    });
+
+    const errors = validateRegistrationForm({ country: 'australia' }, config);
+
+    expect(errors.country).toBe('Select a valid country.');
+  });
+
+  it('rejects an invalid value in an optional select field', () => {
+    const config = createConfig({
+      id: 'country',
+      name: 'country',
+      label: 'Country',
+      type: 'select',
+      options: [
+        { label: 'Canada', value: 'canada' },
+        { label: 'United States', value: 'united-states' },
+      ],
+    });
+
+    const errors = validateRegistrationForm({ country: 'australia' }, config);
+
+    expect(errors.country).toBe('Select a valid country.');
   });
 
   it('allows an enabled optional terms checkbox to remain unchecked', () => {
