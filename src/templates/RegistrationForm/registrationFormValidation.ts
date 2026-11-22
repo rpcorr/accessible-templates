@@ -89,23 +89,15 @@ export function validateRegistrationForm(
     const value = values[field.name];
 
     if (field.required) {
-      if (field.type === 'checkbox' && value !== true) {
-        errors[field.name] = `You must check ${field.label.toLowerCase()}.`;
-        continue;
-      }
-
-      if (field.type === 'select') {
-        if (typeof value !== 'string' || !value.trim()) {
-          errors[field.name] = `Select ${field.label.toLowerCase()}.`;
+      if (field.type === 'checkbox') {
+        if (value !== true) {
+          errors[field.name] = `You must check ${field.label.toLowerCase()}.`;
           continue;
         }
-      }
+      } else if (typeof value !== 'string' || !value.trim()) {
+        const action = field.type === 'select' ? 'Select' : 'Enter';
 
-      if (
-        field.type !== 'checkbox' &&
-        (typeof value !== 'string' || !value.trim())
-      ) {
-        errors[field.name] = `Enter ${field.label.toLowerCase()}.`;
+        errors[field.name] = `${action} ${field.label.toLowerCase()}.`;
         continue;
       }
     }
@@ -160,7 +152,10 @@ export function validateRegistrationForm(
       const matchingValue = values[field.matches];
 
       if (typeof matchingValue === 'string' && matchingValue.trim()) {
-        if (typeof value !== 'string' || !value.trim()) {
+        if (
+          field.type !== 'checkbox' &&
+          (typeof value !== 'string' || !value.trim())
+        ) {
           const confirmationLabel = field.label.replace(/^confirm\s+/i, '');
 
           errors[field.name] =

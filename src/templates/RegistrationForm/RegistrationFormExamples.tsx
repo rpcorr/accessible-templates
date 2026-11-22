@@ -49,6 +49,8 @@ function FieldRenderer({
 }: FieldRendererProps) {
   const id = `${idPrefix}-${field.id}`;
 
+  const stringValue = typeof value === 'string' ? value : '';
+
   switch (field.type) {
     case 'select':
       return (
@@ -57,7 +59,7 @@ function FieldRenderer({
           name={field.name}
           label={field.label}
           options={field.options ?? []}
-          value={typeof value === 'string' ? value : ''}
+          value={stringValue}
           onChange={(newValue) => onChange(field.name, newValue)}
           placeholder={
             field.placeholder ?? `Select ${field.label.toLowerCase()}`
@@ -86,7 +88,7 @@ function FieldRenderer({
           id={id}
           name={field.name}
           label={field.label}
-          value={typeof value === 'string' ? value : ''}
+          value={stringValue}
           onChange={(newValue) => onChange(field.name, newValue)}
           autoComplete={field.autoComplete}
           required={field.required}
@@ -106,7 +108,7 @@ function FieldRenderer({
           id={id}
           name={field.name}
           label={field.label}
-          value={typeof value === 'string' ? value : ''}
+          value={stringValue}
           onChange={(newValue) => onChange(field.name, newValue)}
           placeholder={field.placeholder}
           rows={field.rows}
@@ -130,7 +132,7 @@ function FieldRenderer({
           name={field.name}
           label={field.label}
           type={field.type}
-          value={typeof value === 'string' ? value : ''}
+          value={stringValue}
           onChange={(newValue) => onChange(field.name, newValue)}
           placeholder={field.placeholder}
           maxLength={field.maxLength}
@@ -151,28 +153,32 @@ type RegistrationFieldGroup = {
 function groupRegistrationFields(
   fields: RegistrationField[],
 ): RegistrationFieldGroup[] {
-  const groups: RegistrationFieldGroup[] = [];
+  const groups = new Map<string | undefined, RegistrationFieldGroup>();
 
   fields.forEach((field) => {
-    const existingGroup = groups.find((group) => group.group === field.group);
+    const group = groups.get(field.group);
 
-    if (existingGroup) {
-      existingGroup.fields.push(field);
+    if (group) {
+      group.fields.push(field);
     } else {
-      groups.push({
+      groups.set(field.group, {
         group: field.group,
         fields: [field],
       });
     }
   });
 
-  return groups;
+  return Array.from(groups.values());
 }
 
 export function RegistrationFormExample({
   config = basicRegistrationConfig,
 }: RegistrationFormExampleProps) {
   const idPrefix = useId().replace(/:/g, '');
+
+  const fieldIds = new Map(
+    config.fields.map((field) => [field.name, field.id]),
+  );
 
   const [submitted, setSubmitted] = useState(false);
 
@@ -205,11 +211,11 @@ export function RegistrationFormExample({
       [name]: value,
     }));
 
-    setErrors((previous) => {
-      const fieldsToClear = config.fields
-        .filter((field) => field.name === name || field.matches === name)
-        .map((field) => field.name);
+    const fieldsToClear = config.fields
+      .filter((field) => field.name === name || field.matches === name)
+      .map((field) => field.name);
 
+    setErrors((previous) => {
       if (!fieldsToClear.some((fieldName) => previous[fieldName])) {
         return previous;
       }
@@ -275,11 +281,7 @@ export function RegistrationFormExample({
 
               <ul>
                 {Object.entries(errors).map(([fieldName, message]) => {
-                  const fieldConfig = config.fields.find(
-                    (field) => field.name === fieldName,
-                  );
-
-                  const fieldId = fieldConfig?.id ?? fieldName;
+                  const fieldId = fieldIds.get(fieldName) ?? fieldName;
 
                   return (
                     <li key={fieldName}>

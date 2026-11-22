@@ -1167,6 +1167,35 @@ describe('RegistrationFormExample', () => {
 
     expect(errors.country).toBe('Select a valid country.');
   });
+
+  it('allows a required terms checkbox to pass validation when checked', () => {
+    render(
+      <RegistrationFormExample
+        config={createConfig({
+          id: 'terms-accepted',
+          name: 'termsAccepted',
+          label: 'I agree to the terms and conditions',
+          type: 'checkbox',
+          required: true,
+        })}
+      />,
+    );
+
+    const termsCheckbox = screen.getByRole('checkbox', {
+      name: 'I agree to the terms and conditions',
+    });
+
+    fireEvent.click(termsCheckbox);
+
+    expect(termsCheckbox).toBeChecked();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Create account' }));
+
+    expect(
+      screen.getByRole('heading', { name: 'Registration successful' }),
+    ).toBeInTheDocument();
+  });
+
   it('allows an enabled optional terms checkbox to remain unchecked', () => {
     render(
       <RegistrationFormExample
