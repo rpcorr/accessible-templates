@@ -64,13 +64,6 @@ export const extendedRegistrationConfig: RegistrationFormConfig = {
       (field) => field.id !== 'terms-accepted',
     ),
     {
-      id: 'newsletter',
-      name: 'newsletter',
-      label: 'Subscribe to the newsletter',
-      type: 'checkbox',
-      required: false,
-    },
-    {
       id: 'phone',
       name: 'phone',
       label: 'Phone number',
@@ -124,6 +117,13 @@ export const extendedRegistrationConfig: RegistrationFormConfig = {
         { label: 'Email', value: 'email' },
         { label: 'Phone', value: 'phone' },
       ],
+    },
+    {
+      id: 'newsletter',
+      name: 'newsletter',
+      label: 'Subscribe to the newsletter',
+      type: 'checkbox',
+      required: false,
     },
     ...basicRegistrationConfig.fields.filter(
       (field) => field.id === 'terms-accepted',
