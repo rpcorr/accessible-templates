@@ -48,7 +48,14 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
             aria-describedby={describedBy}
             aria-invalid={error ? true : undefined}
           />
-          <span>{label}</span>
+          <span>
+            {label}
+            {props.required && (
+              <span aria-hidden="true" className={styles.required}>
+                *
+              </span>
+            )}
+          </span>
         </label>
 
         {error && (

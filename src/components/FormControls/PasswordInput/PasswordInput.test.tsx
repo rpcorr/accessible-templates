@@ -199,7 +199,7 @@ describe('PasswordInput', () => {
   it('supports the required attribute', () => {
     render(<PasswordInput label="Password" required />);
 
-    expect(screen.getByLabelText('Password')).toBeRequired();
+    expect(screen.getByLabelText(/^Password/)).toBeRequired();
   });
 
   it('supports the disabled attribute', () => {

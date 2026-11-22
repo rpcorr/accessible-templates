@@ -150,6 +150,11 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       <div className={styles.container}>
         <label htmlFor={textareaId} className={styles.label}>
           {label}
+          {required && (
+            <span aria-hidden="true" className={styles.required}>
+              *
+            </span>
+          )}
         </label>
 
         {description && (

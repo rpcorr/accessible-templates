@@ -63,6 +63,11 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
           className={error ? styles.labelError : undefined}
         >
           {label}
+          {required && (
+            <span aria-hidden="true" className={styles.required}>
+              *
+            </span>
+          )}
         </label>
 
         {description && (

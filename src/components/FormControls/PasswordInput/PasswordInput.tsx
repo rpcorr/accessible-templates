@@ -305,6 +305,11 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
           className={error ? styles.labelError : undefined}
         >
           {label}
+          {required && (
+            <span aria-hidden="true" className={styles.required}>
+              *
+            </span>
+          )}
         </label>
 
         {description && (

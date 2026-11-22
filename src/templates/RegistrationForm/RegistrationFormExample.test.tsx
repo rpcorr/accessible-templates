@@ -35,8 +35,12 @@ describe('RegistrationFormExample', () => {
       screen.getByRole('textbox', { name: 'Email address' }),
     ).toBeInTheDocument();
 
-    expect(screen.getByLabelText('Password')).toBeInTheDocument();
-    expect(screen.getByLabelText('Confirm password')).toBeInTheDocument();
+    expect(
+      screen.getByLabelText(/^Password/, { selector: 'input' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByLabelText(/^Confirm password/, { selector: 'input' }),
+    ).toBeInTheDocument();
 
     expect(
       screen.getByRole('group', { name: 'Personal information' }),
@@ -492,7 +496,7 @@ describe('RegistrationFormExample', () => {
 
     render(<RegistrationFormExample config={config} />);
 
-    expect(screen.getByLabelText('First name')).toHaveAttribute(
+    expect(screen.getByLabelText(/^First name/)).toHaveAttribute(
       'minLength',
       '2',
     );
@@ -509,7 +513,7 @@ describe('RegistrationFormExample', () => {
 
     render(<RegistrationFormExample config={config} />);
 
-    expect(screen.getByLabelText('First name')).toHaveAttribute(
+    expect(screen.getByLabelText(/^First name/)).toHaveAttribute(
       'maxLength',
       '15',
     );
@@ -893,7 +897,7 @@ describe('RegistrationFormExample', () => {
       />,
     );
 
-    const password = screen.getByLabelText('Password');
+    const password = screen.getByLabelText(/^Password/, { selector: 'input' });
 
     expect(password).toBeInTheDocument();
     expect(password).not.toBeRequired();
@@ -919,7 +923,7 @@ describe('RegistrationFormExample', () => {
       />,
     );
 
-    const password = screen.getByLabelText('Password');
+    const password = screen.getByLabelText(/^Password/, { selector: 'input' });
 
     fireEvent.change(password, {
       target: { value: 'weak' },
@@ -963,7 +967,7 @@ describe('RegistrationFormExample', () => {
       screen.queryByText('At least 12 characters'),
     ).not.toBeInTheDocument();
 
-    const password = screen.getByLabelText('Password');
+    const password = screen.getByLabelText(/^Password/, { selector: 'input' });
 
     fireEvent.change(password, {
       target: { value: 'weak' },
@@ -998,9 +1002,12 @@ describe('RegistrationFormExample', () => {
       />,
     );
 
-    fireEvent.change(screen.getByLabelText('Password'), {
-      target: { value: 'StrongPassword123!' },
-    });
+    fireEvent.change(
+      screen.getByLabelText(/^Password/, { selector: 'input' }),
+      {
+        target: { value: 'StrongPassword123!' },
+      },
+    );
 
     fireEvent.click(screen.getByRole('button', { name: 'Create account' }));
 
@@ -1029,13 +1036,19 @@ describe('RegistrationFormExample', () => {
       />,
     );
 
-    fireEvent.change(screen.getByLabelText('Password'), {
-      target: { value: 'StrongPassword123!' },
-    });
+    fireEvent.change(
+      screen.getByLabelText(/^Password/, { selector: 'input' }),
+      {
+        target: { value: 'StrongPassword123!' },
+      },
+    );
 
-    fireEvent.change(screen.getByLabelText('Confirm password'), {
-      target: { value: 'DifferentPassword123!' },
-    });
+    fireEvent.change(
+      screen.getByLabelText(/^Confirm password/, { selector: 'input' }),
+      {
+        target: { value: 'DifferentPassword123!' },
+      },
+    );
 
     fireEvent.click(screen.getByRole('button', { name: 'Create account' }));
 
@@ -1066,13 +1079,19 @@ describe('RegistrationFormExample', () => {
       />,
     );
 
-    fireEvent.change(screen.getByLabelText('Password'), {
-      target: { value: 'StrongPassword123!' },
-    });
+    fireEvent.change(
+      screen.getByLabelText(/^Password/, { selector: 'input' }),
+      {
+        target: { value: 'StrongPassword123!' },
+      },
+    );
 
-    fireEvent.change(screen.getByLabelText('Confirm password'), {
-      target: { value: 'StrongPassword123!' },
-    });
+    fireEvent.change(
+      screen.getByLabelText(/^Confirm password/, { selector: 'input' }),
+      {
+        target: { value: 'StrongPassword123!' },
+      },
+    );
 
     fireEvent.click(screen.getByRole('button', { name: 'Create account' }));
 
@@ -1282,8 +1301,12 @@ describe('RegistrationFormExample', () => {
       />,
     );
 
-    expect(screen.getByLabelText('Password')).toBeRequired();
-    expect(screen.getByLabelText('Confirm password')).not.toBeRequired();
+    expect(
+      screen.getByLabelText(/^Password/, { selector: 'input' }),
+    ).toBeRequired();
+    expect(
+      screen.getByLabelText(/^Confirm password/, { selector: 'input' }),
+    ).not.toBeRequired();
   });
   it('reflects required settings on selection controls and checkbox', () => {
     render(
@@ -1356,13 +1379,19 @@ describe('RegistrationFormExample', () => {
       />,
     );
 
-    fireEvent.change(screen.getByLabelText('Password'), {
-      target: { value: 'StrongPassword123!' },
-    });
+    fireEvent.change(
+      screen.getByLabelText(/^Password/, { selector: 'input' }),
+      {
+        target: { value: 'StrongPassword123!' },
+      },
+    );
 
-    fireEvent.change(screen.getByLabelText('Confirm password'), {
-      target: { value: 'DifferentPassword123!' },
-    });
+    fireEvent.change(
+      screen.getByLabelText(/^Confirm password/, { selector: 'input' }),
+      {
+        target: { value: 'DifferentPassword123!' },
+      },
+    );
 
     fireEvent.click(screen.getByRole('button', { name: 'Create account' }));
 
@@ -1370,9 +1399,12 @@ describe('RegistrationFormExample', () => {
       screen.getAllByText('Confirm password does not match.'),
     ).toHaveLength(2);
 
-    fireEvent.change(screen.getByLabelText('Password'), {
-      target: { value: 'DifferentPassword123!' },
-    });
+    fireEvent.change(
+      screen.getByLabelText(/^Password/, { selector: 'input' }),
+      {
+        target: { value: 'DifferentPassword123!' },
+      },
+    );
 
     expect(
       screen.queryByText('Confirm password does not match.'),
@@ -1401,13 +1433,19 @@ describe('RegistrationFormExample', () => {
       />,
     );
 
-    fireEvent.change(screen.getByLabelText('Password'), {
-      target: { value: 'StrongPassword123!' },
-    });
+    fireEvent.change(
+      screen.getByLabelText(/^Password/, { selector: 'input' }),
+      {
+        target: { value: 'StrongPassword123!' },
+      },
+    );
 
-    fireEvent.change(screen.getByLabelText('Confirm password'), {
-      target: { value: 'DifferentPassword123!' },
-    });
+    fireEvent.change(
+      screen.getByLabelText(/^Confirm password/, { selector: 'input' }),
+      {
+        target: { value: 'DifferentPassword123!' },
+      },
+    );
 
     fireEvent.click(screen.getByRole('button', { name: 'Create account' }));
 
@@ -1415,9 +1453,12 @@ describe('RegistrationFormExample', () => {
       screen.getAllByText('Confirm password does not match.'),
     ).toHaveLength(2);
 
-    fireEvent.change(screen.getByLabelText('Confirm password'), {
-      target: { value: 'StrongPassword123!' },
-    });
+    fireEvent.change(
+      screen.getByLabelText(/^Confirm password/, { selector: 'input' }),
+      {
+        target: { value: 'StrongPassword123!' },
+      },
+    );
 
     expect(
       screen.queryByText('Confirm password does not match.'),
@@ -1428,7 +1469,7 @@ describe('RegistrationFormExample', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Create account' }));
 
-    const firstNameInput = screen.getByLabelText('First name');
+    const firstNameInput = screen.getByLabelText(/^First name/);
 
     firstNameInput.focus();
 

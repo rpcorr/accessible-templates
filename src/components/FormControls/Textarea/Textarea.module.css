@@ -58,6 +58,11 @@
   color: var(--color-danger);
 }
 
+.required {
+  color: var(--color-danger);
+  margin-left: 0.25rem;
+}
+
 .autoResize {
   overflow-y: hidden;
   resize: none;

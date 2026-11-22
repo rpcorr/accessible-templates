@@ -96,3 +96,8 @@
   background-color: var(--color-danger);
   border-color: var(--color-danger);
 }
+
+.required {
+  color: var(--color-danger);
+  margin-left: 0.25rem;
+}

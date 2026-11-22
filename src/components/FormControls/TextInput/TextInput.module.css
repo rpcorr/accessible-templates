@@ -51,3 +51,8 @@
   font-size: 0.875rem;
   font-weight: 600;
 }
+
+.required {
+  color: var(--color-danger);
+  margin-left: 0.25rem;
+}
