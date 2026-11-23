@@ -135,30 +135,13 @@ export function SearchCombobox({
     updateValue(nextValue);
     setIsOpen(true);
     setActiveIndex(-1);
-    setStatusMessage('');
 
     if (statusTimeoutRef.current !== null) {
       window.clearTimeout(statusTimeoutRef.current);
+      statusTimeoutRef.current = null;
     }
 
-    const matchingOptions = options.filter((option) =>
-      option.label.toLowerCase().includes(nextValue.toLowerCase()),
-    );
-
-    statusTimeoutRef.current = window.setTimeout(() => {
-      if (matchingOptions.length === 0) {
-        setStatusMessage('No results found.');
-      } else {
-        const resultCount =
-          matchingOptions.length === 1
-            ? '1 result available.'
-            : `${matchingOptions.length} results available.`;
-
-        setStatusMessage(resultCount);
-      }
-
-      statusTimeoutRef.current = null;
-    }, 300);
+    setStatusMessage('');
   }
 
   function handleSelect(option: SearchComboboxOption) {

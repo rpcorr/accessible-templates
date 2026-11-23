@@ -1,5 +1,5 @@
 import { PageLayout } from '../../components/PageLayout/PageLayout';
-import { SearchComboboxExamples } from '../../components/FormControls/SearchCombox/Examples/SearchComboboxExamples';
+import { SearchComboboxExamples } from '../../components/FormControls/SearchCombobox/Examples/SearchComboboxExamples';
 
 export function SearchComboboxPage() {
   return (
