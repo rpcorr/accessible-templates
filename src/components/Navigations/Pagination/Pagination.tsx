@@ -46,7 +46,7 @@ export function Pagination({
   variant = 'basic',
 }: PaginationProps) {
   return (
-    <nav aria-label="Pagination">
+    <nav aria-label="Search results pages" className={styles.pagination}>
       <ul className={`${styles.list} ${styles[variant]}`}>
         <li>
           <button
