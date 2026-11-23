@@ -3,9 +3,10 @@ import styles from './Status.module.css';
 
 interface StatusProps {
   children: ReactNode;
+  visuallyHidden?: boolean;
 }
 
-const Status = ({ children }: StatusProps) => {
+const Status = ({ children, visuallyHidden = false }: StatusProps) => {
   const hasContent =
     typeof children === 'string'
       ? children.trim().length > 0
@@ -13,7 +14,9 @@ const Status = ({ children }: StatusProps) => {
 
   return (
     <div
-      className={`${styles.status} ${!hasContent ? styles.empty : ''}`}
+      className={`${styles.status} ${
+        !hasContent ? styles.empty : ''
+      } ${visuallyHidden ? styles.visuallyHidden : ''}`}
       role="status"
       aria-live="polite"
       aria-atomic="true"
