@@ -316,6 +316,11 @@ export const navigationItems: NavigationItem[] = [
         label: 'Registration Form',
         href: '/templates/registration-form',
       },
+      {
+        id: 'search-results',
+        label: 'Search Results Form',
+        href: '/templates/search-results-form',
+      },
     ],
   },
 ];

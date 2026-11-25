@@ -73,13 +73,18 @@
   cursor: pointer;
 }
 
-.option:hover,
-.active {
+.option:hover {
   background-color: var(--color-secondary);
 }
 
+.active {
+  background-color: var(--color-secondary);
+  box-shadow: inset 3px 0 0 var(--color-primary);
+}
+
 .disabled {
-  opacity: 0.5;
+  /* opacity: 0.5; */
+  color: var(--color-text-muted);
   cursor: not-allowed;
 }
 

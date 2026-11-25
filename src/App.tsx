@@ -305,6 +305,12 @@ const RegistrationFormPage = lazy(() =>
   })),
 );
 
+const SearchResultsPage = lazy(() =>
+  import('./templates/SearchResults/SearchResults').then((m) => ({
+    default: m.SearchResultsPage,
+  })),
+);
+
 function App() {
   const { pathname } = useLocation();
 
@@ -478,6 +484,11 @@ function App() {
             <Route
               path="/templates/registration-form"
               element={<RegistrationFormPage />}
+            />
+
+            <Route
+              path="/templates/search-results-form"
+              element={<SearchResultsPage />}
             />
 
             <Route path="*" element={<NotFoundPage />} />

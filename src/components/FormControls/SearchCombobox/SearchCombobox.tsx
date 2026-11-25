@@ -305,9 +305,9 @@ export function SearchCombobox({
 
         {isOpen && (
           <div className={styles.popup}>
-            {filteredOptions.length > 0 ? (
-              <ul id={listboxId} role="listbox" className={styles.listbox}>
-                {filteredOptions.map((option, index) => {
+            <ul id={listboxId} role="listbox" className={styles.listbox}>
+              {filteredOptions.length > 0 ? (
+                filteredOptions.map((option, index) => {
                   const enabledIndex = enabledOptions.indexOf(option);
                   const isActive = enabledIndex === activeIndex;
 
@@ -332,11 +332,11 @@ export function SearchCombobox({
                       {option.label}
                     </li>
                   );
-                })}
-              </ul>
-            ) : (
-              <div className={styles.noResults}>No results found</div>
-            )}
+                })
+              ) : (
+                <li className={styles.noResults}>No results found</li>
+              )}
+            </ul>
           </div>
         )}
 

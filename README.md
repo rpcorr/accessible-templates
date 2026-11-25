@@ -196,9 +196,9 @@ The following components have been implemented with accessibility as a first-cla
 The following templates demonstrate how reusable components can be combined
 to create accessible interface patterns.
 
-| Template                                                              | Status   | Accessibility Features                                                                                                                                                                                                                  |
-| --------------------------------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Registration Form](docs/templates/FormTemplates/RegistrationForm.md) | Complete | Configuration-driven fields and field groups, multiple field types, configurable validation and character limits, password requirements, accessible error summary, focus management, keyboard accessibility, and screen reader feedback |
+| Template                                                               | Status   | Accessibility Features                                                                                                                                                                                                                  |
+| ---------------------------------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Registration Form](docs/templates/FormTemplates/registration-form.md) | Complete | Configuration-driven fields and field groups, multiple field types, configurable validation and character limits, password requirements, accessible error summary, focus management, keyboard accessibility, and screen reader feedback |
 
 Each component aims to include:
 
