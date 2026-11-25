@@ -318,7 +318,10 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
           </p>
         )}
 
-        <div className={styles.inputWrapper}>
+        <div
+          className={styles.inputWrapper}
+          onMouseLeave={() => setIsVisible(false)}
+        >
           <input
             ref={ref}
             id={inputId}
@@ -353,7 +356,43 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
             aria-label={isVisible ? 'Hide password' : 'Show password'}
             aria-pressed={isVisible}
           >
-            {isVisible ? 'Hide' : 'Show'}
+            {isVisible ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d="M3 3l18 18" />
+                <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8" />
+                <path d="M9.9 5.2A10.8 10.8 0 0 1 12 5c5 0 8.5 4.5 9 7-.2 1.1-1 2.4-2.1 3.5" />
+                <path d="M6.6 6.6C4.5 7.8 3.3 9.7 3 12c.5 2.5 4 7 9 7 1 0 2-.2 2.9-.6" />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            )}
           </button>
         </div>
 

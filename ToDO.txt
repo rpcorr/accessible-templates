@@ -143,8 +143,3 @@ blank - Password must be 8 to 64 characters long and contain letters, numbers, a
 5 chars - Password must be 8 to 64 characters long
 
 8 chars - At least one number
-
-
-
-
-password field   eye icon  eye icon with line through it  mouse move away hides password again
