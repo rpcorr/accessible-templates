@@ -19,6 +19,8 @@ export type PasswordRequirement = {
   validate: (password: string) => boolean;
 };
 
+export type RequirementDisplay = 'list' | 'message';
+
 type PasswordInputProps = {
   label: string;
   id?: string;
@@ -37,6 +39,7 @@ type PasswordInputProps = {
   autoComplete?: string;
   requirements?: PasswordRequirement[];
   showStrength?: boolean;
+  requirementDisplay?: RequirementDisplay;
 };
 
 const strengthLabels = [
@@ -46,6 +49,33 @@ const strengthLabels = [
   'Strong',
   'Very strong',
 ] as const;
+
+function getRequirementMessage(
+  password: string,
+  requirements?: PasswordRequirement[],
+) {
+  if (!requirements || requirements.length === 0) {
+    return '';
+  }
+
+  if (!password) {
+    const labels = requirements.map((requirement) =>
+      requirement.label.toLowerCase(),
+    );
+
+    return `Password must meet all of the following requirements: ${labels.join(', ')}.`;
+  }
+
+  const unmetRequirement = requirements.find(
+    (requirement) => !requirement.validate(password),
+  );
+
+  if (unmetRequirement) {
+    return `Enter ${unmetRequirement.label.toLowerCase()}.`;
+  }
+
+  return 'Your password meets all requirements.';
+}
 
 export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
   (
@@ -67,6 +97,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
       autoComplete = 'current-password',
       requirements,
       showStrength = false,
+      requirementDisplay = 'list',
     },
     ref,
   ) => {
@@ -104,6 +135,8 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 
     const lastAnnouncedRequirements = useRef<Map<string, boolean> | null>(null);
 
+    const lastAnnouncedRequirementMessage = useRef<string | null>(null);
+
     const announcementTimer = useRef<ReturnType<typeof setTimeout> | null>(
       null,
     );
@@ -135,10 +168,43 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
         .join(' ') || undefined;
 
     useEffect(() => {
-      if (!requirements || requirements.length === 0) {
-        return;
+      if (!requirements || requirements.length === 0) return;
+
+      // Message mode tracks changes to the displayed instruction.
+      if (requirementDisplay === 'message') {
+        const currentMessage = getRequirementMessage(
+          currentValue,
+          requirements,
+        );
+
+        // Establish the initial message without announcing it.
+        if (lastAnnouncedRequirementMessage.current === null) {
+          lastAnnouncedRequirementMessage.current = currentMessage;
+          return;
+        }
+
+        // Avoid repeating the same instruction.
+        if (lastAnnouncedRequirementMessage.current === currentMessage) {
+          return;
+        }
+
+        setRequirementsAnnouncement('');
+
+        announcementTimer.current = setTimeout(() => {
+          setRequirementsAnnouncement(currentMessage);
+          lastAnnouncedRequirementMessage.current = currentMessage;
+          announcementTimer.current = null;
+        }, 800);
+
+        return () => {
+          if (announcementTimer.current !== null) {
+            clearTimeout(announcementTimer.current);
+            announcementTimer.current = null;
+          }
+        };
       }
 
+      // List mode retains the existing progress announcements.
       const currentStatuses = new Map(
         requirements.map((requirement) => [
           requirement.id,
@@ -146,27 +212,21 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
         ]),
       );
 
-      // Establish the initial state without announcing anything.
       if (lastAnnouncedRequirements.current === null) {
         lastAnnouncedRequirements.current = currentStatuses;
         return;
       }
 
-      // Find requirements whose status has changed.
       const changedRequirements = requirements.filter(
         (requirement) =>
           lastAnnouncedRequirements.current?.get(requirement.id) !==
           currentStatuses.get(requirement.id),
       );
 
-      if (changedRequirements.length === 0) {
-        return;
-      }
+      if (changedRequirements.length === 0) return;
 
-      // Reset the previous announcement.
       setRequirementsAnnouncement('');
 
-      // Wait until the user stops typing.
       announcementTimer.current = setTimeout(() => {
         const metCount = Array.from(currentStatuses.values()).filter(
           Boolean,
@@ -201,7 +261,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
           announcementTimer.current = null;
         }
       };
-    }, [currentValue, requirements]);
+    }, [currentValue, requirements, requirementDisplay]);
 
     // Clean up the timer when the component unmounts.
     useEffect(() => {
@@ -410,33 +470,40 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
               {requirementsDescription}
             </p>
 
-            {/* Visible checklist */}
-            <p id={requirementsId} className={styles.requirementsHeading}>
-              Password requirements ({requirements.length} total):
-            </p>
+            {requirementDisplay === 'list' ? (
+              <>
+                <p id={requirementsId} className={styles.requirementsHeading}>
+                  Password requirements ({requirements.length} total):
+                </p>
 
-            <ul aria-labelledby={requirementsId}>
-              {requirements.map((requirement) => {
-                const isMet = requirement.validate(currentValue);
+                <ul aria-labelledby={requirementsId}>
+                  {requirements.map((requirement) => {
+                    const isMet = requirement.validate(currentValue);
 
-                return (
-                  <li
-                    key={requirement.id}
-                    className={
-                      isMet ? styles.requirementMet : styles.requirement
-                    }
-                  >
-                    <span aria-hidden="true">{isMet ? '✓' : '○'}</span>
+                    return (
+                      <li
+                        key={requirement.id}
+                        className={
+                          isMet ? styles.requirementMet : styles.requirement
+                        }
+                      >
+                        <span aria-hidden="true">{isMet ? '✓' : '○'}</span>
 
-                    <span>{requirement.label}</span>
+                        <span>{requirement.label}</span>
 
-                    <span className={styles.requirementStatus}>
-                      {isMet ? 'Met' : 'Not met'}
-                    </span>
-                  </li>
-                );
-              })}
-            </ul>
+                        <span className={styles.requirementStatus}>
+                          {isMet ? 'Met' : 'Not met'}
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </>
+            ) : (
+              <p className={styles.requirementsHeading}>
+                {getRequirementMessage(currentValue, requirements)}
+              </p>
+            )}
 
             <p
               className={styles.requirementsAnnouncement}

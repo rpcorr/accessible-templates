@@ -1,8 +1,36 @@
 import { createRef, useState } from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import { PasswordInput } from './PasswordInput';
+
+const passwordRequirements = [
+  {
+    id: 'length',
+    label: 'At least 12 characters',
+    validate: (password: string) => password.length >= 12,
+  },
+  {
+    id: 'lowercase',
+    label: 'At least one lowercase letter',
+    validate: (password: string) => /[a-z]/.test(password),
+  },
+  {
+    id: 'uppercase',
+    label: 'At least one uppercase letter',
+    validate: (password: string) => /[A-Z]/.test(password),
+  },
+  {
+    id: 'number',
+    label: 'At least one number',
+    validate: (password: string) => /[0-9]/.test(password),
+  },
+  {
+    id: 'special',
+    label: 'At least one special character',
+    validate: (password: string) => /[^A-Za-z0-9]/.test(password),
+  },
+];
 
 describe('PasswordInput', () => {
   it('renders the password input with a label', () => {
@@ -308,5 +336,98 @@ describe('PasswordInput', () => {
     await user.hover(input);
 
     expect(input).toHaveAttribute('type', 'text');
+  });
+
+  it('displays a summary of all password requirements in message mode', () => {
+    render(
+      <PasswordInput
+        label="Password"
+        requirements={passwordRequirements}
+        requirementDisplay="message"
+      />,
+    );
+
+    expect(
+      screen.getByText(
+        'Password must meet all of the following requirements: at least 12 characters, at least one lowercase letter, at least one uppercase letter, at least one number, at least one special character.',
+      ),
+    ).toBeInTheDocument();
+  });
+
+  it('displays and announces the first unmet requirement when typing', async () => {
+    const user = userEvent.setup();
+
+    const { container } = render(
+      <PasswordInput
+        label="Password"
+        requirements={passwordRequirements}
+        requirementDisplay="message"
+      />,
+    );
+
+    await user.type(screen.getByLabelText('Password'), 'a');
+
+    expect(
+      screen.getByText('Enter at least 12 characters.'),
+    ).toBeInTheDocument();
+
+    await waitFor(
+      () => {
+        expect(
+          container.querySelector('[aria-live="polite"]'),
+        ).toHaveTextContent('Enter at least 12 characters.');
+      },
+      { timeout: 2000 },
+    );
+  });
+
+  it('advances to the next unmet requirement when a requirement is satisfied', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <PasswordInput
+        label="Password"
+        defaultValue="abcdefghijk"
+        requirements={passwordRequirements}
+        requirementDisplay="message"
+      />,
+    );
+
+    expect(
+      screen.getByText('Enter at least 12 characters.'),
+    ).toBeInTheDocument();
+
+    await user.type(screen.getByLabelText('Password'), 'l');
+
+    expect(
+      screen.getByText('Enter at least one uppercase letter.'),
+    ).toBeInTheDocument();
+  });
+
+  it('displays and announces when all password requirements are met', async () => {
+    const user = userEvent.setup();
+
+    const { container } = render(
+      <PasswordInput
+        label="Password"
+        requirements={passwordRequirements}
+        requirementDisplay="message"
+      />,
+    );
+
+    await user.type(screen.getByLabelText('Password'), 'Abcdefghij1!');
+
+    expect(
+      screen.getByText('Your password meets all requirements.'),
+    ).toBeInTheDocument();
+
+    await waitFor(
+      () => {
+        expect(
+          container.querySelector('[aria-live="polite"]'),
+        ).toHaveTextContent('Your password meets all requirements.');
+      },
+      { timeout: 2000 },
+    );
   });
 });

@@ -10,8 +10,8 @@ export function PasswordInputPage() {
           passwords, with the option to show or hide the entered value. The
           Password Input uses the native HTML <code>&lt;input&gt;</code> element
           and supports controlled and uncontrolled values, descriptions, error
-          messages, validation constraints, common form states, password
-          requirements, and password strength estimation.
+          messages, validation constraints, common form states, configurable
+          password requirements, and password strength estimation.
         </p>
 
         <p>
@@ -58,15 +58,24 @@ export function PasswordInputPage() {
         <h3>Password Requirements</h3>
 
         <p>
-          An optional password requirements checklist allows developers to
-          define custom password rules using validation functions. Each
-          requirement displays whether it has been met.
+          An optional password requirements feature allows developers to define
+          custom password rules using validation functions. Each requirement
+          includes a label and a validation function that determines whether the
+          password satisfies the rule.
         </p>
 
         <p>
-          The checklist updates as the user enters a password. A screen-reader
-          announcement communicates the overall progress and changes to
-          individual requirements after the user pauses typing.
+          Two display modes are available. The checklist mode displays all
+          password requirements and indicates which ones have been satisfied.
+          The single-message mode displays a summary when the password is empty,
+          followed by the first unmet requirement as the user types. A success
+          message is displayed when all requirements have been satisfied.
+        </p>
+
+        <p>
+          Requirement updates are communicated through polite screen-reader
+          announcements after the user pauses typing. This helps avoid excessive
+          announcements while the password is being entered.
         </p>
 
         <h3>Password Strength</h3>

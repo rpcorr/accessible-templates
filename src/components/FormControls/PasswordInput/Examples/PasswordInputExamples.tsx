@@ -33,6 +33,7 @@ const passwordRequirements: PasswordRequirement[] = [
 export function PasswordInputExamples() {
   const [password, setPassword] = useState('');
   const [requirementsPassword, setRequirementsPassword] = useState('');
+  const [checklistPassword, setChecklistPassword] = useState('');
   const [strengthPassword, setStrengthPassword] = useState('');
 
   return (
@@ -145,25 +146,50 @@ export function PasswordInputExamples() {
           ),
         },
         {
-          id: 'requirements',
-          label: 'Password Requirements',
+          id: 'checklist',
+          label: 'Checklist',
           content: (
             <div className="stack">
-              <h4>Password Requirements Checklist</h4>
+              <h4>Password Requirements – Checklist</h4>
 
-              <p>Your password must meet all the following requirements.</p>
+              <p>
+                Enter a password to see which requirements you have satisfied.
+              </p>
+
+              <PasswordInput
+                label="Create a password"
+                value={checklistPassword}
+                onChange={setChecklistPassword}
+                requirements={passwordRequirements}
+                requirementDisplay="list"
+                autoComplete="new-password"
+              />
+            </div>
+          ),
+        },
+        {
+          id: 'requirements',
+          label: 'Single Message',
+          content: (
+            <div className="stack">
+              <h4>Password Requirements – Single Message</h4>
+
+              <p>
+                Your password must meet all five requirements. The component
+                displays the first unmet requirement.
+              </p>
 
               <PasswordInput
                 label="Create a password"
                 value={requirementsPassword}
                 onChange={setRequirementsPassword}
                 requirements={passwordRequirements}
+                requirementDisplay="message"
                 autoComplete="new-password"
               />
             </div>
           ),
         },
-
         {
           id: 'strength',
           label: 'Password Strength',

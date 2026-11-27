@@ -15,10 +15,13 @@ The Password Input component provides an accessible way for users to enter and e
 - Optional description and error messaging.
 - Minimum and maximum character length constraints.
 - Autocomplete support for current and new passwords.
-- Configurable password requirements checklist with individual status indicators.
+- Configurable password requirements using custom validation functions.
+- Two password requirement display modes:
+  - Checklist mode displays all requirements with individual status indicators.
+  - Single-message mode displays a summary, the first unmet requirement, or a success message.
 - Password strength estimation using the zxcvbn library.
 - Five-level password strength indicator with a visual meter and text label.
-- Debounced screen-reader announcements for password requirement and strength changes.
+- Delayed screen-reader announcements for password requirement and strength changes.
 - Visible keyboard focus styling.
 - Screen reader support.
 
@@ -36,8 +39,8 @@ The Password Input component uses native HTML form controls and semantic element
 - **Required state:** The native `required` attribute communicates that a password is required.
 - **Disabled state:** The native `disabled` attribute prevents interaction with the input.
 - **Read-only state:** The native `readOnly` attribute allows users to view the password without editing it.
-- **Password requirements:** A visually displayed checklist communicates which configured password requirements have been met. An associated accessible description provides the requirement statuses when users focus the password field.
-- **Requirements announcements:** A polite screen-reader announcement communicates changes to individual requirements and overall progress after the user pauses typing.
+- **Password requirements:** Configured requirements communicate which password rules have been satisfied. Developers can choose between checklist and single-message display modes.
+- **Requirements announcements:** Polite screen-reader announcements communicate requirement changes after the user pauses typing.
 - **Password strength:** The strength indicator provides both a text label and a visual meter, ensuring strength is not communicated through colour alone.
 - **Strength announcements:** A polite screen-reader announcement communicates changes in the estimated password strength after the user pauses typing.
 - **Screen reader support:** Native input semantics, accessible descriptions, and status announcements communicate the input's purpose and relevant password information.
@@ -62,17 +65,36 @@ The visibility toggle allows users to switch between masked and visible password
 - Activating the button again restores password masking.
 - The entered password value is preserved when switching between visibility states.
 - The button's accessible name and `aria-pressed` state update to reflect the current visibility state.
+- The password is hidden again when the pointer leaves the input wrapper.
 
 ## Password Requirements
 
-The component optionally supports a configurable password requirements checklist.
+The component optionally supports configurable password requirements.
 
-Developers can define individual requirements using an identifier, descriptive label, and validation function.
+Developers define individual requirements using an identifier, descriptive label, and validation function.
+
+Two display modes are available through the `requirementDisplay` prop:
+
+### Checklist mode
+
+Set `requirementDisplay="list"` to display all configured password requirements.
 
 - Each requirement is evaluated against the current password value.
-- The checklist displays whether each requirement has been met.
+- Each requirement displays whether it has been met.
 - Requirement statuses update as the user enters a password.
-- A screen-reader announcement communicates overall progress and changed requirements after the user pauses typing.
+- Screen-reader announcements communicate requirement changes and overall progress after the user pauses typing.
+
+Checklist mode is the default when `requirementDisplay` is not specified.
+
+### Single-message mode
+
+Set `requirementDisplay="message"` to display password requirements one message at a time.
+
+- When the password is empty, a summary communicates all configured requirements.
+- As the user types, the first unmet requirement is displayed.
+- When a requirement is satisfied, the message advances to the next unmet requirement.
+- When all requirements are satisfied, a success message is displayed.
+- Polite screen-reader announcements communicate message changes after the user pauses typing.
 
 The component does not impose a fixed set of password rules. Developers define requirements appropriate to their application.
 

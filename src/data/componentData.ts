@@ -223,7 +223,7 @@ export const componentGroups: ComponentGroup[] = [
         name: 'Password Input',
         path: '/form-controls/password-input',
         description:
-          'A password input that allows users to enter and edit passwords, with the option to show or hide the entered value.',
+          'An accessible password input with show and hide functionality, configurable password requirements, validation support, and password strength estimation.',
       },
       {
         name: 'Radio Group',

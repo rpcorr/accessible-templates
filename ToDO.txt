@@ -128,18 +128,3 @@ Pattern	Implementation	Status
 Fieldset / Form Group	Group related form controls using semantic <fieldset> and <legend> elements, with appropriate accessible labelling. Demonstrate in Registration and Job Application Forms.	Planned
 Validation / Error Summary	Provide form-level validation, an accessible error summary, links to invalid fields, and associated inline error messages. Demonstrate in Registration and Job Application Forms.	Planned
 Confirm Password	Compare password and confirmation fields, provide accessible mismatch feedback, and prevent submission until both values match. Demonstrate in Registration Form using two Password Input components.	Planned
-
-
-Look into:
-
-instead of listing password requirements have them show up one a time 
-
-blank - Password must be 8 to 64 characters long and contain letters, numbers, and special characters.   
-
-1 char - Enter at least 8 characters and use an uppercase or lowercase letter, a number, and a special character
-
-2 chars - Enter at least 8 characters and contain an uppercase letter or a number
-
-5 chars - Password must be 8 to 64 characters long
-
-8 chars - At least one number
