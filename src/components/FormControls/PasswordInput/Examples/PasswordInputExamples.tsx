@@ -9,6 +9,11 @@ const passwordRequirements: PasswordRequirement[] = [
     validate: (password) => password.length >= 12,
   },
   {
+    id: 'lowercase',
+    label: 'At least one lowercase letter',
+    validate: (password) => /[a-z]/.test(password),
+  },
+  {
     id: 'uppercase',
     label: 'At least one uppercase letter',
     validate: (password) => /[A-Z]/.test(password),

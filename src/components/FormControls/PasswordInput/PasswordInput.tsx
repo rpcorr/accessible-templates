@@ -320,7 +320,11 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 
         <div
           className={styles.inputWrapper}
-          onMouseLeave={() => setIsVisible(false)}
+          onMouseLeave={(event: MouseEvent<HTMLDivElement>) => {
+            if (event.target === event.currentTarget) {
+              setIsVisible(false);
+            }
+          }}
         >
           <input
             ref={ref}

@@ -273,4 +273,40 @@ describe('PasswordInput', () => {
 
     expect(handleChange).not.toHaveBeenCalled();
   });
+
+  it('hides the password when the mouse leaves the input wrapper', async () => {
+    const user = userEvent.setup();
+
+    render(<PasswordInput label="Password" />);
+
+    const input = screen.getByLabelText('Password');
+    const toggle = screen.getByRole('button', { name: 'Show password' });
+    const wrapper = input.parentElement;
+
+    await user.click(toggle);
+
+    expect(input).toHaveAttribute('type', 'text');
+
+    await user.hover(wrapper!);
+    await user.unhover(wrapper!);
+
+    expect(input).toHaveAttribute('type', 'password');
+  });
+
+  it('keeps the password visible when moving the mouse from the toggle to the input', async () => {
+    const user = userEvent.setup();
+
+    render(<PasswordInput label="Password" />);
+
+    const input = screen.getByLabelText('Password');
+    const toggle = screen.getByRole('button', { name: 'Show password' });
+
+    await user.click(toggle);
+
+    expect(input).toHaveAttribute('type', 'text');
+
+    await user.hover(input);
+
+    expect(input).toHaveAttribute('type', 'text');
+  });
 });
